@@ -33,6 +33,41 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # *******************************************************************************
 
-require 'urbanopt/reopt/extension'
-require 'urbanopt/reopt/reopt_lite_api'
-require 'urbanopt/reopt/version'
+require "net/https"
+require "openssl"
+require "uri"
+
+module URBANopt
+  module REopt
+    class REoptLiteAPI
+    
+      def initialize
+
+        @uri = URI.parse('https://reopt.nrel.gov/tool')
+      end
+      
+      def http
+        http = Net::HTTP.new(@uri.host, @uri.port)
+        
+        http.use_ssl = true
+        
+        # even with ssl, Windows users do not have SSL certificates installed
+        http.verify_mode = ::OpenSSL::SSL::VERIFY_NONE
+        return http
+      end
+      
+      def check_connection
+        
+        request = Net::HTTP::Get.new(@uri)
+        response = http.request(request)
+      
+        if !response.is_a?(Net::HTTPSuccess)
+          raise "check_connection failed"
+        end
+        #puts response.body
+        return true
+      end
+
+    end
+  end
+end

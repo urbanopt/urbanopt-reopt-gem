@@ -44,4 +44,10 @@ RSpec.describe URBANopt::REopt do
     instance = URBANopt::REopt::Extension.new
     expect(File.exist?(instance.measures_dir)).to be true
   end
+  
+  it 'can connect to reopt lite' do
+    api = URBANopt::REopt::REoptLiteAPI.new
+    ok = api.check_connection
+    expect(ok).to be true
+  end
 end
