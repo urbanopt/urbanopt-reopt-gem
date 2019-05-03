@@ -33,9 +33,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # *******************************************************************************
 
-require "net/https"
-require "openssl"
-require "uri"
+require 'faraday'
 
 module URBANopt
   module REopt
@@ -44,26 +42,15 @@ module URBANopt
       def initialize
 
         @uri = URI.parse('https://reopt.nrel.gov/tool')
-      end
-      
-      def http
-        http = Net::HTTP.new(@uri.host, @uri.port)
-        
-        http.use_ssl = true
-        
-        # even with ssl, Windows users do not have SSL certificates installed
-        http.verify_mode = ::OpenSSL::SSL::VERIFY_NONE
-        return http
+        @conn = Faraday.new(:url => @uri, :ssl => {:verify => false}) do |c|
+          c.use Faraday::Request::UrlEncoded  # encode request params as "www-form-urlencoded"
+          c.use Faraday::Response::Logger     # log request & response to STDOUT
+          c.use Faraday::Adapter::NetHttp     # perform requests with Net::HTTP
+        end
       end
       
       def check_connection
-        
-        request = Net::HTTP::Get.new(@uri)
-        response = http.request(request)
-      
-        if !response.is_a?(Net::HTTPSuccess)
-          raise "check_connection failed"
-        end
+        response = @conn.get '/'    
         #puts response.body
         return true
       end
