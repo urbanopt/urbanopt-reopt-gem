@@ -67,7 +67,7 @@ class ReoptLiteTest < Minitest::Test
   end
 
   def report_path(test_name)
-    return "#{run_dir(test_name)}/report.html"
+    return "#{run_dir(test_name)}/report.json"
   end
 
   # method for running the test simulation using OpenStudio 2.x API
