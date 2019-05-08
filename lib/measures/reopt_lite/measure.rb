@@ -132,6 +132,10 @@ class ReoptLite < OpenStudio::Measure::ReportingMeasure
     end
     
     # save the results
+    report_hash = {}
+    File.open('report.json', 'w') do |f|
+      f.puts JSON::pretty_generate(report_hash)
+    end
     
     # close the sql file
     sql_file.close
