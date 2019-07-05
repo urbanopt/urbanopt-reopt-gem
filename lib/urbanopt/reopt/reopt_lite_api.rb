@@ -67,6 +67,11 @@ module URBANopt
         #puts response.body
         return true
       end
+      
+      def reopt_request(reopt_input)
+        # return a reopt_output
+        return {}
+      end
 
     end
   end

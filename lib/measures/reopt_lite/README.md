@@ -2,16 +2,16 @@
 
 ###### (Automatically generated documentation)
 
-# reopt_lite
+# 
 
 ## Description
-A description
+
 
 ## Modeler Description
-A description
+
 
 ## Measure Type
-ReportingMeasure
+ModelMeasure
 
 ## Taxonomy
 

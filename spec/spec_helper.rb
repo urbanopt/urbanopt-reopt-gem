@@ -35,6 +35,7 @@
 
 require 'bundler/setup'
 require 'urbanopt/reopt'
+require 'urbanopt/scenario/default_reports'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

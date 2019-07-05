@@ -33,46 +33,27 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # *******************************************************************************
 
-require_relative '../spec_helper'
+require "urbanopt/scenario/default_reports"
 
-RSpec.describe URBANopt::REopt do
-  it 'has a version number' do
-    expect(URBANopt::REopt::VERSION).not_to be nil
-  end
+module URBANopt
+  module REopt
+    class ScenarioReportAdapter
+    
+      def initialize
 
-  it 'has a measures directory' do
-    instance = URBANopt::REopt::Extension.new
-    expect(File.exist?(instance.measures_dir)).to be true
-  end
-  
-  it 'can connect to reopt lite' do
-    api = URBANopt::REopt::REoptLiteAPI.new
-    ok = api.check_connection
-    expect(ok).to be true
-  end
-  
-  it 'can process a feature report' do
-    feature_reports_path = File.join(File.dirname(__FILE__), '../files/default_feature_reports.json')
-    
-    expect(File.exists?(feature_reports_path)).to be true
-    
-    feature_reports_json = nil
-    File.open(feature_reports_path, 'r') do |file|
-      feature_reports_json = JSON.parse(file.read, symbolize_names: true)
+      end
+      
+      def from_scenario_report(scenario_report)
+
+        # return a reopt_input
+        return {}
+      end
+      
+      def to_scenario_report(reopt_output)
+        
+        return {}
+      end
+
     end
-    
-    feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_json)
-    api = URBANopt::REopt::REoptLiteAPI.new
-    adapter = URBANopt::REopt::FeatureReportAdapter.new
-    
-    reopt_input = adapter.from_feature_report(feature_report)
-    
-    reopt_output = api.reopt_request(reopt_input)
-    
-    feature_report2 = adapter.to_feature_report(reopt_output)
-    
-    
   end
-  
-  
 end

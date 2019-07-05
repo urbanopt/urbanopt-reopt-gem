@@ -3,11 +3,27 @@ source "http://rubygems.org"
 # Specify your gem's dependencies
 gemspec
 
-if File.exists?('../OpenStudio-extension-gem')
+allow_local = false
+
+if allow_local && File.exists?('../OpenStudio-extension-gem')
   # gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'develop'
   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'
 else
   gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'develop'
+end
+
+if allow_local && File.exists?('../urbanopt-core-gem')
+  # gem 'urbanopt-core', github: 'urbanopt/urbanopt-core-gem', branch: 'develop'
+  gem 'urbanopt-core', path: '../urbanopt-core-gem'
+else
+  gem 'urbanopt-core', github: 'urbanopt/urbanopt-core-gem', branch: 'develop'
+end
+
+if allow_local && File.exists?('../urbanopt-scenario-gem')
+  # gem 'urbanopt-scenario', github: 'urbanopt/urbanopt-scenario-gem', branch: 'post_process'
+  gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
+else
+  gem 'urbanopt-scenario', github: 'urbanopt/urbanopt-scenario-gem', branch: 'post_process'
 end
 
 gem 'openstudio_measure_tester', '= 0.1.7' # This includes the dependencies for running unit tests, coverage, and rubocop
