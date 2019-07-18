@@ -30,7 +30,7 @@
         "latitude": 39.74,
         "longitude": -105.18,
         "surface_elevation": 1829.0,
-        "weather_filename": null,
+        "weather_filename": "",
         "weather_file": 0.0
       },
       "program": {
@@ -50,11 +50,23 @@
         "maximum_number_of_parking_stories": 0,
         "maximum_number_of_parking_stories_above_ground": 0,
         "number_of_residential_units": 1,
-        "building_types": {
-          "building_type": null,
-          "maximum_occupancy": 20.0,
-          "floor_area": 4305.564166683889
-        },
+        "building_types": [
+          {
+            "building_type": "Office",
+            "floor_area": 2152.7820833419446,
+            "maximum_occupancy": 10.0
+          },
+          {
+            "building_type": "Retail",
+            "floor_area": 1076.3910416709723,
+            "maximum_occupancy": 0.0
+          },
+          {
+            "building_type": "Hospital",
+            "floor_area": 1076.3910416709723,
+            "maximum_occupancy": 0.0
+          }
+        ],
         "window_area": {
           "north_window_area": 0.0,
           "south_window_area": 0.0,
@@ -209,12 +221,6 @@
             "electricity_produced": {
               "photovoltaic": 0.0
             }
-          },
-          "utility_costs": {
-            "fuel_type": "",
-            "total_cost": 0,
-            "usage_cost": 0,
-            "demand_cost": 0
           },
           "comfort_result": {
             "time_setpoint_not_met_during_occupied_cooling": 0.0,

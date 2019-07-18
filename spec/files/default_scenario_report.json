@@ -9,6 +9,7 @@
     "number_of_complete_simulations": 3,
     "number_of_failed_simulations": 0,
     "timeseries_csv": {
+      "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/3/005_default_feature_reports/default_feature_reports.csv",
       "first_report_datetime": "0",
       "column_names": [
         "Electricity:Facility",
@@ -44,6 +45,13 @@
       "maximum_number_of_parking_stories": 0,
       "maximum_number_of_parking_stories_above_ground": 0,
       "number_of_residential_units": 3,
+      "building_types": [
+        {
+          "building_type": "Office",
+          "floor_area": 2999.9999999999923,
+          "maximum_occupancy": 16.799999999999944
+        }
+      ],
       "window_area": {
         "north_window_area": 240.89631512596355,
         "south_window_area": 240.89631512596355,
@@ -78,12 +86,12 @@
         "start_date": {
           "month": 6,
           "day_of_month": 1,
-          "year": "2012"
+          "year": 2012
         },
         "end_date": {
           "month": 6,
           "day_of_month": 1,
-          "year": "2012"
+          "year": 2012
         },
         "total_site_energy": 739.2973538443874,
         "total_source_energy": 2246.326575142562,
@@ -199,12 +207,6 @@
             "photovoltaic": 0.0
           }
         },
-        "utility_costs": {
-          "fuel_type": "",
-          "total_cost": 0,
-          "usage_cost": 0,
-          "demand_cost": 0
-        },
         "comfort_result": {
           "time_setpoint_not_met_during_occupied_cooling": 0.0,
           "time_setpoint_not_met_during_occupied_heating": 3.0,
@@ -222,7 +224,7 @@
       "timesteps_per_hour": 1,
       "simulation_status": "Complete",
       "timeseries_csv": {
-        "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1/004_default_feature_reports/default_feature_reports.csv",
+        "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1/005_default_feature_reports/default_feature_reports.csv",
         "first_report_datetime": "0",
         "column_names": [
           "Electricity:Facility",
@@ -241,10 +243,11 @@
         ]
       },
       "location": {
-        "latitude": null,
-        "longitude": null,
-        "surface_elevation": null,
-        "weather_filename": null
+        "latitude": 39.74,
+        "longitude": -105.18,
+        "surface_elevation": 1829.0,
+        "weather_filename": "",
+        "weather_file": 0.0
       },
       "program": {
         "site_area": 0,
@@ -263,6 +266,13 @@
         "maximum_number_of_parking_stories": 0,
         "maximum_number_of_parking_stories_above_ground": 0,
         "number_of_residential_units": 1,
+        "building_types": [
+          {
+            "building_type": "Office",
+            "floor_area": 1000.0000000000009,
+            "maximum_occupancy": 5.600000000000001
+          }
+        ],
         "window_area": {
           "north_window_area": 58.1251162502325,
           "south_window_area": 58.1251162502325,
@@ -297,12 +307,12 @@
           "start_date": {
             "month": 6,
             "day_of_month": 1,
-            "year": "2012"
+            "year": 2012
           },
           "end_date": {
             "month": 6,
             "day_of_month": 1,
-            "year": "2012"
+            "year": 2012
           },
           "total_site_energy": 132.6943968438644,
           "total_source_energy": 398.08319053159323,
@@ -418,12 +428,6 @@
               "photovoltaic": 0.0
             }
           },
-          "utility_costs": {
-            "fuel_type": "",
-            "total_cost": 0,
-            "usage_cost": 0,
-            "demand_cost": 0
-          },
           "comfort_result": {
             "time_setpoint_not_met_during_occupied_cooling": 0.0,
             "time_setpoint_not_met_during_occupied_heating": 1.0,
@@ -440,7 +444,7 @@
       "timesteps_per_hour": 1,
       "simulation_status": "Complete",
       "timeseries_csv": {
-        "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/2/004_default_feature_reports/default_feature_reports.csv",
+        "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/2/005_default_feature_reports/default_feature_reports.csv",
         "first_report_datetime": "0",
         "column_names": [
           "Electricity:Facility",
@@ -459,10 +463,11 @@
         ]
       },
       "location": {
-        "latitude": null,
-        "longitude": null,
-        "surface_elevation": null,
-        "weather_filename": null
+        "latitude": 39.74,
+        "longitude": -105.18,
+        "surface_elevation": 1829.0,
+        "weather_filename": "",
+        "weather_file": 0.0
       },
       "program": {
         "site_area": 0,
@@ -481,6 +486,13 @@
         "maximum_number_of_parking_stories": 0,
         "maximum_number_of_parking_stories_above_ground": 0,
         "number_of_residential_units": 1,
+        "building_types": [
+          {
+            "building_type": "Office",
+            "floor_area": 2000.0000000000095,
+            "maximum_occupancy": 11.200000000000045
+          }
+        ],
         "window_area": {
           "north_window_area": 82.12863647949517,
           "south_window_area": 82.12863647949517,
@@ -515,12 +527,12 @@
           "start_date": {
             "month": 6,
             "day_of_month": 1,
-            "year": "2012"
+            "year": 2012
           },
           "end_date": {
             "month": 6,
             "day_of_month": 1,
-            "year": "2012"
+            "year": 2012
           },
           "total_site_energy": 246.43245128146248,
           "total_source_energy": 739.2973538443874,
@@ -636,12 +648,6 @@
               "photovoltaic": 0.0
             }
           },
-          "utility_costs": {
-            "fuel_type": "",
-            "total_cost": 0,
-            "usage_cost": 0,
-            "demand_cost": 0
-          },
           "comfort_result": {
             "time_setpoint_not_met_during_occupied_cooling": 0.0,
             "time_setpoint_not_met_during_occupied_heating": 1.0,
@@ -658,7 +664,7 @@
       "timesteps_per_hour": 1,
       "simulation_status": "Complete",
       "timeseries_csv": {
-        "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/3/004_default_feature_reports/default_feature_reports.csv",
+        "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/3/005_default_feature_reports/default_feature_reports.csv",
         "first_report_datetime": "0",
         "column_names": [
           "Electricity:Facility",
@@ -677,10 +683,11 @@
         ]
       },
       "location": {
-        "latitude": null,
-        "longitude": null,
-        "surface_elevation": null,
-        "weather_filename": null
+        "latitude": 39.74,
+        "longitude": -105.18,
+        "surface_elevation": 1829.0,
+        "weather_filename": "",
+        "weather_file": 0.0
       },
       "program": {
         "site_area": 0,
@@ -699,6 +706,13 @@
         "maximum_number_of_parking_stories": 0,
         "maximum_number_of_parking_stories_above_ground": 0,
         "number_of_residential_units": 1,
+        "building_types": [
+          {
+            "building_type": "Office",
+            "floor_area": 2999.9999999999923,
+            "maximum_occupancy": 16.799999999999944
+          }
+        ],
         "window_area": {
           "north_window_area": 100.6425623962359,
           "south_window_area": 100.6425623962359,
@@ -733,12 +747,12 @@
           "start_date": {
             "month": 6,
             "day_of_month": 1,
-            "year": "2012"
+            "year": 2012
           },
           "end_date": {
             "month": 6,
             "day_of_month": 1,
-            "year": "2012"
+            "year": 2012
           },
           "total_site_energy": 360.17050571906054,
           "total_source_energy": 1108.9460307665813,
@@ -853,12 +867,6 @@
             "electricity_produced": {
               "photovoltaic": 0.0
             }
-          },
-          "utility_costs": {
-            "fuel_type": "",
-            "total_cost": 0,
-            "usage_cost": 0,
-            "demand_cost": 0
           },
           "comfort_result": {
             "time_setpoint_not_met_during_occupied_cooling": 0.0,
