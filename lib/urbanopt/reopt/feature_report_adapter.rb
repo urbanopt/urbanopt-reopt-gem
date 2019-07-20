@@ -104,9 +104,6 @@ module URBANopt
         featureReport.location[:latitude] =   reopt_output['inputs']['Scenario']['Site']['latitude']
         featureReport.location[:longitude] =   reopt_output['inputs']['Scenario']['Site']['longitude']
 
-        binding.pry
-
-
         return featureReport
       end
 
