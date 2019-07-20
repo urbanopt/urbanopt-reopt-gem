@@ -46,7 +46,6 @@ module URBANopt
       end
       
       def from_feature_report(feature_report)
-      
         return {:Scenario => 
                   {:Site => 
                     {:latitude => 40, :longitude => -110,
