@@ -36,31 +36,33 @@
 require "net/https"
 require "openssl"
 require "uri"
+require 'uri'
+require 'json'
 
 module URBANopt
   module REopt
     class REoptLiteAPI
     
       def initialize
+        # developer_nrel_api_key = 'Cm68Yya83nf2QGEI3vT1R0xKtTBNvauoQovqTSAh'
+        # reopt_url  = 'https://developer.nrel.gov/api/reopt/v1/job?api_key={developer_nrel_api_key}'
+        @uri_submit = URI.parse('https://localhost:8000/v1/job/')
+        @dummy_data = {:Scenario => {:Site => {:latitude => 40, :longitude => -110,:ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, :LoadProfile => {:doe_reference_name => 'Hospital', :annual_kwh => 1000000 }}}}
+      end
+      
+      def uri_results(run_uuid)
+        return URI.parse("https://localhost:8000/v1/job/#{run_uuid}/results")
+      end 
+      
+      def check_connection      
+        header = {'Content-Type'=> 'application/json'}
+        http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
+        request = Net::HTTP::Post.new(@uri_submit, header)
+        request.body = @dummy_data.to_json
 
-        @uri = URI.parse('https://reopt.nrel.gov/tool')
-      end
-      
-      def http
-        http = Net::HTTP.new(@uri.host, @uri.port)
-        
-        http.use_ssl = true
-        
-        # even with ssl, Windows users do not have SSL certificates installed
-        http.verify_mode = ::OpenSSL::SSL::VERIFY_NONE
-        return http
-      end
-      
-      def check_connection
-        
-        request = Net::HTTP::Get.new(@uri)
+        # Send the request
         response = http.request(request)
-      
+  
         if !response.is_a?(Net::HTTPSuccess)
           raise "check_connection failed"
         end
@@ -69,10 +71,38 @@ module URBANopt
       end
       
       def reopt_request(reopt_input)
-        # return a reopt_output
-        return {}
-      end
+        # Format the request        
+        header = {'Content-Type'=> 'application/json'}
+        http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
+        request = Net::HTTP::Post.new(@uri_submit, header)
+        request.body = reopt_input.to_json
 
+        # Send the request
+        response = http.request(request)
+
+        # Get UUID
+        run_uuid = JSON.parse(response.body)['run_uuid']
+
+        # Poll results until ready or error occurs
+        status = "Optimizing..."
+        uri = self.uri_results(run_uuid)
+        http = Net::HTTP.new(uri.host, uri.port)
+        request = Net::HTTP::Get.new(uri.request_uri)
+        
+        while status != "optimal"
+          response = http.request(request)
+          data = JSON.parse(response.body)
+          status = data['outputs']['Scenario']['status']
+          sleep 2
+        end
+
+        if status == 'optimal'   
+          return data
+        end
+
+        error_message = data['errors']
+        raise "Error from REopt API - #{error_message}"
+      end
     end
   end
 end

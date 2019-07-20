@@ -34,6 +34,8 @@
 # *******************************************************************************
 
 require "urbanopt/scenario/default_reports"
+require 'csv'
+require 'pry'
 
 module URBANopt
   module REopt
@@ -44,14 +46,68 @@ module URBANopt
       end
       
       def from_feature_report(feature_report)
+      
+        return {:Scenario => 
+                  {:Site => 
+                    {:latitude => 40, :longitude => -110,
+                      :ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, 
+                      :LoadProfile => {:doe_reference_name => 'Hospital', :annual_kwh => 1000000 }
+                    }
+                  }
+                }
 
-        # return a reopt_input
-        return {}
+        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {}}}}
+        
+        requireds_names = ['latitude','longitude']
+        requireds = [feature_report.location[:latitude],feature_report.location[:longitude]]
+
+        if requireds.include? nil or requireds.include? 0
+          requireds.each_with_index do |i,x|
+             if [nil,0].include? x
+              n = requireds_names[i]
+              raise "Missing value for #{n} - this is a required input"
+             end
+          end
+        end
+        
+        reopt_inputs[:Scenario][:Site][:latitude] = feature_report.location[:latitude]
+        reopt_inputs[:Scenario][:Site][:longitude] = feature_report.location[:longitude]
+        reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area[:available_roof_area]
+        reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area
+      
+
+
+        # CSV.read(scenario_report[:timeseries_csv][:path],headers: true)
+        # table.by_col[0]
+
+        # scenario_report[:timesteps_per_hour]
+
+        
+
+        
+
+        # reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = 
+
+
+
+        # = scenario_report[:program][:orientation]
+        # = scenario_report[:program][:aspect_ratio]
+        
+        # = scenario_report[:reporting_periods][:electricity]
+          # return a reopt_input
+        return reopt_inputs
       end
       
       def to_feature_report(reopt_output)
-        
-        return URBANopt::Scenario::DefaultReports::FeatureReport.new({})
+        featureReport = URBANopt::Scenario::DefaultReports::FeatureReport.new({})
+
+        featureReport.location[:latitude] =   reopt_output['inputs']['Scenario']['Site']['latitude']
+        featureReport.location[:longitude] =   reopt_output['inputs']['Scenario']['Site']['longitude']
+
+        binding.pry
+
+
+        return featureReport
       end
 
     end

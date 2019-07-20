@@ -34,6 +34,8 @@
 # *******************************************************************************
 
 require "urbanopt/scenario/default_reports"
+require 'csv'
+require 'pry'
 
 module URBANopt
   module REopt
@@ -45,7 +47,38 @@ module URBANopt
       
       def from_scenario_report(scenario_report)
 
-        # return a reopt_input
+      reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {}}}}
+      
+      reopt_inputs[:Scenario][:Site][:latitude] = scenario_report[:location][:latitude]
+      reopt_inputs[:Scenario][:Site][:longitude] = scenario_report[:location][:longitude]
+      reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report[:program][:roof_area][:available_roof_area]
+      reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report[:program][:site_area]
+      
+
+
+      # CSV.read(scenario_report[:timeseries_csv][:path],headers: true)
+      # table.by_col[0]
+
+      # scenario_report[:timesteps_per_hour]
+
+      
+
+      
+
+      # reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = 
+
+
+
+      # = scenario_report[:program][:orientation]
+      # = scenario_report[:program][:aspect_ratio]
+      
+      # = scenario_report[:reporting_periods][:electricity]
+      
+      
+
+
+
+
         return {}
       end
       

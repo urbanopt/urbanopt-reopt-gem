@@ -34,6 +34,7 @@
 # *******************************************************************************
 
 require_relative '../spec_helper'
+require 'pry'
 
 RSpec.describe URBANopt::REopt do
   it 'has a version number' do
@@ -62,6 +63,7 @@ RSpec.describe URBANopt::REopt do
     end
     
     feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_json)
+  
     api = URBANopt::REopt::REoptLiteAPI.new
     adapter = URBANopt::REopt::FeatureReportAdapter.new
     
