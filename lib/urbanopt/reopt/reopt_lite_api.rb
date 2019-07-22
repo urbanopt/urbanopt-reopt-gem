@@ -47,7 +47,7 @@ module URBANopt
         # developer_nrel_api_key = 'Cm68Yya83nf2QGEI3vT1R0xKtTBNvauoQovqTSAh'
         # reopt_url  = 'https://developer.nrel.gov/api/reopt/v1/job?api_key={developer_nrel_api_key}'
         @uri_submit = URI.parse('https://localhost:8000/v1/job/')
-        @dummy_data = {:Scenario => {:Site => {:latitude => 40, :longitude => -110,:ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, :LoadProfile => {:doe_reference_name => 'Hospital', :annual_kwh => 1000000 }}}}
+        @dummy_data = {:Scenario => {:Site => {:latitude => 40, :longitude => -110, :Wind => {:max_kw => 0}, :ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, :LoadProfile => {:doe_reference_name => 'Hospital', :annual_kwh => 1000000 }}}}
       end
       
       def uri_results(run_uuid)
@@ -89,18 +89,18 @@ module URBANopt
         http = Net::HTTP.new(uri.host, uri.port)
         request = Net::HTTP::Get.new(uri.request_uri)
         
-        while status != "optimal"
+        while status == "Optimizing..."
           response = http.request(request)
           data = JSON.parse(response.body)
           status = data['outputs']['Scenario']['status']
-          sleep 2
+          sleep 10
         end
 
         if status == 'optimal'   
           return data
         end
 
-        error_message = data['errors']
+        error_message = data['error']
         raise "Error from REopt API - #{error_message}"
       end
     end

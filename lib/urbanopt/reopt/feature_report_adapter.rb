@@ -46,8 +46,14 @@ module URBANopt
       end
       
       def from_feature_report(feature_report)
+        required_attrs = [feature_report.id, feature_report.name, feature_report.feature_type, feature_report.directory_name, feature_report.simulation_status]
+        required_attrs = [1,2,3,4,5]
+        required_attrs = required_attrs.map {|x| if x.nil? then 'nil' else x end}
+        description = "#{required_attrs.join(" ")}"
+        p description
+
         return {:Scenario => 
-                  {:Site => 
+                  {:description => description, :Site => 
                     {:latitude => 40, :longitude => -110,
                       :ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, 
                       :LoadProfile => {:doe_reference_name => 'Hospital', :annual_kwh => 1000000 }
@@ -68,7 +74,8 @@ module URBANopt
              end
           end
         end
-        
+
+        reopt_inputs[:Scenario][:description] = description
         reopt_inputs[:Scenario][:Site][:latitude] = feature_report.location[:latitude]
         reopt_inputs[:Scenario][:Site][:longitude] = feature_report.location[:longitude]
         reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area[:available_roof_area]
@@ -98,12 +105,88 @@ module URBANopt
       end
       
       def to_feature_report(reopt_output)
-        featureReport = URBANopt::Scenario::DefaultReports::FeatureReport.new({})
+        feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new({})
+        
+        requireds = reopt_output['inputs']['Scenario']['description'].split(' ')
+        
+        #Required
+        
+        feature_report.id = eval requireds[0]
+        
+        feature_report.name =  eval requireds[1]
+        feature_report.directory_name = eval  requireds[2]
+        feature_report.feature_type = eval requireds[3]
+        feature_report.simulation_status = eval requireds[4]
+        
+        feature_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
+        
+        #Non-required
+        
+        feature_report.location[:latitude] =   reopt_output['inputs']['Scenario']['Site']['latitude']
+        feature_report.location[:longitude] =   reopt_output['inputs']['Scenario']['Site']['longitude']
+        feature_report.location[:surface_elevation] = nil  
+        feature_report.location[:weather_filename] = nil
+        
+        feature_report.program.site_area = nil
+        feature_report.program.floor_area = nil
+        feature_report.program.conditioned_area = nil 
+        feature_report.program.unconditioned_area = nil
+        feature_report.program.footprint_area = nil
+        feature_report.program.maximum_roof_height = nil
+        feature_report.program.maximum_number_of_stories = nil
+        feature_report.program.maximum_number_of_stories_above_ground = nil
+        feature_report.program.parking_area = nil
+        feature_report.program.number_of_parking_spaces = nil
+        feature_report.program.number_of_parking_spaces_charging = nil
+        feature_report.program.parking_footprint_area = nil
+        feature_report.program.maximum_parking_height = nil
+        feature_report.program.maximum_number_of_parking_stories = nil
+        feature_report.program.maximum_number_of_parking_stories_above_ground = nil
+        feature_report.program.number_of_residential_units = nil
 
-        featureReport.location[:latitude] =   reopt_output['inputs']['Scenario']['Site']['latitude']
-        featureReport.location[:longitude] =   reopt_output['inputs']['Scenario']['Site']['longitude']
+        feature_report.program.building_types[0][:building_type] =  nil
+        feature_report.program.building_types[0][:maximum_occupancy] =  nil
+        feature_report.program.building_types[0][:floor_area] =  nil
 
-        return featureReport
+        feature_report.program.window_area[:north_window_area] = nil
+        feature_report.program.window_area[:south_window_area] = nil
+        feature_report.program.window_area[:east_window_area] = nil
+        feature_report.program.window_area[:west_window_area] = nil
+        feature_report.program.window_area[:total_window_area] = nil
+
+        feature_report.program.wall_area[:north_window_area] = nil
+        feature_report.program.wall_area[:south_window_area] = nil
+        feature_report.program.wall_area[:east_window_area] = nil
+        feature_report.program.wall_area[:west_window_area] = nil
+        feature_report.program.wall_area[:total_window_area] = nil
+
+        feature_report.program.roof_area[:equipment_roof_area] = nil
+        feature_report.program.roof_area[:photovoltaic_roof_area] = nil
+        feature_report.program.roof_area[:available_roof_area] = nil
+        feature_report.program.roof_area[:total_roof_area] = nil
+
+        feature_report.program.orientation = nil
+        feature_report.program.aspect_ratio = nil
+
+        feature_report.timeseries_csv.path =  nil
+        feature_report.timeseries_csv.first_report_datetime =  nil
+        feature_report.timeseries_csv.column_names =  nil
+
+        feature_report.design_parameters = {}
+        feature_report.design_parameters[:district_cooling_chilled_water_rate] =  nil
+        feature_report.design_parameters[:district_cooling_mass_flow_rate] =  nil
+        feature_report.design_parameters[:district_cooling_inlet_temperature] =  nil
+        feature_report.design_parameters[:district_cooling_outlet_temperature] =  nil
+        feature_report.design_parameters[:district_heating_hot_water_rate] =  nil
+        feature_report.design_parameters[:district_heating_mass_flow_rate] =  nil
+        feature_report.design_parameters[:district_heating_inlet_temperature] =  nil
+        feature_report.design_parameters[:district_heating_outlet_temperature] =  nil
+
+        feature_report.construction_costs = [] 
+        feature_report.reporting_periods = []
+        
+    
+        return feature_report
       end
 
     end
