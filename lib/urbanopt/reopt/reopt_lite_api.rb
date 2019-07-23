@@ -100,7 +100,7 @@ module URBANopt
           return data
         end
 
-        error_message = data['error']
+        error_message = data['messages']['error']
         raise "Error from REopt API - #{error_message}"
       end
     end

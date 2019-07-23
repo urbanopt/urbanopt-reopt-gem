@@ -35,7 +35,9 @@
 
 require "urbanopt/scenario/default_reports"
 require 'csv'
+require 'matrix'
 require 'pry'
+
 
 module URBANopt
   module REopt
@@ -46,20 +48,14 @@ module URBANopt
       end
       
       def from_feature_report(feature_report)
-        required_attrs = [feature_report.id, feature_report.name, feature_report.feature_type, feature_report.directory_name, feature_report.simulation_status]
-        required_attrs = [1,2,3,4,5]
-        required_attrs = required_attrs.map {|x| if x.nil? then 'nil' else x end}
-        description = "#{required_attrs.join(" ")}"
-        p description
+        feature_report.location[:latitude] = 40
+        feature_report.location[:longitude] = -100
+        feature_report.timeseries_csv.path = 'spec/files/default_feature_reports.csv'
+        feature_report.timeseries_csv.column_names = ['Electricity:Facility','ElectricityProduced:Facility','Gas:Facility','DistrictCooling:Facility','DistrictHeating:Facility','District Cooling Chilled Water Rate','District Cooling Mass Flow Rate','District Cooling Inlet Temperature','District Cooling Outlet Temperature','District Heating Hot Water Rate','District Heating Mass Flow Rate','District Heating Inlet Temperature','District Heating Outlet Temperature']
 
-        return {:Scenario => 
-                  {:description => description, :Site => 
-                    {:latitude => 40, :longitude => -110,
-                      :ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, 
-                      :LoadProfile => {:doe_reference_name => 'Hospital', :annual_kwh => 1000000 }
-                    }
-                  }
-                }
+
+        required_attrs = [feature_report.id, feature_report.name, feature_report.feature_type, feature_report.directory_name, feature_report.simulation_status].map {|x| if x.nil? then 'nil' else x end}
+        description = "#{required_attrs.join(" ")}"
 
         reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {}}}}
         
@@ -74,45 +70,40 @@ module URBANopt
              end
           end
         end
-
+        
         reopt_inputs[:Scenario][:description] = description
         reopt_inputs[:Scenario][:Site][:latitude] = feature_report.location[:latitude]
         reopt_inputs[:Scenario][:Site][:longitude] = feature_report.location[:longitude]
-        reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area[:available_roof_area]
-        reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area
+        
+        if !feature_report.program.roof_area.nil?
+          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area[:available_roof_area]
+        end
+        
+        if !feature_report.program.site_area.nil?
+          reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area * 1.0/43560 #acres/sqft
+        end
       
+        begin 
+          col_num = feature_report.timeseries_csv.column_names.index("Electricity:Facility")
+          t = CSV.read(feature_report.timeseries_csv.path,headers: true,converters: :numeric)
+          energy_timeseries_kwh = t.by_col[col_num]
+          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
+        rescue
+          raise "Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}"
+        end
 
-
-        # CSV.read(scenario_report[:timeseries_csv][:path],headers: true)
-        # table.by_col[0]
-
-        # scenario_report[:timesteps_per_hour]
-
-        
-
-        
-
-        # reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = 
-
-
-
-        # = scenario_report[:program][:orientation]
-        # = scenario_report[:program][:aspect_ratio]
-        
-        # = scenario_report[:reporting_periods][:electricity]
-          # return a reopt_input
+        reopt_inputs[:Scenario][:Site][:ElectricTariff][:urdb_label] = '594976725457a37b1175d089'
         return reopt_inputs
       end
       
-      def to_feature_report(reopt_output)
+      def to_feature_report(reopt_output,timeseries_csv_obj=nil)
+        
         feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new({})
         
         requireds = reopt_output['inputs']['Scenario']['description'].split(' ')
         
         #Required
-        
         feature_report.id = eval requireds[0]
-        
         feature_report.name =  eval requireds[1]
         feature_report.directory_name = eval  requireds[2]
         feature_report.feature_type = eval requireds[3]
@@ -120,8 +111,55 @@ module URBANopt
         
         feature_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
         
-        #Non-required
+        generation_timeseries_kwh = Matrix[[0]*8760]
+        if !reopt_output['outputs']['Scenario']['Site']['PV']['size_kw'].nil?
+          if reopt_output['outputs']['Scenario']['Site']['PV']['size_kw'] > 0
+            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['PV']['year_one_power_production_series_kw'] ]
+          end
+        end
+
+        if !reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'].nil?
+          if reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'] > 0
+            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw'] ]
+          end
+        end
+
+        if !reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'].nil?
+          if reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] > 0
+            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'] ]
+          end
+        end
+
+        if !reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'].nil?
+          if reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] > 0
+            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'] ]
+          end
+        end
+
         
+        $generation_timeseries_kwh = generation_timeseries_kwh.to_a[0]
+        $generation_timeseries_kwh_col = timeseries_csv_obj.column_names.index("ElectricityProduced:Facility")
+        $utility_to_load = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_to_load_series_kw']
+        $utility_to_load_col = timeseries_csv_obj.column_names.index("Electricity:Facility")
+        
+        def modrow(x,i)
+          x[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[i]
+          x[$utility_to_load_col] = $utility_to_load[i]
+          return x
+        end
+        
+        old_data = CSV.open(timeseries_csv_obj.path).read()
+        mod_data = old_data.map.with_index {|x,i| 
+          if i > 0 then
+            modrow(x,i)
+          else
+            x
+          end
+        }
+        timeseries_csv_obj.path = timeseries_csv_obj.path.sub! '.csv','_copy.csv'
+        File.write(timeseries_csv_obj.path, mod_data.map(&:to_csv).join)
+
+        #Non-required
         feature_report.location[:latitude] =   reopt_output['inputs']['Scenario']['Site']['latitude']
         feature_report.location[:longitude] =   reopt_output['inputs']['Scenario']['Site']['longitude']
         feature_report.location[:surface_elevation] = nil  
@@ -144,6 +182,7 @@ module URBANopt
         feature_report.program.maximum_number_of_parking_stories_above_ground = nil
         feature_report.program.number_of_residential_units = nil
 
+        feature_report.program.building_types = [{}]
         feature_report.program.building_types[0][:building_type] =  nil
         feature_report.program.building_types[0][:maximum_occupancy] =  nil
         feature_report.program.building_types[0][:floor_area] =  nil
