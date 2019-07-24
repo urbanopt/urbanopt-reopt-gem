@@ -62,6 +62,7 @@ RSpec.describe URBANopt::REopt do
       feature_reports_json = JSON.parse(file.read, symbolize_names: true)
     end
     
+    binding.pry
     feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_json)
   
     api = URBANopt::REopt::REoptLiteAPI.new
@@ -72,6 +73,30 @@ RSpec.describe URBANopt::REopt do
     reopt_output = api.reopt_request(reopt_input)
     
     feature_report2 = adapter.to_feature_report(reopt_output,feature_report.timeseries_csv)
+        
+  end
+
+  it 'can process a scenario report' do
+    scenario_reports_path = File.join(File.dirname(__FILE__), '../files/default_scenario_report.json')
+    
+    expect(File.exists?(scenario_reports_path)).to be true
+    
+    scenario_reports_json = nil
+    File.open(scenario_reports_path, 'r') do |file|
+      scenario_reports_json = JSON.parse(file.read, symbolize_names: true)
+    end
+    
+    
+    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new(scenario_reports_json)
+  
+    api = URBANopt::REopt::REoptLiteAPI.new
+    adapter = URBANopt::REopt::ScenarioReportAdapter.new
+    
+    reopt_input = adapter.from_feature_report(scenario_report)
+    
+    reopt_output = api.reopt_request(reopt_input)
+    
+    scenario_report2 = adapter.to_scenario_report(reopt_output,scenario_report.timeseries_csv)
         
   end
   

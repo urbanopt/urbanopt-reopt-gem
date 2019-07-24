@@ -48,6 +48,7 @@ module URBANopt
       end
       
       def from_feature_report(feature_report)
+        feature_report.timesteps_per_hour = 1
         feature_report.location[:latitude] = 40
         feature_report.location[:longitude] = -100
         feature_report.timeseries_csv.path = 'spec/files/default_feature_reports.csv'
@@ -87,6 +88,9 @@ module URBANopt
           col_num = feature_report.timeseries_csv.column_names.index("Electricity:Facility")
           t = CSV.read(feature_report.timeseries_csv.path,headers: true,converters: :numeric)
           energy_timeseries_kwh = t.by_col[col_num]
+          if feature_report.timesteps_per_hour > 1
+             energy_timeseries_kwh = energy_timeseries_kwh.each_slice(feature_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.lengtsh.to_f)}
+          end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
         rescue
           raise "Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}"
