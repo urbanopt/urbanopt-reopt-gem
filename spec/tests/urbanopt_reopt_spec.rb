@@ -62,7 +62,7 @@ RSpec.describe URBANopt::REopt do
       feature_reports_json = JSON.parse(file.read, symbolize_names: true)
     end
     
-    binding.pry
+    
     feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_json)
   
     api = URBANopt::REopt::REoptLiteAPI.new
