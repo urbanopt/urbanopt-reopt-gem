@@ -70,7 +70,7 @@ module URBANopt
         return true
       end
       
-      def reopt_request(reopt_input)
+      def reopt_request(reopt_input,folder)
         # Format the request        
         header = {'Content-Type'=> 'application/json'}
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
@@ -79,7 +79,6 @@ module URBANopt
 
         # Send the request
         response = http.request(request)
-
         # Get UUID
         run_uuid = JSON.parse(response.body)['run_uuid']
 
@@ -94,6 +93,12 @@ module URBANopt
           data = JSON.parse(response.body)
           status = data['outputs']['Scenario']['status']
           sleep 10
+        end
+        if folder[-1] == '/'
+          folder = folder.slice(0..-2)
+        end
+        File.open(folder + "/reopt_response.json","w") do |f|
+          f.write(data.to_json)
         end
 
         if status == 'optimal'   

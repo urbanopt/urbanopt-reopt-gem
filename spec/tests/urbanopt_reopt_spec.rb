@@ -69,10 +69,9 @@ RSpec.describe URBANopt::REopt do
     adapter = URBANopt::REopt::FeatureReportAdapter.new
     
     reopt_input = adapter.from_feature_report(feature_report)
+    reopt_output = api.reopt_request(reopt_input,feature_report.directory_name)
     
-    reopt_output = api.reopt_request(reopt_input)
-    
-    feature_report2 = adapter.to_feature_report(reopt_output,feature_report.timeseries_csv)
+    feature_report = adapter.update_feature_report(feature_report,reopt_output)
         
   end
 

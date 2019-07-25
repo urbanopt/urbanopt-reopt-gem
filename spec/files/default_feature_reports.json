@@ -1,14 +1,13 @@
-{
-  "feature_reports": [
+
     {
       "id": "1",
       "name": "name",
-      "directory_name": "C:/gitrepos/urbanopt-scenario-gem/lib/measures/default_feature_reports/tests/output/good_argument_values/run",
+      "directory_name": "spec/files/",
       "feature_type": "Building",
-      "timesteps_per_hour": 6,
+      "timesteps_per_hour": 1,
       "simulation_status": "Complete",
       "timeseries_csv": {
-        "path": "C:/gitrepos/urbanopt-scenario-gem/lib/measures/default_feature_reports/tests/output/good_argument_values/default_feature_reports.csv",
+        "path": "spec/files/default_feature_reports.csv",
         "first_report_datetime": "0",
         "column_names": [
           "Electricity:Facility",
@@ -34,7 +33,7 @@
         "weather_file": 0.0
       },
       "program": {
-        "site_area": 0,
+        "site_area": 4305,
         "floor_area": 4305.564166683889,
         "conditioned_area": 4305.564166683889,
         "unconditioned_area": 0.0,
@@ -84,7 +83,7 @@
         "roof_area": {
           "equipment_roof_area": 0,
           "photovoltaic_roof_area": 0,
-          "available_roof_area": 0,
+          "available_roof_area": 1000,
           "total_roof_area": 4305.564166683889
         },
         "orientation": 0.0,
@@ -230,5 +229,4 @@
         }
       ]
     }
-  ]
-}
+  

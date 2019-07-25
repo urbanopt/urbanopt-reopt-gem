@@ -48,17 +48,11 @@ module URBANopt
       end
       
       def from_feature_report(feature_report)
-        feature_report.timesteps_per_hour = 1
-        feature_report.location[:latitude] = 40
-        feature_report.location[:longitude] = -100
-        feature_report.timeseries_csv.path = 'spec/files/default_feature_reports.csv'
-        feature_report.timeseries_csv.column_names = ['Electricity:Facility','ElectricityProduced:Facility','Gas:Facility','DistrictCooling:Facility','DistrictHeating:Facility','District Cooling Chilled Water Rate','District Cooling Mass Flow Rate','District Cooling Inlet Temperature','District Cooling Outlet Temperature','District Heating Hot Water Rate','District Heating Mass Flow Rate','District Heating Inlet Temperature','District Heating Outlet Temperature']
+        
+        description_attrs = [feature_report.id, feature_report.name, feature_report.feature_type].map {|x| if x.nil? then 'nil' else x end}
+        description = "#{description_attrs.join(" ")}"
 
-
-        required_attrs = [feature_report.id, feature_report.name, feature_report.feature_type, feature_report.directory_name, feature_report.simulation_status].map {|x| if x.nil? then 'nil' else x end}
-        description = "#{required_attrs.join(" ")}"
-
-        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {}}}}
+        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
         
         requireds_names = ['latitude','longitude']
         requireds = [feature_report.location[:latitude],feature_report.location[:longitude]]
@@ -97,54 +91,51 @@ module URBANopt
         end
 
         reopt_inputs[:Scenario][:Site][:ElectricTariff][:urdb_label] = '594976725457a37b1175d089'
+
         return reopt_inputs
       end
       
-      def to_feature_report(reopt_output,timeseries_csv_obj=nil)
-        
-        feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new({})
-        
+      def update_feature_report(feature_report, reopt_output)
+
         requireds = reopt_output['inputs']['Scenario']['description'].split(' ')
         
         #Required
-        feature_report.id = eval requireds[0]
-        feature_report.name =  eval requireds[1]
-        feature_report.directory_name = eval  requireds[2]
-        feature_report.feature_type = eval requireds[3]
-        feature_report.simulation_status = eval requireds[4]
-        
+        if (feature_report.id != requireds[0]) or (feature_report.name !=  requireds[1]) or (feature_report.feature_type != requireds[2])      
+           p "Warning: Not the same feature used to call REopt"
+        end 
+
         feature_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
         
         generation_timeseries_kwh = Matrix[[0]*8760]
-        if !reopt_output['outputs']['Scenario']['Site']['PV']['size_kw'].nil?
-          if reopt_output['outputs']['Scenario']['Site']['PV']['size_kw'] > 0
+        if !reopt_output['outputs']['Scenario']['Site']['PV'].nil?
+          if (reopt_output['outputs']['Scenario']['Site']['PV']['size_kw'] or 0) > 0
             generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['PV']['year_one_power_production_series_kw'] ]
           end
         end
 
-        if !reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'].nil?
-          if reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'] > 0
+        if !reopt_output['outputs']['Scenario']['Site']['Storage'].nil?
+          if (reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'] or 0) > 0
             generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw'] ]
           end
         end
 
-        if !reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'].nil?
-          if reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] > 0
+        if !reopt_output['outputs']['Scenario']['Site']['Wind'].nil?
+          if (reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] or 0) > 0
             generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'] ]
           end
         end
 
-        if !reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'].nil?
-          if reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] > 0
+        if !reopt_output['outputs']['Scenario']['Site']['Generator'].nil?
+          if (reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] or 0) > 0
             generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'] ]
           end
         end
 
         
         $generation_timeseries_kwh = generation_timeseries_kwh.to_a[0]
-        $generation_timeseries_kwh_col = timeseries_csv_obj.column_names.index("ElectricityProduced:Facility")
+        $generation_timeseries_kwh_col = feature_report.timeseries_csv.column_names.index("ElectricityProduced:Facility")
         $utility_to_load = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_to_load_series_kw']
-        $utility_to_load_col = timeseries_csv_obj.column_names.index("Electricity:Facility")
+        $utility_to_load_col = feature_report.timeseries_csv.column_names.index("Electricity:Facility")
         
         def modrow(x,i)
           x[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[i]
@@ -152,7 +143,7 @@ module URBANopt
           return x
         end
         
-        old_data = CSV.open(timeseries_csv_obj.path).read()
+        old_data = CSV.open(feature_report.timeseries_csv.path).read()
         mod_data = old_data.map.with_index {|x,i| 
           if i > 0 then
             modrow(x,i)
@@ -160,73 +151,73 @@ module URBANopt
             x
           end
         }
-        timeseries_csv_obj.path = timeseries_csv_obj.path.sub! '.csv','_copy.csv'
-        File.write(timeseries_csv_obj.path, mod_data.map(&:to_csv).join)
+        feature_report.timeseries_csv.path = feature_report.timeseries_csv.path.sub! '.csv','_copy.csv'
+        File.write(feature_report.timeseries_csv.path, mod_data.map(&:to_csv).join)
 
         #Non-required
         feature_report.location[:latitude] =   reopt_output['inputs']['Scenario']['Site']['latitude']
         feature_report.location[:longitude] =   reopt_output['inputs']['Scenario']['Site']['longitude']
-        feature_report.location[:surface_elevation] = nil  
-        feature_report.location[:weather_filename] = nil
+        # feature_report.location[:surface_elevation] = nil  
+        # feature_report.location[:weather_filename] = nil
         
-        feature_report.program.site_area = nil
-        feature_report.program.floor_area = nil
-        feature_report.program.conditioned_area = nil 
-        feature_report.program.unconditioned_area = nil
-        feature_report.program.footprint_area = nil
-        feature_report.program.maximum_roof_height = nil
-        feature_report.program.maximum_number_of_stories = nil
-        feature_report.program.maximum_number_of_stories_above_ground = nil
-        feature_report.program.parking_area = nil
-        feature_report.program.number_of_parking_spaces = nil
-        feature_report.program.number_of_parking_spaces_charging = nil
-        feature_report.program.parking_footprint_area = nil
-        feature_report.program.maximum_parking_height = nil
-        feature_report.program.maximum_number_of_parking_stories = nil
-        feature_report.program.maximum_number_of_parking_stories_above_ground = nil
-        feature_report.program.number_of_residential_units = nil
+        # feature_report.program.site_area = nil
+        # feature_report.program.floor_area = nil
+        # feature_report.program.conditioned_area = nil 
+        # feature_report.program.unconditioned_area = nil
+        # feature_report.program.footprint_area = nil
+        # feature_report.program.maximum_roof_height = nil
+        # feature_report.program.maximum_number_of_stories = nil
+        # feature_report.program.maximum_number_of_stories_above_ground = nil
+        # feature_report.program.parking_area = nil
+        # feature_report.program.number_of_parking_spaces = nil
+        # feature_report.program.number_of_parking_spaces_charging = nil
+        # feature_report.program.parking_footprint_area = nil
+        # feature_report.program.maximum_parking_height = nil
+        # feature_report.program.maximum_number_of_parking_stories = nil
+        # feature_report.program.maximum_number_of_parking_stories_above_ground = nil
+        # feature_report.program.number_of_residential_units = nil
 
-        feature_report.program.building_types = [{}]
-        feature_report.program.building_types[0][:building_type] =  nil
-        feature_report.program.building_types[0][:maximum_occupancy] =  nil
-        feature_report.program.building_types[0][:floor_area] =  nil
+        # feature_report.program.building_types = [{}]
+        # feature_report.program.building_types[0][:building_type] =  nil
+        # feature_report.program.building_types[0][:maximum_occupancy] =  nil
+        # feature_report.program.building_types[0][:floor_area] =  nil
 
-        feature_report.program.window_area[:north_window_area] = nil
-        feature_report.program.window_area[:south_window_area] = nil
-        feature_report.program.window_area[:east_window_area] = nil
-        feature_report.program.window_area[:west_window_area] = nil
-        feature_report.program.window_area[:total_window_area] = nil
+        # feature_report.program.window_area[:north_window_area] = nil
+        # feature_report.program.window_area[:south_window_area] = nil
+        # feature_report.program.window_area[:east_window_area] = nil
+        # feature_report.program.window_area[:west_window_area] = nil
+        # feature_report.program.window_area[:total_window_area] = nil
 
-        feature_report.program.wall_area[:north_window_area] = nil
-        feature_report.program.wall_area[:south_window_area] = nil
-        feature_report.program.wall_area[:east_window_area] = nil
-        feature_report.program.wall_area[:west_window_area] = nil
-        feature_report.program.wall_area[:total_window_area] = nil
+        # feature_report.program.wall_area[:north_window_area] = nil
+        # feature_report.program.wall_area[:south_window_area] = nil
+        # feature_report.program.wall_area[:east_window_area] = nil
+        # feature_report.program.wall_area[:west_window_area] = nil
+        # feature_report.program.wall_area[:total_window_area] = nil
 
-        feature_report.program.roof_area[:equipment_roof_area] = nil
-        feature_report.program.roof_area[:photovoltaic_roof_area] = nil
-        feature_report.program.roof_area[:available_roof_area] = nil
-        feature_report.program.roof_area[:total_roof_area] = nil
+        # feature_report.program.roof_area[:equipment_roof_area] = nil
+        # feature_report.program.roof_area[:photovoltaic_roof_area] = nil
+        # feature_report.program.roof_area[:available_roof_area] = nil
+        # feature_report.program.roof_area[:total_roof_area] = nil
 
-        feature_report.program.orientation = nil
-        feature_report.program.aspect_ratio = nil
+        # feature_report.program.orientation = nil
+        # feature_report.program.aspect_ratio = nil
 
-        feature_report.timeseries_csv.path =  nil
-        feature_report.timeseries_csv.first_report_datetime =  nil
-        feature_report.timeseries_csv.column_names =  nil
+        # feature_report.timeseries_csv.path =  nil
+        # feature_report.timeseries_csv.first_report_datetime =  nil
+        # feature_report.timeseries_csv.column_names =  nil
 
-        feature_report.design_parameters = {}
-        feature_report.design_parameters[:district_cooling_chilled_water_rate] =  nil
-        feature_report.design_parameters[:district_cooling_mass_flow_rate] =  nil
-        feature_report.design_parameters[:district_cooling_inlet_temperature] =  nil
-        feature_report.design_parameters[:district_cooling_outlet_temperature] =  nil
-        feature_report.design_parameters[:district_heating_hot_water_rate] =  nil
-        feature_report.design_parameters[:district_heating_mass_flow_rate] =  nil
-        feature_report.design_parameters[:district_heating_inlet_temperature] =  nil
-        feature_report.design_parameters[:district_heating_outlet_temperature] =  nil
+        # feature_report.design_parameters = {}
+        # feature_report.design_parameters[:district_cooling_chilled_water_rate] =  nil
+        # feature_report.design_parameters[:district_cooling_mass_flow_rate] =  nil
+        # feature_report.design_parameters[:district_cooling_inlet_temperature] =  nil
+        # feature_report.design_parameters[:district_cooling_outlet_temperature] =  nil
+        # feature_report.design_parameters[:district_heating_hot_water_rate] =  nil
+        # feature_report.design_parameters[:district_heating_mass_flow_rate] =  nil
+        # feature_report.design_parameters[:district_heating_inlet_temperature] =  nil
+        # feature_report.design_parameters[:district_heating_outlet_temperature] =  nil
 
-        feature_report.construction_costs = [] 
-        feature_report.reporting_periods = []
+        # feature_report.construction_costs = [] 
+        # feature_report.reporting_periods = []
         
     
         return feature_report
