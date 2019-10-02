@@ -38,54 +38,85 @@ require "openssl"
 require "uri"
 require 'uri'
 require 'json'
+require 'pry'
+require_relative '../../../developer_nrel_key'
 
 module URBANopt
   module REopt
     class REoptLiteAPI
-    
-      def initialize
-        # developer_nrel_api_key = 'Cm68Yya83nf2QGEI3vT1R0xKtTBNvauoQovqTSAh'
-        # reopt_url  = 'https://developer.nrel.gov/api/reopt/v1/job?api_key={developer_nrel_api_key}'
-        @uri_submit = URI.parse('https://localhost:8000/v1/job/')
-        @dummy_data = {:Scenario => {:Site => {:latitude => 40, :longitude => -110, :Wind => {:max_kw => 0}, :ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, :LoadProfile => {:doe_reference_name => 'Hospital', :annual_kwh => 1000000 }}}}
+      def initialize(use_localhost=false)
+        @use_localhost = use_localhost
+        if @use_localhost
+          @uri_submit = URI.parse("http//:127.0.0.1:8000/v1/job/")
+        else
+          if [nil,''].include? DEVELOPER_NREL_KEY
+            raise 'A developer.nrel.gov API key is required. Please see https://developer.nrel.gov/signup/'
+          end
+          @nreldeveloperkey =  DEVELOPER_NREL_KEY
+          @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@nreldeveloperkey}")
+        end
       end
-      
+
       def uri_results(run_uuid)
-        return URI.parse("https://localhost:8000/v1/job/#{run_uuid}/results")
-      end 
-      
-      def check_connection      
+        if @use_localhost
+          return URI.parse("http://127.0.0.1:8000/v1/job/#{run_uuid}/results")
+        end
+        return URI.parse("https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/results?api_key=#{@nreldeveloperkey}")
+      end
+
+      def check_connection(data)
         header = {'Content-Type'=> 'application/json'}
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
+        if !@use_localhost
+          http.use_ssl = true
+        end
         request = Net::HTTP::Post.new(@uri_submit, header)
-        request.body = @dummy_data.to_json
+        request.body = data.to_json
 
         # Send the request
         response = http.request(request)
-  
+
         if !response.is_a?(Net::HTTPSuccess)
-          raise "check_connection failed"
+          raise "Check_connection Failed"
         end
+
         #puts response.body
         return true
       end
-      
-      def reopt_request(reopt_input,folder)
+
+      def reopt_request(reopt_input, folder)
+        filename = folder + "reopt_response.json"
+
         # Format the request        
         header = {'Content-Type'=> 'application/json'}
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
+        if !@use_localhost
+          http.use_ssl = true
+        end
         request = Net::HTTP::Post.new(@uri_submit, header)
         request.body = reopt_input.to_json
 
         # Send the request
         response = http.request(request)
+        
         # Get UUID
         run_uuid = JSON.parse(response.body)['run_uuid']
 
+        if response.code != '201'
+          File.open(filename,"w") do |f|
+            f.write(response.body)
+          end
+          raise "Error in REopt optimization post - see #{filename}"
+        end
+        
         # Poll results until ready or error occurs
         status = "Optimizing..."
         uri = self.uri_results(run_uuid)
         http = Net::HTTP.new(uri.host, uri.port)
+        if !@use_localhost
+          http.use_ssl = true
+        end
+
         request = Net::HTTP::Get.new(uri.request_uri)
         
         while status == "Optimizing..."
@@ -94,10 +125,11 @@ module URBANopt
           status = data['outputs']['Scenario']['status']
           sleep 10
         end
+
         if folder[-1] == '/'
           folder = folder.slice(0..-2)
         end
-        File.open(folder + "/reopt_response.json","w") do |f|
+        File.open(filename,"w") do |f|
           f.write(data.to_json)
         end
 

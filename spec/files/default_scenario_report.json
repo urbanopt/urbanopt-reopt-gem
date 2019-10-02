@@ -2,7 +2,7 @@
   "scenario_report": {
     "id": "Example Scenario",
     "name": "Example Scenario",
-    "directory_name": "C:/gitrepos/urbanopt-scenario-gem/spec/urbanopt/../test/example_scenario/",
+    "directory_name": "spec/files/",
     "timesteps_per_hour": 1,
     "number_of_not_started_simulations": 0,
     "number_of_started_simulations": 0,

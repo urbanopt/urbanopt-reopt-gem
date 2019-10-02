@@ -50,23 +50,40 @@ module URBANopt
         # are there inputs for reopt from these?
         # "program": 
         # "construction_costs":
-        # "reporting_periods": 
-          
-        binding.pry
+        # "reporting_periods":
+        #
+        scenario_report.directory_name = "spec/files/"
+
         if run_cumulative
-          scenario_report.location[:latitude] = 40
-          scenario_report.location[:longitude] = -100
+
           scenario_report.timeseries_csv.path = 'spec/files/default_feature_reports.csv'
           scenario_report.timeseries_csv.column_names = ['Electricity:Facility','ElectricityProduced:Facility','Gas:Facility','DistrictCooling:Facility','DistrictHeating:Facility','District Cooling Chilled Water Rate','District Cooling Mass Flow Rate','District Cooling Inlet Temperature','District Cooling Outlet Temperature','District Heating Hot Water Rate','District Heating Mass Flow Rate','District Heating Inlet Temperature','District Heating Outlet Temperature']
 
-
-          required_attrs = [scenario_report.id, scenario_report.name, scenario_report.directory_name, scenario_report.number_of_not_started_simulations, scenario_report.number_of_started_simulations, scenario_report.number_of_complete_simulations, scenario_report.number_of_failed_simulations].map {|x| if x.nil? then 'nil' else x end}
+          required_attrs = [scenario_report.id, scenario_report.name, 'scenario'].map {|x| if x.nil? then 'nil' else x end}
           description = "#{required_attrs.join(" ")}"
 
           reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {}}}}
-          
+
+          if scenario_report.location.latitude.nil? or scenario_report.location.longitude.nil? or scenario_report.location.latitude == 0 or scenario_report.location.longitude == 0
+            if !scenario_report.feature_reports.nil? and scenario_report.feature_reports != []
+              lats = []
+              longs = []
+              scenario_report.feature_reports.each do |x|
+                if ![nil,0].include? x[:location][:latitude] and ![nil,0].include? x[:location][:longitude]
+                  lats.push(x[:location][:latitude])
+                  longs.push(x[:location][:longitude])
+                end
+              end
+
+              if lats.size > 0 and longs.size > 0
+                scenario_report.location.latitude = lats.reduce(:+) / lats.size.to_f
+                scenario_report.location.longitude = longs.reduce(:+) / longs.size.to_f
+              end
+            end
+          end
+
           requireds_names = ['latitude','longitude']
-          requireds = [scenario_report.location[:latitude],scenario_report.location[:longitude]]
+          requireds = [scenario_report.location.latitude,scenario_report.location.longitude]
 
           if requireds.include? nil or requireds.include? 0
             requireds.each_with_index do |i,x|
@@ -76,24 +93,25 @@ module URBANopt
                end
             end
           end
-          
+
           reopt_inputs[:Scenario][:description] = description
-          reopt_inputs[:Scenario][:Site][:latitude] = scenario_report.location[:latitude]
-          reopt_inputs[:Scenario][:Site][:longitude] = scenario_report.location[:longitude]
-          
+
+          reopt_inputs[:Scenario][:Site][:latitude] = scenario_report.location.latitude
+          reopt_inputs[:Scenario][:Site][:longitude] = scenario_report.location.longitude
+
           if !scenario_report.program.roof_area.nil?
             reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area[:available_roof_area]
           end
-          
+
           if !scenario_report.program.site_area.nil?
             reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area * 1.0/43560 #acres/sqft
           end
-        
-          begin 
+
+          begin
             col_num = scenario_report.timeseries_csv.column_names.index("Electricity:Facility")
             t = CSV.read(scenario_report.timeseries_csv.path,headers: true,converters: :numeric)
             energy_timeseries_kwh = t.by_col[col_num]
-            if scenario_report.timesteps_per_hour > 1
+            if scenario_report.timesteps_per_hour or 1 > 1
                energy_timeseries_kwh = energy_timeseries_kwh.each_slice(scenario_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.lengtsh.to_f)}
             end
             reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
@@ -115,11 +133,71 @@ module URBANopt
         end
       end
       
-      def to_scenario_report(reopt_output)
-        
-        return {}
-      end
+      def update_scenario_report(scenario_report, reopt_output)
 
+        requireds = reopt_output['inputs']['Scenario']['description'].split(' ')
+
+        #Required
+        if (scenario_report.id != requireds[0]) or (scenario_report.name !=  requireds[1]) or ('scenario' != requireds[2])
+           p "Warning: Not the same feature used to call REopt"
+        end
+
+        scenario_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
+
+        generation_timeseries_kwh = Matrix[[0]*8760]
+        unless reopt_output['outputs']['Scenario']['Site']['PV'].nil?
+          if (reopt_output['outputs']['Scenario']['Site']['PV']['size_kw'] or 0) > 0
+            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['PV']['year_one_power_production_series_kw'] ]
+          end
+        end
+
+        unless reopt_output['outputs']['Scenario']['Site']['Storage'].nil?
+          if (reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'] or 0) > 0
+            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw'] ]
+          end
+        end
+
+        unless reopt_output['outputs']['Scenario']['Site']['Wind'].nil?
+          if (reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] or 0) > 0
+            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'] ]
+          end
+        end
+
+        unless reopt_output['outputs']['Scenario']['Site']['Generator'].nil?
+          if (reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] or 0) > 0
+            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'] ]
+          end
+        end
+
+
+        $generation_timeseries_kwh = generation_timeseries_kwh.to_a[0]
+        $generation_timeseries_kwh_col = scenario_report.timeseries_csv.column_names.index("ElectricityProduced:Facility")
+        $utility_to_load = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_to_load_series_kw']
+        $utility_to_load_col = scenario_report.timeseries_csv.column_names.index("Electricity:Facility")
+
+        def modrow(x,i)
+          x[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[i]
+          x[$utility_to_load_col] = $utility_to_load[i]
+          return x
+        end
+
+        old_data = CSV.open(scenario_report.timeseries_csv.path).read()
+        mod_data = old_data.map.with_index {|x,i|
+          if i > 0 then
+            modrow(x,i)
+          else
+            x
+          end
+        }
+        scenario_report.timeseries_csv.path = scenario_report.timeseries_csv.path.sub! '.csv','_copy.csv'
+        File.write(scenario_report.timeseries_csv.path, mod_data.map(&:to_csv).join)
+
+        #Non-required
+        scenario_report.location.latitude =   reopt_output['inputs']['Scenario']['Site']['latitude']
+        scenario_report.location.longitude =   reopt_output['inputs']['Scenario']['Site']['longitude']
+
+        return scenario_report
+      end
     end
   end
 end

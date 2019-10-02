@@ -33,8 +33,8 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # *******************************************************************************
 
+
 require_relative '../spec_helper'
-require 'pry'
 
 RSpec.describe URBANopt::REopt do
   it 'has a version number' do
@@ -45,59 +45,58 @@ RSpec.describe URBANopt::REopt do
     instance = URBANopt::REopt::Extension.new
     expect(File.exist?(instance.measures_dir)).to be true
   end
-  
+
   it 'can connect to reopt lite' do
     api = URBANopt::REopt::REoptLiteAPI.new
-    ok = api.check_connection
+    dummy_data = {:Scenario => {:Site => {:latitude => 40, :longitude => -110, :Wind => {:max_kw => 0}, :ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, :LoadProfile => {:doe_reference_name => 'Hospital', :annual_kwh => 1000000 }}}}
+    ok = api.check_connection(dummy_data)
     expect(ok).to be true
   end
-  
+
   it 'can process a feature report' do
     feature_reports_path = File.join(File.dirname(__FILE__), '../files/default_feature_reports.json')
-    
+
     expect(File.exists?(feature_reports_path)).to be true
-    
+
     feature_reports_json = nil
     File.open(feature_reports_path, 'r') do |file|
       feature_reports_json = JSON.parse(file.read, symbolize_names: true)
     end
-    
-    
+
+
     feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_json)
-  
+
     api = URBANopt::REopt::REoptLiteAPI.new
     adapter = URBANopt::REopt::FeatureReportAdapter.new
-    
+
     reopt_input = adapter.from_feature_report(feature_report)
     reopt_output = api.reopt_request(reopt_input,feature_report.directory_name)
-    
+
     feature_report = adapter.update_feature_report(feature_report,reopt_output)
-        
+
   end
 
   it 'can process a scenario report' do
     scenario_reports_path = File.join(File.dirname(__FILE__), '../files/default_scenario_report.json')
-    
+
     expect(File.exists?(scenario_reports_path)).to be true
-    
+
     scenario_reports_json = nil
     File.open(scenario_reports_path, 'r') do |file|
       scenario_reports_json = JSON.parse(file.read, symbolize_names: true)
     end
-    
-    
+
     scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new(scenario_reports_json)
-  
+
     api = URBANopt::REopt::REoptLiteAPI.new
     adapter = URBANopt::REopt::ScenarioReportAdapter.new
-    
-    reopt_input = adapter.from_feature_report(scenario_report)
-    
-    reopt_output = api.reopt_request(reopt_input)
-    
-    scenario_report2 = adapter.to_scenario_report(reopt_output,scenario_report.timeseries_csv)
-        
+
+    reopt_input = adapter.from_scenario_report(scenario_report)
+
+    reopt_output = api.reopt_request(reopt_input, scenario_report.directory_name)
+
+    scenario_report2 = adapter.update_scenario_report(scenario_report, reopt_output)
+
   end
-  
-  
+
 end
