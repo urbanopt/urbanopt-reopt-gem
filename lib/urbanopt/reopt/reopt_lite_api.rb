@@ -86,7 +86,8 @@ module URBANopt
 
       def reopt_request(reopt_input, folder)
         filename = folder + "reopt_response.json"
-
+        description = reopt_input[:Scenario][:description]
+        p "Submitting #{description} to REopt Lite API"
         # Format the request        
         header = {'Content-Type'=> 'application/json'}
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
@@ -101,7 +102,7 @@ module URBANopt
         
         # Get UUID
         run_uuid = JSON.parse(response.body)['run_uuid']
-
+        
         if response.code != '201'
           File.open(filename,"w") do |f|
             f.write(response.body)

@@ -9,7 +9,7 @@
     "number_of_complete_simulations": 3,
     "number_of_failed_simulations": 0,
     "timeseries_csv": {
-      "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/3/005_default_feature_reports/default_feature_reports.csv",
+      "path": "spec/files/default_feature_reports.csv",
       "first_report_datetime": "0",
       "column_names": [
         "Electricity:Facility",
@@ -219,12 +219,12 @@
     {
       "id": "1",
       "name": "Building 1",
-      "directory_name": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1",
+      "directory_name": "spec/files/",
       "feature_type": "Building",
       "timesteps_per_hour": 1,
       "simulation_status": "Complete",
       "timeseries_csv": {
-        "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1/005_default_feature_reports/default_feature_reports.csv",
+        "path": "spec/files/default_feature_reports.csv",
         "first_report_datetime": "0",
         "column_names": [
           "Electricity:Facility",
@@ -439,12 +439,12 @@
     {
       "id": "2",
       "name": "Building 2",
-      "directory_name": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/2",
+      "directory_name": "spec/files/",
       "feature_type": "Building",
       "timesteps_per_hour": 1,
       "simulation_status": "Complete",
       "timeseries_csv": {
-        "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/2/005_default_feature_reports/default_feature_reports.csv",
+        "path": "spec/files/default_feature_reports.csv",
         "first_report_datetime": "0",
         "column_names": [
           "Electricity:Facility",
@@ -659,12 +659,12 @@
     {
       "id": "3",
       "name": "Building 3",
-      "directory_name": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/3",
+      "directory_name": "spec/files/",
       "feature_type": "Building",
       "timesteps_per_hour": 1,
       "simulation_status": "Complete",
       "timeseries_csv": {
-        "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/3/005_default_feature_reports/default_feature_reports.csv",
+        "path": "spec/files/default_feature_reports.csv",
         "first_report_datetime": "0",
         "column_names": [
           "Electricity:Facility",

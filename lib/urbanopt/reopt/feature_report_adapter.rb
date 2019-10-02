@@ -143,7 +143,7 @@ module URBANopt
           x[$utility_to_load_col] = $utility_to_load[i]
           return x
         end
-
+        
         old_data = CSV.open(feature_report.timeseries_csv.path).read()
         mod_data = old_data.map.with_index {|x,i|
           if i > 0 then
