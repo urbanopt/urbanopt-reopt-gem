@@ -45,7 +45,7 @@ module URBANopt
 
       end
       
-      def reopt_json_from_scenario_report(scenario_report, run_cumulative=true)
+      def reopt_json_from_scenario_report(scenario_report,reopt_inputs=nil, run_cumulative=true)
         
         # are there inputs for reopt from these?
         # "program": 
@@ -54,10 +54,12 @@ module URBANopt
         #
 
 
-        name = scenario_report.name.sub! ' ',''
-        id = scenario_report.id.sub! ' ',''
-        description = "feature_report_#{name}_#{id}"
-        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+        name = scenario_report.name.gsub ' ',''
+        scenario_id = scenario_report.id.gsub ' ',''
+        description = "scenario_report_#{name}_#{scenario_id}"
+        if reopt_inputs.nil?
+          reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+        end
 
         if scenario_report.location.latitude.nil? or scenario_report.location.longitude.nil? or scenario_report.location.latitude == 0 or scenario_report.location.longitude == 0
           if !scenario_report.feature_reports.nil? and scenario_report.feature_reports != []
@@ -109,8 +111,12 @@ module URBANopt
           energy_timeseries_kwh = t.by_col[col_num]
 
           if scenario_report.timesteps_per_hour or 1 > 1
-
              energy_timeseries_kwh = energy_timeseries_kwh.each_slice(scenario_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.length.to_f)}
+          end
+
+          if energy_timeseries_kwh.length < scenario_report.timesteps_per_hour * 8760
+            energy_timeseries_kwh = energy_timeseries_kwh + [0]*((scenario_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
+            p "Assuming this starts January 1 - filling in rest with zeros"
           end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
         rescue
@@ -121,13 +127,26 @@ module URBANopt
         return reopt_inputs
       end
 
-      def feature_reports_from_scenario_report(scenario_report)
+      def feature_reports_from_scenario_report(scenario_report,reopt_base)
+
+        if reopt_base.kind_of?(Array)
+          if reopt_base.length == scenario_report.feature_reports.length
+            raise 'number of reopt bases posts does not match number of scenario feature reports'
+          end
+        end
+
         results = []
         adapter = URBANopt::REopt::FeatureReportAdapter.new
-        scenario_report.feature_reports.each {|feature_report|
-          reopt_input = adapter.from_feature_report(feature_report)
-          results.push(reopt_input) 
-        }
+
+        scenario_report.feature_reports.each_with_index do |feature_report, idx|
+          if reopt_base.kind_of?(Array)
+            fr = adapter.from_feature_report(feature_report, reopt_base[idx])
+          else
+            fr = adapter.from_feature_report(feature_report, Marshal.load(Marshal.dump(reopt_base)))
+          end
+          results << fr
+        end
+
         return results
       end
       

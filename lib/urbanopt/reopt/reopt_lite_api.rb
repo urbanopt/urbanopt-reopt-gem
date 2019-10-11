@@ -86,9 +86,13 @@ module URBANopt
 
       def reopt_request(reopt_input, folder)
 
+        if !folder.end_with? '/'
+          folder += '/'
+        end
+
         description = reopt_input[:Scenario][:description]
 
-        filename = "#{folder}/#{description}_reopt_response.json"
+        filename = "#{folder}#{description}_reopt_response.json"
 
         p "Submitting #{description} to REopt Lite API"
 

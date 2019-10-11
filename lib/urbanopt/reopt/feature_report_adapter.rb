@@ -46,10 +46,13 @@ module URBANopt
       def initialize
       end
 
-      def from_feature_report(feature_report)
-        name = feature_report.name.sub! ' ',''
+      def from_feature_report(feature_report,reopt_inputs=nil)
+        name = feature_report.name.gsub ' ',''
         description = "feature_report_#{name}_#{feature_report.id}"
-        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+
+        if reopt_inputs.nil?
+          reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+        end
 
         requireds_names = ['latitude','longitude']
 
@@ -83,6 +86,11 @@ module URBANopt
           energy_timeseries_kwh = t.by_col[col_num]
           if feature_report.timesteps_per_hour > 1
              energy_timeseries_kwh = energy_timeseries_kwh.each_slice(feature_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.length.to_f)}
+          end
+
+          if energy_timeseries_kwh.length < feature_report.timesteps_per_hour * 8760
+            energy_timeseries_kwh = energy_timeseries_kwh + [0]*((feature_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
+            p "Assuming this starts January 1 - filling in rest  with zeros"
           end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
         rescue
