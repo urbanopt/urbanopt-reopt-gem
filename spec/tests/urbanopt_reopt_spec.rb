@@ -54,7 +54,7 @@ RSpec.describe URBANopt::REopt do
   end
 
   it 'can process a feature report' do
-    feature_reports_path = File.join(File.dirname(__FILE__), '../files/default_feature_reports.json')
+    feature_reports_path = File.join(File.dirname(__FILE__), '../files/default_feature_report.json')
 
     expect(File.exists?(feature_reports_path)).to be true
 
@@ -72,8 +72,7 @@ RSpec.describe URBANopt::REopt do
     reopt_input = adapter.from_feature_report(feature_report)
     reopt_output = api.reopt_request(reopt_input,feature_report.directory_name)
 
-    feature_report = adapter.update_feature_report(feature_report,reopt_output)
-
+    adapter.update_feature_report(feature_report,reopt_output)
   end
 
   it 'can process a scenario report' do
@@ -86,16 +85,20 @@ RSpec.describe URBANopt::REopt do
       scenario_reports_json = JSON.parse(file.read, symbolize_names: true)
     end
 
-    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new(scenario_reports_json)
+    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new(scenario_reports_json[:scenario_report])
+    scenario_reports_json[:feature_reports].each do |fr|
+      feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(fr)
+      scenario_report.feature_reports << feature_report
+    end
 
     api = URBANopt::REopt::REoptLiteAPI.new
     adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
-    reopt_input = adapter.reopt_jsons_from_scenario_report(scenario_report)[0]
+    reopt_input = adapter.reopt_json_from_scenario_report(scenario_report)
 
     reopt_output = api.reopt_request(reopt_input, scenario_report.directory_name)
 
-    scenario_report2 = adapter.update_scenario_report_from_scenario_report(scenario_report, reopt_output)
+    adapter.update_scenario_report_from_scenario_report(scenario_report, reopt_output)
 
   end
 
@@ -109,7 +112,11 @@ RSpec.describe URBANopt::REopt do
       scenario_reports_json = JSON.parse(file.read, symbolize_names: true)
     end
 
-    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new(scenario_reports_json)
+    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new(scenario_reports_json[:scenario_report])
+    scenario_reports_json[:feature_reports].each do |fr|
+      feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(fr)
+      scenario_report.feature_reports << feature_report
+    end
 
     api = URBANopt::REopt::REoptLiteAPI.new
     scenario_adapter = URBANopt::REopt::ScenarioReportAdapter.new
@@ -120,12 +127,11 @@ RSpec.describe URBANopt::REopt do
     new_feature_reports = []
     reopt_inputs.each_with_index do |reopt_input, idx|
       reopt_output = api.reopt_request(reopt_input, scenario_report.directory_name)
-      original_feature_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new(scenario_report.feature_reports[idx])
-      new_feature_report = feature_adapter.update_feature_report(original_feature_report, reopt_output)
+      new_feature_report = feature_adapter.update_feature_report(scenario_report.feature_reports[idx], reopt_output)
       new_feature_reports.push(new_feature_report)
     end
 
-    scenario_report2 = scenario_adapter.update_scenario_report_from_feature_reports(scenario_report, new_feature_reports)
+    scenario_adapter.update_scenario_report_from_feature_reports(scenario_report, new_feature_reports)
 
   end
 end

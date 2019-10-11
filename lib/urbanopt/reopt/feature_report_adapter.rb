@@ -47,10 +47,8 @@ module URBANopt
       end
 
       def from_feature_report(feature_report)
-
-        description_attrs = [feature_report.id, feature_report.name, feature_report.feature_type].map {|x| if x.nil? then 'nil' else x end}
-        description = "#{description_attrs.join(" ")}"
-
+        name = feature_report.name.sub! ' ',''
+        description = "feature_report_#{name}_#{feature_report.id}"
         reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
 
         requireds_names = ['latitude','longitude']
@@ -84,7 +82,7 @@ module URBANopt
           t = CSV.read(feature_report.timeseries_csv.path,headers: true,converters: :numeric)
           energy_timeseries_kwh = t.by_col[col_num]
           if feature_report.timesteps_per_hour > 1
-             energy_timeseries_kwh = energy_timeseries_kwh.each_slice(feature_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.lengtsh.to_f)}
+             energy_timeseries_kwh = energy_timeseries_kwh.each_slice(feature_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.length.to_f)}
           end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
         rescue
@@ -98,12 +96,7 @@ module URBANopt
 
       def update_feature_report(feature_report, reopt_output)
 
-        requireds = reopt_output['inputs']['Scenario']['description'].split(' ')
-
         #Required
-        if (feature_report.id != requireds[0]) or (feature_report.name !=  requireds[1]) or (feature_report.feature_type != requireds[2])
-           p "Warning: Not the same feature used to call REopt"
-        end
 
         feature_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
 

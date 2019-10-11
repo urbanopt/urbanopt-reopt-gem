@@ -1,3 +1,0 @@
-1. how do we give a feature or scenario report a name?
-2. where do we save files?
-3. should we load feature reports into objects at time of scenario instantiation?

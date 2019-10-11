@@ -1,13 +1,12 @@
-
-    {
+ {
       "id": "1",
-      "name": "name",
+      "name": "Building 1",
       "directory_name": "spec/files/",
       "feature_type": "Building",
       "timesteps_per_hour": 1,
       "simulation_status": "Complete",
       "timeseries_csv": {
-        "path": "spec/files/default_feature_reports.csv",
+        "path": "spec/files/default_feature_report.csv",
         "first_report_datetime": "0",
         "column_names": [
           "Electricity:Facility",
@@ -28,107 +27,80 @@
       "location": {
         "latitude": 39.74,
         "longitude": -105.18,
-        "surface_elevation": 1829.0,
-        "weather_filename": "",
-        "weather_file": 0.0
+        "surface_elevation": 1829.0
       },
       "program": {
-        "site_area": 4305,
-        "floor_area": 4305.564166683889,
-        "conditioned_area": 4305.564166683889,
+        "floor_area": 433007.8972657945,
+        "conditioned_area": 433007.8972657945,
         "unconditioned_area": 0.0,
-        "footprint_area": 4305.564166683889,
-        "maximum_roof_height": 0.0,
-        "maximum_number_of_stories": 1,
-        "maximum_number_of_stories_above_ground": 1,
-        "parking_area": 0,
-        "number_of_parking_spaces": 0,
-        "number_of_parking_spaces_charging": 0,
-        "parking_footprint_area": 0,
-        "maximum_parking_height": 0,
-        "maximum_number_of_parking_stories": 0,
-        "maximum_number_of_parking_stories_above_ground": 0,
+        "footprint_area": 433007.8972657945,
+        "maximum_roof_height": 15.0,
+        "maximum_number_of_stories": 5,
         "number_of_residential_units": 1,
         "building_types": [
           {
             "building_type": "Office",
-            "floor_area": 2152.7820833419446,
-            "maximum_occupancy": 10.0
-          },
-          {
-            "building_type": "Retail",
-            "floor_area": 1076.3910416709723,
-            "maximum_occupancy": 0.0
-          },
-          {
-            "building_type": "Hospital",
-            "floor_area": 1076.3910416709723,
-            "maximum_occupancy": 0.0
+            "floor_area": 433007.9193081781,
+            "maximum_occupancy": 2165.0395965408898
           }
         ],
         "window_area": {
-          "north_window_area": 0.0,
-          "south_window_area": 0.0,
-          "east_window_area": 64.58346250025834,
-          "west_window_area": 0.0,
-          "total_window_area": 64.58346250025834
+          "north_window_area": 2609.1718850104367,
+          "south_window_area": 3646.920488285421,
+          "east_window_area": 6618.836154338975,
+          "west_window_area": 7056.1738345698905,
+          "total_window_area": 19931.10236220472
         },
         "wall_area": {
-          "north_wall_area": 645.8346250025833,
-          "south_wall_area": 645.8346250025833,
-          "east_wall_area": 645.8346250025833,
-          "west_wall_area": 645.8346250025833,
-          "total_wall_area": 2583.338500010333
+          "north_wall_area": 8697.347255805622,
+          "south_wall_area": 12156.437507319457,
+          "east_wall_area": 22062.57190292158,
+          "west_wall_area": 23520.543568864916,
+          "total_wall_area": 66436.90023491158
         },
         "roof_area": {
-          "equipment_roof_area": 0,
-          "photovoltaic_roof_area": 0,
-          "available_roof_area": 1000,
-          "total_roof_area": 4305.564166683889
+          "total_roof_area": 86601.5838616356
         },
         "orientation": 0.0,
-        "aspect_ratio": 1.0
+        "aspect_ratio": 0.3942127551617814
       },
       "construction_costs": [
 
       ],
       "reporting_periods": [
         {
-          "id": 0,
-          "name": "period name",
-          "multiplier": 1,
           "start_date": {
-            "month": 1,
+            "month": 6,
             "day_of_month": 1,
-            "year": ""
+            "year": 2012
           },
           "end_date": {
-            "month": 12,
-            "day_of_month": 31,
-            "year": ""
+            "month": 6,
+            "day_of_month": 2,
+            "year": 2012
           },
-          "total_site_energy": 156389.82485169737,
-          "total_source_energy": 403135.05578286323,
-          "net_site_energy": 156389.82485169737,
-          "net_source_energy": 403135.05578286323,
-          "electricity": 112145.7216754717,
-          "natural_gas": 44244.103176225646,
+          "total_site_energy": 84033.46588697871,
+          "total_source_energy": 234186.65408701444,
+          "net_site_energy": 84033.46588697871,
+          "net_source_energy": 234186.65408701444,
+          "electricity": 68697.78488030923,
+          "natural_gas": 15335.681006669472,
           "additional_fuel": 0.0,
           "district_cooling": 0.0,
           "district_heating": 0.0,
-          "water": 0.0,
-          "electricity_produced": 112148.56512683263,
+          "water": 42.96,
+          "electricity_produced": 68697.78488030923,
           "end_uses": {
             "electricity": {
               "heating": 0.0,
-              "cooling": 19724.07427372013,
-              "interior_lighting": 42756.03029733374,
-              "exterior_lighting": 0.0,
-              "interior_equipment": 35552.62018295253,
+              "cooling": 15999.152990888793,
+              "interior_lighting": 19648.248904095064,
+              "exterior_lighting": 199.04159526579662,
+              "interior_equipment": 26273.490575085158,
               "exterior_equipment": 0.0,
-              "fans": 14112.996921465296,
-              "pumps": 0.0,
-              "heat_rejection": 0.0,
+              "fans": 1867.199727017235,
+              "pumps": 4113.526302159797,
+              "heat_rejection": 597.1247857973899,
               "humidification": 0.0,
               "heat_recovery": 0.0,
               "water_systems": 0.0,
@@ -136,7 +108,7 @@
               "generators": 0.0
             },
             "natural_gas": {
-              "heating": 44244.103176225646,
+              "heating": 15202.98660982561,
               "cooling": 0.0,
               "interior_lighting": 0.0,
               "exterior_lighting": 0.0,
@@ -147,7 +119,7 @@
               "heat_rejection": 0.0,
               "humidification": 0.0,
               "heat_recovery": 0.0,
-              "water_systems": 0.0,
+              "water_systems": 132.6943968438644,
               "refrigeration": 0.0,
               "generators": 0.0
             },
@@ -208,10 +180,10 @@
               "exterior_equipment": 0.0,
               "fans": 0.0,
               "pumps": 0.0,
-              "heat_rejection": 0.0,
+              "heat_rejection": 40481.26920858178,
               "humidification": 0.0,
               "heat_recovery": 0.0,
-              "water_systems": 0.0,
+              "water_systems": 236.95428007832933,
               "refrigeration": 0.0,
               "generators": 0.0
             }
@@ -221,12 +193,15 @@
               "photovoltaic": 0.0
             }
           },
+          "utility_costs": [
+            {
+            }
+          ],
           "comfort_result": {
-            "time_setpoint_not_met_during_occupied_cooling": 0.0,
-            "time_setpoint_not_met_during_occupied_heating": 81.67,
-            "time_setpoint_not_met_during_occupied_hours": 81.67
+            "time_setpoint_not_met_during_occupied_cooling": 5.0,
+            "time_setpoint_not_met_during_occupied_heating": 1.0,
+            "time_setpoint_not_met_during_occupied_hours": 6.0
           }
         }
       ]
-    }
-  
+ }

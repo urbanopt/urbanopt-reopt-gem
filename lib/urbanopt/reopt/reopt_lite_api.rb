@@ -85,10 +85,14 @@ module URBANopt
       end
 
       def reopt_request(reopt_input, folder)
-        filename = folder + "reopt_response.json"
+
         description = reopt_input[:Scenario][:description]
+
+        filename = "#{folder}/#{description}_reopt_response.json"
+
         p "Submitting #{description} to REopt Lite API"
-        # Format the request        
+
+        # Format the request
         header = {'Content-Type'=> 'application/json'}
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
         if !@use_localhost
@@ -124,12 +128,13 @@ module URBANopt
           response = http.request(request)
           data = JSON.parse(response.body)
           status = data['outputs']['Scenario']['status']
-          sleep 10
+          sleep 5
         end
 
         if folder[-1] == '/'
           folder = folder.slice(0..-2)
         end
+
         File.open(filename,"w") do |f|
           f.write(data.to_json)
         end

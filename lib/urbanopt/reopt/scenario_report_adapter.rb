@@ -45,22 +45,19 @@ module URBANopt
 
       end
       
-      def reopt_jsons_from_scenario_report(scenario_report, run_cumulative=true)
+      def reopt_json_from_scenario_report(scenario_report, run_cumulative=true)
         
         # are there inputs for reopt from these?
         # "program": 
         # "construction_costs":
         # "reporting_periods":
         #
-        scenario_report.directory_name = "spec/files/"
-        scenario_report.timeseries_csv.path = 'spec/files/default_feature_reports.csv'
-        scenario_report.timeseries_csv.column_names = ['Electricity:Facility','ElectricityProduced:Facility','Gas:Facility','DistrictCooling:Facility','DistrictHeating:Facility','District Cooling Chilled Water Rate','District Cooling Mass Flow Rate','District Cooling Inlet Temperature','District Cooling Outlet Temperature','District Heating Hot Water Rate','District Heating Mass Flow Rate','District Heating Inlet Temperature','District Heating Outlet Temperature']
 
 
-        required_attrs = [scenario_report.id, scenario_report.name, 'scenario'].map {|x| if x.nil? then 'nil' else x end}
-        description = "#{required_attrs.join(" ")}"
-
-        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {}}}}
+        name = scenario_report.name.sub! ' ',''
+        id = scenario_report.id.sub! ' ',''
+        description = "feature_report_#{name}_#{id}"
+        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
 
         if scenario_report.location.latitude.nil? or scenario_report.location.longitude.nil? or scenario_report.location.latitude == 0 or scenario_report.location.longitude == 0
           if !scenario_report.feature_reports.nil? and scenario_report.feature_reports != []
@@ -106,11 +103,14 @@ module URBANopt
         end
 
         begin
+
           col_num = scenario_report.timeseries_csv.column_names.index("Electricity:Facility")
           t = CSV.read(scenario_report.timeseries_csv.path,headers: true,converters: :numeric)
           energy_timeseries_kwh = t.by_col[col_num]
+
           if scenario_report.timesteps_per_hour or 1 > 1
-             energy_timeseries_kwh = energy_timeseries_kwh.each_slice(scenario_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.lengtsh.to_f)}
+
+             energy_timeseries_kwh = energy_timeseries_kwh.each_slice(scenario_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.length.to_f)}
           end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
         rescue
@@ -118,14 +118,13 @@ module URBANopt
         end
 
         reopt_inputs[:Scenario][:Site][:ElectricTariff][:urdb_label] = '594976725457a37b1175d089'
-        return [reopt_inputs]
+        return reopt_inputs
       end
 
       def feature_reports_from_scenario_report(scenario_report)
         results = []
         adapter = URBANopt::REopt::FeatureReportAdapter.new
-        scenario_report.feature_reports.each {|fr|
-          feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(fr)
+        scenario_report.feature_reports.each {|feature_report|
           reopt_input = adapter.from_feature_report(feature_report)
           results.push(reopt_input) 
         }
@@ -199,9 +198,6 @@ module URBANopt
 
       def update_scenario_report_from_feature_reports(scenario_report, feature_reports)
 
-        scenario_report.directory_name = "spec/files/"
-        scenario_report.timeseries_csv.path = 'spec/files/default_feature_reports.csv'
-        scenario_report.timeseries_csv.column_names = ['Electricity:Facility','ElectricityProduced:Facility','Gas:Facility','DistrictCooling:Facility','DistrictHeating:Facility','District Cooling Chilled Water Rate','District Cooling Mass Flow Rate','District Cooling Inlet Temperature','District Cooling Outlet Temperature','District Heating Hot Water Rate','District Heating Mass Flow Rate','District Heating Inlet Temperature','District Heating Outlet Temperature']
 
         scenario_report.feature_reports = feature_reports
 
