@@ -43,53 +43,47 @@ module URBANopt
   module REopt
     class REoptRunner
 
-      def initialize
+      def initialize(developernrelgovkey=nil,localhost=false)
+        @developernrelgovkey = developernrelgovkey
+        @localhost = localhost
         @reopt_base_post = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
       end
 
-      def run_feature_report(feature_report, reopt_base = nil)
-        if !reopt_base.nil?
-          reopt_base = @reopt_base_post
-        end
-
-        api = URBANopt::REopt::REoptLiteAPI.new
+      def run_feature_report(feature_report, reopt_assumptions_json, output_file)
+        api = URBANopt::REopt::REoptLiteAPI.new(@localhost,@developernrelgovkey)
         adapter = URBANopt::REopt::FeatureReportAdapter.new
 
-        reopt_input = adapter.from_feature_report(feature_report, reopt_base)
-        reopt_output = api.reopt_request(reopt_input, feature_report.directory_name)
+        reopt_input = adapter.from_feature_report(feature_report, reopt_assumptions_json)
+        reopt_output = api.reopt_request(reopt_input, output_file)
         return adapter.update_feature_report(feature_report, reopt_output)
       end
 
-      def run_scenario_report(scenario_report, reopt_base = nil)
-        if !reopt_base.nil?
-          reopt_base = @reopt_base_post
-        end
-        api = URBANopt::REopt::REoptLiteAPI.new
+      def run_scenario_report(scenario_report, reopt_assumptions_json, output_file)
+        api = URBANopt::REopt::REoptLiteAPI.new(@localhost,@developernrelgovkey)
         adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
-        reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, reopt_base)
+        reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, reopt_assumptions_json)
+        reopt_output = api.reopt_request(reopt_input, output_file)
 
-        reopt_output = api.reopt_request(reopt_input, scenario_report.directory_name)
-
-        return adapter.update_scenario_report_from_scenario_report(scenario_report, reopt_output)
+        return adapter.update_scenario_report(scenario_report, reopt_output)
       end
 
-      def run_scenario_report_features(scenario_report, reopt_base = nil)
-        if !reopt_base.nil?
-          reopt_base = @reopt_base_post
-        end
-
-        api = URBANopt::REopt::REoptLiteAPI.new
+      def run_scenario_report_features(scenario_report, reopt_assumptions_jsons, output_files)
+        api = URBANopt::REopt::REoptLiteAPI.new(@localhost,@developernrelgovkey)
         scenario_adapter = URBANopt::REopt::ScenarioReportAdapter.new
         feature_adapter = URBANopt::REopt::FeatureReportAdapter.new
 
-        reopt_inputs  = scenario_adapter.feature_reports_from_scenario_report(scenario_report, reopt_base)
+        reopt_inputs  = scenario_adapter.feature_reports_from_scenario_report(scenario_report, reopt_assumptions_jsons)
 
         new_feature_reports = []
         reopt_inputs.each_with_index do |reopt_input, idx|
-          reopt_output = api.reopt_request(reopt_input, scenario_report.feature_reports[idx].directory_name)
-          new_feature_report = feature_adapter.update_feature_report(scenario_report.feature_reports[idx], reopt_output)
-          new_feature_reports.push(new_feature_report)
+          begin
+            reopt_output = api.reopt_request(reopt_input, output_files[idx])
+            new_feature_report = feature_adapter.update_feature_report(scenario_report.feature_reports[idx], reopt_output)
+            new_feature_reports.push(new_feature_report)
+          rescue
+            p "Could not optimize Feature Report #{scenario_report.feature_reports[idx].name} #{scenario_report.feature_reports[idx].id}"
+          end
         end
 
         return scenario_adapter.update_scenario_report_from_feature_reports(scenario_report, new_feature_reports)

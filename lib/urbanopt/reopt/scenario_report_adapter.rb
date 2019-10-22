@@ -40,26 +40,30 @@ require 'pry'
 module URBANopt
   module REopt
     class ScenarioReportAdapter
-    
+
       def initialize
 
       end
-      
-      def reopt_json_from_scenario_report(scenario_report,reopt_inputs=nil, run_cumulative=true)
-        
+
+      def reopt_json_from_scenario_report(scenario_report, reopt_assumptions_json=nil)
+
         # are there inputs for reopt from these?
         # "program": 
         # "construction_costs":
         # "reporting_periods":
         #
 
-
         name = scenario_report.name.gsub ' ',''
         scenario_id = scenario_report.id.gsub ' ',''
         description = "scenario_report_#{name}_#{scenario_id}"
-        if reopt_inputs.nil?
-          reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+
+        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+        if !reopt_assumptions_json.nil?
+          reopt_inputs = reopt_assumptions_json
+        else
+          p 'Using default REopt Lite assumptions'
         end
+
 
         if scenario_report.location.latitude.nil? or scenario_report.location.longitude.nil? or scenario_report.location.latitude == 0 or scenario_report.location.longitude == 0
           if !scenario_report.feature_reports.nil? and scenario_report.feature_reports != []
@@ -116,7 +120,7 @@ module URBANopt
 
           if energy_timeseries_kwh.length < scenario_report.timesteps_per_hour * 8760
             energy_timeseries_kwh = energy_timeseries_kwh + [0]*((scenario_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
-            p "Assuming this starts January 1 - filling in rest with zeros"
+            p "Assuming load profile for Scenario Report #{scenario_report.name} #{scenario_report.id} starts January 1 - filling in rest with zeros"
           end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
         rescue
@@ -127,35 +131,23 @@ module URBANopt
         return reopt_inputs
       end
 
-      def feature_reports_from_scenario_report(scenario_report,reopt_base)
-
-        if reopt_base.kind_of?(Array)
-          if reopt_base.length == scenario_report.feature_reports.length
-            raise 'number of reopt bases posts does not match number of scenario feature reports'
-          end
-        end
-
+      def feature_reports_from_scenario_report(scenario_report, reopt_assumptions_jsons)
         results = []
         adapter = URBANopt::REopt::FeatureReportAdapter.new
 
         scenario_report.feature_reports.each_with_index do |feature_report, idx|
-          if reopt_base.kind_of?(Array)
-            fr = adapter.from_feature_report(feature_report, reopt_base[idx])
-          else
-            fr = adapter.from_feature_report(feature_report, Marshal.load(Marshal.dump(reopt_base)))
-          end
+          fr = adapter.from_feature_report(feature_report, reopt_assumptions_jsons[idx])
           results << fr
         end
 
         return results
       end
-      
-      def update_scenario_report_from_scenario_report(scenario_report, reopt_output)
-        requireds = reopt_output['inputs']['Scenario']['description'].split(' ')
 
-        #Required
-        if (scenario_report.id != requireds[0]) or (scenario_report.name !=  requireds[1]) or ('scenario' != requireds[2])
-           p "Warning: Not the same feature used to call REopt"
+      def update_scenario_report(scenario_report, reopt_output)
+
+        if reopt_output['outputs']['Scenario']['status'] != 'optimal'
+          p "Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal"
+          return scenario_report
         end
 
         scenario_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
@@ -216,7 +208,6 @@ module URBANopt
       end
 
       def update_scenario_report_from_feature_reports(scenario_report, feature_reports)
-
 
         scenario_report.feature_reports = feature_reports
 

@@ -39,20 +39,19 @@ require "uri"
 require 'uri'
 require 'json'
 require 'pry'
-require_relative '../../../developer_nrel_key'
 
 module URBANopt
   module REopt
     class REoptLiteAPI
-      def initialize(use_localhost=false)
+      def initialize(use_localhost=false,nreldeveloperkey=nil)
         @use_localhost = use_localhost
         if @use_localhost
           @uri_submit = URI.parse("http//:127.0.0.1:8000/v1/job/")
         else
-          if [nil,''].include? DEVELOPER_NREL_KEY
+          if nreldeveloperkey.nil?
             raise 'A developer.nrel.gov API key is required. Please see https://developer.nrel.gov/signup/'
           end
-          @nreldeveloperkey =  DEVELOPER_NREL_KEY
+          @nreldeveloperkey =  nreldeveloperkey
           @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@nreldeveloperkey}")
         end
       end
@@ -84,15 +83,9 @@ module URBANopt
         return true
       end
 
-      def reopt_request(reopt_input, folder)
-
-        if !folder.end_with? '/'
-          folder += '/'
-        end
+      def reopt_request(reopt_input, filename)
 
         description = reopt_input[:Scenario][:description]
-
-        filename = "#{folder}#{description}_reopt_response.json"
 
         p "Submitting #{description} to REopt Lite API"
 
@@ -133,10 +126,6 @@ module URBANopt
           data = JSON.parse(response.body)
           status = data['outputs']['Scenario']['status']
           sleep 5
-        end
-
-        if folder[-1] == '/'
-          folder = folder.slice(0..-2)
         end
 
         File.open(filename,"w") do |f|

@@ -46,12 +46,16 @@ module URBANopt
       def initialize
       end
 
-      def from_feature_report(feature_report,reopt_inputs=nil)
+      def from_feature_report(feature_report, reopt_assumptions_json=nil)
         name = feature_report.name.gsub ' ',''
         description = "feature_report_#{name}_#{feature_report.id}"
 
-        if reopt_inputs.nil?
-          reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+        
+        if !reopt_assumptions_json.nil?
+          reopt_inputs = reopt_assumptions_json
+        else
+          p 'Using default REopt Lite assumptions'
         end
 
         requireds_names = ['latitude','longitude']
@@ -90,7 +94,7 @@ module URBANopt
 
           if energy_timeseries_kwh.length < feature_report.timesteps_per_hour * 8760
             energy_timeseries_kwh = energy_timeseries_kwh + [0]*((feature_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
-            p "Assuming this starts January 1 - filling in rest  with zeros"
+            p "Assuming load profile for Feature Report #{feature_report.name} #{feature_report.id} starts January 1 - filling in rest  with zeros"
           end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
         rescue
@@ -104,7 +108,10 @@ module URBANopt
 
       def update_feature_report(feature_report, reopt_output)
 
-        #Required
+        if reopt_output['outputs']['Scenario']['status'] != 'optimal'
+          p "Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal"
+          return feature_report
+        end
 
         feature_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
 
