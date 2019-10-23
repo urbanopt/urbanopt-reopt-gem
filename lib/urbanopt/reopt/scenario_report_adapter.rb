@@ -40,31 +40,36 @@ require 'pry'
 module URBANopt
   module REopt
     class ScenarioReportAdapter
-
+      ##
+      # ScenarioReportAdapter can convert a ScenarioReport into a REopt Lite posts or updates a ScenarioReport and its FeatureReports from REopt Lite response(s)
+      ##
+      # [parameters:]
       def initialize
 
       end
-
+      
+      ##
+      # Convert a ScenarioReport into a REopt Lite post
+      # [parameters:]
+      # +scenario_report+ - _ScenarioReport_ - ScenarioReport to use in converting the reopt_assumptions_hash, if provided, to a REopt Lite post. Otherwise, if the reopt_assumptions_hash is nil a default post will be updated from this ScenarioReport and submitted to the REopt Lite API. 
+      # +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. 
+      # [return:] _Hash_ Returns hash formatted for submittal to the REopt Lite API
+      ##
       def reopt_json_from_scenario_report(scenario_report, reopt_assumptions_json=nil)
-
-        # are there inputs for reopt from these?
-        # "program": 
-        # "construction_costs":
-        # "reporting_periods":
-        #
-
+        
         name = scenario_report.name.gsub ' ',''
         scenario_id = scenario_report.id.gsub ' ',''
         description = "scenario_report_#{name}_#{scenario_id}"
 
-        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+        #Create base REpopt Lite post
+        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
         if !reopt_assumptions_json.nil?
           reopt_inputs = reopt_assumptions_json
         else
           p 'Using default REopt Lite assumptions'
         end
 
-
+        #Update required info
         if scenario_report.location.latitude.nil? or scenario_report.location.longitude.nil? or scenario_report.location.latitude == 0 or scenario_report.location.longitude == 0
           if !scenario_report.feature_reports.nil? and scenario_report.feature_reports != []
             lats = []
@@ -83,6 +88,7 @@ module URBANopt
           end
         end
 
+        #Update required info
         requireds_names = ['latitude','longitude']
         requireds = [scenario_report.location.latitude,scenario_report.location.longitude]
 
@@ -100,6 +106,7 @@ module URBANopt
         reopt_inputs[:Scenario][:Site][:latitude] = scenario_report.location.latitude
         reopt_inputs[:Scenario][:Site][:longitude] = scenario_report.location.longitude
 
+        #Update optional info
         if !scenario_report.program.roof_area.nil?
           reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area[:available_roof_area]
         end
@@ -108,6 +115,7 @@ module URBANopt
           reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area * 1.0/43560 #acres/sqft
         end
 
+        #Update load profile info
         begin
 
           col_num = scenario_report.timeseries_csv.column_names.index("Electricity:Facility")
@@ -122,58 +130,85 @@ module URBANopt
             energy_timeseries_kwh = energy_timeseries_kwh + [0]*((scenario_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
             p "Assuming load profile for Scenario Report #{scenario_report.name} #{scenario_report.id} starts January 1 - filling in rest with zeros"
           end
-          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
+          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map {|e| e ? e : 0}
         rescue
           raise "Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}"
         end
 
-        reopt_inputs[:Scenario][:Site][:ElectricTariff][:urdb_label] = '594976725457a37b1175d089'
         return reopt_inputs
       end
 
-      def feature_reports_from_scenario_report(scenario_report, reopt_assumptions_jsons)
+
+      ##
+      # Converts a FeatureReport list from a ScenarioReport into an array of REopt Lite posts
+      # [parameters:]
+      # +scenario_report+ - _ScenarioReport_ - ScenarioReport to use in converting FeatureReports and respecitive reopt_assumptions_hashes, if provided, to a REopt Lite post. If no reopt_assumptions_hashes are provided default posts will be updated from these FeatureReports and submitted to the REopt Lite API. 
+      # +reopt_assumptions_hashes+ - _Array_ - Optional. An array of hashes formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.
+      # [return:] _Array_ Returns an array of hashes formatted for submittal to the REopt Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.
+      ##
+      def reopt_jsons_from_scenario_feature_reports(scenario_report, reopt_assumptions_hashes = [])
         results = []
         adapter = URBANopt::REopt::FeatureReportAdapter.new
 
         scenario_report.feature_reports.each_with_index do |feature_report, idx|
-          fr = adapter.from_feature_report(feature_report, reopt_assumptions_jsons[idx])
+          fr = adapter.reopt_json_from_feature_report(feature_report, reopt_assumptions_hashes[idx])
           results << fr
         end
 
         return results
       end
 
-      def update_scenario_report(scenario_report, reopt_output)
+      ##
+      # Updates a ScenarioReport from a REopt Lite response
+      # [parameters:]
+      # +scenario_report+ - _ScenarioReport_ - ScenarioReport to update from a REopt Lite response.
+      # +reopt_output+ - _Hash_ - A hash response from the REopt Lite API.
+      # +timeseries_csv_path+ - _String_ - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the REopt Lite optimization task.
+      # [return:] _ScenarioReport_ Returns an updated ScenarioReport
+      ##
+      def update_scenario_report(scenario_report, reopt_output, timeseries_csv_path=nil)
 
         if reopt_output['outputs']['Scenario']['status'] != 'optimal'
           p "Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal"
           return scenario_report
         end
 
+        #Update basic attributes
         scenario_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
+        scenario_report.location.latitude =   reopt_output['inputs']['Scenario']['Site']['latitude']
+        scenario_report.location.longitude =   reopt_output['inputs']['Scenario']['Site']['longitude']
 
+        #Update dispatch
         generation_timeseries_kwh = Matrix[[0]*8760]
         unless reopt_output['outputs']['Scenario']['Site']['PV'].nil?
           if (reopt_output['outputs']['Scenario']['Site']['PV']['size_kw'] or 0) > 0
-            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['PV']['year_one_power_production_series_kw'] ]
+            if !reopt_output['outputs']['Scenario']['Site']['PV']['year_one_power_production_series_kw'].nil?
+              generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['PV']['year_one_power_production_series_kw']]
+            end
           end
         end
 
         unless reopt_output['outputs']['Scenario']['Site']['Storage'].nil?
           if (reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'] or 0) > 0
-            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw'] ]
+            if !reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw'].nil?
+              generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw']]
+            end
           end
         end
 
         unless reopt_output['outputs']['Scenario']['Site']['Wind'].nil?
           if (reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] or 0) > 0
-            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'] ]
+            if !reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'].nil?
+              generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw']]
+            end
           end
         end
 
         unless reopt_output['outputs']['Scenario']['Site']['Generator'].nil?
           if (reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] or 0) > 0
-            generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'] ]
+            if !reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'].nil?
+              generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw']]
+            end
           end
         end
 
@@ -197,17 +232,26 @@ module URBANopt
             x
           end
         }
-        scenario_report.timeseries_csv.path = scenario_report.timeseries_csv.path.sub! '.csv','_copy.csv'
-        File.write(scenario_report.timeseries_csv.path, mod_data.map(&:to_csv).join)
 
-        #Non-required
-        scenario_report.location.latitude =   reopt_output['inputs']['Scenario']['Site']['latitude']
-        scenario_report.location.longitude =   reopt_output['inputs']['Scenario']['Site']['longitude']
+        if timeseries_csv_path.nil?
+          scenario_report.timeseries_csv.path = scenario_report.timeseries_csv.path.sub! '.csv',"_reopt#{reopt_output['inputs']['Scenario']['run_uuid']}.csv"
+        else
+          scenario_report.timeseries_csv.path = timeseries_csv_path
+        end
+        File.write(scenario_report.timeseries_csv.path, mod_data.map(&:to_csv).join)
 
         return scenario_report
       end
-
-      def update_scenario_report_from_feature_reports(scenario_report, feature_reports)
+      
+      ##
+      # Updates a ScenarioReport from a set of FeatureReports
+      # [parameters:]
+      # +scenario_report+ - _ScenarioReport_ - ScenarioReport to update from a set of FeatureReports
+      # +feature_reports+ - _Array_ - A list of FeatureReports.
+      # +timeseries_csv_path+ - _String_ - Optional. The path to a file at which new timeseries data will be written. If not provided, a copy of the current timeseries csv will be made with the extention '_copy'.
+      # [return:] _ScenarioReport_ Returns an updated ScenarioReport
+      ##
+      def update_scenario_report_from_feature_reports(scenario_report, feature_reports, timeseries_csv_path)
 
         scenario_report.feature_reports = feature_reports
 
@@ -259,7 +303,11 @@ module URBANopt
           }
         end
 
-        scenario_report.timeseries_csv.path = scenario_report.timeseries_csv.path.sub! '.csv','_copy.csv'
+        if timeseries_csv_paths.nil?
+          scenario_report.timeseries_csv.path = scenario_report.timeseries_csv.path.sub! '.csv',"_copy.csv"
+        else
+          scenario_report.timeseries_csv.path = timeseries_csv_path
+        end
         File.write(scenario_report.timeseries_csv.path, $old_timeseries_data.map(&:to_csv).join)
 
         scenario_report.location.latitude = $lats.reduce(:+) / $lats.size.to_f
