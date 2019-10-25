@@ -117,7 +117,7 @@
 
         <div class="method-description">
         
-        
+        <p><em>Array</em> - List of hashes of <a href="../REopt.html"><code>REopt</code></a> Lite assumptions. The list should match the number and order of feature reports in the scenario_result. See (<a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/)[https://developer.nrel.gov/docs/energy-optimization/reopt-v1/]">developer.nrel.gov/docs/energy-optimization/reopt-v1/)[https://developer.nrel.gov/docs/energy-optimization/reopt-v1/]</a> for more info.</p>
         
         </div>
       </div>
@@ -130,7 +130,7 @@
 
         <div class="method-description">
         
-        
+        <p><em>Array</em> - List of paths to which <a href="../REopt.html"><code>REopt</code></a> Lite responses will be saved for each of the feature reports in the scenario_result. The list should match the number and order of feature reports in the scenario_result.</p>
         
         </div>
       </div>
@@ -143,7 +143,7 @@
 
         <div class="method-description">
         
-        
+        <p><em>Array</em> - List of paths to which new timeseries CSV&#39;s will be saved for each of the feature reports in the scenario_result. The list should match the number and order of feature reports in the scenario_result.</p>
         
         </div>
       </div>
@@ -156,7 +156,7 @@
 
         <div class="method-description">
         
-        
+        <p><em>Hash</em> - Hash of <a href="../REopt.html"><code>REopt</code></a> Lite assumptions. See (<a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/)[https://developer.nrel.gov/docs/energy-optimization/reopt-v1/]">developer.nrel.gov/docs/energy-optimization/reopt-v1/)[https://developer.nrel.gov/docs/energy-optimization/reopt-v1/]</a> for more info.</p>
         
         </div>
       </div>
@@ -169,7 +169,7 @@
 
         <div class="method-description">
         
-        
+        <p><em>String</em> - Path to which <a href="../REopt.html"><code>REopt</code></a> Lite responses will be saved for the scenario report.</p>
         
         </div>
       </div>
@@ -182,7 +182,7 @@
 
         <div class="method-description">
         
-        
+        <p><em>String</em> - Path to which a new timeseries CSV will be saved for the scenario report.</p>
         
         </div>
       </div>
@@ -270,7 +270,7 @@
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/default_reopt_post_processor.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/default_reopt_post_processor.rb, line 90</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run</span>
   <span class="ruby-comment"># this run method adds all the simulation_dirs, you can extend it to do more custom stuff</span>
   <span class="ruby-ivar">@scenario_base</span>.<span class="ruby-identifier">simulation_dirs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">simulation_dir</span><span class="ruby-operator">|</span>

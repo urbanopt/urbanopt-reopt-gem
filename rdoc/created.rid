@@ -1,4 +1,4 @@
-Fri, 25 Oct 2019 08:37:44 -0600
+Fri, 25 Oct 2019 11:04:16 -0600
 ./RDOC_MAIN.md	Thu, 24 Oct 2019 17:53:22 -0600
 ./package-lock.json	Fri, 25 Oct 2019 08:26:23 -0600
 ./developer_nrel_key.rb	Wed, 02 Oct 2019 10:00:47 -0600
@@ -9,7 +9,7 @@ Fri, 25 Oct 2019 08:37:44 -0600
 ./lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb	Thu, 24 Oct 2019 17:30:00 -0600
 ./lib/urbanopt/reopt/scenario/default_reopt_post_processor.rb	Thu, 24 Oct 2019 17:27:53 -0600
 ./lib/urbanopt/reopt/scenario_report_adapter.rb	Thu, 24 Oct 2019 14:43:51 -0600
-./lib/urbanopt/reopt/default_reopt_post_processor.rb	Thu, 24 Oct 2019 17:36:40 -0600
+./lib/urbanopt/reopt/default_reopt_post_processor.rb	Fri, 25 Oct 2019 11:03:52 -0600
 ./lib/urbanopt/reopt/feature_report_adapter.rb	Thu, 24 Oct 2019 14:05:25 -0600
 ./lib/urbanopt/reopt/version.rb	Tue, 09 Jul 2019 15:22:35 -0600
 ./lib/urbanopt/reopt/reopt_runner.rb	Thu, 24 Oct 2019 14:45:43 -0600
@@ -43,6 +43,5 @@ Fri, 25 Oct 2019 08:37:44 -0600
 ./lib/urbanopt/scenario/default_reports/feature_report.rb	Tue, 22 Oct 2019 15:04:31 -0600
 ./lib/urbanopt/scenario/default_reports/reporting_period.rb	Tue, 15 Oct 2019 15:15:27 -0600
 ./lib/urbanopt-reopt.rb	Tue, 09 Jul 2019 15:46:12 -0600
-./reopt_response.json	Wed, 02 Oct 2019 14:48:35 -0600
 ./npm-debug.log	Thu, 24 Oct 2019 18:12:12 -0600
 ./pkg/urbanopt-reopt-0.0.1.gem	Thu, 26 Sep 2019 13:42:41 -0600
