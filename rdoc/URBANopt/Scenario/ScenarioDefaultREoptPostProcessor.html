@@ -117,7 +117,7 @@
 
         <div class="method-description">
         
-        <p><em>Array</em> - List of hashes of <a href="../REopt.html"><code>REopt</code></a> Lite assumptions. The list should match the number and order of feature reports in the scenario_result. See (<a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/)[https://developer.nrel.gov/docs/energy-optimization/reopt-v1/]">developer.nrel.gov/docs/energy-optimization/reopt-v1/)[https://developer.nrel.gov/docs/energy-optimization/reopt-v1/]</a> for more info.</p>
+        <p><em>Array</em> - List of default hashes of REopt Lite assumptions if provided to the <a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> object. The list should match the number and order of feature reports in the scenario_result. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1">developer.nrel.gov/docs/energy-optimization/reopt-v1</a>/ for more info.</p>
         
         </div>
       </div>
@@ -130,7 +130,7 @@
 
         <div class="method-description">
         
-        <p><em>Array</em> - List of paths to which <a href="../REopt.html"><code>REopt</code></a> Lite responses will be saved for each of the feature reports in the scenario_result. The list should match the number and order of feature reports in the scenario_result.</p>
+        <p><em>Array</em> - List of default paths to which REopt Lite responses will be saved for each of the feature reports in the scenario_result. The list should match the number and order of feature reports in the scenario_result.</p>
         
         </div>
       </div>
@@ -143,7 +143,7 @@
 
         <div class="method-description">
         
-        <p><em>Array</em> - List of paths to which new timeseries CSV&#39;s will be saved for each of the feature reports in the scenario_result. The list should match the number and order of feature reports in the scenario_result.</p>
+        <p><em>Array</em> - List of default paths to which new timeseries CSV&#39;s will be saved for each of the feature reports in the scenario_result. The list should match the number and order of feature reports in the scenario_result.</p>
         
         </div>
       </div>
@@ -156,7 +156,7 @@
 
         <div class="method-description">
         
-        <p><em>Hash</em> - Hash of <a href="../REopt.html"><code>REopt</code></a> Lite assumptions. See (<a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/)[https://developer.nrel.gov/docs/energy-optimization/reopt-v1/]">developer.nrel.gov/docs/energy-optimization/reopt-v1/)[https://developer.nrel.gov/docs/energy-optimization/reopt-v1/]</a> for more info.</p>
+        <p><em>Hash</em> - Hash of default REopt Lite assumptions if provided to the <a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> object. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1">developer.nrel.gov/docs/energy-optimization/reopt-v1</a>/ for more info.</p>
         
         </div>
       </div>
@@ -169,7 +169,7 @@
 
         <div class="method-description">
         
-        <p><em>String</em> - Path to which <a href="../REopt.html"><code>REopt</code></a> Lite responses will be saved for the scenario report.</p>
+        <p><em>String</em> - Default path to which REopt Lite responses will be saved for the scenario report.</p>
         
         </div>
       </div>
@@ -182,7 +182,7 @@
 
         <div class="method-description">
         
-        <p><em>String</em> - Path to which a new timeseries CSV will be saved for the scenario report.</p>
+        <p><em>String</em> - Defaul path to which a new timeseries CSV will be saved for the scenario report.</p>
         
         </div>
       </div>
@@ -210,7 +210,7 @@
 
         <div class="method-description">
           
-          <p><a href="ScenarioPostProcessorBase.html"><code>ScenarioPostProcessorBase</code></a> post-processes a scenario to create scenario level results</p>
+          <p><a href="ScenarioPostProcessorBase.html"><code>ScenarioPostProcessorBase</code></a> post-processes a scenario to create scenario level results. After run is executed the object will contain default files names to use in a <a href="../REopt.html"><code>REopt</code></a> analyis.</p>
 
 <p>[parameters:] <code>scenario_base</code> - <em>ScenarioBase</em> - An object of <a href="ScenarioBase.html"><code>ScenarioBase</code></a> class.</p>
           
@@ -264,7 +264,7 @@
 
         <div class="method-description">
           
-          <p>Run the post processor on this <a href="../Scenario.html"><code>Scenario</code></a>.This will add all the simulation_dirs.</p>
+          <p>Run the post processor on this <a href="../Scenario.html"><code>Scenario</code></a>. This will add all the simulation_dirs and set the default paths for a reopt run.</p>
           
           
 
