@@ -101,7 +101,7 @@ RSpec.describe URBANopt::REopt do
 
     reopt_runner = URBANopt::REopt::REoptRunner.new(DEVELOPER_NREL_KEY)
     reopt_output_file = File.join(scenario_report.directory_name, "scenario_report_#{scenario_report.id}_reopt_run.json")
-    timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report__timeseries1.csv')
+    timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
     reopt_assumptions_file = File.join(scenario_report.directory_name, 'reopt_assumptions_basic.json')
     reopt_assumptions = nil
     File.open(reopt_assumptions_file, 'r') do |file|
@@ -171,20 +171,22 @@ RSpec.describe URBANopt::REopt do
       reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
     end
     reopt_output_files = []
-    timeseries_output_files = []
+    scenario_report_timeseries_output_file = File.join(scenario_report.directory_name, "scenario_report#{scenario_report.id}_timeseries.csv")
+    feature_report_timeseries_output_files = []
     scenario_reports_json[:feature_reports].each do |fr|
       feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(fr)
       scenario_report.feature_reports << feature_report
       reopt_assumption_jsons << Marshal.load(Marshal.dump(reopt_assumptions))
       reopt_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_reopt_run.json")
-      timeseries_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_timeseries.csv")
+      feature_report_timeseries_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_timeseries.csv")
     end
 
     reopt_runner = URBANopt::REopt::REoptRunner.new(DEVELOPER_NREL_KEY)
-    scenario_report = reopt_runner.run_scenario_report_features(scenario_report, reopt_assumption_jsons, reopt_output_files, timeseries_output_files)
-    scenario_report = reopt_runner.run_scenario_report_features(scenario_report, nil, reopt_output_files, timeseries_output_files)
-    scenario_report = reopt_runner.run_scenario_report_features(scenario_report, reopt_assumption_jsons, nil, timeseries_output_files)
-    scenario_report = reopt_runner.run_scenario_report_features(scenario_report, reopt_assumption_jsons, reopt_output_files, nil)
+    scenario_report = reopt_runner.run_scenario_report_features(scenario_report, reopt_assumption_jsons, reopt_output_files, feature_report_timeseries_output_files, scenario_report_timeseries_output_file)
+    scenario_report = reopt_runner.run_scenario_report_features(scenario_report, nil, reopt_output_files, feature_report_timeseries_output_files, scenario_report_timeseries_output_file)
+    scenario_report = reopt_runner.run_scenario_report_features(scenario_report, reopt_assumption_jsons, nil, feature_report_timeseries_output_files, scenario_report_timeseries_output_file)
+    scenario_report = reopt_runner.run_scenario_report_features(scenario_report, reopt_assumption_jsons, reopt_output_files, nil, scenario_report_timeseries_output_file)
+    scenario_report = reopt_runner.run_scenario_report_features(scenario_report, reopt_assumption_jsons, reopt_output_files, feature_report_timeseries_output_files, nil)
     scenario_report = reopt_runner.run_scenario_report_features(scenario_report)
   end
 end

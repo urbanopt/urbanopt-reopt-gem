@@ -102,7 +102,7 @@ module URBANopt
           col_num = feature_report.timeseries_csv.column_names.index("Electricity:Facility")
           t = CSV.read(feature_report.timeseries_csv.path,headers: true,converters: :numeric)
           energy_timeseries_kwh = t.by_col[col_num]
-          if feature_report.timesteps_per_hour > 1
+          if (feature_report.timesteps_per_hour or 1) > 1
              energy_timeseries_kwh = energy_timeseries_kwh.each_slice(feature_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.length.to_f)}
           end
 

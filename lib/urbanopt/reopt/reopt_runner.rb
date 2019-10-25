@@ -123,17 +123,17 @@ module URBANopt
         api = URBANopt::REopt::REoptLiteAPI.new(@developernrelgovkey, @localhost)
         feature_adapter = URBANopt::REopt::FeatureReportAdapter.new
         new_feature_reports = []
-        feature_reports.each_with_index do |reopt_input, idx|
+        feature_reports.each_with_index do |feature_report, idx|
           begin
             reopt_input = adapter.reopt_json_from_feature_report(feature_report, reopt_assumptions_hashes[idx])
             if reopt_output_files[idx].nil?
               reopt_output_files[idx] = feature_report.directory_name
             end
             reopt_output = api.reopt_request(reopt_input, reopt_output_files[idx])
-            new_feature_report = feature_adapter.update_feature_report(scenario_report.feature_reports[idx], reopt_output,timeseries_csv_paths[idx])
+            new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output,timeseries_csv_paths[idx])
             new_feature_reports.push(new_feature_report)
           rescue
-            p "Could not optimize Feature Report #{scenario_report.feature_reports[idx].name} #{scenario_report.feature_reports[idx].id}"
+            p "Could not optimize Feature Report #{feature_report.name} #{feature_report.id}"
           end
         end
 
@@ -148,7 +148,7 @@ module URBANopt
       # +reopt_output_files+ - _Array_ - Optional. An array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       # +timeseries_csv_path+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       # [return:] _Array_ Returns an updated ScenarioReport
-      def run_scenario_report_features(scenario_report, reopt_assumptions_hashes=[], reopt_output_files=[],timeseries_csv_paths=[])
+      def run_scenario_report_features(scenario_report, reopt_assumptions_hashes=[], reopt_output_files=[],feature_report_timeseries_csv_paths=[], scenario_report_timeseries_csv_path=nil)
         if reopt_assumptions_hashes.nil?
           reopt_assumptions_hashes = []
         end
@@ -157,8 +157,8 @@ module URBANopt
           reopt_output_files = []
         end
         
-        if timeseries_csv_paths.nil?
-          timeseries_csv_paths = []
+        if feature_report_timeseries_csv_paths.nil?
+          feature_report_timeseries_csv_paths = []
         end
         api = URBANopt::REopt::REoptLiteAPI.new(@developernrelgovkey, @localhost)
         scenario_adapter = URBANopt::REopt::ScenarioReportAdapter.new
@@ -168,19 +168,19 @@ module URBANopt
 
         new_feature_reports = []
         reopt_inputs.each_with_index do |reopt_input, idx|
-          begin
+          begin            
             if reopt_output_files[idx].nil?
               reopt_output_files[idx] = scenario_report.directory_name
             end
             reopt_output = api.reopt_request(reopt_input, reopt_output_files[idx])
-            new_feature_report = feature_adapter.update_feature_report(scenario_report.feature_reports[idx], reopt_output)
+            new_feature_report = feature_adapter.update_feature_report(scenario_report.feature_reports[idx], reopt_output, feature_report_timeseries_csv_paths[idx])
             new_feature_reports.push(new_feature_report)
           rescue
             p "Could not optimize Feature Report #{scenario_report.feature_reports[idx].name} #{scenario_report.feature_reports[idx].id}"
           end
         end
 
-        return scenario_adapter.update_scenario_report_from_feature_reports(scenario_report, new_feature_reports,timeseries_csv_paths)
+        return scenario_adapter.update_scenario_report_from_feature_reports(scenario_report, new_feature_reports, scenario_report_timeseries_csv_path)
       end
     end
   end

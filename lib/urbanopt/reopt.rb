@@ -39,3 +39,4 @@ require 'urbanopt/reopt/feature_report_adapter'
 require 'urbanopt/reopt/scenario_report_adapter'
 require 'urbanopt/reopt/reopt_runner'
 require 'urbanopt/reopt/version'
+

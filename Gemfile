@@ -5,6 +5,8 @@ gemspec
 
 allow_local = false
 
+gem 'rdoc'
+
 if allow_local && File.exists?('../OpenStudio-extension-gem')
   # gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'develop'
   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'

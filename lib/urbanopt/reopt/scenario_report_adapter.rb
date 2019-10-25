@@ -117,12 +117,11 @@ module URBANopt
 
         #Update load profile info
         begin
-
           col_num = scenario_report.timeseries_csv.column_names.index("Electricity:Facility")
           t = CSV.read(scenario_report.timeseries_csv.path,headers: true,converters: :numeric)
-          energy_timeseries_kwh = t.by_col[col_num]
+          energy_timeseries_kwh = t.by_col[col_num].map {|e| e ? e : 0}
 
-          if scenario_report.timesteps_per_hour or 1 > 1
+          if (scenario_report.timesteps_per_hour or 1) > 1
              energy_timeseries_kwh = energy_timeseries_kwh.each_slice(scenario_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.length.to_f)}
           end
 
@@ -130,7 +129,7 @@ module URBANopt
             energy_timeseries_kwh = energy_timeseries_kwh + [0]*((scenario_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
             p "Assuming load profile for Scenario Report #{scenario_report.name} #{scenario_report.id} starts January 1 - filling in rest with zeros"
           end
-          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map {|e| e ? e : 0}
+          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
         rescue
           raise "Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}"
         end
@@ -238,6 +237,7 @@ module URBANopt
         else
           scenario_report.timeseries_csv.path = timeseries_csv_path
         end
+
         File.write(scenario_report.timeseries_csv.path, mod_data.map(&:to_csv).join)
 
         return scenario_report
@@ -251,7 +251,7 @@ module URBANopt
       # +timeseries_csv_path+ - _String_ - Optional. The path to a file at which new timeseries data will be written. If not provided, a copy of the current timeseries csv will be made with the extention '_copy'.
       # [return:] _ScenarioReport_ Returns an updated ScenarioReport
       ##
-      def update_scenario_report_from_feature_reports(scenario_report, feature_reports, timeseries_csv_path)
+      def update_scenario_report_from_feature_reports(scenario_report, feature_reports, timeseries_csv_path=nil)
 
         scenario_report.feature_reports = feature_reports
 
@@ -303,11 +303,12 @@ module URBANopt
           }
         end
 
-        if timeseries_csv_paths.nil?
+        if timeseries_csv_path.nil?
           scenario_report.timeseries_csv.path = scenario_report.timeseries_csv.path.sub! '.csv',"_copy.csv"
         else
           scenario_report.timeseries_csv.path = timeseries_csv_path
         end
+        
         File.write(scenario_report.timeseries_csv.path, $old_timeseries_data.map(&:to_csv).join)
 
         scenario_report.location.latitude = $lats.reduce(:+) / $lats.size.to_f

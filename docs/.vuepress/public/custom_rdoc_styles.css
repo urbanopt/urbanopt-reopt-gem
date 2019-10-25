@@ -1,0 +1,74 @@
+:link, :visited {
+    color: #3eaf7c;
+}
+:link:hover  {
+    border-bottom: 1px solid #3eaf7c;
+}
+body {
+    background-color: #fff;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif !important;
+}
+
+main h1, main h2, main h3, main h4, main h5, main h6 {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+}
+main h1 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1rem;
+    font-size: 2.2rem;
+}
+
+#home-section, #search-section, #fileindex-section {
+    display: none !important;
+}
+.nav-section h3 {
+    color: #999;
+    font-size: 1.1em;
+    font-weight: 700;
+    background-color: #fff;
+    text-align: left;
+}
+nav .nav-section {
+    border-top: none;
+    font-size: unset;
+}
+
+.link-list a {
+    display: inline-block;
+    padding: .35rem 1rem .35rem 2rem;
+    font-weight: 400;
+    color: #2c3e50;
+    border-left: .25rem solid transparent;
+    padding: .35rem 1rem .35rem 1.25rem;
+    line-height: 1.4;
+    width: 100%;
+    box-sizing: border-box;
+}
+.link-list a:hover, .link-list :link:hover {
+    color: #3eaf7c;
+    border-bottom: none;
+}
+
+/* Hide the URBANopt::Scenario:: prefix common to most links */
+ul.link-list li {
+    margin: .35rem 1rem .35rem 1.25rem;
+    overflow: hidden;
+}
+.link-list a[href^="./URBANopt/Scenario/"] {
+  margin-left: -145px;
+}
+.link-list a {
+  padding: 0;
+  margin: -4px;
+}
+
+/* Remove some modules that aren't commented */
+.link-list a[href="./URBANopt.html"],
+.link-list a[href="./URBANopt/Scenario.html"],
+.link-list a[href="./URBANopt/Scenario/DefaultReports.html"] {
+    display: none;
+}

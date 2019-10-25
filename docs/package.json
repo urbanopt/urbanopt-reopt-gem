@@ -1,0 +1,22 @@
+{
+  "name": "urbanopt-reopt-gem-docs",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build",
+    "deploy": "gh-pages -d .vuepress/dist"
+  },
+  "author": "NREL",
+  "dependencies": {
+    "highlight.js": "^9.15.6",
+    "json-schema-ref-parser": "^6.1.0",
+    "json-schema-view-js": "git+https://git@github.com/bgschiller/json-schema-view-js.git",
+    "vuepress": "^0.14.10",
+    "webpack-dev-middleware": "^3.6.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
+}
