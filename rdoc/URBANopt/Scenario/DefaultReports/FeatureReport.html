@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class URBANopt::Scenario::DefaultReports::FeatureReport - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/navigation.js" defer></script>
+<script src="../../../js/search.js" defer></script>
+<script src="../../../js/search_index.js" defer></script>
+<script src="../../../js/searcher.js" defer></script>
+<script src="../../../js/darkfish.js" defer></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+<link href="../../../custom_rdoc_styles.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../../../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-from_simulation_dir">::from_simulation_dir</a>
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-defaults">#defaults</a>
+    
+    <li ><a href="#method-i-to_hash">#to_hash</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-URBANopt::Scenario::DefaultReports::FeatureReport">
+  <h1 id="class-URBANopt::Scenario::DefaultReports::FeatureReport" class="class">
+    class URBANopt::Scenario::DefaultReports::FeatureReport
+  </h1>
+
+  <section class="description">
+    
+<p><a href="FeatureReport.html"><code>FeatureReport</code></a> generates two types of reports in a simulation_dir. The default_feature_reports measure writes a &#39;default_feature_reports.json&#39; file containing information on all features in the simulation. It also writes a &#39;default_feature_reports.csv&#39; containing timeseries data for all features in the simulation. The DefaultPostProcessor reads these feature reports and aggregates them to create a <a href="ScenarioReport.html"><code>ScenarioReport</code></a>.</p>
+
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-from_simulation_dir" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">from_simulation_dir</span><span
+            class="method-args">(simulation_dir)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return an Array of FeatureReports for the simulation_dir as multiple Features can be simulated together in a single simulation directory.</p>
+<ul><li>
+<p>Ensure that <code>simulation_dir</code> include only one feature.</p>
+</li><li>
+<p>Read in the reports written by measure if they exist.</p>
+</li></ul>
+
+<p>[parameters:] <code>simulation_dir</code> - <em>SimulationDirOSW</em> - A simulation directory from an OSW simulation, must include &#39;default_feature_reports&#39; measure.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="from_simulation_dir-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/scenario/default_reports/feature_report.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">from_simulation_dir</span>(<span class="ruby-identifier">simulation_dir</span>)
+  <span class="ruby-identifier">result</span> = []
+
+  <span class="ruby-comment"># simulation dir can include only one feature</span>
+  <span class="ruby-identifier">features</span> = <span class="ruby-identifier">simulation_dir</span>.<span class="ruby-identifier">features</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">features</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;FeatureReport cannot support multiple features per OSW&#39;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># read in the reports written by measure</span>
+  <span class="ruby-identifier">default_feature_reports_json</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">default_feature_reports_csv</span> = <span class="ruby-keyword">nil</span>
+
+  <span class="ruby-identifier">simulation_status</span> = <span class="ruby-identifier">simulation_dir</span>.<span class="ruby-identifier">simulation_status</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">simulation_status</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Complete&#39;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">simulation_status</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Failed&#39;</span>
+
+    <span class="ruby-comment"># read in the scenario reports JSON and CSV</span>
+    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">simulation_dir</span>.<span class="ruby-identifier">run_dir</span>, <span class="ruby-string">&#39;*_default_feature_reports/&#39;</span>)).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">scenario_reports_json_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-string">&#39;default_feature_reports.json&#39;</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">scenario_reports_json_path</span>)
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">scenario_reports_json_path</span>, <span class="ruby-string">&#39;r&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">default_feature_reports_json</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>, <span class="ruby-value">symbolize_names:</span> <span class="ruby-keyword">true</span>)
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">scenario_reports_csv_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-string">&#39;default_feature_reports.csv&#39;</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">scenario_reports_csv_path</span>)
+        <span class="ruby-identifier">default_feature_reports_csv</span> = <span class="ruby-identifier">scenario_reports_csv_path</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># if we loaded the json</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">default_feature_reports_json</span> <span class="ruby-comment"># &amp;&amp; default_feature_reports_json[:feature_reports]</span>
+    <span class="ruby-comment"># default_feature_reports_json.each do |feature_report|</span>
+    <span class="ruby-comment"># result &lt;&lt; FeatureReport.new(feature_report)</span>
+    <span class="ruby-comment"># end</span>
+    <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">FeatureReport</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">default_feature_reports_json</span>) <span class="ruby-comment"># should we keep it as an array !? or each each report can only include 1 feature</span>
+
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># we did not find a report</span>
+    <span class="ruby-identifier">features</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">feature</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">hash</span> = {}
+      <span class="ruby-identifier">hash</span>[<span class="ruby-value">:id</span>] = <span class="ruby-identifier">feature</span>.<span class="ruby-identifier">id</span>
+      <span class="ruby-identifier">hash</span>[<span class="ruby-value">:name</span>] = <span class="ruby-identifier">feature</span>.<span class="ruby-identifier">name</span>
+      <span class="ruby-identifier">hash</span>[<span class="ruby-value">:directory_name</span>] = <span class="ruby-identifier">simulation_dir</span>.<span class="ruby-identifier">run_dir</span>
+      <span class="ruby-identifier">hash</span>[<span class="ruby-value">:simulation_status</span>] = <span class="ruby-identifier">simulation_status</span>
+      <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">FeatureReport</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hash</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># validate feature_report json against schema</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@extension</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">@@schema</span>[<span class="ruby-value">:definitions</span>][<span class="ruby-value">:FeatureReport</span>][<span class="ruby-value">:properties</span>], <span class="ruby-identifier">default_feature_reports_json</span>).<span class="ruby-identifier">any?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;default_feature_report_json properties does not match schema: #{@@extension.validate(@@schema[:definitions][:FeatureReport][:properties], default_feature_reports_json)}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(hash = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Each <a href="FeatureReport.html"><code>FeatureReport</code></a> object corresponds to a single Feature.</p>
+
+<p>[parameters:] <code>hash</code> - <em>Hash</em> - A hash which may contain a deserialized feature_report.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/scenario/default_reports/feature_report.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">hash</span> = {})
+  <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">delete_if</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">nil?</span> }
+  <span class="ruby-identifier">hash</span> = <span class="ruby-identifier">defaults</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">hash</span>)
+
+  <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:id</span>]
+  <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:name</span>]
+  <span class="ruby-ivar">@directory_name</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:directory_name</span>]
+  <span class="ruby-ivar">@feature_type</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:feature_type</span>]
+  <span class="ruby-ivar">@timesteps_per_hour</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:timesteps_per_hour</span>]
+  <span class="ruby-ivar">@simulation_status</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:simulation_status</span>]
+  <span class="ruby-ivar">@timeseries_csv</span> = <span class="ruby-constant">TimeseriesCSV</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hash</span>[<span class="ruby-value">:timeseries_csv</span>])
+  <span class="ruby-ivar">@timeseries_csv</span>.<span class="ruby-identifier">run_dir_name</span>(<span class="ruby-ivar">@directory_name</span>)
+  <span class="ruby-ivar">@location</span> = <span class="ruby-constant">Location</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hash</span>[<span class="ruby-value">:location</span>])
+  <span class="ruby-ivar">@program</span> = <span class="ruby-constant">Program</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hash</span>[<span class="ruby-value">:program</span>])
+  <span class="ruby-comment"># design_parameters to add later</span>
+  <span class="ruby-ivar">@construction_costs</span> = []
+  <span class="ruby-identifier">hash</span>[<span class="ruby-value">:construction_costs</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cc</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@constructiion_costs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ConstructionCost</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">cc</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@reporting_periods</span> = []
+  <span class="ruby-identifier">hash</span>[<span class="ruby-value">:reporting_periods</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">rp</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@reporting_periods</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ReportingPeriod</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">rp</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># initialize class variable @@extension only once</span>
+  <span class="ruby-identifier">@@extension</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Extension</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">@@schema</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">@@extension</span>.<span class="ruby-identifier">schema</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-defaults" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">defaults</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Assign default values if values does not exist.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="defaults-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/scenario/default_reports/feature_report.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">defaults</span>
+  <span class="ruby-identifier">hash</span> = {}
+  <span class="ruby-identifier">hash</span>[<span class="ruby-value">:timeseries_csv</span>] = {}
+  <span class="ruby-identifier">hash</span>[<span class="ruby-value">:location</span>] = {}
+  <span class="ruby-identifier">hash</span>[<span class="ruby-value">:program</span>] = {}
+  <span class="ruby-identifier">hash</span>[<span class="ruby-value">:construction_costs</span>] = []
+  <span class="ruby-identifier">hash</span>[<span class="ruby-value">:reporting_periods</span>] = []
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_hash</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Convert to a Hash equivalent for JSON serialization</p>
+<ul><li>
+<p>Exclude attributes with nil values.</p>
+</li><li>
+<p>Validate feature_report hash properties against schema.</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="to_hash-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/scenario/default_reports/feature_report.rb, line 177</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_hash</span>
+  <span class="ruby-identifier">result</span> = {}
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:id</span>] = <span class="ruby-ivar">@id</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@id</span>
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:name</span>] = <span class="ruby-ivar">@name</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@name</span>
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:directory_name</span>] = <span class="ruby-ivar">@directory_name</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@directory_name</span>
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:feature_type</span>] = <span class="ruby-ivar">@feature_type</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@feature_type</span>
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:timesteps_per_hour</span>] = <span class="ruby-ivar">@timesteps_per_hour</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@timesteps_per_hour</span>
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:simulation_status</span>] = <span class="ruby-ivar">@simulation_status</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@simulation_status</span>
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:timeseries_csv</span>] = <span class="ruby-ivar">@timeseries_csv</span>.<span class="ruby-identifier">to_hash</span>
+
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:location</span>] = <span class="ruby-ivar">@location</span>.<span class="ruby-identifier">to_hash</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@location</span>
+
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:program</span>] = <span class="ruby-ivar">@program</span>.<span class="ruby-identifier">to_hash</span>
+
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:construction_costs</span>] = []
+  <span class="ruby-ivar">@construction_costs</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">cc</span><span class="ruby-operator">|</span> <span class="ruby-identifier">result</span>[<span class="ruby-value">:construction_costs</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cc</span>.<span class="ruby-identifier">to_hash</span> }
+
+  <span class="ruby-identifier">result</span>[<span class="ruby-value">:reporting_periods</span>] = []
+  <span class="ruby-ivar">@reporting_periods</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">rp</span><span class="ruby-operator">|</span> <span class="ruby-identifier">result</span>[<span class="ruby-value">:reporting_periods</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">rp</span>.<span class="ruby-identifier">to_hash</span> }
+
+  <span class="ruby-comment"># validate feature_report properties against schema</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@extension</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">@@schema</span>[<span class="ruby-value">:definitions</span>][<span class="ruby-value">:FeatureReport</span>][<span class="ruby-value">:properties</span>], <span class="ruby-identifier">result</span>).<span class="ruby-identifier">any?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;feature_report properties does not match schema: #{@@extension.validate(@@schema[:definitions][:FeatureReport][:properties], result)}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
