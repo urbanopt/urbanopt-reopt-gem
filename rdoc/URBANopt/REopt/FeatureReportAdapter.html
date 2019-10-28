@@ -77,8 +77,6 @@
     
     <li ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-modrow">#modrow</a>
-    
     <li ><a href="#method-i-reopt_json_from_feature_report">#reopt_json_from_feature_report</a>
     
     <li ><a href="#method-i-update_feature_report">#update_feature_report</a>
@@ -155,41 +153,6 @@
        <header>
          <h3>Public Instance Methods</h3>
        </header>
-
-    
-      <div id="method-i-modrow" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">modrow</span><span
-            class="method-args">(x,i)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="modrow-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 182</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
-  <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>]
-  <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>]
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
 
     
       <div id="method-i-reopt_json_from_feature_report" class="method-detail ">
@@ -355,7 +318,7 @@
   <span class="ruby-identifier">$utility_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>]
   <span class="ruby-identifier">$utility_to_load_col</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
 
-  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)  <span class="ruby-comment"># :nodoc:</span>
     <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>]
     <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>]
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
