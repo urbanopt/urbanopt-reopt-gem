@@ -56,8 +56,6 @@ nav .nav-section {
     border-bottom: none;
 }
 
-#reopt-schema {
-    color: red;
-    width: none;
-    max-width: 1200px
+.content {
+    max-width: none;
 }
