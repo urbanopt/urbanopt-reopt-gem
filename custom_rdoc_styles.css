@@ -68,7 +68,6 @@ ul.link-list li {
 
 /* Remove some modules that aren't commented */
 .link-list a[href="./URBANopt.html"],
-.link-list a[href="./URBANopt/Reopt.html"],
 .link-list a[href="./URBANopt/Scenario.html"],
 .link-list a[href="./URBANopt/Scenario/DefaultReports.html"] {
     display: none;

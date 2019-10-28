@@ -117,7 +117,7 @@
 
         <div class="method-description">
         
-        <p><em>Array</em> List of paths to .json files containing /REopt Lite assumptions for feature reports ordered by feature order. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1">developer.nrel.gov/docs/energy-optimization/reopt-v1</a> for more info on REopt Lite input formatting requirements.</p>
+        <p>Path to json files of reopt assumptions for feature reports ordered by feature order</p>
         
         </div>
       </div>
@@ -145,9 +145,9 @@
 
         <div class="method-description">
           
-          <p><a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> is a <a href="ScenarioCSV.html"><code>ScenarioCSV</code></a> which assigns a Simulation Mapper to each Feature in a FeatureFile using a simple CSV format. The CSV file has three columns 1) feature_id, 2) feature_name, and 3) mapper_class_name. There is one row for each Feature. <a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> also maps REopt Lite assumptions to the scenario for an optimization at the aggregated level, and to each feature from the CS for more localized optimizations. REopt Lite assumptions must be formatted as valid JSON&#39;s and stored in a common directory.</p>
+          <p><a href="ScenarioCSV.html"><code>ScenarioCSV</code></a> is a <a href="ScenarioBase.html"><code>ScenarioBase</code></a> which assigns a Simulation Mapper to each Feature in a FeatureFile using a simple CSV format. The CSV file has three columns 1) feature_id, 2) feature_name, and 3) mapper_class_name. There is one row for each Feature.</p>
 
-<p>[parameters:] <code>name</code> - <em>String</em> - Human readable scenario name.<br> <code>root_dir</code> - <em>String</em> - Root directory for the scenario, contains Gemfile describing dependencies.<br> <code>run_dir</code> - <em>String</em> - Directory for simulation of this scenario, deleting run directory clears the scenario.<br> <code>feature_file</code> - <em>URBANopt::Core::FeatureFile</em> - FeatureFile containing features to simulate.<br> <code>mapper_files_dir</code> - <em>String</em> - Directory containing all mapper class files containing MapperBase definitions.<br> <code>csv_file</code> - <em>String</em> - Path to CSV file assigning a MapperBase class to each feature in feature_file.<br> <code>num_header_rows</code> - <em>Strng</em> - Number of header rows to skip in CSV file.<br> <code>reopt_files_dir</code> - <em>Strng</em> - Optional. Path to folder containing default REopt Lite assumptions .json files.<br> <code>scenario_reopt_assumptions_file_name</code> - <em>Strng</em> - Optional. Name of a .json file in the reopt_files_dir location to use in assessing the <a href="../Scenario.html"><code>Scenario</code></a> Report in REopt Lite at the aggregated level.</p>
+<p>[parameters:] <code>name</code> - <em>String</em> - Human readable scenario name.<br> <code>root_dir</code> - <em>String</em> - Root directory for the scenario, contains Gemfile describing dependencies.<br> <code>run_dir</code> - <em>String</em> - Directory for simulation of this scenario, deleting run directory clears the scenario.<br> <code>feature_file</code> - <em>URBANopt::Core::FeatureFile</em> - FeatureFile containing features to simulate.<br> <code>mapper_files_dir</code> - <em>String</em> - Directory containing all mapper class files containing MapperBase definitions.<br> <code>csv_file</code> - <em>String</em> - Path to CSV file assigning a MapperBase class to each feature in feature_file.<br> <code>num_header_rows</code> - <em>Strng</em> - Number of header rows to skip in CSV file.<br> <code>reopt_files_dir</code> - <em>Strng</em> - Path to folder containing default <a href="../REopt.html"><code>REopt</code></a> Lite assumptions JSON&#39;s.<br> <code>scenario_reopt_assumptions_file_name</code> - <em>Strng</em> - Name of .json file in the reopt_files_dir location to use in assessing the aggregated <a href="../Scenario.html"><code>Scenario</code></a> Report in <a href="../REopt.html"><code>REopt</code></a> Lite.</p>
           
           
             <div class="method-calls-super">
@@ -158,7 +158,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb, line 58</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_scenario_csv.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">root_dir</span>, <span class="ruby-identifier">run_dir</span>, <span class="ruby-identifier">feature_file</span>, <span class="ruby-identifier">mapper_files_dir</span>, <span class="ruby-identifier">csv_file</span>, <span class="ruby-identifier">num_header_rows</span>, <span class="ruby-identifier">reopt_files_dir</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">scenario_reopt_assumptions_file_name</span>=<span class="ruby-keyword">nil</span>)
 
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">root_dir</span>, <span class="ruby-identifier">run_dir</span>, <span class="ruby-identifier">feature_file</span>, <span class="ruby-identifier">mapper_files_dir</span>, <span class="ruby-identifier">csv_file</span>, <span class="ruby-identifier">num_header_rows</span>)
@@ -208,7 +208,7 @@
 
           
           <div class="method-source-code" id="simulation_dirs-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb, line 80</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_scenario_csv.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">simulation_dirs</span>
   <span class="ruby-comment"># DLM: TODO use HeaderConverters from CSV module</span>
   <span class="ruby-identifier">rows_skipped</span> = <span class="ruby-value">0</span>

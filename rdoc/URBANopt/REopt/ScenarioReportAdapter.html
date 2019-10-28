@@ -135,12 +135,14 @@
         <div class="method-description">
           
           <p><a href="ScenarioReportAdapter.html"><code>ScenarioReportAdapter</code></a> can convert a ScenarioReport into a <a href="../REopt.html"><code>REopt</code></a> Lite posts or updates a ScenarioReport and its FeatureReports from <a href="../REopt.html"><code>REopt</code></a> Lite response(s)</p>
+
+<p>[parameters:]</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 46</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
 
 <span class="ruby-keyword">end</span></pre>
@@ -181,8 +183,8 @@
 
           
           <div class="method-source-code" id="modrow-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 235</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) 
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 220</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
   <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>]
   <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>]
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
@@ -210,21 +212,13 @@
 
         <div class="method-description">
           
-          <p>Convert a ScenarioReport into a <a href="../REopt.html"><code>REopt</code></a> Lite post [<em>parameters</em>]</p>
-
-<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting the reopt_assumptions_hash, if provided, to a <a href="../REopt.html"><code>REopt</code></a> Lite post. Otherwise, if the reopt_assumptions_hash is nil a default post will be updated from this ScenarioReport and submitted to the <a href="../REopt.html"><code>REopt</code></a> Lite API.</p>
-
-<p><code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A hash formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.</p>
-
-<p>[<em>return</em>]</p>
-
-<p><em>Hash</em> Returns hash formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API</p>
+          <p>Convert a ScenarioReport into a <a href="../REopt.html"><code>REopt</code></a> Lite post [parameters:] <code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting the reopt_assumptions_hash, if provided, to a <a href="../REopt.html"><code>REopt</code></a> Lite post. Otherwise, if the reopt_assumptions_hash is nil a default post will be updated from this ScenarioReport and submitted to the <a href="../REopt.html"><code>REopt</code></a> Lite API. <code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A hash formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. [return:] <em>Hash</em> Returns hash formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API</p>
           
           
 
           
           <div class="method-source-code" id="reopt_json_from_scenario_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_json_from_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_json</span>=<span class="ruby-keyword">nil</span>)
   
   <span class="ruby-identifier">name</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-string">&#39; &#39;</span>,<span class="ruby-string">&#39;&#39;</span>
@@ -329,21 +323,13 @@
 
         <div class="method-description">
           
-          <p>Converts a FeatureReport list from a ScenarioReport into an array of <a href="../REopt.html"><code>REopt</code></a> Lite posts [<em>parameters</em>]</p>
-
-<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting FeatureReports and respecitive reopt_assumptions_hashes, if provided, to a <a href="../REopt.html"><code>REopt</code></a> Lite post. If no reopt_assumptions_hashes are provided default posts will be updated from these FeatureReports and submitted to the <a href="../REopt.html"><code>REopt</code></a> Lite API.</p>
-
-<p><code>reopt_assumptions_hashes</code> - <em>Array</em> - Optional. An array of hashes formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.</p>
-
-<p>[<em>return</em>]</p>
-
-<p><em>Array</em> Returns an array of hashes formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.</p>
+          <p>Converts a FeatureReport list from a ScenarioReport into an array of <a href="../REopt.html"><code>REopt</code></a> Lite posts [parameters:] <code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting FeatureReports and respecitive reopt_assumptions_hashes, if provided, to a <a href="../REopt.html"><code>REopt</code></a> Lite post. If no reopt_assumptions_hashes are provided default posts will be updated from these FeatureReports and submitted to the <a href="../REopt.html"><code>REopt</code></a> Lite API. <code>reopt_assumptions_hashes</code> - <em>Array</em> - Optional. An array of hashes formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports. [return:] <em>Array</em> Returns an array of hashes formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.</p>
           
           
 
           
           <div class="method-source-code" id="reopt_jsons_from_scenario_feature_reports-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 157</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 148</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_jsons_from_scenario_feature_reports</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_hashes</span> = [])
   <span class="ruby-identifier">results</span> = []
   <span class="ruby-identifier">adapter</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReportAdapter</span>.<span class="ruby-identifier">new</span>
@@ -378,23 +364,13 @@
 
         <div class="method-description">
           
-          <p>Updates a ScenarioReport from a <a href="../REopt.html"><code>REopt</code></a> Lite response [<em>parameters</em>]</p>
-
-<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to update from a <a href="../REopt.html"><code>REopt</code></a> Lite response.</p>
-
-<p><code>reopt_output</code> - <em>Hash</em> - A hash response from the <a href="../REopt.html"><code>REopt</code></a> Lite API.</p>
-
-<p><code>timeseries_csv_path</code> - <em>String</em> - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the <a href="../REopt.html"><code>REopt</code></a> Lite optimization task.</p>
-
-<p>[<em>return</em>]</p>
-
-<p><em>ScenarioReport</em> Returns an updated ScenarioReport</p>
+          <p>Updates a ScenarioReport from a <a href="../REopt.html"><code>REopt</code></a> Lite response [parameters:] <code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to update from a <a href="../REopt.html"><code>REopt</code></a> Lite response. <code>reopt_output</code> - <em>Hash</em> - A hash response from the <a href="../REopt.html"><code>REopt</code></a> Lite API. <code>timeseries_csv_path</code> - <em>String</em> - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the <a href="../REopt.html"><code>REopt</code></a> Lite optimization task. [return:] <em>ScenarioReport</em> Returns an updated ScenarioReport</p>
           
           
 
           
           <div class="method-source-code" id="update_scenario_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 183</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 168</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_output</span>, <span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;status&#39;</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;optimal&#39;</span>
@@ -447,7 +423,7 @@
   <span class="ruby-identifier">$utility_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>]
   <span class="ruby-identifier">$utility_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
   
-  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) 
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
     <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>]
     <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>]
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
@@ -495,23 +471,13 @@
 
         <div class="method-description">
           
-          <p>Updates a ScenarioReport from a set of FeatureReports [<em>parameters</em>]</p>
-
-<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to update from a set of FeatureReports</p>
-
-<p><code>feature_reports</code> - <em>Array</em> - A list of FeatureReports.</p>
-
-<p><code>timeseries_csv_path</code> - <em>String</em> - Optional. The path to a file at which new timeseries data will be written. If not provided, a copy of the current timeseries csv will be made with the extention &#39;_copy&#39;.</p>
-
-<p>[<em>return</em>]</p>
-
-<p><em>ScenarioReport</em> Returns an updated ScenarioReport</p>
+          <p>Updates a ScenarioReport from a set of FeatureReports [parameters:] <code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to update from a set of FeatureReports <code>feature_reports</code> - <em>Array</em> - A list of FeatureReports. <code>timeseries_csv_path</code> - <em>String</em> - Optional. The path to a file at which new timeseries data will be written. If not provided, a copy of the current timeseries csv will be made with the extention &#39;<em>copy&#39;. [return:] </em>ScenarioReport_ Returns an updated ScenarioReport</p>
           
           
 
           
           <div class="method-source-code" id="update_scenario_report_from_feature_reports-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 275</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 254</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_scenario_report_from_feature_reports</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">feature_reports</span>, <span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
 
   <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">feature_reports</span> = <span class="ruby-identifier">feature_reports</span>
@@ -607,7 +573,7 @@
 
           
           <div class="method-source-code" id="zerorow-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 283</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 262</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">zerorow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
   <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span>] = <span class="ruby-value">0</span>
   <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_utility_to_load_col</span>] = <span class="ruby-value">0</span>

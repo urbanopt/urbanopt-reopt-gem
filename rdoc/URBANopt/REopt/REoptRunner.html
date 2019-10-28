@@ -130,19 +130,15 @@
 
         <div class="method-description">
           
-          <p><a href="REoptRunner.html"><code>REoptRunner</code></a> updates a ScenarioReport or FeatureReport based on REopt Lite optimization response.</p>
+          <p><a href="REoptRunner.html"><code>REoptRunner</code></a> updates a ScenarioReport or FeatureReport based on <a href="../REopt.html"><code>REopt</code></a> Lite optimization response.</p>
 
-<p>[<em>parameters</em>]</p>
-
-<p><code>use_localhost</code> - <em>Bool</em> - If this is true, requests will be sent to a version of the REopt Lite API running on localhost. Default is false, such that the production version of <a href="../REopt.html"><code>REopt</code></a> Lite is accessed.</p>
-
-<p><code>nreldeveloperkey</code> - <em>String</em> - API used to access the REopt Lite APi. Required only if localhost is false. Obtain from <a href="https://developer.nrel.gov/signup">developer.nrel.gov/signup</a>/</p>
+<p>[parameters:] <code>use_localhost</code> - <em>Bool</em> - If this is true, requests will be sent to a version of the <a href="../REopt.html"><code>REopt</code></a> Lite API running on localhost. Default is false, such that the production version of <a href="../REopt.html"><code>REopt</code></a> Lite is accessed. <code>nreldeveloperkey</code> - <em>String</em> - API used to access the <a href="../REopt.html"><code>REopt</code></a> Lite APi. Required only if localhost is false. Obtain from <a href="https://developer.nrel.gov/signup">developer.nrel.gov/signup</a>/</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">developernrelgovkey</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">localhost</span>=<span class="ruby-keyword">false</span>)
   <span class="ruby-ivar">@developernrelgovkey</span> = <span class="ruby-identifier">developernrelgovkey</span>
   <span class="ruby-ivar">@localhost</span> = <span class="ruby-identifier">localhost</span>
@@ -179,27 +175,15 @@
 
         <div class="method-description">
           
-          <p>Updates a FeatureReport based on an optional set of REopt Lite optimization assumptions.</p>
+          <p>Updates a FeatureReport based on an optional set of <a href="../REopt.html"><code>REopt</code></a> Lite optimization assumptions.</p>
 
-<p>[<em>parameters</em>]</p>
-
-<p><code>feature_report</code> - <em>FeatureReport</em> - FeatureReport which will be used in creating and then updated by a REopt Lite opimization response.</p>
-
-<p><code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A REopt Lite formatted hash containing default parameters (i.e. utility rate, escalation rate) which will be updated by the FeatureReport (i.e. location, roof availability)</p>
-
-<p><code>reopt_output_file</code> - <em>String</em> - Optional. Path to a file at which REpopt Lite responses will be saved.</p>
-
-<p><code>timeseries_csv_path</code> - <em>String</em> - Optional. Path to a file at which the new timeseries CSV for the FeatureReport will be saved.</p>
-
-<p>[<em>return</em>]</p>
-
-<p><em>FeatureReport</em> Returns an updated FeatureReport</p>
+<p>[parameters:] <code>feature_report</code> - <em>FeatureReport</em> - FeatureReport which will be used in creating and then updated by a <a href="../REopt.html"><code>REopt</code></a> Lite opimization response. <code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A <a href="../REopt.html"><code>REopt</code></a> Lite formatted hash containing default parameters (i.e. utility rate, escalation rate) which will be updated by the FeatureReport (i.e. location, roof availability) <code>reopt_output_file</code> - <em>String</em> - Optional. Path to a file at which REpopt Lite responses will be saved. <code>timeseries_csv_path</code> - <em>String</em> - Optional. Path to a file at which the new timeseries CSV for the FeatureReport will be saved. [return:] <em>FeatureReport</em> Returns an updated FeatureReport</p>
           
           
 
           
           <div class="method-source-code" id="run_feature_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 77</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 68</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_assumptions_hash</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">reopt_output_file</span>=<span class="ruby-keyword">nil</span>,<span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">api</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REoptLiteAPI</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@developernrelgovkey</span>, <span class="ruby-ivar">@localhost</span>)
   <span class="ruby-identifier">adapter</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReportAdapter</span>.<span class="ruby-identifier">new</span>
@@ -234,27 +218,15 @@
 
         <div class="method-description">
           
-          <p>Updates a set of FeatureReports based on an optional set of REopt Lite optimization assumptions.</p>
+          <p>Updates a set of FeatureReports based on an optional set of <a href="../REopt.html"><code>REopt</code></a> Lite optimization assumptions.</p>
 
-<p>[<em>parameters</em>]</p>
-
-<p><code>feature_reports</code> - <em>Array</em> - An array of FeatureReports which will each be used to create (and are subsquently updated by) a REopt Lite opimization response.</p>
-
-<p><code>reopt_assumptions_hashes</code> - <em>Array</em> - Optional. An array of REopt Lite formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the feature_reports array.</p>
-
-<p><code>reopt_output_files</code> - <em>Array</em> - Optional. A array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the feature_reports array.</p>
-
-<p><code>timeseries_csv_path</code> - <em>Array</em> - Optional. A array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the feature_reports array.</p>
-
-<p>[<em>return</em>]</p>
-
-<p><em>Array</em> Returns an array of updated FeatureReports</p>
+<p>[parameters:] <code>feature_reports</code> - <em>Array</em> - An array of FeatureReports which will each be used to create (and are subsquently updated by) a <a href="../REopt.html"><code>REopt</code></a> Lite opimization response. <code>reopt_assumptions_hashes</code> - <em>Array</em> - Optional. An array of <a href="../REopt.html"><code>REopt</code></a> Lite formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the feature_reports array. <code>reopt_output_files</code> - <em>Array</em> - Optional. A array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the feature_reports array. <code>timeseries_csv_path</code> - <em>Array</em> - Optional. A array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the feature_reports array. [return:] <em>Array</em> Returns an array of updated FeatureReports</p>
           
           
 
           
           <div class="method-source-code" id="run_feature_reports-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 135</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 110</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_feature_reports</span>(<span class="ruby-identifier">feature_reports</span>, <span class="ruby-identifier">reopt_assumptions_hashes</span>=[], <span class="ruby-identifier">reopt_output_files</span>=[],<span class="ruby-identifier">timeseries_csv_paths</span>=[])
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_assumptions_hashes</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-identifier">reopt_assumptions_hashes</span> = []
@@ -312,25 +284,13 @@
           
           <p>Updates a ScenarioReport based on an optional set of <a href="../REopt.html"><code>REopt</code></a> Lite optimization assumptions.</p>
 
-<p>[<em>parameters</em>]</p>
-
-<p><code>feature_report</code> - <em>ScenarioReport</em> - ScenarioReport which will be used in creating and then updated by a <a href="../REopt.html"><code>REopt</code></a> Lite opimization response.</p>
-
-<p><code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A <a href="../REopt.html"><code>REopt</code></a> Lite formatted hash containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability)</p>
-
-<p><code>reopt_output_file</code> - <em>String</em> - Optional. Path to a file at which REpopt Lite responses will be saved.</p>
-
-<p><code>timeseries_csv_path</code> - <em>String</em> - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved.</p>
-
-<p>[<em>return</em>]</p>
-
-<p><em>ScenarioReport</em> Returns an updated ScenarioReport</p>
+<p>[parameters:] <code>feature_report</code> - <em>ScenarioReport</em> - ScenarioReport which will be used in creating and then updated by a <a href="../REopt.html"><code>REopt</code></a> Lite opimization response. <code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A <a href="../REopt.html"><code>REopt</code></a> Lite formatted hash containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability) <code>reopt_output_file</code> - <em>String</em> - Optional. Path to a file at which REpopt Lite responses will be saved. <code>timeseries_csv_path</code> - <em>String</em> - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved. [return:] <em>ScenarioReport</em> Returns an updated ScenarioReport</p>
           
           
 
           
           <div class="method-source-code" id="run_scenario_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 106</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 89</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_hash</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">reopt_output_file</span>=<span class="ruby-keyword">nil</span>,<span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">api</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REoptLiteAPI</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@developernrelgovkey</span>, <span class="ruby-ivar">@localhost</span>)
   <span class="ruby-identifier">adapter</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">ScenarioReportAdapter</span>.<span class="ruby-identifier">new</span>
@@ -366,27 +326,15 @@
 
         <div class="method-description">
           
-          <p>Updates a ScenarioReport based on an optional set of REopt Lite optimization assumptions.</p>
+          <p>Updates a ScenarioReport based on an optional set of <a href="../REopt.html"><code>REopt</code></a> Lite optimization assumptions.</p>
 
-<p>[<em>parameters</em>]</p>
-
-<p><code>feature_reports</code> - <em>Array</em> - A ScenarioReport which will each be used to create (and is subsquently updated by) a REopt Lite opimization response.</p>
-
-<p><code>reopt_assumptions_hashes</code> - <em>Array</em> - Optional. An array of REopt Lite formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the array in ScenarioReport.feature_reports.</p>
-
-<p><code>reopt_output_files</code> - <em>Array</em> - Optional. An array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.</p>
-
-<p><code>timeseries_csv_path</code> - <em>Array</em> - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.</p>
-
-<p>[<em>return</em>]</p>
-
-<p><em>Array</em> Returns an updated ScenarioReport</p>
+<p>[parameters:] <code>feature_reports</code> - <em>Array</em> - A ScenarioReport which will each be used to create (and is subsquently updated by) a <a href="../REopt.html"><code>REopt</code></a> Lite opimization response. <code>reopt_assumptions_hashes</code> - <em>Array</em> - Optional. An array of <a href="../REopt.html"><code>REopt</code></a> Lite formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the array in ScenarioReport.feature_reports. <code>reopt_output_files</code> - <em>Array</em> - Optional. An array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports. <code>timeseries_csv_path</code> - <em>Array</em> - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports. [return:] <em>Array</em> Returns an updated ScenarioReport</p>
           
           
 
           
           <div class="method-source-code" id="run_scenario_report_features-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 184</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_runner.rb, line 151</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_scenario_report_features</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_hashes</span>=[], <span class="ruby-identifier">reopt_output_files</span>=[],<span class="ruby-identifier">feature_report_timeseries_csv_paths</span>=[], <span class="ruby-identifier">scenario_report_timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_assumptions_hashes</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-identifier">reopt_assumptions_hashes</span> = []
