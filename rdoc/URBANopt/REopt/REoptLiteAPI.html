@@ -130,7 +130,7 @@
           
           <p>REoptLiteAPI manages submitting optimization tasks to the REopt Lite API and recieving results. Results can either be sourced from the production REopt Lite API with an API key from developer.nrel.gov, or from a version running at localhost.</p>
 
-<p>[parameters:] <code>use_localhost</code> - <em>Bool</em> - If this is true, requests will be sent to a version of the REopt Lite API running on localhost. Default is false, such that the production version of REopt Lite is accessed. <code>nreldeveloperkey</code> - <em>String</em> - API key used to access the REopt Lite APi. Required only if localhost is false. Obtain from <a href="https://developer.nrel.gov/signup">developer.nrel.gov/signup</a>/</p>
+<p>[<em>parameters:</em>] <code>use_localhost</code> - <em>Bool</em> - If this is true, requests will be sent to a version of the REopt Lite API running on localhost. Default is false, such that the production version of REopt Lite is accessed. <code>nreldeveloperkey</code> - <em>String</em> - API key used to access the REopt Lite APi. Required only if localhost is false. Obtain from <a href="https://developer.nrel.gov/signup">developer.nrel.gov/signup</a>/</p>
           
           
 
@@ -182,7 +182,7 @@
           
           <p>Checks if a optimization task can be submitted to the REopt Lite API</p>
 
-<p>[parameters:] <code>data</code> - <em>Hash</em> - Default REopt Lite formatted post containing at least all the required parameters. [return:] <em>Bool</em> - Returns true if the post succeeeds. Otherwise returns false.</p>
+<p>[<em>parameters:</em>] <code>data</code> - <em>Hash</em> - Default REopt Lite formatted post containing at least all the required parameters. [<em>return:</em>] <em>Bool</em> - Returns true if the post succeeeds. Otherwise returns false.</p>
           
           
 
@@ -232,7 +232,7 @@
           
           <p>Completes a REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API. Results are polled at 5 second interval until they are ready or an error is returned from the API. Results are written to disk.</p>
 
-<p>[parameters:] <code>reopt_input</code> - <em>Hash</em> - REopt Lite formatted post containing at least required parameters. <code>filename</code> - <em>String</em> - Path to file that will be created containing the full REopt Lite response. [return:] <em>Bool</em> - Returns true if the post succeeeds. Otherwise returns false.</p>
+<p>[<em>parameters:</em>] <code>reopt_input</code> - <em>Hash</em> - REopt Lite formatted post containing at least required parameters. <code>filename</code> - <em>String</em> - Path to file that will be created containing the full REopt Lite response. [<em>return:</em>] <em>Bool</em> - Returns true if the post succeeeds. Otherwise returns false.</p>
           
           
 
@@ -332,7 +332,7 @@
           
           <p>URL of the results end point for a specific optimization task</p>
 
-<p>[parameters:] <code>run_uuid</code> - <em>String</em> - Unique run_uuid obtained from the REopt Lite job submittal URL for a specific optimization task. [return:] <em>URI</em> Returns URI object for use in calling the REopt Lite results endpoint for a specifc optimization task.</p>
+<p>[<em>parameters:</em>] <code>run_uuid</code> - <em>String</em> - Unique run_uuid obtained from the REopt Lite job submittal URL for a specific optimization task. [<em>return:</em>] <em>URI</em> Returns URI object for use in calling the REopt Lite results endpoint for a specifc optimization task.</p>
           
           
 
