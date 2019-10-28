@@ -172,7 +172,7 @@
 
 <p>[<em>parameters:</em>]</p>
 <ul><li>
-<p><code>feature_report</code> - URBANopt::Scenario::DefaultReports::FeatureReport - FeatureReport to use in converting the optional reopt_assumptions_hash to a REopt Lite post. If a reopt_assumptions_hash is not provided, a default post will be updated from this FeatureReport and submitted to the REopt Lite API.</p>
+<p><code>feature_report</code> - <em>URBANopt::Scenario::DefaultReports::FeatureReport</em> - FeatureReport to use in converting the optional <code>reopt_assumptions_hash</code> to a REopt Lite post. If a <code>reopt_assumptions_hash</code> is not provided, a default post will be updated from this FeatureReport and submitted to the REopt Lite API.</p>
 </li><li>
 <p><code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A hash formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the FeatureReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.</p>
 </li></ul>
@@ -270,7 +270,7 @@
 
 <p>[<em>parameters:</em>]</p>
 <ul><li>
-<p><code>feature_report</code> - <em>FeatureReport</em> - FeatureReport to update from a REopt Lite reponse hash.</p>
+<p><code>feature_report</code> - <em>URBANopt::Scenario::DefaultReports::FeatureReport</em> - FeatureReport to update from a REopt Lite reponse hash.</p>
 </li><li>
 <p><code>reopt_output</code> - <em>Hash</em> - A reponse hash from the REopt Lite API to use in overwriting FeatureReport technology sizes, costs and dispatch strategies.</p>
 </li><li>
