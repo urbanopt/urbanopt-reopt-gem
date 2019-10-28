@@ -9,6 +9,9 @@ body {
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif !important;
 }
 
+
+
+
 main h1, main h2, main h3, main h4, main h5, main h6 {
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
 }
@@ -51,4 +54,8 @@ nav .nav-section {
 .link-list a:hover, .link-list :link:hover {
     color: #3eaf7c;
     border-bottom: none;
+}
+
+.content {
+    max-width: 1200px
 }
