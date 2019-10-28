@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class URBANopt::\::ScenarioReportAdapter - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
+</script>
+
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+<link href="../../custom_rdoc_styles.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-reopt_json_from_scenario_report">#reopt_json_from_scenario_report</a>
+    
+    <li ><a href="#method-i-reopt_jsons_from_scenario_feature_reports">#reopt_jsons_from_scenario_feature_reports</a>
+    
+    <li ><a href="#method-i-update_scenario_report">#update_scenario_report</a>
+    
+    <li ><a href="#method-i-update_scenario_report_from_feature_reports">#update_scenario_report_from_feature_reports</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-URBANopt::\::ScenarioReportAdapter">
+  <h1 id="class-URBANopt::\::ScenarioReportAdapter" class="class">
+    class URBANopt::\::ScenarioReportAdapter
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="ScenarioReportAdapter.html"><code>ScenarioReportAdapter</code></a> can convert a ScenarioReport into a REopt Lite posts or updates a ScenarioReport and its FeatureReports from REopt Lite response(s)</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-reopt_json_from_scenario_report" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reopt_json_from_scenario_report</span><span
+            class="method-args">(scenario_report, reopt_assumptions_json=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Convert a ScenarioReport into a REopt Lite post [<em>parameters</em>]</p>
+
+<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting the reopt_assumptions_hash, if provided, to a REopt Lite post. Otherwise, if the reopt_assumptions_hash is nil a default post will be updated from this ScenarioReport and submitted to the REopt Lite API.</p>
+
+<p><code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A hash formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.</p>
+
+<p>[<em>return</em>]</p>
+
+<p><em>Hash</em> Returns hash formatted for submittal to the REopt Lite API</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reopt_json_from_scenario_report-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_json_from_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_json</span>=<span class="ruby-keyword">nil</span>)
+  
+  <span class="ruby-identifier">name</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-string">&#39; &#39;</span>,<span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">scenario_id</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">id</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-string">&#39; &#39;</span>,<span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">description</span> = <span class="ruby-node">&quot;scenario_report_#{name}_#{scenario_id}&quot;</span>
+
+  <span class="ruby-comment">#Create base REpopt Lite post</span>
+  <span class="ruby-identifier">reopt_inputs</span> = {<span class="ruby-value">:Scenario</span> <span class="ruby-operator">=&gt;</span> {<span class="ruby-value">:Site</span> <span class="ruby-operator">=&gt;</span> {<span class="ruby-value">:ElectricTariff</span> <span class="ruby-operator">=&gt;</span> {<span class="ruby-value">:urdb_label</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;594976725457a37b1175d089&#39;</span>}, <span class="ruby-value">:LoadProfile</span> <span class="ruby-operator">=&gt;</span> {},<span class="ruby-value">:Wind</span> <span class="ruby-operator">=&gt;</span> {<span class="ruby-value">:max_kw</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">0</span>}}}}
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_assumptions_json</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">reopt_inputs</span> = <span class="ruby-identifier">reopt_assumptions_json</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">p</span> <span class="ruby-string">&#39;Using default \REopt Lite assumptions&#39;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment">#Update required info</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">feature_reports</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">feature_reports</span> <span class="ruby-operator">!=</span> []
+      <span class="ruby-identifier">lats</span> = []
+      <span class="ruby-identifier">longs</span> = []
+      <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">feature_reports</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>[<span class="ruby-keyword">nil</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">x</span>[<span class="ruby-value">:location</span>][<span class="ruby-value">:latitude</span>] <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span>[<span class="ruby-keyword">nil</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">x</span>[<span class="ruby-value">:location</span>][<span class="ruby-value">:longitude</span>]
+          <span class="ruby-identifier">lats</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">x</span>[<span class="ruby-value">:location</span>][<span class="ruby-value">:latitude</span>])
+          <span class="ruby-identifier">longs</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">x</span>[<span class="ruby-value">:location</span>][<span class="ruby-value">:longitude</span>])
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">lats</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">longs</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span> = <span class="ruby-identifier">lats</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-value">:+</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">lats</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_f</span>
+        <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span> = <span class="ruby-identifier">longs</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-value">:+</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">longs</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_f</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment">#Update required info</span>
+  <span class="ruby-identifier">requireds_names</span> = [<span class="ruby-string">&#39;latitude&#39;</span>,<span class="ruby-string">&#39;longitude&#39;</span>]
+  <span class="ruby-identifier">requireds</span> = [<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span>,<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span>]
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">requireds</span>.<span class="ruby-identifier">include?</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">requireds</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">requireds</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span>,<span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+       <span class="ruby-keyword">if</span> [<span class="ruby-keyword">nil</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">n</span> = <span class="ruby-identifier">requireds_names</span>[<span class="ruby-identifier">i</span>]
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Missing value for #{n} - this is a required input&quot;</span>
+       <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">reopt_inputs</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:description</span>] = <span class="ruby-identifier">description</span>
+
+  <span class="ruby-identifier">reopt_inputs</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:Site</span>][<span class="ruby-value">:latitude</span>] = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span>
+  <span class="ruby-identifier">reopt_inputs</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:Site</span>][<span class="ruby-value">:longitude</span>] = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span>
+
+  <span class="ruby-comment">#Update optional info</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">program</span>.<span class="ruby-identifier">roof_area</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">reopt_inputs</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:Site</span>][<span class="ruby-value">:roof_squarefeet</span>] = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">program</span>.<span class="ruby-identifier">roof_area</span>[<span class="ruby-value">:available_roof_area</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">program</span>.<span class="ruby-identifier">site_area</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">reopt_inputs</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:Site</span>][<span class="ruby-value">:land_acres</span>] = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">program</span>.<span class="ruby-identifier">site_area</span> <span class="ruby-operator">*</span> <span class="ruby-value">1.0</span><span class="ruby-operator">/</span><span class="ruby-value">43560</span> <span class="ruby-comment">#acres/sqft</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment">#Update load profile info</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">col_num</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
+    <span class="ruby-identifier">t</span> = <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>,<span class="ruby-value">headers:</span> <span class="ruby-keyword">true</span>,<span class="ruby-value">converters:</span> <span class="ruby-value">:numeric</span>)
+    <span class="ruby-identifier">energy_timeseries_kwh</span> = <span class="ruby-identifier">t</span>.<span class="ruby-identifier">by_col</span>[<span class="ruby-identifier">col_num</span>].<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>}
+
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> <span class="ruby-keyword">or</span> <span class="ruby-value">1</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+       <span class="ruby-identifier">energy_timeseries_kwh</span> = <span class="ruby-identifier">energy_timeseries_kwh</span>.<span class="ruby-identifier">each_slice</span>(<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span>).<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>, <span class="ruby-value">:+</span>)<span class="ruby-operator">/</span>(<span class="ruby-identifier">x</span>.<span class="ruby-identifier">length</span>.<span class="ruby-identifier">to_f</span>)}
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">energy_timeseries_kwh</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> <span class="ruby-operator">*</span> <span class="ruby-value">8760</span>
+      <span class="ruby-identifier">energy_timeseries_kwh</span> = <span class="ruby-identifier">energy_timeseries_kwh</span> <span class="ruby-operator">+</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span>((<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> <span class="ruby-operator">*</span> <span class="ruby-value">8760</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">energy_timeseries_kwh</span>.<span class="ruby-identifier">length</span>)
+      <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;Assuming load profile for Scenario Report #{scenario_report.name} #{scenario_report.id} starts January 1 - filling in rest with zeros&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">reopt_inputs</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:Site</span>][<span class="ruby-value">:LoadProfile</span>][<span class="ruby-value">:loads_kw</span>] = <span class="ruby-identifier">energy_timeseries_kwh</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">reopt_inputs</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-reopt_jsons_from_scenario_feature_reports" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reopt_jsons_from_scenario_feature_reports</span><span
+            class="method-args">(scenario_report, reopt_assumptions_hashes = [])</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Converts a FeatureReport list from a ScenarioReport into an array of REopt Lite posts [<em>parameters</em>]</p>
+
+<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting FeatureReports and respecitive reopt_assumptions_hashes, if provided, to a REopt Lite post. If no reopt_assumptions_hashes are provided default posts will be updated from these FeatureReports and submitted to the REopt Lite API.</p>
+
+<p><code>reopt_assumptions_hashes</code> - <em>Array</em> - Optional. An array of hashes formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.</p>
+
+<p>[<em>return</em>]</p>
+
+<p><em>Array</em> Returns an array of hashes formatted for submittal to the REopt Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reopt_jsons_from_scenario_feature_reports-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 157</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_jsons_from_scenario_feature_reports</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_hashes</span> = [])
+  <span class="ruby-identifier">results</span> = []
+  <span class="ruby-identifier">adapter</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReportAdapter</span>.<span class="ruby-identifier">new</span>
+
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">feature_reports</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">idx</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">fr</span> = <span class="ruby-identifier">adapter</span>.<span class="ruby-identifier">reopt_json_from_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_assumptions_hashes</span>[<span class="ruby-identifier">idx</span>])
+    <span class="ruby-identifier">results</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fr</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">results</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-update_scenario_report" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_scenario_report</span><span
+            class="method-args">(scenario_report, reopt_output, timeseries_csv_path=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Updates a ScenarioReport from a REopt Lite response [<em>parameters</em>]</p>
+
+<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to update from a REopt Lite response.</p>
+
+<p><code>reopt_output</code> - <em>Hash</em> - A hash response from the REopt Lite API.</p>
+
+<p><code>timeseries_csv_path</code> - <em>String</em> - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the REopt Lite optimization task.</p>
+
+<p>[<em>return</em>]</p>
+
+<p><em>ScenarioReport</em> Returns an updated ScenarioReport</p>
+          
+          
+
+          
+          <div class="method-source-code" id="update_scenario_report-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 183</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_output</span>, <span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;status&#39;</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;optimal&#39;</span>
+    <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - \REopt optimization was non-optimal&quot;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">scenario_report</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment">#Update basic attributes</span>
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;time_steps_per_hour&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span> =   <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;latitude&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span> =   <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;longitude&#39;</span>]
+
+  <span class="ruby-comment">#Update dispatch</span>
+  <span class="ruby-identifier">generation_timeseries_kwh</span> = <span class="ruby-constant">Matrix</span>[[<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>]
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;PV&#39;</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;PV&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>] <span class="ruby-keyword">or</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;PV&#39;</span>][<span class="ruby-string">&#39;year_one_power_production_series_kw&#39;</span>].<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">generation_timeseries_kwh</span> = <span class="ruby-identifier">generation_timeseries_kwh</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Matrix</span>[<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;PV&#39;</span>][<span class="ruby-string">&#39;year_one_power_production_series_kw&#39;</span>]]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>] <span class="ruby-keyword">or</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;year_one_to_grid_series_kw&#39;</span>].<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">generation_timeseries_kwh</span> = <span class="ruby-identifier">generation_timeseries_kwh</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Matrix</span>[<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;year_one_to_grid_series_kw&#39;</span>]]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>] <span class="ruby-keyword">or</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;year_one_power_production_series_kw&#39;</span>].<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">generation_timeseries_kwh</span> = <span class="ruby-identifier">generation_timeseries_kwh</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Matrix</span>[<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;year_one_power_production_series_kw&#39;</span>]]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>] <span class="ruby-keyword">or</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>][<span class="ruby-string">&#39;year_one_power_production_series_kw&#39;</span>].<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">generation_timeseries_kwh</span> = <span class="ruby-identifier">generation_timeseries_kwh</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Matrix</span>[<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>][<span class="ruby-string">&#39;year_one_power_production_series_kw&#39;</span>]]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+
+  <span class="ruby-identifier">$generation_timeseries_kwh</span> = <span class="ruby-identifier">generation_timeseries_kwh</span>.<span class="ruby-identifier">to_a</span>[<span class="ruby-value">0</span>]
+  <span class="ruby-identifier">$generation_timeseries_kwh_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Facility&quot;</span>)
+  <span class="ruby-identifier">$utility_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>]
+  <span class="ruby-identifier">$utility_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
+  
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) <span class="ruby-comment"># :nodoc:</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>]
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>]
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">old_data</span> = <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>).<span class="ruby-identifier">read</span>()
+  <span class="ruby-identifier">mod_data</span> = <span class="ruby-identifier">old_data</span>.<span class="ruby-identifier">map</span>.<span class="ruby-identifier">with_index</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-identifier">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">x</span>
+    <span class="ruby-keyword">end</span>
+  }
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeseries_csv_path</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">sub!</span> <span class="ruby-string">&#39;.csv&#39;</span>,<span class="ruby-node">&quot;_reopt#{reopt_output[&#39;inputs&#39;][&#39;Scenario&#39;][&#39;run_uuid&#39;]}.csv&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span> = <span class="ruby-identifier">timeseries_csv_path</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">mod_data</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_csv</span>).<span class="ruby-identifier">join</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">scenario_report</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-update_scenario_report_from_feature_reports" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_scenario_report_from_feature_reports</span><span
+            class="method-args">(scenario_report, feature_reports, timeseries_csv_path=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Updates a ScenarioReport from a set of FeatureReports [<em>parameters</em>]</p>
+
+<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to update from a set of FeatureReports</p>
+
+<p><code>feature_reports</code> - <em>Array</em> - A list of FeatureReports.</p>
+
+<p><code>timeseries_csv_path</code> - <em>String</em> - Optional. The path to a file at which new timeseries data will be written. If not provided, a copy of the current timeseries csv will be made with the extention &#39;_copy&#39;.</p>
+
+<p>[<em>return</em>]</p>
+
+<p><em>ScenarioReport</em> Returns an updated ScenarioReport</p>
+          
+          
+
+          
+          <div class="method-source-code" id="update_scenario_report_from_feature_reports-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 275</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_scenario_report_from_feature_reports</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">feature_reports</span>, <span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
+
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">feature_reports</span> = <span class="ruby-identifier">feature_reports</span>
+
+  <span class="ruby-identifier">$old_timeseries_data</span> = <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>).<span class="ruby-identifier">read</span>()
+  <span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Facility&quot;</span>)
+  <span class="ruby-identifier">$scenario_utility_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
+
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">zerorow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) <span class="ruby-comment"># :nodoc:</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span>] = <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_utility_to_load_col</span>] = <span class="ruby-value">0</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$old_timeseries_data</span> = <span class="ruby-identifier">$old_timeseries_data</span>.<span class="ruby-identifier">map</span>.<span class="ruby-identifier">with_index</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-identifier">zerorow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">x</span>
+    <span class="ruby-keyword">end</span>
+  }
+  <span class="ruby-identifier">$lats</span> = []
+  <span class="ruby-identifier">$longs</span> = []
+
+  <span class="ruby-identifier">feature_reports</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">feature_report</span><span class="ruby-operator">|</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>[<span class="ruby-keyword">nil</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span> <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span>[<span class="ruby-keyword">nil</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span>
+      <span class="ruby-identifier">$lats</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span>)
+      <span class="ruby-identifier">$longs</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timesteps_per_hour</span>
+
+    <span class="ruby-identifier">$feature_timeseries</span> =  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>).<span class="ruby-identifier">read</span>()
+    <span class="ruby-identifier">$feature_generation_timeseries_kwh_col</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Facility&quot;</span>)
+    <span class="ruby-identifier">$feature_utility_to_load_col</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) <span class="ruby-comment"># :nodoc:</span>
+      <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">$feature_timeseries</span>[<span class="ruby-identifier">i</span>][<span class="ruby-identifier">$feature_generation_timeseries_kwh_col</span>].<span class="ruby-identifier">to_f</span>()
+      <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_utility_to_load_col</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">$feature_timeseries</span>[<span class="ruby-identifier">i</span>][<span class="ruby-identifier">$feature_utility_to_load_col</span>].<span class="ruby-identifier">to_f</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">$old_timeseries_data</span> = <span class="ruby-identifier">$old_timeseries_data</span>.<span class="ruby-identifier">map</span>.<span class="ruby-identifier">with_index</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">x</span>
+      <span class="ruby-keyword">end</span>
+    }
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeseries_csv_path</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">sub!</span> <span class="ruby-string">&#39;.csv&#39;</span>,<span class="ruby-string">&quot;_copy.csv&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span> = <span class="ruby-identifier">timeseries_csv_path</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">$old_timeseries_data</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_csv</span>).<span class="ruby-identifier">join</span>)
+
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span> = <span class="ruby-identifier">$lats</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-value">:+</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">$lats</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_f</span>
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span> = <span class="ruby-identifier">$longs</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-value">:+</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">$longs</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_f</span>
+
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">scenario_report</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

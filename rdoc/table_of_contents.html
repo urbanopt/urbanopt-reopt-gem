@@ -64,9 +64,6 @@
     <a href="URBANopt/REopt.html">URBANopt::REopt</a>
   </li>
   <li class="class">
-    <a href="URBANopt/REopt/Extension.html">URBANopt::REopt::Extension</a>
-  </li>
-  <li class="class">
     <a href="URBANopt/REopt/FeatureReportAdapter.html">URBANopt::REopt::FeatureReportAdapter</a>
   </li>
   <li class="class">
@@ -74,9 +71,6 @@
   </li>
   <li class="class">
     <a href="URBANopt/REopt/REoptRunner.html">URBANopt::REopt::REoptRunner</a>
-  </li>
-  <li class="class">
-    <a href="URBANopt/REopt/ScenarioReportAdapter.html">URBANopt::REopt::ScenarioReportAdapter</a>
   </li>
   <li class="module">
     <a href="URBANopt/Scenario.html">URBANopt::Scenario</a>
@@ -162,6 +156,12 @@
   <li class="class">
     <a href="URBANopt/Scenario/SimulationMapperBase.html">URBANopt::Scenario::SimulationMapperBase</a>
   </li>
+  <li class="module">
+    <a href="URBANopt/\.html">URBANopt::\</a>
+  </li>
+  <li class="class">
+    <a href="URBANopt/\/ScenarioReportAdapter.html">URBANopt::\::ScenarioReportAdapter</a>
+  </li>
 </ul>
 
 <h2 id="methods">Methods</h2>
@@ -178,14 +178,14 @@
     <span class="container">URBANopt::Scenario::DefaultReports::FeatureReport</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario.html#method-c-logger">::logger</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario</span>
-
-  <li class="method">
     <a href="URBANopt/Scenario/DefaultReports.html#method-c-logger">::logger</a>
     &mdash;
     <span class="container">URBANopt::Scenario::DefaultReports</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario.html#method-c-logger">::logger</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/ConstructionCost.html#method-c-merge_construction_cost">::merge_construction_cost</a>
@@ -208,24 +208,14 @@
     <span class="container">URBANopt::Scenario::DefaultReports::ReportingPeriod</span>
 
   <li class="method">
-    <a href="URBANopt/REopt/ScenarioReportAdapter.html#method-c-new">::new</a>
+    <a href="URBANopt/Scenario/Extension.html#method-c-new">::new</a>
     &mdash;
-    <span class="container">URBANopt::REopt::ScenarioReportAdapter</span>
-
-  <li class="method">
-    <a href="URBANopt/REopt/REoptRunner.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">URBANopt::REopt::REoptRunner</span>
+    <span class="container">URBANopt::Scenario::Extension</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/ScenarioDefaultPostProcessor.html#method-c-new">::new</a>
     &mdash;
     <span class="container">URBANopt::Scenario::ScenarioDefaultPostProcessor</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/EndUses.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::EndUses</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/ScenarioPostProcessorBase.html#method-c-new">::new</a>
@@ -258,14 +248,14 @@
     <span class="container">URBANopt::Scenario::ScenarioBase</span>
 
   <li class="method">
+    <a href="URBANopt/\/ScenarioReportAdapter.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">URBANopt::\::ScenarioReportAdapter</span>
+
+  <li class="method">
     <a href="URBANopt/Scenario/ScenarioRunnerBase.html#method-c-new">::new</a>
     &mdash;
     <span class="container">URBANopt::Scenario::ScenarioRunnerBase</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/Extension.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::Extension</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/TimeseriesCSV.html#method-c-new">::new</a>
@@ -273,9 +263,24 @@
     <span class="container">URBANopt::Scenario::DefaultReports::TimeseriesCSV</span>
 
   <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/Extension.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::Extension</span>
+
+  <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/ScenarioReport.html#method-c-new">::new</a>
     &mdash;
     <span class="container">URBANopt::Scenario::DefaultReports::ScenarioReport</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/ConstructionCost.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::ConstructionCost</span>
+
+  <li class="method">
+    <a href="URBANopt/REopt/REoptRunner.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">URBANopt::REopt::REoptRunner</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/ScenarioRunnerOSW.html#method-c-new">::new</a>
@@ -288,34 +293,9 @@
     <span class="container">URBANopt::Scenario::SimulationDirBase</span>
 
   <li class="method">
-    <a href="URBANopt/REopt/REoptLiteAPI.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">URBANopt::REopt::REoptLiteAPI</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/ConstructionCost.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::ConstructionCost</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/ReportingPeriod.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::ReportingPeriod</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/Program.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::Program</span>
-
-  <li class="method">
     <a href="URBANopt/Scenario/SimulationDirOSW.html#method-c-new">::new</a>
     &mdash;
     <span class="container">URBANopt::Scenario::SimulationDirOSW</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/SimulationMapperBase.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::SimulationMapperBase</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/Date.html#method-c-new">::new</a>
@@ -323,14 +303,14 @@
     <span class="container">URBANopt::Scenario::DefaultReports::Date</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/Location.html#method-c-new">::new</a>
+    <a href="URBANopt/REopt/REoptLiteAPI.html#method-c-new">::new</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::Location</span>
+    <span class="container">URBANopt::REopt::REoptLiteAPI</span>
 
   <li class="method">
-    <a href="URBANopt/REopt/FeatureReportAdapter.html#method-c-new">::new</a>
+    <a href="URBANopt/Scenario/DefaultReports/ReportingPeriod.html#method-c-new">::new</a>
     &mdash;
-    <span class="container">URBANopt::REopt::FeatureReportAdapter</span>
+    <span class="container">URBANopt::Scenario::DefaultReports::ReportingPeriod</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/EndUse.html#method-c-new">::new</a>
@@ -338,19 +318,34 @@
     <span class="container">URBANopt::Scenario::DefaultReports::EndUse</span>
 
   <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/Program.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::Program</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/Location.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::Location</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/SimulationMapperBase.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::SimulationMapperBase</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/EndUses.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::EndUses</span>
+
+  <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/FeatureReport.html#method-c-new">::new</a>
     &mdash;
     <span class="container">URBANopt::Scenario::DefaultReports::FeatureReport</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/Extension.html#method-c-new">::new</a>
+    <a href="URBANopt/REopt/FeatureReportAdapter.html#method-c-new">::new</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::Extension</span>
-
-  <li class="method">
-    <a href="URBANopt/REopt/Extension.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">URBANopt::REopt::Extension</span>
+    <span class="container">URBANopt::REopt::FeatureReportAdapter</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/ScenarioReport.html#method-i-add_feature_report">#add_feature_report</a>
@@ -388,19 +383,9 @@
     <span class="container">URBANopt::REopt::REoptLiteAPI</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/SimulationDirBase.html#method-i-clear">#clear</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::SimulationDirBase</span>
-
-  <li class="method">
     <a href="URBANopt/Scenario/SimulationDirOSW.html#method-i-clear">#clear</a>
     &mdash;
     <span class="container">URBANopt::Scenario::SimulationDirOSW</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/ScenarioBase.html#method-i-clear">#clear</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::ScenarioBase</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/ScenarioDatapoint.html#method-i-clear">#clear</a>
@@ -408,14 +393,24 @@
     <span class="container">URBANopt::Scenario::ScenarioDatapoint</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/SimulationDirOSW.html#method-i-create_input_files">#create_input_files</a>
+    <a href="URBANopt/Scenario/ScenarioBase.html#method-i-clear">#clear</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::SimulationDirOSW</span>
+    <span class="container">URBANopt::Scenario::ScenarioBase</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/SimulationDirBase.html#method-i-clear">#clear</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::SimulationDirBase</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/SimulationDirBase.html#method-i-create_input_files">#create_input_files</a>
     &mdash;
     <span class="container">URBANopt::Scenario::SimulationDirBase</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/SimulationDirOSW.html#method-i-create_input_files">#create_input_files</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::SimulationDirOSW</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/SimulationMapperBase.html#method-i-create_osw">#create_osw</a>
@@ -443,6 +438,16 @@
     <span class="container">URBANopt::Scenario::DefaultReports::ScenarioReport</span>
 
   <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/Program.html#method-i-defaults">#defaults</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::Program</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/EndUse.html#method-i-defaults">#defaults</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::EndUse</span>
+
+  <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/TimeseriesCSV.html#method-i-defaults">#defaults</a>
     &mdash;
     <span class="container">URBANopt::Scenario::DefaultReports::TimeseriesCSV</span>
@@ -453,34 +458,14 @@
     <span class="container">URBANopt::Scenario::DefaultReports::Location</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/EndUses.html#method-i-defaults">#defaults</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::EndUses</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/Program.html#method-i-defaults">#defaults</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::Program</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/ScenarioReport.html#method-i-defaults">#defaults</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::ScenarioReport</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/EndUse.html#method-i-defaults">#defaults</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::EndUse</span>
-
-  <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/FeatureReport.html#method-i-defaults">#defaults</a>
     &mdash;
     <span class="container">URBANopt::Scenario::DefaultReports::FeatureReport</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/ReportingPeriod.html#method-i-defaults">#defaults</a>
+    <a href="URBANopt/Scenario/DefaultReports/Date.html#method-i-defaults">#defaults</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::ReportingPeriod</span>
+    <span class="container">URBANopt::Scenario::DefaultReports::Date</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/ConstructionCost.html#method-i-defaults">#defaults</a>
@@ -488,9 +473,19 @@
     <span class="container">URBANopt::Scenario::DefaultReports::ConstructionCost</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/Date.html#method-i-defaults">#defaults</a>
+    <a href="URBANopt/Scenario/DefaultReports/EndUses.html#method-i-defaults">#defaults</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::Date</span>
+    <span class="container">URBANopt::Scenario::DefaultReports::EndUses</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/ScenarioReport.html#method-i-defaults">#defaults</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::ScenarioReport</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/ReportingPeriod.html#method-i-defaults">#defaults</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::ReportingPeriod</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/Extension.html#method-i-doc_templates_dir">#doc_templates_dir</a>
@@ -563,14 +558,14 @@
     <span class="container">URBANopt::Scenario::DefaultReports::Program</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/Extension.html#method-i-measures_dir">#measures_dir</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::Extension</span>
-
-  <li class="method">
     <a href="URBANopt/Scenario/Extension.html#method-i-measures_dir">#measures_dir</a>
     &mdash;
     <span class="container">URBANopt::Scenario::Extension</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/Extension.html#method-i-measures_dir">#measures_dir</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::Extension</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/EndUse.html#method-i-merge_end_use-21">#merge_end_use!</a>
@@ -583,14 +578,9 @@
     <span class="container">URBANopt::Scenario::DefaultReports::EndUses</span>
 
   <li class="method">
-    <a href="URBANopt/REopt/FeatureReportAdapter.html#method-i-modrow">#modrow</a>
+    <a href="URBANopt/Scenario/ScenarioDatapoint.html#method-i-out_of_date-3F">#out_of_date?</a>
     &mdash;
-    <span class="container">URBANopt::REopt::FeatureReportAdapter</span>
-
-  <li class="method">
-    <a href="URBANopt/REopt/ScenarioReportAdapter.html#method-i-modrow">#modrow</a>
-    &mdash;
-    <span class="container">URBANopt::REopt::ScenarioReportAdapter</span>
+    <span class="container">URBANopt::Scenario::ScenarioDatapoint</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/SimulationDirBase.html#method-i-out_of_date-3F">#out_of_date?</a>
@@ -601,11 +591,6 @@
     <a href="URBANopt/Scenario/SimulationDirOSW.html#method-i-out_of_date-3F">#out_of_date?</a>
     &mdash;
     <span class="container">URBANopt::Scenario::SimulationDirOSW</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/ScenarioDatapoint.html#method-i-out_of_date-3F">#out_of_date?</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::ScenarioDatapoint</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/SimulationDirOSW.html#method-i-out_osw">#out_osw</a>
@@ -623,14 +608,14 @@
     <span class="container">URBANopt::REopt::FeatureReportAdapter</span>
 
   <li class="method">
-    <a href="URBANopt/REopt/ScenarioReportAdapter.html#method-i-reopt_json_from_scenario_report">#reopt_json_from_scenario_report</a>
+    <a href="URBANopt/\/ScenarioReportAdapter.html#method-i-reopt_json_from_scenario_report">#reopt_json_from_scenario_report</a>
     &mdash;
-    <span class="container">URBANopt::REopt::ScenarioReportAdapter</span>
+    <span class="container">URBANopt::\::ScenarioReportAdapter</span>
 
   <li class="method">
-    <a href="URBANopt/REopt/ScenarioReportAdapter.html#method-i-reopt_jsons_from_scenario_feature_reports">#reopt_jsons_from_scenario_feature_reports</a>
+    <a href="URBANopt/\/ScenarioReportAdapter.html#method-i-reopt_jsons_from_scenario_feature_reports">#reopt_jsons_from_scenario_feature_reports</a>
     &mdash;
-    <span class="container">URBANopt::REopt::ScenarioReportAdapter</span>
+    <span class="container">URBANopt::\::ScenarioReportAdapter</span>
 
   <li class="method">
     <a href="URBANopt/REopt/REoptLiteAPI.html#method-i-reopt_request">#reopt_request</a>
@@ -638,9 +623,9 @@
     <span class="container">URBANopt::REopt::REoptLiteAPI</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/ScenarioRunnerOSW.html#method-i-run">#run</a>
+    <a href="URBANopt/Scenario/ScenarioDefaultPostProcessor.html#method-i-run">#run</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::ScenarioRunnerOSW</span>
+    <span class="container">URBANopt::Scenario::ScenarioDefaultPostProcessor</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/ScenarioPostProcessorBase.html#method-i-run">#run</a>
@@ -648,9 +633,9 @@
     <span class="container">URBANopt::Scenario::ScenarioPostProcessorBase</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/ScenarioDefaultPostProcessor.html#method-i-run">#run</a>
+    <a href="URBANopt/Scenario/ScenarioDefaultREoptPostProcessor.html#method-i-run">#run</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::ScenarioDefaultPostProcessor</span>
+    <span class="container">URBANopt::Scenario::ScenarioDefaultREoptPostProcessor</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/ScenarioRunnerBase.html#method-i-run">#run</a>
@@ -658,9 +643,14 @@
     <span class="container">URBANopt::Scenario::ScenarioRunnerBase</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/ScenarioDefaultREoptPostProcessor.html#method-i-run">#run</a>
+    <a href="URBANopt/Scenario/ScenarioRunnerOSW.html#method-i-run">#run</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::ScenarioDefaultREoptPostProcessor</span>
+    <span class="container">URBANopt::Scenario::ScenarioRunnerOSW</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/SimulationDirBase.html#method-i-run_dir">#run_dir</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::SimulationDirBase</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/ScenarioDatapoint.html#method-i-run_dir">#run_dir</a>
@@ -671,11 +661,6 @@
     <a href="URBANopt/Scenario/SimulationDirOSW.html#method-i-run_dir">#run_dir</a>
     &mdash;
     <span class="container">URBANopt::Scenario::SimulationDirOSW</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/SimulationDirBase.html#method-i-run_dir">#run_dir</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::SimulationDirBase</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/TimeseriesCSV.html#method-i-run_dir_name">#run_dir_name</a>
@@ -703,6 +688,11 @@
     <span class="container">URBANopt::REopt::REoptRunner</span>
 
   <li class="method">
+    <a href="URBANopt/Scenario/ScenarioPostProcessorBase.html#method-i-save">#save</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::ScenarioPostProcessorBase</span>
+
+  <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/ScenarioReport.html#method-i-save">#save</a>
     &mdash;
     <span class="container">URBANopt::Scenario::DefaultReports::ScenarioReport</span>
@@ -711,11 +701,6 @@
     <a href="URBANopt/Scenario/ScenarioDefaultPostProcessor.html#method-i-save">#save</a>
     &mdash;
     <span class="container">URBANopt::Scenario::ScenarioDefaultPostProcessor</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/ScenarioPostProcessorBase.html#method-i-save">#save</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::ScenarioPostProcessorBase</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/TimeseriesCSV.html#method-i-save_data">#save_data</a>
@@ -743,11 +728,6 @@
     <span class="container">URBANopt::Scenario::DefaultReports::Extension</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/REoptScenarioCSV.html#method-i-simulation_dirs">#simulation_dirs</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::REoptScenarioCSV</span>
-
-  <li class="method">
     <a href="URBANopt/Scenario/ScenarioBase.html#method-i-simulation_dirs">#simulation_dirs</a>
     &mdash;
     <span class="container">URBANopt::Scenario::ScenarioBase</span>
@@ -756,6 +736,11 @@
     <a href="URBANopt/Scenario/ScenarioCSV.html#method-i-simulation_dirs">#simulation_dirs</a>
     &mdash;
     <span class="container">URBANopt::Scenario::ScenarioCSV</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/REoptScenarioCSV.html#method-i-simulation_dirs">#simulation_dirs</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::REoptScenarioCSV</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/SimulationDirBase.html#method-i-simulation_status">#simulation_status</a>
@@ -773,9 +758,19 @@
     <span class="container">URBANopt::Scenario::SimulationDirOSW</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/EndUse.html#method-i-to_hash">#to_hash</a>
+    <a href="URBANopt/Scenario/DefaultReports/TimeseriesCSV.html#method-i-to_hash">#to_hash</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::EndUse</span>
+    <span class="container">URBANopt::Scenario::DefaultReports::TimeseriesCSV</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/ReportingPeriod.html#method-i-to_hash">#to_hash</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::ReportingPeriod</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/ConstructionCost.html#method-i-to_hash">#to_hash</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::ConstructionCost</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/ScenarioReport.html#method-i-to_hash">#to_hash</a>
@@ -783,14 +778,9 @@
     <span class="container">URBANopt::Scenario::DefaultReports::ScenarioReport</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/TimeseriesCSV.html#method-i-to_hash">#to_hash</a>
+    <a href="URBANopt/Scenario/DefaultReports/Program.html#method-i-to_hash">#to_hash</a>
     &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::TimeseriesCSV</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/Date.html#method-i-to_hash">#to_hash</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::Date</span>
+    <span class="container">URBANopt::Scenario::DefaultReports::Program</span>
 
   <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/Location.html#method-i-to_hash">#to_hash</a>
@@ -803,24 +793,19 @@
     <span class="container">URBANopt::Scenario::DefaultReports::EndUses</span>
 
   <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/ConstructionCost.html#method-i-to_hash">#to_hash</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::ConstructionCost</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/ReportingPeriod.html#method-i-to_hash">#to_hash</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::ReportingPeriod</span>
-
-  <li class="method">
-    <a href="URBANopt/Scenario/DefaultReports/Program.html#method-i-to_hash">#to_hash</a>
-    &mdash;
-    <span class="container">URBANopt::Scenario::DefaultReports::Program</span>
-
-  <li class="method">
     <a href="URBANopt/Scenario/DefaultReports/FeatureReport.html#method-i-to_hash">#to_hash</a>
     &mdash;
     <span class="container">URBANopt::Scenario::DefaultReports::FeatureReport</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/Date.html#method-i-to_hash">#to_hash</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::Date</span>
+
+  <li class="method">
+    <a href="URBANopt/Scenario/DefaultReports/EndUse.html#method-i-to_hash">#to_hash</a>
+    &mdash;
+    <span class="container">URBANopt::Scenario::DefaultReports::EndUse</span>
 
   <li class="method">
     <a href="URBANopt/REopt/FeatureReportAdapter.html#method-i-update_feature_report">#update_feature_report</a>
@@ -828,14 +813,14 @@
     <span class="container">URBANopt::REopt::FeatureReportAdapter</span>
 
   <li class="method">
-    <a href="URBANopt/REopt/ScenarioReportAdapter.html#method-i-update_scenario_report">#update_scenario_report</a>
+    <a href="URBANopt/\/ScenarioReportAdapter.html#method-i-update_scenario_report">#update_scenario_report</a>
     &mdash;
-    <span class="container">URBANopt::REopt::ScenarioReportAdapter</span>
+    <span class="container">URBANopt::\::ScenarioReportAdapter</span>
 
   <li class="method">
-    <a href="URBANopt/REopt/ScenarioReportAdapter.html#method-i-update_scenario_report_from_feature_reports">#update_scenario_report_from_feature_reports</a>
+    <a href="URBANopt/\/ScenarioReportAdapter.html#method-i-update_scenario_report_from_feature_reports">#update_scenario_report_from_feature_reports</a>
     &mdash;
-    <span class="container">URBANopt::REopt::ScenarioReportAdapter</span>
+    <span class="container">URBANopt::\::ScenarioReportAdapter</span>
 
   <li class="method">
     <a href="URBANopt/REopt/REoptLiteAPI.html#method-i-uri_results">#uri_results</a>
@@ -846,11 +831,6 @@
     <a href="URBANopt/Scenario/DefaultReports/Extension.html#method-i-validate">#validate</a>
     &mdash;
     <span class="container">URBANopt::Scenario::DefaultReports::Extension</span>
-
-  <li class="method">
-    <a href="URBANopt/REopt/ScenarioReportAdapter.html#method-i-zerorow">#zerorow</a>
-    &mdash;
-    <span class="container">URBANopt::REopt::ScenarioReportAdapter</span>
 </ul>
 </main>
 
