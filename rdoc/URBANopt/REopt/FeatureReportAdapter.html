@@ -176,7 +176,7 @@
 
           
           <div class="method-source-code" id="modrow-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 191</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 192</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
   <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>]
   <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>]
@@ -213,13 +213,13 @@
 
 <p><code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A hash formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the FeatureReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.</p>
 
-<p>[return:] <em>Hash</em> Returns hash formatted for submittal to the REopt Lite API</p>
+<p>[:return:] <em>Hash</em> Returns hash formatted for submittal to the REopt Lite API</p>
           
           
 
           
           <div class="method-source-code" id="reopt_json_from_feature_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 64</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 65</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_json_from_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_assumptions_hash</span>=<span class="ruby-keyword">nil</span>)
   
   <span class="ruby-identifier">name</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-string">&#39; &#39;</span>,<span class="ruby-string">&#39;&#39;</span>
@@ -318,7 +318,7 @@
 
           
           <div class="method-source-code" id="update_feature_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 137</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 138</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_output</span>, <span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
 
   <span class="ruby-comment"># Check if the \REopt Lite response is valid</span>
