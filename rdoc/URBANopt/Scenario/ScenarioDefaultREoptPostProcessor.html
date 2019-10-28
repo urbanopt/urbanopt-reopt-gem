@@ -117,7 +117,7 @@
 
         <div class="method-description">
         
-        <p><em>Array</em> - List of default hashes of REopt Lite assumptions if provided to the <a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> object. The list should match the number and order of feature reports in the scenario_result. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1">developer.nrel.gov/docs/energy-optimization/reopt-v1</a>/ for more info.</p>
+        <p><em>Array</em> - List of default hashes of REopt Lite assumptions if provided to the <a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> object. The list should match the number and order of feature reports in the scenario_result. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1">developer.nrel.gov/docs/energy-optimization/reopt-v1</a> for more info on REopt Lite input formatting requirements.</p>
         
         </div>
       </div>
@@ -156,7 +156,7 @@
 
         <div class="method-description">
         
-        <p><em>Hash</em> - Hash of default REopt Lite assumptions if provided to the <a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> object. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1">developer.nrel.gov/docs/energy-optimization/reopt-v1</a>/ for more info.</p>
+        <p><em>Hash</em> - Hash of default REopt Lite assumptions if provided to the <a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> object. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1">developer.nrel.gov/docs/energy-optimization/reopt-v1</a> for more info on REopt Lite input formatting requirements.</p>
         
         </div>
       </div>
@@ -223,7 +223,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/default_reopt_post_processor.rb, line 47</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/default_reopt_post_processor.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">scenario_base</span>)
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">scenario_base</span>)
   <span class="ruby-ivar">@scenario_reopt_default_assumptions_hash</span> = <span class="ruby-keyword">nil</span>
@@ -270,7 +270,7 @@
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/default_reopt_post_processor.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/default_reopt_post_processor.rb, line 90</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run</span>
   <span class="ruby-comment"># this run method adds all the simulation_dirs, you can extend it to do more custom stuff</span>
   <span class="ruby-ivar">@scenario_base</span>.<span class="ruby-identifier">simulation_dirs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">simulation_dir</span><span class="ruby-operator">|</span>
