@@ -11,10 +11,8 @@ import "json-schema-view-js/dist/style.css";
 import "highlight.js/styles/railscasts.css";
 import highlightJson from "../highlight";
 import { emptyPromise } from '../utils';
-
 const JSONSchemaViewP = emptyPromise();
 const $RefParserP = emptyPromise();
-
 export default {
   name: "InnerJsonSchema",
   props: ["schema"],
@@ -61,9 +59,8 @@ export default {
 .schema-pretty {
   margin-top: 0.85rem;
   background-color: #282c34;
-  padding: 1.25rem 1.5rem;
-  border-radius: 6px;
-  width: fit-content
+  padding: 1rem 1rem;
+  border-radius: 3px;
 }
 .json-formatter-row a {
   color: white;
@@ -77,8 +74,5 @@ export default {
 }
 .json-schema-view .object .inner.oneOf b {
   color: aqua;
-}
-.json-schema-view .default {
-  color:  #5f96df
 }
 </style>

@@ -1,15 +1,15 @@
 module.exports = {
-  base: '/urbanopt-scenario-gem/',
+  base: '/urbanopt-reopt-gem/',
   themeConfig: {
     navbar: false,
-    sidebar: [
-      "/",
-      {
-        title: "Schemas",
-        children: [
-          
-        ]
-      }
-    ]
+   sidebar: [
+     "/",
+     {
+       title: "Schemas",
+       children: [
+          "/schemas/reopt-schema.md"
+       ]
+     }
+   ]
   }
 };

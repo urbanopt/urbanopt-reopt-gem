@@ -35,9 +35,9 @@
 
 require 'openstudio/extension'
 
-module URBANopt
-  module REopt
-    class Extension < OpenStudio::Extension::Extension
+module URBANopt # :nodoc:
+  module REopt # :nodoc:
+    class Extension < OpenStudio::Extension::Extension # :nodoc:
       # Override parent class
       def initialize
         super

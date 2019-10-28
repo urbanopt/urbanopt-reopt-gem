@@ -9,6 +9,9 @@ body {
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif !important;
 }
 
+
+
+
 main h1, main h2, main h3, main h4, main h5, main h6 {
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
 }
@@ -53,22 +56,3 @@ nav .nav-section {
     border-bottom: none;
 }
 
-/* Hide the URBANopt::Scenario:: prefix common to most links */
-ul.link-list li {
-    margin: .35rem 1rem .35rem 1.25rem;
-    overflow: hidden;
-}
-.link-list a[href^="./URBANopt/Scenario/"] {
-  margin-left: -145px;
-}
-.link-list a {
-  padding: 0;
-  margin: -4px;
-}
-
-/* Remove some modules that aren't commented */
-.link-list a[href="./URBANopt.html"],
-.link-list a[href="./URBANopt/Scenario.html"],
-.link-list a[href="./URBANopt/Scenario/DefaultReports.html"] {
-    display: none;
-}

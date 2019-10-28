@@ -36,14 +36,15 @@ require 'csv'
 require 'json'
 require 'fileutils'
 
-module URBANopt
-  module Scenario
+module URBANopt # nodoc:
+  module Scenario  # nodoc:
     class ScenarioDefaultREoptPostProcessor < ScenarioDefaultPostProcessor
       ##
-      # ScenarioPostProcessorBase post-processes a scenario to create scenario level results
+      # ScenarioDefaultREoptPostProcessor is an extension of a URBANopt::Scenario::ScenarioDefaultPostProcessor which populates default directory names for future \REopt Lite analyses.
       ##
-      # [parameters:]
-      # +scenario_base+ - _ScenarioBase_ - An object of ScenarioBase class. 
+      # [*parameters:*]
+      #
+      # *+scenario_base+ - _URBANopt:Scenario:ScenarioBase - An object of ScenarioBase class. 
       def initialize(scenario_base)
         super(scenario_base)
         @scenario_reopt_default_assumptions_hash = nil
@@ -57,7 +58,7 @@ module URBANopt
       attr_accessor :scenario_reopt_default_assumptions_hash, :scenario_reopt_default_output_file, :scenario_timeseries_default_output_file
       attr_accessor :feature_reports_reopt_default_assumption_hashes, :feature_reports_reopt_default_output_files, :feature_reports_timeseries_default_output_files
       ##
-      # Run the post processor on this Scenario.This will add all the simulation_dirs.
+      # Run the post processor on this Scenario.This will add all the simulation_dirs and populate default \REopt Lite file names.
       ##
       def run
         # this run method adds all the simulation_dirs, you can extend it to do more custom stuff

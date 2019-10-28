@@ -39,23 +39,26 @@ require 'matrix'
 require 'pry'
 
 
-module URBANopt
-  module REopt
+module URBANopt # :nodoc:
+  module REopt # :nodoc:
     class FeatureReportAdapter
       ##
-      # FeatureReportAdapter can convert a FeatureReport into a REopt Lite posts or update a FeatureReport from a REopt Lite response.
+      # FeatureReportAdapter can convert a URBANopt::Scenario::DefaultReports::FeatureReport into a \REopt Lite posts or update a URBANopt::Scenario::DefaultReports::FeatureReport from a \REopt Lite response.
       ##
-      # [parameters:]
+      # [*parameters:*]
       ##
       def initialize
       end
       
       ##
-      # Convert a FeatureReport into a REopt Lite post
-      # [parameters:]
-      # +feature_report+ - _FeatureReport_ - FeatureReport to use in converting the optional reopt_assumptions_hash to a REopt Lite post. If a reopt_assumptions_hash is not provided, a default post will be updated from this FeatureReport and submitted to the REopt Lite API. 
-      # +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the FeatureReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. 
-      # [return:] _Hash_ Returns hash formatted for submittal to the REopt Lite API
+      # Convert a FeatureReport into a \REopt Lite post
+      #
+      # [*parameters:*]
+      #
+      # * +feature_report+ - _URBANopt::Scenario::DefaultReports::FeatureReport_ - FeatureReport to use in converting the optional +reopt_assumptions_hash+ to a \REopt Lite post. If a +reopt_assumptions_hash+ is not provided, a default post will be updated from this FeatureReport and submitted to the \REopt Lite API. 
+      # *  +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the FeatureReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. 
+      #
+      # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
       ##
       def reopt_json_from_feature_report(feature_report, reopt_assumptions_hash=nil)
         
@@ -118,16 +121,19 @@ module URBANopt
       end
       
       ##
-      # Update a FeatureReport from a REopt Lite response
-      # [parameters:]
-      # +feature_report+ - _FeatureReport_ - FeatureReport to update from a REopt Lite reponse hash.
-      # +reopt_output+ - _Hash_ - A reponse hash from the REopt Lite API to use in overwriting FeatureReport technology sizes, costs and dispatch strategies.
-      # +timeseries_csv_path+ - _String_ - Optional. The path to a file at which a new timeseries CSV will be written. If not provided a file is created based on the run_uuid of the REopt Lite optimization task.
-      # [return:] _FeatureReport_ Returns an updated FeatureReport.
+      # Update a FeatureReport from a \REopt Lite response
+      #
+      # [*parameters:*]
+      #
+      # * +feature_report+ - _URBANopt::Scenario::DefaultReports::FeatureReport_ - FeatureReport to update from a \REopt Lite reponse hash.
+      # * +reopt_output+ - _Hash_ - A reponse hash from the \REopt Lite API to use in overwriting FeatureReport technology sizes, costs and dispatch strategies.
+      # * +timeseries_csv_path+ - _String_ - Optional. The path to a file at which a new timeseries CSV will be written. If not provided a file is created based on the run_uuid of the \REopt Lite optimization task.
+      #
+      # [*return:*] _URBANopt::Scenario::DefaultReports::FeatureReport_ - Returns an updated FeatureReport.
       ##
       def update_feature_report(feature_report, reopt_output, timeseries_csv_path=nil)
 
-        # Check if the REopt Lite response is valid
+        # Check if the \REopt Lite response is valid
         if reopt_output['outputs']['Scenario']['status'] != 'optimal'
           p "Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal"
           return feature_report
@@ -137,7 +143,7 @@ module URBANopt
         feature_report.location.latitude =   reopt_output['inputs']['Scenario']['Site']['latitude']
         feature_report.location.longitude =   reopt_output['inputs']['Scenario']['Site']['longitude']
         
-        # Update timeseries csv from REopt Lite dispatch data
+        # Update timeseries csv from \REopt Lite dispatch data
         feature_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
 
         generation_timeseries_kwh = Matrix[[0]*8760]
@@ -179,7 +185,7 @@ module URBANopt
         $utility_to_load = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_to_load_series_kw']
         $utility_to_load_col = feature_report.timeseries_csv.column_names.index("Electricity:Facility")
 
-        def modrow(x,i)
+        def modrow(x,i)  # :nodoc:
           x[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[i]
           x[$utility_to_load_col] = $utility_to_load[i]
           return x

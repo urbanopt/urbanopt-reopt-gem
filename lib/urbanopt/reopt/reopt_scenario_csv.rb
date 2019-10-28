@@ -50,8 +50,8 @@ module URBANopt
       # +mapper_files_dir+ - _String_ - Directory containing all mapper class files containing MapperBase definitions.   
       # +csv_file+ - _String_ - Path to CSV file assigning a MapperBase class to each feature in feature_file.  
       # +num_header_rows+ - _Strng_ - Number of header rows to skip in CSV file.  
-      # +reopt_files_dir+ - _Strng_ - Path to folder containing default REopt Lite assumptions JSON's.  
-      # +scenario_reopt_assumptions_file_name+ - _Strng_ - Name of .json file in the reopt_files_dir location to use in assessing the aggregated Scenario Report in REopt Lite.  
+      # +reopt_files_dir+ - _Strng_ - Path to folder containing default \REopt Lite assumptions JSON's.  
+      # +scenario_reopt_assumptions_file_name+ - _Strng_ - Name of .json file in the reopt_files_dir location to use in assessing the aggregated Scenario Report in \REopt Lite.  
 
       def initialize(name, root_dir, run_dir, feature_file, mapper_files_dir, csv_file, num_header_rows, reopt_files_dir=nil, scenario_reopt_assumptions_file_name=nil)
 
@@ -89,7 +89,7 @@ module URBANopt
           feature_id = row[0].chomp
           feature_name = row[1].chomp
           mapper_class = row[2].chomp
-          #Assume fourth columns, if exists, contains the name of the JSON file in the reopt_files_dir to use when running REopt Lite for the feature report
+          #Assume fourth columns, if exists, contains the name of the JSON file in the reopt_files_dir to use when running \REopt Lite for the feature report
           if row.length > 3
             if !@reopt_files_dir.nil?
               @reopt_feature_assumptions[idx-1] = File.join(@reopt_files_dir,row[3].chomp)

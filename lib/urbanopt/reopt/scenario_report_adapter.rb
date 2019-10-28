@@ -37,23 +37,26 @@ require "urbanopt/scenario/default_reports"
 require 'csv'
 require 'pry'
 
-module URBANopt
-  module REopt
+module URBANopt  # :nodoc:
+  module REopt  # :nodoc:
     class ScenarioReportAdapter
       ##
-      # ScenarioReportAdapter can convert a ScenarioReport into a REopt Lite posts or updates a ScenarioReport and its FeatureReports from REopt Lite response(s)
+      # ScenarioReportAdapter can convert a ScenarioReport into a \REopt Lite posts or updates a ScenarioReport and its FeatureReports from \REopt Lite response(s)
       ##
-      # [parameters:]
+      # [*parameters:*]
       def initialize
 
       end
       
       ##
-      # Convert a ScenarioReport into a REopt Lite post
-      # [parameters:]
-      # +scenario_report+ - _ScenarioReport_ - ScenarioReport to use in converting the reopt_assumptions_hash, if provided, to a REopt Lite post. Otherwise, if the reopt_assumptions_hash is nil a default post will be updated from this ScenarioReport and submitted to the REopt Lite API. 
-      # +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. 
-      # [return:] _Hash_ Returns hash formatted for submittal to the REopt Lite API
+      # Convert a ScenarioReport into a \REopt Lite post
+      #
+      # [*parameters:*]
+      #
+      # * +scenario_report+ - _URBANopt::Scenario::DefaultReports::ScenarioReport_ - ScenarioReport to use in converting the +reopt_assumptions_hash+, if provided, to a \REopt Lite post. Otherwise, if the +reopt_assumptions_hash+ is nil a default post will be updated from this ScenarioReport and submitted to the \REopt Lite API. 
+      # * +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. 
+      #
+      # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
       ##
       def reopt_json_from_scenario_report(scenario_report, reopt_assumptions_json=nil)
         
@@ -139,11 +142,14 @@ module URBANopt
 
 
       ##
-      # Converts a FeatureReport list from a ScenarioReport into an array of REopt Lite posts
-      # [parameters:]
-      # +scenario_report+ - _ScenarioReport_ - ScenarioReport to use in converting FeatureReports and respecitive reopt_assumptions_hashes, if provided, to a REopt Lite post. If no reopt_assumptions_hashes are provided default posts will be updated from these FeatureReports and submitted to the REopt Lite API. 
-      # +reopt_assumptions_hashes+ - _Array_ - Optional. An array of hashes formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.
-      # [return:] _Array_ Returns an array of hashes formatted for submittal to the REopt Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.
+      # Converts a FeatureReport list from a ScenarioReport into an array of \REopt Lite posts
+      #
+      # [*parameters:*]
+      #
+      # * +scenario_report+ - _URBANopt::Scenario::DefaultReports::ScenarioReport_ - ScenarioReport to use in converting FeatureReports and respecitive +reopt_assumptions_hashes+, if provided, to a \REopt Lite post. If no +reopt_assumptions_hashes+ are provided default posts will be updated from these FeatureReports and submitted to the \REopt Lite API. 
+      # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of hashes formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.
+      #
+      # [*return:*] _Array_ - Returns an array of hashes formatted for submittal to the \REopt Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.
       ##
       def reopt_jsons_from_scenario_feature_reports(scenario_report, reopt_assumptions_hashes = [])
         results = []
@@ -158,12 +164,15 @@ module URBANopt
       end
 
       ##
-      # Updates a ScenarioReport from a REopt Lite response
-      # [parameters:]
-      # +scenario_report+ - _ScenarioReport_ - ScenarioReport to update from a REopt Lite response.
-      # +reopt_output+ - _Hash_ - A hash response from the REopt Lite API.
-      # +timeseries_csv_path+ - _String_ - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the REopt Lite optimization task.
-      # [return:] _ScenarioReport_ Returns an updated ScenarioReport
+      # Updates a ScenarioReport from a \REopt Lite response
+      #
+      # [*parameters:*]
+      #
+      # * +scenario_report+ - _URBANopt::Scenario::DefaultReports::ScenarioReport_ - ScenarioReport to update from a \REopt Lite response.
+      # * +reopt_output+ - _Hash_ - A hash response from the \REopt Lite API.
+      # * +timeseries_csv_path+ - _String_ - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the \REopt Lite optimization task.
+      #
+      # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
       ##
       def update_scenario_report(scenario_report, reopt_output, timeseries_csv_path=nil)
 
@@ -217,7 +226,7 @@ module URBANopt
         $utility_to_load = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_to_load_series_kw']
         $utility_to_load_col = scenario_report.timeseries_csv.column_names.index("Electricity:Facility")
         
-        def modrow(x,i)
+        def modrow(x,i)  # :nodoc:
           x[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[i]
           x[$utility_to_load_col] = $utility_to_load[i]
           return x
@@ -245,11 +254,14 @@ module URBANopt
       
       ##
       # Updates a ScenarioReport from a set of FeatureReports
-      # [parameters:]
-      # +scenario_report+ - _ScenarioReport_ - ScenarioReport to update from a set of FeatureReports
-      # +feature_reports+ - _Array_ - A list of FeatureReports.
-      # +timeseries_csv_path+ - _String_ - Optional. The path to a file at which new timeseries data will be written. If not provided, a copy of the current timeseries csv will be made with the extention '_copy'.
-      # [return:] _ScenarioReport_ Returns an updated ScenarioReport
+      #
+      # [*parameters:*]
+      #
+      # * +scenario_report+ - _URBANopt::Scenario::DefaultReports::ScenarioReport_ - ScenarioReport to update from a set of FeatureReports
+      # * +feature_reports+ - _Array_ - A list of FeatureReports.
+      # * +timeseries_csv_path+ - _String_ - Optional. The path to a file at which new timeseries data will be written. If not provided, a copy of the current timeseries csv will be made with the extention '_copy'.
+      #
+      # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
       ##
       def update_scenario_report_from_feature_reports(scenario_report, feature_reports, timeseries_csv_path=nil)
 
@@ -259,7 +271,7 @@ module URBANopt
         $scenario_generation_timeseries_kwh_col = scenario_report.timeseries_csv.column_names.index("ElectricityProduced:Facility")
         $scenario_utility_to_load_col = scenario_report.timeseries_csv.column_names.index("Electricity:Facility")
 
-        def zerorow(x,i)
+        def zerorow(x,i)  # :nodoc:
           x[$scenario_generation_timeseries_kwh_col] = 0
           x[$scenario_utility_to_load_col] = 0
           return x
@@ -288,7 +300,7 @@ module URBANopt
           $feature_generation_timeseries_kwh_col = feature_report.timeseries_csv.column_names.index("ElectricityProduced:Facility")
           $feature_utility_to_load_col = feature_report.timeseries_csv.column_names.index("Electricity:Facility")
 
-          def modrow(x,i)
+          def modrow(x,i)  # :nodoc:
             x[$scenario_generation_timeseries_kwh_col] += $feature_timeseries[i][$feature_generation_timeseries_kwh_col].to_f()
             x[$scenario_utility_to_load_col] += $feature_timeseries[i][$feature_utility_to_load_col].to_f
             return x

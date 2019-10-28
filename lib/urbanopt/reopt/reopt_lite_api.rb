@@ -41,51 +41,59 @@ require 'json'
 require 'pry'
 require 'securerandom'
 
-module URBANopt
-  module REopt
+module URBANopt # :nodoc:
+  module REopt  # :nodoc:
     class REoptLiteAPI
       ##
-      # REoptLiteAPI manages submitting optimization tasks to the REopt Lite API  and recieving results.
-      # Results can either be sourced from the production REopt Lite API with an API key from developer.nrel.gov, or from
+      # \REoptLiteAPI manages submitting optimization tasks to the \REopt Lite API  and recieving results.
+      # Results can either be sourced from the production \REopt Lite API with an API key from developer.nrel.gov, or from
       # a version running at localhost.
       ##
-      # [parameters:]
-      # +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the REopt Lite API running on localhost. Default is false, such that the production version of REopt Lite is accessed. 
-      # +nreldeveloperkey+ - _String_ - API key used to access the REopt Lite APi. Required only if localhost is false. Obtain from https://developer.nrel.gov/signup/
+      #
+      # [*parameters:*]
+      #
+      # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt Lite API running on localhost. Default is false, such that the production version of \REopt Lite is accessed. 
+      # * +nrel_developer_key+ - _String_ - API key used to access the \REopt Lite APi. Required only if localhost is false. Obtain from https://developer.nrel.gov/signup/
       ##
-      def initialize(nreldeveloperkey=nil, use_localhost=false)
+      def initialize(nrel_developer_key=nil, use_localhost=false)
         @use_localhost = use_localhost
         if @use_localhost
           @uri_submit = URI.parse("http//:127.0.0.1:8000/v1/job/")
         else
-          if nreldeveloperkey.nil?
+          if nrel_developer_key.nil?
             raise 'A developer.nrel.gov API key is required. Please see https://developer.nrel.gov/signup/'
           end
-          @nreldeveloperkey =  nreldeveloperkey
-          @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@nreldeveloperkey}")
+          @nrel_developer_key =  nrel_developer_key
+          @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@nrel_developer_key}")
         end
       end
 
       ##
       # URL of the results end point for a specific optimization task
       ##
-      # [parameters:]
-      # +run_uuid+ - _String_ - Unique run_uuid obtained from the REopt Lite job submittal URL for a specific optimization task.
-      # [return:] _URI_ Returns URI object for use in calling the REopt Lite results endpoint for a specifc optimization task.
+      #
+      # [*parameters:*]
+      #
+      # * +run_uuid+ - _String_ - Unique run_uuid obtained from the \REopt Lite job submittal URL for a specific optimization task.
+      #
+      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt Lite results endpoint for a specifc optimization task.
       ##
-      def uri_results(run_uuid)
+      def uri_results(run_uuid) # :nodoc:
         if @use_localhost
           return URI.parse("http://127.0.0.1:8000/v1/job/#{run_uuid}/results")
         end
-        return URI.parse("https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/results?api_key=#{@nreldeveloperkey}")
+        return URI.parse("https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
       end
       
       ##
-      # Checks if a optimization task can be submitted to the REopt Lite API
+      # Checks if a optimization task can be submitted to the \REopt Lite API
       ##
-      # [parameters:]
-      # +data+ - _Hash_ - Default REopt Lite formatted post containing at least all the required parameters.
-      # [return:] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
+      #
+      # [*parameters:*]
+      #
+      # * +data+ - _Hash_ - Default \REopt Lite formatted post containing at least all the required parameters.
+      #
+      # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
       def check_connection(data)
         header = {'Content-Type'=> 'application/json'}
@@ -107,14 +115,17 @@ module URBANopt
       end
       
       ##
-      # Completes a REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API. 
+      # Completes a \REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API. 
       # Results are polled at 5 second interval until they are ready or an error is returned from the API. Results
       # are written to disk.
       ##
-      # [parameters:]
-      # +reopt_input+ - _Hash_ - REopt Lite formatted post containing at least required parameters.
-      # +filename+ - _String_ - Path to file that will be created containing the full REopt Lite response.
-      # [return:] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
+      #
+      # [*parameters:*]
+      #
+      # * +reopt_input+ - _Hash_ - \REopt Lite formatted post containing at least required parameters.
+      # * +filename+ - _String_ - Path to file that will be created containing the full \REopt Lite response.
+      #
+      # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
       def reopt_request(reopt_input, filename)
 

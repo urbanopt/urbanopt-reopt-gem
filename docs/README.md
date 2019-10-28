@@ -2,7 +2,11 @@
 
 ### <StaticLink href="rdoc/">Rdocs</StaticLink>
 
-The URBANopt Scenario Gem includes functionality for defining scenarios, running simulations, and post-processing results.  An URBANopt Scenario describes a specific set of options to apply to each Feature in a FeatureFile (e.g. each GeoJSON Feature in an URBANopt GeoJSON File).  User defined SimulationMapper classes translate each Feature to a SimulationDir which is a directory containing simulation input files.  A ScenarioRunner is used to perform simulations for each SimulationDir.  Finally, a ScenarioPostProcessor can run on a Scenario to generate scenario level results.  The [URBANopt Scenario Gem Design Document](https://docs.google.com/document/d/1ExcGuHliaSvPlrYevAJTSV8XAtTQXz_KQqH3p4iQDwg/edit) describes the gem in more detail.  The [URBANopt Example Project](https://github.com/urbanopt/urbanopt-example-project) demonstrates how to use the URBANopt Scenario Gem to perform a scenario analysis.
+The URBANopt REopt Gem extends URBANopt::Scenario::DefaultReports::ScenarioReport and URBANopt::Scenario::DefaultReports::FeatureReport with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the <StaticLink href="https://reopt.nrel.gov/tool">REopt Lite</StaticLink> decision support platform. 
+REopt Lite is a technoeconomic model which leverages mixed integer linear programming to identify the cost-optimal sizing of solar PV, Wind, Storage and/or diesel generation given an electric load profile, a utility rate tariff and other technoeconomic parameters. See <StaticLink href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">https://developer.nrel.gov/docs/energy-optimization/reopt-v1/</StaticLink> for more detailed information on input parameters and default assumptions. 
+
+<br><b>Note:</b> this module requires an API Key from the <StaticLink href="https://developer.nrel.gov/">NREL Developer Network</StaticLink>.
+
 
 [RDoc Documentation](https://urbanopt.github.io/urbanopt-reopt-gem/)
 
@@ -21,7 +25,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install 'urbanopt-scenario'
+    $ gem install 'urbanopt-reopt'
 
 ## Testing
 
@@ -34,6 +38,6 @@ Check out the repository and then execute:
 ## Releasing
 
 * Update change log
-* Update version in `/lib/urbanopt/scenario/version.rb`
+* Update version in `/lib/urbanopt/reopt/version.rb`
 * Merge down to master
 * run `rake release` from master
