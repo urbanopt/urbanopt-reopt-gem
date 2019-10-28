@@ -210,9 +210,11 @@
 
         <div class="method-description">
           
-          <p>ScenarioPostProcessorBase post-processes a scenario to create scenario level results</p>
+          <p><a href="ScenarioDefaultREoptPostProcessor.html"><code>ScenarioDefaultREoptPostProcessor</code></a> is an extension of a URBANopt::Scenario::ScenarioDefaultPostProcessor which populates default directory names for future REopt Lite analyses.</p>
 
-<p>[<em>parameters:</em>] <code>scenario_base</code> - <em>ScenarioBase</em> - An object of ScenarioBase class.</p>
+<p>[<em>parameters:</em>]</p>
+
+<p>*<code>scenario_base</code> - _URBANopt:Scenario:ScenarioBase - An object of ScenarioBase class.</p>
           
           
             <div class="method-calls-super">
@@ -223,7 +225,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/default_reopt_post_processor.rb, line 47</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/default_reopt_post_processor.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">scenario_base</span>)
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">scenario_base</span>)
   <span class="ruby-ivar">@scenario_reopt_default_assumptions_hash</span> = <span class="ruby-keyword">nil</span>
@@ -264,13 +266,13 @@
 
         <div class="method-description">
           
-          <p>Run the post processor on this <a href="../Scenario.html"><code>Scenario</code></a>.This will add all the simulation_dirs.</p>
+          <p>Run the post processor on this <a href="../Scenario.html"><code>Scenario</code></a>.This will add all the simulation_dirs and populate default REopt Lite file names.</p>
           
           
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/default_reopt_post_processor.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/default_reopt_post_processor.rb, line 63</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run</span>
   <span class="ruby-comment"># this run method adds all the simulation_dirs, you can extend it to do more custom stuff</span>
   <span class="ruby-ivar">@scenario_base</span>.<span class="ruby-identifier">simulation_dirs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">simulation_dir</span><span class="ruby-operator">|</span>
