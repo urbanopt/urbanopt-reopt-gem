@@ -52,23 +52,3 @@ nav .nav-section {
     color: #3eaf7c;
     border-bottom: none;
 }
-
-/* Hide the URBANopt::Scenario:: prefix common to most links */
-ul.link-list li {
-    margin: .35rem 1rem .35rem 1.25rem;
-    overflow: hidden;
-}
-.link-list a[href^="./URBANopt/Scenario/"] {
-  margin-left: -145px;
-}
-.link-list a {
-  padding: 0;
-  margin: -4px;
-}
-
-/* Remove some modules that aren't commented */
-.link-list a[href="./URBANopt.html"],
-.link-list a[href="./URBANopt/Scenario.html"],
-.link-list a[href="./URBANopt/Scenario/DefaultReports.html"] {
-    display: none;
-}
