@@ -130,7 +130,7 @@
 
         <div class="method-description">
           
-          <p><a href="ScenarioReportAdapter.html"><code>ScenarioReportAdapter</code></a> can convert a ScenarioReport into a REopt Lite posts or updates a ScenarioReport and its FeatureReports from REopt Lite response(s)</p>
+          <p><a href="ScenarioReportAdapter.html"><code>ScenarioReportAdapter</code></a> can convert a ScenarioReport into a <a href="../REopt.html"><code>REopt</code></a> Lite posts or updates a ScenarioReport and its FeatureReports from <a href="../REopt.html"><code>REopt</code></a> Lite response(s)</p>
           
           
 
@@ -171,15 +171,15 @@
 
         <div class="method-description">
           
-          <p>Convert a ScenarioReport into a REopt Lite post [<em>parameters</em>]</p>
+          <p>Convert a ScenarioReport into a <a href="../REopt.html"><code>REopt</code></a> Lite post [<em>parameters</em>]</p>
 
-<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting the reopt_assumptions_hash, if provided, to a REopt Lite post. Otherwise, if the reopt_assumptions_hash is nil a default post will be updated from this ScenarioReport and submitted to the REopt Lite API.</p>
+<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting the reopt_assumptions_hash, if provided, to a <a href="../REopt.html"><code>REopt</code></a> Lite post. Otherwise, if the reopt_assumptions_hash is nil a default post will be updated from this ScenarioReport and submitted to the <a href="../REopt.html"><code>REopt</code></a> Lite API.</p>
 
-<p><code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A hash formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.</p>
+<p><code>reopt_assumptions_hash</code> - <em>Hash</em> - Optional. A hash formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.</p>
 
 <p>[<em>return</em>]</p>
 
-<p><em>Hash</em> Returns hash formatted for submittal to the REopt Lite API</p>
+<p><em>Hash</em> Returns hash formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API</p>
           
           
 
@@ -290,15 +290,15 @@
 
         <div class="method-description">
           
-          <p>Converts a FeatureReport list from a ScenarioReport into an array of REopt Lite posts [<em>parameters</em>]</p>
+          <p>Converts a FeatureReport list from a ScenarioReport into an array of <a href="../REopt.html"><code>REopt</code></a> Lite posts [<em>parameters</em>]</p>
 
-<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting FeatureReports and respecitive reopt_assumptions_hashes, if provided, to a REopt Lite post. If no reopt_assumptions_hashes are provided default posts will be updated from these FeatureReports and submitted to the REopt Lite API.</p>
+<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to use in converting FeatureReports and respecitive reopt_assumptions_hashes, if provided, to a <a href="../REopt.html"><code>REopt</code></a> Lite post. If no reopt_assumptions_hashes are provided default posts will be updated from these FeatureReports and submitted to the <a href="../REopt.html"><code>REopt</code></a> Lite API.</p>
 
-<p><code>reopt_assumptions_hashes</code> - <em>Array</em> - Optional. An array of hashes formatted for submittal to the REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.</p>
+<p><code>reopt_assumptions_hashes</code> - <em>Array</em> - Optional. An array of hashes formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.</p>
 
 <p>[<em>return</em>]</p>
 
-<p><em>Array</em> Returns an array of hashes formatted for submittal to the REopt Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.</p>
+<p><em>Array</em> Returns an array of hashes formatted for submittal to the <a href="../REopt.html"><code>REopt</code></a> Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.</p>
           
           
 
@@ -339,13 +339,13 @@
 
         <div class="method-description">
           
-          <p>Updates a ScenarioReport from a REopt Lite response [<em>parameters</em>]</p>
+          <p>Updates a ScenarioReport from a <a href="../REopt.html"><code>REopt</code></a> Lite response [<em>parameters</em>]</p>
 
-<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to update from a REopt Lite response.</p>
+<p><code>scenario_report</code> - <em>ScenarioReport</em> - ScenarioReport to update from a <a href="../REopt.html"><code>REopt</code></a> Lite response.</p>
 
-<p><code>reopt_output</code> - <em>Hash</em> - A hash response from the REopt Lite API.</p>
+<p><code>reopt_output</code> - <em>Hash</em> - A hash response from the <a href="../REopt.html"><code>REopt</code></a> Lite API.</p>
 
-<p><code>timeseries_csv_path</code> - <em>String</em> - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the REopt Lite optimization task.</p>
+<p><code>timeseries_csv_path</code> - <em>String</em> - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the <a href="../REopt.html"><code>REopt</code></a> Lite optimization task.</p>
 
 <p>[<em>return</em>]</p>
 
