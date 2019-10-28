@@ -81,8 +81,6 @@
     
     <li ><a href="#method-i-reopt_request">#reopt_request</a>
     
-    <li ><a href="#method-i-uri_results">#uri_results</a>
-    
   </ul>
 </div>
 
@@ -306,44 +304,6 @@
 
   <span class="ruby-identifier">error_message</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;messages&#39;</span>][<span class="ruby-string">&#39;error&#39;</span>]
   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Error from REopt API - #{error_message}&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-uri_results" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">uri_results</span><span
-            class="method-args">(run_uuid)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>URL of the results end point for a specific optimization task</p>
-
-<p>[<em>parameters:</em>] <code>run_uuid</code> - <em>String</em> - Unique run_uuid obtained from the REopt Lite job submittal URL for a specific optimization task. [<em>return:</em>] <em>URI</em> Returns URI object for use in calling the REopt Lite results endpoint for a specifc optimization task.</p>
-          
-          
-
-          
-          <div class="method-source-code" id="uri_results-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 76</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">uri_results</span>(<span class="ruby-identifier">run_uuid</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@use_localhost</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-node">&quot;http://127.0.0.1:8000/v1/job/#{run_uuid}/results&quot;</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-node">&quot;https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/results?api_key=#{@nreldeveloperkey}&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
