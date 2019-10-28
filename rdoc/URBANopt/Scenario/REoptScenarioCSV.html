@@ -145,7 +145,9 @@
 
         <div class="method-description">
           
-          <p>[<em>parameters:</em>]</p>
+          <p><a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> is an extension of ScenarioCSV which assigns a Simulation Mapper to each Feature in a FeatureFile using a simple CSV format. The a REopt Lite enabled CSV file has four columns 1) feature_id, 2) feature_name, 3) mapper_class_name and 4) optional reopt assumptions file name. There is one row for each Feature. A <a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> can be instantiated with set of assumptions to use in REopt Lite for an optimization at the aggregated ScenarioReport level. A <a href="REoptScenarioCSV.html"><code>REoptScenarioCSV</code></a> is also instantiated with a <code>reopt_files_dir</code> file directory containing all REopt Lite assumptions files (required only if the ScenarioReport or its FeatureReports will have specified assumptions).</p>
+
+<p>[<em>parameters:</em>]</p>
 <ul><li>
 <p><code>name</code> - <em>String</em> - Human readable scenario name.</p>
 </li><li>
@@ -175,7 +177,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb, line 60</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">root_dir</span>, <span class="ruby-identifier">run_dir</span>, <span class="ruby-identifier">feature_file</span>, <span class="ruby-identifier">mapper_files_dir</span>, <span class="ruby-identifier">csv_file</span>, <span class="ruby-identifier">num_header_rows</span>, <span class="ruby-identifier">reopt_files_dir</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">scenario_reopt_assumptions_file_name</span>=<span class="ruby-keyword">nil</span>)
 
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">root_dir</span>, <span class="ruby-identifier">run_dir</span>, <span class="ruby-identifier">feature_file</span>, <span class="ruby-identifier">mapper_files_dir</span>, <span class="ruby-identifier">csv_file</span>, <span class="ruby-identifier">num_header_rows</span>)
@@ -225,7 +227,7 @@
 
           
           <div class="method-source-code" id="simulation_dirs-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb, line 79</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">simulation_dirs</span>
   <span class="ruby-comment"># DLM: TODO use HeaderConverters from CSV module</span>
   <span class="ruby-identifier">rows_skipped</span> = <span class="ruby-value">0</span>
