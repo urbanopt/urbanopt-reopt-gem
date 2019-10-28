@@ -288,7 +288,7 @@
             <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 141</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_output</span>, <span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
 
-  <span class="ruby-comment"># Check if the \REopt Lite response is valid</span>
+  <span class="ruby-comment"># Check if the REopt Lite response is valid</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;status&#39;</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;optimal&#39;</span>
     <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal&quot;</span>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">feature_report</span>
@@ -298,7 +298,7 @@
   <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span> =   <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;latitude&#39;</span>]
   <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span> =   <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;longitude&#39;</span>]
   
-  <span class="ruby-comment"># Update timeseries csv from \REopt Lite dispatch data</span>
+  <span class="ruby-comment"># Update timeseries csv from REopt Lite dispatch data</span>
   <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;time_steps_per_hour&#39;</span>]
 
   <span class="ruby-identifier">generation_timeseries_kwh</span> = <span class="ruby-constant">Matrix</span>[[<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>]

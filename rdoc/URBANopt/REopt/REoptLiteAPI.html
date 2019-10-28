@@ -128,13 +128,13 @@
 
         <div class="method-description">
           
-          <p><a href="REoptLiteAPI.html"><code>REoptLiteAPI</code></a> manages submitting optimization tasks to the <a href="../REopt.html"><code>REopt</code></a> Lite API and recieving results. Results can either be sourced from the production <a href="../REopt.html"><code>REopt</code></a> Lite API with an API key from developer.nrel.gov, or from a version running at localhost.</p>
+          <p><a href="REoptLiteAPI.html"><code>REoptLiteAPI</code></a> manages submitting optimization tasks to the REopt Lite API and recieving results. Results can either be sourced from the production REopt Lite API with an API key from developer.nrel.gov, or from a version running at localhost.</p>
 
 <p>[<em>parameters</em>]</p>
 
-<p><code>use_localhost</code> - <em>Bool</em> - If this is true, requests will be sent to a version of the <a href="../REopt.html"><code>REopt</code></a> Lite API running on localhost. Default is false, such that the production version of <a href="../REopt.html"><code>REopt</code></a> Lite is accessed.</p>
+<p><code>use_localhost</code> - <em>Bool</em> - If this is true, requests will be sent to a version of the REopt Lite API running on localhost. Default is false, such that the production version of REopt Lite is accessed.</p>
 
-<p><code>nreldeveloperkey</code> - <em>String</em> - API key used to access the <a href="../REopt.html"><code>REopt</code></a> Lite APi. Required only if localhost is false. Obtain from <a href="https://developer.nrel.gov/signup">developer.nrel.gov/signup</a>/</p>
+<p><code>nreldeveloperkey</code> - <em>String</em> - API key used to access the REopt Lite APi. Required only if localhost is false. Obtain from <a href="https://developer.nrel.gov/signup">developer.nrel.gov/signup</a>/</p>
           
           
 
@@ -184,11 +184,11 @@
 
         <div class="method-description">
           
-          <p>Checks if a optimization task can be submitted to the <a href="../REopt.html"><code>REopt</code></a> Lite API</p>
+          <p>Checks if a optimization task can be submitted to the REopt Lite API</p>
 
 <p>[<em>parameters</em>]</p>
 
-<p><code>data</code> - <em>Hash</em> - Default <a href="../REopt.html"><code>REopt</code></a> Lite formatted post containing at least all the required parameters.</p>
+<p><code>data</code> - <em>Hash</em> - Default REopt Lite formatted post containing at least all the required parameters.</p>
 
 <p>[<em>return</em>]</p>
 
@@ -240,13 +240,13 @@
 
         <div class="method-description">
           
-          <p>Completes a <a href="../REopt.html"><code>REopt</code></a> Lite optimization. From a formatted hash, an optimization task is submitted to the API. Results are polled at 5 second interval until they are ready or an error is returned from the API. Results are written to disk.</p>
+          <p>Completes a REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API. Results are polled at 5 second interval until they are ready or an error is returned from the API. Results are written to disk.</p>
 
 <p>[<em>parameters</em>]</p>
 
-<p><code>reopt_input</code> - <em>Hash</em> - <a href="../REopt.html"><code>REopt</code></a> Lite formatted post containing at least required parameters.</p>
+<p><code>reopt_input</code> - <em>Hash</em> - REopt Lite formatted post containing at least required parameters.</p>
 
-<p><code>filename</code> - <em>String</em> - Path to file that will be created containing the full <a href="../REopt.html"><code>REopt</code></a> Lite response.</p>
+<p><code>filename</code> - <em>String</em> - Path to file that will be created containing the full REopt Lite response.</p>
 
 <p>[<em>return</em>]</p>
 
