@@ -77,6 +77,8 @@
     
     <li ><a href="#method-c-new">::new</a>
     
+    <li ><a href="#method-i-modrow">#modrow</a>
+    
     <li ><a href="#method-i-reopt_json_from_scenario_report">#reopt_json_from_scenario_report</a>
     
     <li ><a href="#method-i-reopt_jsons_from_scenario_feature_reports">#reopt_jsons_from_scenario_feature_reports</a>
@@ -84,6 +86,8 @@
     <li ><a href="#method-i-update_scenario_report">#update_scenario_report</a>
     
     <li ><a href="#method-i-update_scenario_report_from_feature_reports">#update_scenario_report_from_feature_reports</a>
+    
+    <li ><a href="#method-i-zerorow">#zerorow</a>
     
   </ul>
 </div>
@@ -156,6 +160,41 @@
        <header>
          <h3>Public Instance Methods</h3>
        </header>
+
+    
+      <div id="method-i-modrow" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">modrow</span><span
+            class="method-args">(x,i)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="modrow-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 235</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) 
+  <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>]
+  <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>]
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
 
     
       <div id="method-i-reopt_json_from_scenario_report" class="method-detail ">
@@ -408,7 +447,7 @@
   <span class="ruby-identifier">$utility_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>]
   <span class="ruby-identifier">$utility_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
   
-  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) <span class="ruby-comment"># :nodoc:</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) 
     <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>]
     <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>]
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
@@ -481,7 +520,7 @@
   <span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Facility&quot;</span>)
   <span class="ruby-identifier">$scenario_utility_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
 
-  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">zerorow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) <span class="ruby-comment"># :nodoc:</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">zerorow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
     <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span>] = <span class="ruby-value">0</span>
     <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_utility_to_load_col</span>] = <span class="ruby-value">0</span>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
@@ -510,7 +549,7 @@
     <span class="ruby-identifier">$feature_generation_timeseries_kwh_col</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Facility&quot;</span>)
     <span class="ruby-identifier">$feature_utility_to_load_col</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
 
-    <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>) <span class="ruby-comment"># :nodoc:</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
       <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">$feature_timeseries</span>[<span class="ruby-identifier">i</span>][<span class="ruby-identifier">$feature_generation_timeseries_kwh_col</span>].<span class="ruby-identifier">to_f</span>()
       <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_utility_to_load_col</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">$feature_timeseries</span>[<span class="ruby-identifier">i</span>][<span class="ruby-identifier">$feature_utility_to_load_col</span>].<span class="ruby-identifier">to_f</span>
       <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
@@ -538,6 +577,41 @@
 
 
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">scenario_report</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-zerorow" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">zerorow</span><span
+            class="method-args">(x,i)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="zerorow-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 283</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">zerorow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
+  <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span>] = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_utility_to_load_col</span>] = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
