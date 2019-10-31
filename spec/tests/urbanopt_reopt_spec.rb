@@ -76,6 +76,7 @@ RSpec.describe URBANopt::REopt do
       reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
     end
     feature_report = reopt_runner.run_feature_report(feature_report, reopt_assumptions, reopt_output_file,timeseries_output_file)
+    binding.pry
     feature_report = reopt_runner.run_feature_report(feature_report, nil, reopt_output_file,timeseries_output_file)
     feature_report = reopt_runner.run_feature_report(feature_report, reopt_assumptions, nil,timeseries_output_file)
     feature_report = reopt_runner.run_feature_report(feature_report, reopt_assumptions, reopt_output_file, nil)
