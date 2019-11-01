@@ -160,7 +160,6 @@ module URBANopt # :nodoc:
         end
 
         if response.code != '201'
-          binding.pry
           File.open(filename,"w") do |f|
             f.write(response.body)
           end

@@ -136,12 +136,12 @@ module URBANopt  # :nodoc:
         new_feature_reports = []
         feature_reports.each_with_index do |feature_report, idx|
           begin
-            reopt_input = adapter.reopt_json_from_feature_report(feature_report, reopt_assumptions_hashes[idx])
+            reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, reopt_assumptions_hashes[idx])
             if reopt_output_files[idx].nil?
               reopt_output_files[idx] = feature_report.directory_name
             end
             reopt_output = api.reopt_request(reopt_input, reopt_output_files[idx])
-            new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output,timeseries_csv_paths[idx])
+            new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, timeseries_csv_paths[idx])
             new_feature_reports.push(new_feature_report)
           rescue
             p "Could not optimize Feature Report #{feature_report.name} #{feature_report.id}"
@@ -174,27 +174,31 @@ module URBANopt  # :nodoc:
         if feature_report_timeseries_csv_paths.nil?
           feature_report_timeseries_csv_paths = []
         end
-        api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
-        scenario_adapter = URBANopt::REopt::ScenarioReportAdapter.new
-        feature_adapter = URBANopt::REopt::FeatureReportAdapter.new
 
-        reopt_inputs  = scenario_adapter.reopt_jsons_from_scenario_feature_reports(scenario_report, reopt_assumptions_hashes)
+        
+        new_feature_reports = self.run_feature_reports(scenario_report.feature_reports, reopt_assumptions_hashes, reopt_output_files,feature_report_timeseries_csv_paths) 
 
-        new_feature_reports = []
-        reopt_inputs.each_with_index do |reopt_input, idx|
-          begin            
-            if reopt_output_files[idx].nil?
-              reopt_output_files[idx] = scenario_report.directory_name
-            end
-            reopt_output = api.reopt_request(reopt_input, reopt_output_files[idx])
-            new_feature_report = feature_adapter.update_feature_report(scenario_report.feature_reports[idx], reopt_output, feature_report_timeseries_csv_paths[idx])
-            new_feature_reports.push(new_feature_report)
-          rescue
-            p "Could not optimize Feature Report #{scenario_report.feature_reports[idx].name} #{scenario_report.feature_reports[idx].id}"
-          end
+        new_scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new
+        new_scenario_report.id = scenario_report.id
+        new_scenario_report.name = scenario_report.name
+        new_scenario_report.directory_name = scenario_report.directory_name
+        
+        
+        if scenario_report_timeseries_csv_path.nil?
+          feature_ids = scenario_report.feature_reports.map { |x|  x.id.id }
+          scenario_report_timeseries_csv_path = scenario_report.timeseries_csv.path.sub! '.csv',"_updated_features#{feature_ids.join('_')}.csv"
         end
+        
+        timeseries_hash = {:path => scenario_report_timeseries_csv_path, :column_names => scenario_report.timeseries_csv.column_names }
+        new_scenario_report.timeseries_csv = URBANopt::Scenario::DefaultReports::TimeseriesCSV.new(timeseries_hash)
 
-        return scenario_adapter.update_scenario_report_from_feature_reports(scenario_report, new_feature_reports, scenario_report_timeseries_csv_path)
+        new_feature_reports.each do |feature_report|
+          new_scenario_report.add_feature_report(feature_report)
+        end
+        
+        new_scenario_report.timeseries_csv.save_data(scenario_report_timeseries_csv_path)
+        
+        return new_scenario_report
       end
     end
   end

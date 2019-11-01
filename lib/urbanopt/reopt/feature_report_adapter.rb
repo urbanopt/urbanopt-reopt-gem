@@ -147,18 +147,18 @@ module URBANopt # :nodoc:
         feature_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
 
         # Update distributed generation sizing and financials
-        feature_report.distributed_generation.lcc_us_dollars = reopt_output['inputs']['Scenario']['Site']['Financial']['lcc_us_dollars']
-        feature_report.distributed_generation.npv_us_dollars = reopt_output['inputs']['Scenario']['Site']['Financial']['npv_us_dollars']
-        feature_report.distributed_generation.year_one_energy_cost_us_dollars =  reopt_output['inputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars']
-        feature_report.distributed_generation.year_one_demand_cost_us_dollars =  reopt_output['inputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars']
-        feature_report.distributed_generation.year_one_bill_us_dollars =  reopt_output['inputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars']
-        feature_report.distributed_generation.total_energy_cost_us_dollars =  reopt_output['inputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars']
-
-        feature_report.distributed_generation.pv.size_kw =  reopt_output['inputs']['Scenario']['Site']['PV']['size_kw']
-        feature_report.distributed_generation.wind.size_kw =  reopt_output['inputs']['Scenario']['Site']['Wind']['size_kw']
-        feature_report.distributed_generation.generator.size_kw =  reopt_output['inputs']['Scenario']['Site']['Generator']['size_kw']
-        feature_report.distributed_generation.storage.size_kw =  reopt_output['inputs']['Scenario']['Site']['Storage']['size_kw']
-        feature_report.distributed_generation.storage.size_kwh =  reopt_output['inputs']['Scenario']['Site']['Storage']['size_kwh']
+        feature_report.distributed_generation.lcc_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc_us_dollars']
+        feature_report.distributed_generation.npv_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['npv_us_dollars']
+        feature_report.distributed_generation.year_one_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars']
+        feature_report.distributed_generation.year_one_demand_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars']
+        feature_report.distributed_generation.year_one_bill_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars']
+        feature_report.distributed_generation.total_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars']
+        
+        feature_report.distributed_generation.pv.size_kw =  reopt_output['outputs']['Scenario']['Site']['PV']['size_kw']
+        feature_report.distributed_generation.wind.size_kw =  reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw']
+        feature_report.distributed_generation.generator.size_kw =  reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw']
+        feature_report.distributed_generation.storage.size_kw =  reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw']
+        feature_report.distributed_generation.storage.size_kwh =  reopt_output['outputs']['Scenario']['Site']['Storage']['size_kwh']
 
         generation_timeseries_kwh = Matrix[[0]*8760]
 
@@ -251,7 +251,6 @@ module URBANopt # :nodoc:
         $wind_to_grid = reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_to_grid_series_kw'] || [0]*8760
         $wind_to_grid_col = feature_report.timeseries_csv.column_names.index("ElectricityProduced:Wind:ToGrid")
 
-        binding.pry
         def modrow(x,i)  # :nodoc:
           x[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[i] || 0
           x[$load_col] = $load[i] || 0
@@ -284,8 +283,6 @@ module URBANopt # :nodoc:
         end
         }
 
-
-        
         # Write a new timeseries csv and update the FeatureReport to reference it
         if !timeseries_csv_path.nil?
           feature_report.timeseries_csv.path = timeseries_csv_path
