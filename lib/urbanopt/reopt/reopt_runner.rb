@@ -185,7 +185,7 @@ module URBANopt  # :nodoc:
         
         
         if scenario_report_timeseries_csv_path.nil?
-          feature_ids = scenario_report.feature_reports.map { |x|  x.id.id }
+          feature_ids = scenario_report.feature_reports.map { |x|  x.id }
           scenario_report_timeseries_csv_path = scenario_report.timeseries_csv.path.sub! '.csv',"_updated_features#{feature_ids.join('_')}.csv"
         end
         
