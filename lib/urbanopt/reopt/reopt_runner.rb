@@ -195,7 +195,6 @@ module URBANopt  # :nodoc:
         new_feature_reports.each do |feature_report|
           new_scenario_report.add_feature_report(feature_report)
         end
-        
         new_scenario_report.timeseries_csv.save_data(scenario_report_timeseries_csv_path)
         
         return new_scenario_report
