@@ -37,7 +37,6 @@ require 'bundler/setup'
 require "urbanopt/scenario/default_reports"
 require 'urbanopt/reopt'
 require 'csv'
-require 'pry'
 
 module URBANopt  # :nodoc:
   module REopt  # :nodoc:

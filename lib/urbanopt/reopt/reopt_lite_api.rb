@@ -38,7 +38,6 @@ require "openssl"
 require "uri"
 require 'uri'
 require 'json'
-require 'pry'
 require 'securerandom'
 
 module URBANopt # :nodoc:
