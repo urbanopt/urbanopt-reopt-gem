@@ -34,5 +34,4 @@
 # *******************************************************************************
 
 require 'urbanopt/reopt/scenario/reopt_scenario_csv'
-require 'urbanopt/reopt/scenario/default_reopt_post_processor'
 

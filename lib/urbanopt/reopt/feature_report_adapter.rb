@@ -154,7 +154,7 @@ module URBANopt # :nodoc:
         feature_report.distributed_generation.year_one_bill_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars']
         feature_report.distributed_generation.total_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars']
         
-        feature_report.distributed_generation.pv.size_kw =  reopt_output['outputs']['Scenario']['Site']['PV']['size_kw']
+        feature_report.distributed_generation.solar_pv.size_kw =  reopt_output['outputs']['Scenario']['Site']['PV']['size_kw']
         feature_report.distributed_generation.wind.size_kw =  reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw']
         feature_report.distributed_generation.generator.size_kw =  reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw']
         feature_report.distributed_generation.storage.size_kw =  reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw']
