@@ -103,6 +103,7 @@ module URBANopt  # :nodoc:
           end
         end
 
+
         reopt_inputs[:Scenario][:description] = description
 
         reopt_inputs[:Scenario][:Site][:latitude] = scenario_report.location.latitude
@@ -188,18 +189,18 @@ module URBANopt  # :nodoc:
         scenario_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
 
         # Update distributed generation sizing and financials
-        scenario_report.distributed_generation.lcc_us_dollars = reopt_output['inputs']['Scenario']['Site']['Financial']['lcc_us_dollars']
-        scenario_report.distributed_generation.npv_us_dollars = reopt_output['inputs']['Scenario']['Site']['Financial']['npv_us_dollars']
-        scenario_report.distributed_generation.year_one_energy_cost_us_dollars =  reopt_output['inputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars']
-        scenario_report.distributed_generation.year_one_demand_cost_us_dollars =  reopt_output['inputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars']
-        scenario_report.distributed_generation.year_one_bill_us_dollars =  reopt_output['inputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars']
-        scenario_report.distributed_generation.total_energy_cost_us_dollars =  reopt_output['inputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars']
+        scenario_report.distributed_generation.lcc_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc_us_dollars']
+        scenario_report.distributed_generation.npv_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['npv_us_dollars']
+        scenario_report.distributed_generation.year_one_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars']
+        scenario_report.distributed_generation.year_one_demand_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars']
+        scenario_report.distributed_generation.year_one_bill_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars']
+        scenario_report.distributed_generation.total_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars']
 
-        scenario_report.distributed_generation.solar_pv.size_kw =  reopt_output['inputs']['Scenario']['Site']['PV']['size_kw']
-        scenario_report.distributed_generation.wind.size_kw =  reopt_output['inputs']['Scenario']['Site']['Wind']['size_kw']
-        scenario_report.distributed_generation.generator.size_kw =  reopt_output['inputs']['Scenario']['Site']['Generator']['size_kw']
-        scenario_report.distributed_generation.storage.size_kw =  reopt_output['inputs']['Scenario']['Site']['Storage']['size_kw']
-        scenario_report.distributed_generation.storage.size_kwh =  reopt_output['inputs']['Scenario']['Site']['Storage']['size_kwh']
+        scenario_report.distributed_generation.solar_pv.size_kw =  reopt_output['outputs']['Scenario']['Site']['PV']['size_kw']
+        scenario_report.distributed_generation.wind.size_kw =  reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw']
+        scenario_report.distributed_generation.generator.size_kw =  reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw']
+        scenario_report.distributed_generation.storage.size_kw =  reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw']
+        scenario_report.distributed_generation.storage.size_kwh =  reopt_output['outputs']['Scenario']['Site']['Storage']['size_kwh']
 
         #Update dispatch
         generation_timeseries_kwh = Matrix[[0]*8760]

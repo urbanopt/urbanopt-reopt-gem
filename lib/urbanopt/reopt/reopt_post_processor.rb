@@ -138,7 +138,7 @@ module URBANopt  # :nodoc:
           @scenario_reopt_default_assumptions_hash = reopt_assumptions_hash
         end
         if !reopt_output_file.nil?
-          @scenario_timeseries_default_output_file = reopt_output_file
+          @scenario_reopt_default_output_file = reopt_output_file
         end
         if !timeseries_csv_path.nil?
           @scenario_timeseries_default_output_file = timeseries_csv_path
@@ -149,8 +149,8 @@ module URBANopt  # :nodoc:
 
         reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash)
         
-        reopt_output = api.reopt_request(reopt_input, @scenario_timeseries_default_output_file)
-
+        reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)
+        
         return adapter.update_scenario_report(scenario_report, reopt_output, @scenario_timeseries_default_output_file)
       end
       
