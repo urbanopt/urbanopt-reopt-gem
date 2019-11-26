@@ -83,8 +83,6 @@
     
     <li ><a href="#method-i-update_scenario_report">#update_scenario_report</a>
     
-    <li ><a href="#method-i-update_scenario_report_from_feature_reports">#update_scenario_report_from_feature_reports</a>
-    
   </ul>
 </div>
 
@@ -138,7 +136,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 47</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
 
 <span class="ruby-keyword">end</span></pre>
@@ -188,7 +186,7 @@
 
           
           <div class="method-source-code" id="reopt_json_from_scenario_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 61</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_json_from_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_json</span>=<span class="ruby-keyword">nil</span>)
   
   <span class="ruby-identifier">name</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-string">&#39; &#39;</span>,<span class="ruby-string">&#39;&#39;</span>
@@ -234,6 +232,7 @@
        <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
+
 
   <span class="ruby-identifier">reopt_inputs</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:description</span>] = <span class="ruby-identifier">description</span>
 
@@ -368,10 +367,26 @@
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">scenario_report</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-comment">#Update basic attributes</span>
-  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;time_steps_per_hour&#39;</span>]
+  <span class="ruby-comment"># Update location</span>
   <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span> =   <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;latitude&#39;</span>]
   <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span> =   <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;longitude&#39;</span>]
+  
+  <span class="ruby-comment"># Update timeseries csv from \REopt Lite dispatch data</span>
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;inputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;time_steps_per_hour&#39;</span>]
+
+  <span class="ruby-comment"># Update distributed generation sizing and financials</span>
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">lcc_us_dollars</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Financial&#39;</span>][<span class="ruby-string">&#39;lcc_us_dollars&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">npv_us_dollars</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Financial&#39;</span>][<span class="ruby-string">&#39;npv_us_dollars&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">year_one_energy_cost_us_dollars</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_energy_cost_us_dollars&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">year_one_demand_cost_us_dollars</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_demand_cost_us_dollars&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">year_one_bill_us_dollars</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_bill_us_dollars&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">total_energy_cost_us_dollars</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;total_energy_cost_us_dollars&#39;</span>]
+
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">solar_pv</span>.<span class="ruby-identifier">size_kw</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;PV&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">wind</span>.<span class="ruby-identifier">size_kw</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">generator</span>.<span class="ruby-identifier">size_kw</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">storage</span>.<span class="ruby-identifier">size_kw</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>]
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">distributed_generation</span>.<span class="ruby-identifier">storage</span>.<span class="ruby-identifier">size_kwh</span> =  <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;size_kwh&#39;</span>]
 
   <span class="ruby-comment">#Update dispatch</span>
   <span class="ruby-identifier">generation_timeseries_kwh</span> = <span class="ruby-constant">Matrix</span>[[<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>]
@@ -383,13 +398,13 @@
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>].<span class="ruby-identifier">nil?</span>
-    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>] <span class="ruby-keyword">or</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;year_one_to_grid_series_kw&#39;</span>].<span class="ruby-identifier">nil?</span>
-        <span class="ruby-identifier">generation_timeseries_kwh</span> = <span class="ruby-identifier">generation_timeseries_kwh</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Matrix</span>[<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;year_one_to_grid_series_kw&#39;</span>]]
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># unless reopt_output[&#39;outputs&#39;][&#39;Scenario&#39;][&#39;Site&#39;][&#39;Storage&#39;].nil?</span>
+  <span class="ruby-comment">#   if (reopt_output[&#39;outputs&#39;][&#39;Scenario&#39;][&#39;Site&#39;][&#39;Storage&#39;][&#39;size_kw&#39;] or 0) &gt; 0</span>
+  <span class="ruby-comment">#     if !reopt_output[&#39;outputs&#39;][&#39;Scenario&#39;][&#39;Site&#39;][&#39;Storage&#39;][&#39;year_one_to_grid_series_kw&#39;].nil?</span>
+  <span class="ruby-comment">#       generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output[&#39;outputs&#39;][&#39;Scenario&#39;][&#39;Site&#39;][&#39;Storage&#39;][&#39;year_one_to_grid_series_kw&#39;]]</span>
+  <span class="ruby-comment">#     end</span>
+  <span class="ruby-comment">#   end</span>
+  <span class="ruby-comment"># end</span>
 
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>].<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword">if</span> (<span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>] <span class="ruby-keyword">or</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
@@ -406,16 +421,160 @@
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
+ 
+  <span class="ruby-identifier">$generation_timeseries_kwh</span> = <span class="ruby-identifier">generation_timeseries_kwh</span>.<span class="ruby-identifier">to_a</span>[<span class="ruby-value">0</span>] 
+  <span class="ruby-identifier">$generation_timeseries_kwh_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Total&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$generation_timeseries_kwh_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$generation_timeseries_kwh_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:Total&quot;</span>)
+  <span class="ruby-keyword">end</span>
 
+  <span class="ruby-identifier">$load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;LoadProfile&#39;</span>][<span class="ruby-string">&#39;year_one_electric_load_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Load:Total&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$load_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;Electricity:Load:Total&quot;</span>)
+  <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">$generation_timeseries_kwh</span> = <span class="ruby-identifier">generation_timeseries_kwh</span>.<span class="ruby-identifier">to_a</span>[<span class="ruby-value">0</span>]
-  <span class="ruby-identifier">$generation_timeseries_kwh_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Facility&quot;</span>)
-  <span class="ruby-identifier">$utility_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>]
-  <span class="ruby-identifier">$utility_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
-  
+  <span class="ruby-identifier">$utility_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$utility_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Grid:ToLoad&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$utility_to_load_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$utility_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;Electricity:Grid:ToLoad&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$utility_to_battery</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;ElectricTariff&#39;</span>][<span class="ruby-string">&#39;year_one_to_battery_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$utility_to_battery_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Grid:ToBattery&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$utility_to_battery_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$utility_to_battery_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;Electricity:Grid:ToBattery&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$storage_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$storage_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Storage:ToLoad&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$storage_to_load_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$storage_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;Electricity:Storage:ToLoad&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$storage_to_grid</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;year_one_to_grid_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$storage_to_grid_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Storage:ToGrid&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$storage_to_grid_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$storage_to_grid_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;Electricity:Storage:ToGrid&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$storage_soc</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;year_one_soc_series_pct&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$storage_soc_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Storage:StateOfCharge&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$storage_soc_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$storage_soc_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;Electricity:Storage:StateOfCharge&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$generator_total</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>][<span class="ruby-string">&#39;year_one_power_production_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$generator_total_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Generator:Total&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$generator_total_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$generator_total_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:Generator:Total&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$generator_to_battery</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>][<span class="ruby-string">&#39;year_one_to_battery_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$generator_to_battery_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Generator:ToBattery&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$generator_to_battery_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$generator_to_battery_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:Generator:ToBattery&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$generator_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$generator_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Generator:ToLoad&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$generator_to_load_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$generator_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:Generator:ToLoad&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$generator_to_grid</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>][<span class="ruby-string">&#39;year_one_to_grid_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$generator_to_grid_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Generator:ToGrid&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$generator_to_grid_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$generator_to_grid_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:Generator:ToGrid&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$pv_total</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;PV&#39;</span>][<span class="ruby-string">&#39;year_one_power_production_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$pv_total_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:PV:Total&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$pv_total_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$pv_total_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:PV:Total&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$pv_to_battery</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;PV&#39;</span>][<span class="ruby-string">&#39;year_one_to_battery_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$pv_to_battery_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:PV:ToBattery&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$pv_to_battery_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$pv_to_battery_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:PV:ToBattery&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$pv_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;PV&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$pv_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:PV:ToLoad&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$pv_to_load_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$pv_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:PV:ToLoad&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$pv_to_grid</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;PV&#39;</span>][<span class="ruby-string">&#39;year_one_to_grid_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$pv_to_grid_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:PV:ToGrid&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$pv_to_grid_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$pv_to_grid_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:PV:ToGrid&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$wind_total</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;year_one_power_production_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$wind_total_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Wind:Total&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$wind_total_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$wind_total_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:Wind:Total&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$wind_to_battery</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;year_one_to_battery_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$wind_to_battery_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Wind:ToBattery&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$wind_to_battery_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$wind_to_battery_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:Wind:ToBattery&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$wind_to_load</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;year_one_to_load_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$wind_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Wind:ToLoad&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$wind_to_load_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$wind_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:Wind:ToLoad&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">$wind_to_grid</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;year_one_to_grid_series_kw&#39;</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-value">8760</span>
+  <span class="ruby-identifier">$wind_to_grid_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Wind:ToGrid&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$wind_to_grid_col</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">$wind_to_grid_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-string">&quot;ElectricityProduced:Wind:ToGrid&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
   <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)  <span class="ruby-comment"># :nodoc:</span>
-    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>]
-    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>]
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generation_timeseries_kwh_col</span>] = <span class="ruby-identifier">$generation_timeseries_kwh</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$load_col</span>] = <span class="ruby-identifier">$load</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_load_col</span>] = <span class="ruby-identifier">$utility_to_load</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$utility_to_battery_col</span>] = <span class="ruby-identifier">$utility_to_battery</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$storage_to_load_col</span>] = <span class="ruby-identifier">$storage_to_load</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$storage_to_grid_col</span>] = <span class="ruby-identifier">$storage_to_grid</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$storage_soc_col</span>] = <span class="ruby-identifier">$storage_soc</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generator_total_col</span>] = <span class="ruby-identifier">$generator_total</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generator_to_battery_col</span>] = <span class="ruby-identifier">$generator_to_battery</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generator_to_load_col</span>] = <span class="ruby-identifier">$generator_to_load</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$generator_to_grid_col</span>] = <span class="ruby-identifier">$generator_to_grid</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$pv_total_col</span>] = <span class="ruby-identifier">$pv_total</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$pv_to_battery_col</span>] = <span class="ruby-identifier">$pv_to_battery</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$pv_to_load_col</span>] = <span class="ruby-identifier">$pv_to_load</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$pv_to_grid_col</span>] = <span class="ruby-identifier">$pv_to_grid</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$wind_total_col</span>] = <span class="ruby-identifier">$wind_total</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$wind_to_battery_col</span>] = <span class="ruby-identifier">$wind_to_battery</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$wind_to_load_col</span>] = <span class="ruby-identifier">$wind_to_load</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$wind_to_grid_col</span>] = <span class="ruby-identifier">$wind_to_grid</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
   <span class="ruby-keyword">end</span>
 
@@ -427,6 +586,7 @@
       <span class="ruby-identifier">x</span>
     <span class="ruby-keyword">end</span>
   }
+  <span class="ruby-identifier">mod_data</span>[<span class="ruby-value">0</span>] = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeseries_csv_path</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">sub!</span> <span class="ruby-string">&#39;.csv&#39;</span>,<span class="ruby-node">&quot;_reopt#{reopt_output[&#39;inputs&#39;][&#39;Scenario&#39;][&#39;run_uuid&#39;]}.csv&quot;</span>
@@ -435,114 +595,7 @@
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-constant">File</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">mod_data</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_csv</span>).<span class="ruby-identifier">join</span>)
-
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">scenario_report</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-update_scenario_report_from_feature_reports" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">update_scenario_report_from_feature_reports</span><span
-            class="method-args">(scenario_report, feature_reports, timeseries_csv_path=nil)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Updates a ScenarioReport from a set of FeatureReports</p>
-
-<p>[<em>parameters:</em>]</p>
-<ul><li>
-<p><code>scenario_report</code> - <em>URBANopt::Scenario::DefaultReports::ScenarioReport</em> - ScenarioReport to update from a set of FeatureReports</p>
-</li><li>
-<p><code>feature_reports</code> - <em>Array</em> - A list of FeatureReports.</p>
-</li><li>
-<p><code>timeseries_csv_path</code> - <em>String</em> - Optional. The path to a file at which new timeseries data will be written. If not provided, a copy of the current timeseries csv will be made with the extention &#39;_copy&#39;.</p>
-</li></ul>
-
-<p>[<em>return:</em>] <em>URBANopt::Scenario::DefaultReports::ScenarioReport</em> - Returns an updated ScenarioReport</p>
-          
-          
-
-          
-          <div class="method-source-code" id="update_scenario_report_from_feature_reports-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 266</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_scenario_report_from_feature_reports</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">feature_reports</span>, <span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
-
-  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">feature_reports</span> = <span class="ruby-identifier">feature_reports</span>
-
-  <span class="ruby-identifier">$old_timeseries_data</span> = <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>).<span class="ruby-identifier">read</span>()
-  <span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Facility&quot;</span>)
-  <span class="ruby-identifier">$scenario_utility_to_load_col</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
-
-  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">zerorow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)  <span class="ruby-comment"># :nodoc:</span>
-    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span>] = <span class="ruby-value">0</span>
-    <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_utility_to_load_col</span>] = <span class="ruby-value">0</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">$old_timeseries_data</span> = <span class="ruby-identifier">$old_timeseries_data</span>.<span class="ruby-identifier">map</span>.<span class="ruby-identifier">with_index</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
-      <span class="ruby-identifier">zerorow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">x</span>
-    <span class="ruby-keyword">end</span>
-  }
-  <span class="ruby-identifier">$lats</span> = []
-  <span class="ruby-identifier">$longs</span> = []
-
-  <span class="ruby-identifier">feature_reports</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">feature_report</span><span class="ruby-operator">|</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>[<span class="ruby-keyword">nil</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span> <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span>[<span class="ruby-keyword">nil</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span>
-      <span class="ruby-identifier">$lats</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span>)
-      <span class="ruby-identifier">$longs</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span>)
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timesteps_per_hour</span>
-
-    <span class="ruby-identifier">$feature_timeseries</span> =  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>).<span class="ruby-identifier">read</span>()
-    <span class="ruby-identifier">$feature_generation_timeseries_kwh_col</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;ElectricityProduced:Facility&quot;</span>)
-    <span class="ruby-identifier">$feature_utility_to_load_col</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">index</span>(<span class="ruby-string">&quot;Electricity:Facility&quot;</span>)
-
-    <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)  <span class="ruby-comment"># :nodoc:</span>
-      <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_generation_timeseries_kwh_col</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">$feature_timeseries</span>[<span class="ruby-identifier">i</span>][<span class="ruby-identifier">$feature_generation_timeseries_kwh_col</span>].<span class="ruby-identifier">to_f</span>()
-      <span class="ruby-identifier">x</span>[<span class="ruby-identifier">$scenario_utility_to_load_col</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">$feature_timeseries</span>[<span class="ruby-identifier">i</span>][<span class="ruby-identifier">$feature_utility_to_load_col</span>].<span class="ruby-identifier">to_f</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-identifier">x</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">$old_timeseries_data</span> = <span class="ruby-identifier">$old_timeseries_data</span>.<span class="ruby-identifier">map</span>.<span class="ruby-identifier">with_index</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
-        <span class="ruby-identifier">modrow</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">i</span>)
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">x</span>
-      <span class="ruby-keyword">end</span>
-    }
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeseries_csv_path</span>.<span class="ruby-identifier">nil?</span>
-    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">sub!</span> <span class="ruby-string">&#39;.csv&#39;</span>,<span class="ruby-string">&quot;_copy.csv&quot;</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span> = <span class="ruby-identifier">timeseries_csv_path</span>
-  <span class="ruby-keyword">end</span>
-  
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">$old_timeseries_data</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_csv</span>).<span class="ruby-identifier">join</span>)
-
-  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span> = <span class="ruby-identifier">$lats</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-value">:+</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">$lats</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_f</span>
-  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span> = <span class="ruby-identifier">$longs</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-value">:+</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">$longs</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_f</span>
-
-
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timeseries_csv</span>.<span class="ruby-identifier">reload_data</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">scenario_report</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
