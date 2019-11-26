@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>REopt Lite Inputs Schema</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/urbanopt-reopt-gem/assets/css/0.styles.855eb426.css" as="style"><link rel="preload" href="/urbanopt-reopt-gem/assets/js/app.9d6b2f46.js" as="script"><link rel="preload" href="/urbanopt-reopt-gem/assets/js/5.5ba47b9c.js" as="script"><link rel="preload" href="/urbanopt-reopt-gem/assets/js/6.6610a28c.js" as="script"><link rel="preload" href="/urbanopt-reopt-gem/assets/js/7.e5649c5a.js" as="script"><link rel="prefetch" href="/urbanopt-reopt-gem/assets/js/10.8a1b1204.js"><link rel="prefetch" href="/urbanopt-reopt-gem/assets/js/11.5edfe899.js"><link rel="prefetch" href="/urbanopt-reopt-gem/assets/js/12.caeef4e2.js"><link rel="prefetch" href="/urbanopt-reopt-gem/assets/js/13.1374c291.js"><link rel="prefetch" href="/urbanopt-reopt-gem/assets/js/2.47e3402d.js"><link rel="prefetch" href="/urbanopt-reopt-gem/assets/js/3.b8650a8b.js"><link rel="prefetch" href="/urbanopt-reopt-gem/assets/js/4.42a0f808.js"><link rel="prefetch" href="/urbanopt-reopt-gem/assets/js/8.3b8f0282.js"><link rel="prefetch" href="/urbanopt-reopt-gem/assets/js/9.60b21603.js">
+    <link rel="stylesheet" href="/urbanopt-reopt-gem/assets/css/0.styles.855eb426.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-navbar"><!----> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/urbanopt-reopt-gem/" class="sidebar-link">URBANOpt REopt Gem</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>Schemas</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/urbanopt-reopt-gem/schemas/reopt-input-schema.html" class="active sidebar-link">REopt Lite Inputs Schema</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/urbanopt-reopt-gem/schemas/reopt-input-schema.html#required-inputs" class="sidebar-link">Required Inputs</a></li></ul></li><li><a href="/urbanopt-reopt-gem/schemas/reopt-output-schema.html" class="sidebar-link">/schemas/reopt-output-schema.html</a></li></ul></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="reopt-lite-inputs-schema"><a href="#reopt-lite-inputs-schema" class="header-anchor">#</a> REopt Lite Inputs Schema</h1> <p>The following shows the complete set of inputs to the REopt Lite API. You may refer to this in creating similarly formatted .json files containing alternatives to the defaults for optional parameters (i.e. escalation_pct, solar PV losses). The URBANopt REopt Gem will overwrite latitude, longitude, land_acres, roof_squarefeet, and loads_kw where possible from attributes of ScenarioReports and FeatureReports.</p> <!----> <h2 id="required-inputs"><a href="#required-inputs" class="header-anchor">#</a> Required Inputs</h2> <p>The only required parameters are: <em>latitude</em>, <em>longitude</em>, <em>urdb_response</em> (or one of the following sets: <em>urdb_label</em>; <em>blended_monthly_rates_us_dollars_per_kwh</em>; <em>blended_annual_demand_charges_us_dollars_per_kw</em> <strong>and</strong> <em>blended_annual_rates_us_dollars_per_kwh</em>), and <em>loads_kw</em> (or one of the following sets: <em>doe_reference_name</em> <strong>and</strong> <em>annual_kwh</em>, <em>doe_reference_name</em> <strong>and</strong> <em>monthly_totals_kwh</em>). All non-required input parameters will be filled in with default values unless otherwise specified. For an example of a minimally viable REopt Lite input, see:</p> <div class="language- extra-class"><pre class="language-text"><code>{	
+	&quot;Scenario&quot;: {
+		&quot;Site&quot;:{
+			&quot;latiude&quot;:45,
+			&quot;longitude&quot;:-110,
+			&quot;ElectricTariff&quot;: {
+				&quot;urdb_label&quot;:&quot;594976725457a37b1175d089&quot;
+			}, 
+			&quot;LoadProfile&quot;:{
+				&quot;doe_reference_name&quot;:&quot;Hospital&quot;,
+				&quot;annual_kwh&quot;:1000000
+			}
+		}
+	}
+}
+</code></pre></div></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/urbanopt-reopt-gem/" class="prev router-link-active">
+          URBANOpt REopt Gem
+        </a></span> <span class="next"><a href="/urbanopt-reopt-gem/schemas/reopt-output-schema.html">
+          /schemas/reopt-output-schema.html
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/urbanopt-reopt-gem/assets/js/app.9d6b2f46.js" defer></script><script src="/urbanopt-reopt-gem/assets/js/5.5ba47b9c.js" defer></script><script src="/urbanopt-reopt-gem/assets/js/6.6610a28c.js" defer></script><script src="/urbanopt-reopt-gem/assets/js/7.e5649c5a.js" defer></script>
+  </body>
+</html>
