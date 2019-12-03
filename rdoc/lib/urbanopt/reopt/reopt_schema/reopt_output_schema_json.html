@@ -80,15 +80,16 @@
 <p>{</p>
 
 <pre>&quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#&quot;,
-&quot;description&quot;: &quot;Data Dictionary for REopt Lite Inputs&quot;,
+&quot;description&quot;: &quot;Data Dictionary for REopt Lite Outputs&quot;,
 &quot;type&quot;: &quot;object&quot;,
 &quot;properties&quot;: {
-        &quot;$ref&quot;: &quot;#/definitions/Scenario&quot;
+        &quot;$ref&quot;: &quot;#/definitions/Response&quot;
 },
 &quot;required&quot;: [
         &quot;Scenario&quot;
 ],
 &quot;definitions&quot;: {
+        &quot;Response&quot;:{
         &quot;inputs&quot;: {
                 &quot;type&quot;: &quot;object&quot;,
                 &quot;properties&quot;: {
@@ -611,7 +612,7 @@
         }
 }</pre>
 
-<p>}</p>
+<p>}}</p>
 </main>
 
 
