@@ -7,7 +7,8 @@ module.exports = {
      {
        title: "Schemas",
        children: [
-          "/schemas/reopt-schema.md"
+          "/schemas/reopt-input-schema.md",
+          "/schemas/reopt-output-schema.md"
        ]
      }
    ]

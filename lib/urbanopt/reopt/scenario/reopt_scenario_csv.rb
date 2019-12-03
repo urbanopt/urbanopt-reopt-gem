@@ -93,6 +93,7 @@ module URBANopt  # nodoc:
           feature_name = row[1].chomp
           mapper_class = row[2].chomp
           #Assume fourth columns, if exists, contains the name of the JSON file in the reopt_files_dir to use when running \REopt Lite for the feature report
+
           if row.length > 3
             if !@reopt_files_dir.nil?
               @reopt_feature_assumptions[idx-1] = File.join(@reopt_files_dir,row[3].chomp)

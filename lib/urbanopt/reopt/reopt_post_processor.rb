@@ -211,7 +211,7 @@ module URBANopt  # :nodoc:
         if !scenario_report_timeseries_csv_path.nil?
           @scenario_timeseries_default_output_file = scenario_report_timeseries_csv_path
         end
-
+        
         new_feature_reports = self.run_feature_reports(scenario_report.feature_reports, reopt_assumptions_hashes, reopt_output_files, feature_report_timeseries_csv_paths ) 
 
         new_scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new

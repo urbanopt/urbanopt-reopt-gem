@@ -2,9 +2,9 @@
   <JsonSchema :schema="schema"/>
 </template>
 <script>
-import { default as schema } from "../../../lib/urbanopt/reopt/reopt_schema/reopt_schema.json";
+import { default as schema } from "../../../lib/urbanopt/reopt/reopt_schema/reopt_output_schema.json";
 export default {
-  name: "ReoptSchema",
+  name: "ReoptOutputSchema",
   data() {
     return { schema };
   }

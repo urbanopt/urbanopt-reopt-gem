@@ -179,8 +179,22 @@ module URBANopt # :nodoc:
         while status == "Optimizing..."
           response = http.request(request)
           data = JSON.parse(response.body)
+          sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) 
           status = data['outputs']['Scenario']['status']
+
           sleep 5
+        end
+        
+        _max_retry = 5
+        _tries = 0
+        check_complete = sizes==0 and (data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0
+        while (_tries < _max_retry) and check_complete
+          sleep 1
+          response = http.request(request)
+          data = JSON.parse(response.body)
+          sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) 
+          check_complete = sizes==0 and (data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0
+          _tries +=1
         end
 
         File.open(filename,"w") do |f|

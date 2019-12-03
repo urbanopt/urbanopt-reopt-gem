@@ -63,7 +63,6 @@ module URBANopt # :nodoc:
         
         name = feature_report.name.gsub ' ',''
         description = "feature_report_#{name}_#{feature_report.id}"
-
         reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
         if !reopt_assumptions_hash.nil?
           reopt_inputs = reopt_assumptions_hash
