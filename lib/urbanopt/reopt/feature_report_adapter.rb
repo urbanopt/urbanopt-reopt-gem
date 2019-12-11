@@ -111,7 +111,7 @@ module URBANopt # :nodoc:
             energy_timeseries_kwh = energy_timeseries_kwh + [0]*((feature_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
             p "Assuming load profile for Feature Report #{feature_report.name} #{feature_report.id} starts January 1 - filling in rest  with zeros"
           end
-          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map {|e| e ? e : 0}
+          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map {|e| e/3412.142 ? e : 0}
         rescue
           raise "Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}"
         end
@@ -145,18 +145,18 @@ module URBANopt # :nodoc:
         feature_report.timesteps_per_hour =  reopt_output['inputs']['Scenario']['time_steps_per_hour']
 
         # Update distributed generation sizing and financials
-        feature_report.distributed_generation.lcc_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc_us_dollars']
-        feature_report.distributed_generation.npv_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['npv_us_dollars']
-        feature_report.distributed_generation.year_one_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars']
-        feature_report.distributed_generation.year_one_demand_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars']
-        feature_report.distributed_generation.year_one_bill_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars']
-        feature_report.distributed_generation.total_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars']
+        feature_report.distributed_generation.lcc_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc_us_dollars']  or 0
+        feature_report.distributed_generation.npv_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] or 0
+        feature_report.distributed_generation.year_one_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars'] or 0
+        feature_report.distributed_generation.year_one_demand_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars'] or 0
+        feature_report.distributed_generation.year_one_bill_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars'] or 0
+        feature_report.distributed_generation.total_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars'] or 0
         
-        feature_report.distributed_generation.solar_pv.size_kw =  reopt_output['outputs']['Scenario']['Site']['PV']['size_kw']
-        feature_report.distributed_generation.wind.size_kw =  reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw']
-        feature_report.distributed_generation.generator.size_kw =  reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw']
-        feature_report.distributed_generation.storage.size_kw =  reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw']
-        feature_report.distributed_generation.storage.size_kwh =  reopt_output['outputs']['Scenario']['Site']['Storage']['size_kwh']
+        feature_report.distributed_generation.solar_pv.size_kw =  reopt_output['outputs']['Scenario']['Site']['PV']['size_kw'] or 0
+        feature_report.distributed_generation.wind.size_kw =  reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] or 0
+        feature_report.distributed_generation.generator.size_kw =  reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] or 0
+        feature_report.distributed_generation.storage.size_kw =  reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'] or 0
+        feature_report.distributed_generation.storage.size_kwh =  reopt_output['outputs']['Scenario']['Site']['Storage']['size_kwh'] or 0
 
         generation_timeseries_kwh = Matrix[[0]*8760]
 

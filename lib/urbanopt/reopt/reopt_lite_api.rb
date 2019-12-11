@@ -39,7 +39,6 @@ require "uri"
 require 'uri'
 require 'json'
 require 'securerandom'
-require 'pry'
 
 module URBANopt # :nodoc:
   module REopt  # :nodoc:
