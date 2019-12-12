@@ -21,6 +21,11 @@ Or install it yourself as:
 
     $ gem install 'urbanopt-reopt'
 
+Finally, obtain a developer.nrel.gov API key from the (NREL Developer Network)[https://developer.nrel.gov/]{:target="_blank"}). Copy and paste your key in to the _developer_nrel_key_._rb_ file:
+
+    DEVELOPER_NREL_KEY = '<insert your key here>'
+
+
 ## Usage
 
 To be filled out later. 
