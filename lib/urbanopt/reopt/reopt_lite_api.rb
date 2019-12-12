@@ -39,6 +39,8 @@ require "uri"
 require 'uri'
 require 'json'
 require 'securerandom'
+require_relative '../../../developer_nrel_key'
+require 'pry'
 
 module URBANopt # :nodoc:
   module REopt  # :nodoc:
@@ -59,8 +61,12 @@ module URBANopt # :nodoc:
         if @use_localhost
           @uri_submit = URI.parse("http//:127.0.0.1:8000/v1/job/")
         else
-          if nrel_developer_key.nil?
-            raise 'A developer.nrel.gov API key is required. Please see https://developer.nrel.gov/signup/'
+          if [nil, '','<insert your key here>'].include? nrel_developer_key
+            if [nil, '','<insert your key here>'].include? DEVELOPER_NREL_KEY
+              raise 'A developer.nrel.gov API key is required. Please see https://developer.nrel.gov/signup/ then update the file urbanopt-reopt-gem/developer_nrel_key.rb'
+            else
+              nrel_developer_key = DEVELOPER_NREL_KEY
+            end
           end
           @nrel_developer_key =  nrel_developer_key
           @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@nrel_developer_key}")

@@ -7,6 +7,11 @@ REopt Lite is a technoeconomic model which leverages mixed integer linear progra
 
 ## Installation
 
+See [https://docs.urbanopt.net/installation/installation.html](https://docs.urbanopt.net/installation/installation.html) for instructions on prerequiste software, including: 
+- Ruby 2.2.6
+- Bundler 1.17.0
+- OpenStudio 2.8.1
+
 Add this line to your application's Gemfile:
 
 ```ruby
