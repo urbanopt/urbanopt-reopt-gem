@@ -211,7 +211,7 @@ module URBANopt # :nodoc:
         check_complete = sizes==0 and (data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0
         while (_tries < _max_retry) and check_complete
           sleep 1
-          response = http.request(http, request)
+          response = make_request(http, request)
           data = JSON.parse(response.body)
           sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) 
           check_complete = sizes==0 and (data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0
