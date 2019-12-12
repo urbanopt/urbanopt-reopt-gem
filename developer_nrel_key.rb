@@ -1,1 +1,1 @@
-DEVELOPER_NREL_KEY = '<insert your key here>'
+DEVELOPER_NREL_KEY = '2we3uMoY5IDi8HUMIUYuinl734RNmC5xF7iOXqbg'
