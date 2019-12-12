@@ -12,6 +12,11 @@ REopt Lite is a technoeconomic model which leverages mixed integer linear progra
 
 ## Installation
 
+See [https://docs.urbanopt.net/installation/installation.html](https://docs.urbanopt.net/installation/installation.html) for instructions on prerequiste software, including: 
+- Ruby 2.2.6
+- Bundler 1.17.0
+- OpenStudio 2.8.1
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -26,6 +31,10 @@ And then execute:
 Or install it yourself as:
 
     $ gem install 'urbanopt-reopt'
+
+Finally, obtain a developer.nrel.gov API key from the [NREL Developer Network](https://developer.nrel.gov/]). Copy and paste your key in to the _developer_nrel_key_._rb_ file then save the file:
+
+    DEVELOPER_NREL_KEY = '<insert your key here>'
 
 ## Testing
 
