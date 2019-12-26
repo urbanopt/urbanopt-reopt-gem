@@ -235,7 +235,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 56</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">scenario_reopt_assumptions_file</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">reopt_feature_assumptions</span>=[], <span class="ruby-identifier">nrel_developer_key</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">localhost</span>=<span class="ruby-keyword">false</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_feature_assumptions</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-identifier">reopt_feature_assumptions</span> = []
@@ -257,14 +257,6 @@
     <span class="ruby-ivar">@scenario_reopt_default_output_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@scenario_report</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-node">&quot;scenario_report_#{@scenario_report.id}_reopt_run.json&quot;</span>)
     <span class="ruby-ivar">@scenario_timeseries_default_output_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@scenario_report</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-node">&quot;scenario_report_#{@scenario_report.id}_timeseries.csv&quot;</span>)
     
-    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">scenario_reopt_assumptions_file</span>, <span class="ruby-string">&#39;r&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
-      <span class="ruby-ivar">@scenario_reopt_default_assumptions_hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>, <span class="ruby-value">symbolize_names:</span> <span class="ruby-keyword">true</span>)
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">reopt_feature_assumptions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
-      <span class="ruby-ivar">@feature_reports_reopt_default_assumption_hashes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>,<span class="ruby-string">&#39;r&#39;</span>).<span class="ruby-identifier">read</span>, <span class="ruby-value">symbolize_names:</span> <span class="ruby-keyword">true</span>)    
-    <span class="ruby-keyword">end</span>
-
     <span class="ruby-ivar">@scenario_report</span>.<span class="ruby-identifier">feature_reports</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fr</span><span class="ruby-operator">|</span>
       <span class="ruby-ivar">@feature_reports_reopt_default_output_files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">fr</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-node">&quot;feature_report_#{fr.id}_reopt_run.json&quot;</span>)
     <span class="ruby-keyword">end</span>
@@ -273,7 +265,18 @@
       <span class="ruby-ivar">@feature_reports_timeseries_default_output_files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">fr</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-node">&quot;feature_report_#{fr.id}_timeseries.csv&quot;</span>)
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
-
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">scenario_reopt_assumptions_file</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">scenario_reopt_assumptions_file</span>, <span class="ruby-string">&#39;r&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@scenario_reopt_default_assumptions_hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>, <span class="ruby-value">symbolize_names:</span> <span class="ruby-keyword">true</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_feature_assumptions</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">reopt_feature_assumptions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@feature_reports_reopt_default_assumption_hashes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>,<span class="ruby-string">&#39;r&#39;</span>).<span class="ruby-identifier">read</span>, <span class="ruby-value">symbolize_names:</span> <span class="ruby-keyword">true</span>)    
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -325,7 +328,7 @@
 
           
           <div class="method-source-code" id="run_feature_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 112</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 116</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_assumptions_hash</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">reopt_output_file</span>=<span class="ruby-keyword">nil</span>,<span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">api</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REoptLiteAPI</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@nrel_developer_key</span>, <span class="ruby-ivar">@localhost</span>)
   <span class="ruby-identifier">adapter</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReportAdapter</span>.<span class="ruby-identifier">new</span>
@@ -379,16 +382,31 @@
 
           
           <div class="method-source-code" id="run_feature_reports-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 168</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 172</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_feature_reports</span>(<span class="ruby-identifier">feature_reports</span>, <span class="ruby-identifier">reopt_assumptions_hashes</span>=[], <span class="ruby-identifier">reopt_output_files</span>=[],<span class="ruby-identifier">timeseries_csv_paths</span>=[])
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_assumptions_hashes</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_assumptions_hashes</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
     <span class="ruby-ivar">@feature_reports_reopt_default_assumption_hashes</span> = <span class="ruby-identifier">reopt_assumptions_hashes</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_output_files</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_output_files</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
     <span class="ruby-ivar">@feature_reports_reopt_default_output_files</span> = <span class="ruby-identifier">reopt_output_files</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeseries_csv_paths</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeseries_csv_paths</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
     <span class="ruby-ivar">@feature_reports_timeseries_default_output_files</span> = <span class="ruby-identifier">timeseries_csv_paths</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@feature_reports_reopt_default_output_files</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">feature_reports</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fr</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@feature_reports_reopt_default_output_files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">fr</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-node">&quot;feature_report_#{fr.id}_reopt_run.json&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@feature_reports_timeseries_default_output_files</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">feature_reports</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fr</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@feature_reports_timeseries_default_output_files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">fr</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-node">&quot;feature_report_#{fr.id}_timeseries.csv&quot;</span>)
+    <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">api</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REoptLiteAPI</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@nrel_developer_key</span>, <span class="ruby-ivar">@localhost</span>)
@@ -404,6 +422,7 @@
       <span class="ruby-identifier">new_feature_report</span> = <span class="ruby-identifier">feature_adapter</span>.<span class="ruby-identifier">update_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_output</span>, <span class="ruby-ivar">@feature_reports_timeseries_default_output_files</span>[<span class="ruby-identifier">idx</span>])
       <span class="ruby-identifier">new_feature_reports</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">new_feature_report</span>)
     <span class="ruby-keyword">rescue</span>
+      <span class="ruby-identifier">binding</span>.<span class="ruby-identifier">pry</span>
       <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;Could not optimize Feature Report #{feature_report.name} #{feature_report.id}&quot;</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
@@ -452,7 +471,7 @@
 
           
           <div class="method-source-code" id="run_scenario_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 136</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 140</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_hash</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">reopt_output_file</span>=<span class="ruby-keyword">nil</span>,<span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_assumptions_hash</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-ivar">@scenario_reopt_default_assumptions_hash</span> = <span class="ruby-identifier">reopt_assumptions_hash</span>
@@ -515,7 +534,7 @@
 
           
           <div class="method-source-code" id="run_scenario_report_features-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 210</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 230</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_scenario_report_features</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_hashes</span>=[], <span class="ruby-identifier">reopt_output_files</span>=[],<span class="ruby-identifier">feature_report_timeseries_csv_paths</span>=[], <span class="ruby-identifier">scenario_report_timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">scenario_report_timeseries_csv_path</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-ivar">@scenario_timeseries_default_output_file</span> = <span class="ruby-identifier">scenario_report_timeseries_csv_path</span>
