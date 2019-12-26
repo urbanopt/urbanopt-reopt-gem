@@ -39,6 +39,7 @@ require "uri"
 require 'uri'
 require 'json'
 require 'securerandom'
+require 'certified'
 require_relative '../../../developer_nrel_key'
 
 module URBANopt # :nodoc:
@@ -89,6 +90,20 @@ module URBANopt # :nodoc:
         return URI.parse("https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
       end
       
+	  def make_request(http, r, max_tries = 3)
+		result = nil
+		tries = 0
+		while tries < max_tries
+			begin 
+			    result = http.request(r)
+				tries = 4
+		    rescue 
+			     tries += 1
+		    end
+		end
+		return result
+	  end
+	  
       ##
       # Checks if a optimization task can be submitted to the \REopt Lite API
       ##
@@ -104,20 +119,22 @@ module URBANopt # :nodoc:
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
         if !@use_localhost
           http.use_ssl = true
-        end
-        request = Net::HTTP::Post.new(@uri_submit, header)
+		end
+
+		request = Net::HTTP::Post.new(@uri_submit, header)
         request.body = data.to_json
 
         # Send the request
-        response = http.request(request)
-
+        response = make_request(http, request)
+		
         if !response.is_a?(Net::HTTPSuccess)
-          raise "Check_connection Failed"
+		    raise "Check_connection Failed"
         end
-
         return true
       end
       
+	 
+	  
       ##
       # Completes a \REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API. 
       # Results are polled at 5 second interval until they are ready or an error is returned from the API. Results
@@ -147,7 +164,7 @@ module URBANopt # :nodoc:
         request.body = reopt_input.to_json
 
         # Send the request
-        response = http.request(request)
+        response = make_request(http, request)
         
         # Get UUID
         run_uuid = JSON.parse(response.body)['run_uuid']
@@ -181,7 +198,7 @@ module URBANopt # :nodoc:
         request = Net::HTTP::Get.new(uri.request_uri)
         
         while status == "Optimizing..."
-          response = http.request(request)
+          response = make_request(http, request)
           data = JSON.parse(response.body)
           sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) 
           status = data['outputs']['Scenario']['status']
@@ -194,7 +211,7 @@ module URBANopt # :nodoc:
         check_complete = sizes==0 and (data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0
         while (_tries < _max_retry) and check_complete
           sleep 1
-          response = http.request(request)
+          response = make_request(http, request)
           data = JSON.parse(response.body)
           sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) 
           check_complete = sizes==0 and (data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0

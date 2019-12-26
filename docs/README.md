@@ -32,9 +32,20 @@ Or install it yourself as:
 
     $ gem install 'urbanopt-reopt'
 
-Finally, obtain a developer.nrel.gov API key from the [NREL Developer Network](https://developer.nrel.gov/]). Copy and paste your key in to the _developer_nrel_key_._rb_ file then save the file:
+## Testing
+
+First, check out the repository (i.e. git clone this repo).
+
+Next, obtain a developer.nrel.gov API key from the [NREL Developer Network](https://developer.nrel.gov/]). Copy and paste your key in to the _developer_nrel_key_._rb_ file then save the file:
 
     DEVELOPER_NREL_KEY = '<insert your key here>'
+
+Finally, execute:
+
+    $ bundle install
+    $ bundle update    
+    $ bundle exec rake
+
 
 ## Functionality
 
@@ -61,15 +72,6 @@ This gem is used to call the REopt Lite API on a Scenario Report or Feature Repo
 | ElectricityProduced:Wind:ToBattery       | kWh     |
 | ElectricityProduced:Wind:ToLoad          | kWh     |
 | ElectricityProduced:Wind:ToGrid          | kWh     |
-
-
-## Testing
-
-Check out the repository and then execute:
-
-    $ bundle install
-    $ bundle update    
-    $ bundle exec rake
     
 ## Releasing
 
