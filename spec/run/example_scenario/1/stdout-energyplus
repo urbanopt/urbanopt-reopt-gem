@@ -1,0 +1,118 @@
+EnergyPlus Starting
+EnergyPlus, Version 9.1.0-08d2e308bb, YMD=2019.12.26 07:35
+Initializing Response Factors
+Calculating CTFs for "TYPICAL IEAD ROOF R-15.87", Construction # 1
+Calculating CTFs for "TYPICAL INSULATED CARPETED 6IN SLAB FLOOR", Construction # 3
+Calculating CTFs for "TYPICAL INSULATED EXTERIOR MASS WALL R-9.62", Construction # 5
+Calculating CTFs for "TYPICAL INTERIOR FLOOR", Construction # 9
+Initializing Window Optical Properties
+Initializing Solar Calculations
+Allocate Solar Module Arrays
+Initializing Zone Report Variables
+Initializing Surface (Shading) Report Variables
+Computing Interior Solar Absorption Factors
+Determining Shadowing Combinations
+Computing Window Shade Absorption Factors
+Proceeding with Initializing Solar Calculations
+Initializing Surfaces
+Initializing Outdoor environment for Surfaces
+Setting up Surface Reporting Variables
+Initializing Temperature and Flux Histories
+Initializing Window Shading
+Computing Interior Absorption Factors
+Computing Interior Diffuse Solar Absorption Factors
+Computing Interior Diffuse Solar Exchange through Interzone Windows
+Initializing Solar Heat Gains
+Initializing Internal Heat Gains
+Initializing Interior Solar Distribution
+Initializing Interior Convection Coefficients
+Gathering Information for Predefined Reporting
+Completed Initializing Surface Heat Balance
+Calculate Outside Surface Heat Balance
+Calculate Inside Surface Heat Balance
+Calculate Air Heat Balance
+Initializing HVAC
+Warming up
+Warming up
+Warming up
+Warming up
+Warming up
+Warming up
+Performing Zone Sizing Simulation
+...for Sizing Period: #1 BUFFALO NIAGARA INTL AP ANN CLG .4% CONDNS DB=>MWB
+Warming up
+Warming up
+Warming up
+Warming up
+Warming up
+Warming up
+Performing Zone Sizing Simulation
+...for Sizing Period: #2 BUFFALO NIAGARA INTL AP ANN CLG .4% CONDNS WB=>MDB
+Warming up
+Warming up
+Warming up
+Warming up
+Warming up
+Warming up
+Performing Zone Sizing Simulation
+...for Sizing Period: #3 BUFFALO NIAGARA INTL AP ANN HTG 99.6% CONDNS DB
+Calculating System sizing
+...for Sizing Period: #1 BUFFALO NIAGARA INTL AP ANN CLG .4% CONDNS DB=>MWB
+Calculating System sizing
+...for Sizing Period: #2 BUFFALO NIAGARA INTL AP ANN CLG .4% CONDNS WB=>MDB
+Calculating System sizing
+...for Sizing Period: #3 BUFFALO NIAGARA INTL AP ANN HTG 99.6% CONDNS DB
+Adjusting Air System Sizing
+Adjusting Standard 62.1 Ventilation Sizing
+Initializing Simulation
+Reporting Surfaces
+Beginning Primary Simulation
+Initializing New Environment Parameters
+Warming up {1}
+Warming up {2}
+Warming up {3}
+Warming up {4}
+Warming up {5}
+Warming up {6}
+Starting Simulation at 01/01/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=01/21/2018
+Continuing Simulation at 01/21/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=02/10/2018
+Continuing Simulation at 02/10/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=03/02/2018
+Continuing Simulation at 03/02/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=03/22/2018
+Continuing Simulation at 03/22/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=04/11/2018
+Continuing Simulation at 04/11/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=05/01/2018
+Continuing Simulation at 05/01/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=05/21/2018
+Continuing Simulation at 05/21/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=06/10/2018
+Continuing Simulation at 06/10/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=06/30/2018
+Continuing Simulation at 06/30/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=07/20/2018
+Continuing Simulation at 07/20/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=08/09/2018
+Continuing Simulation at 08/09/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=08/29/2018
+Continuing Simulation at 08/29/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=09/18/2018
+Continuing Simulation at 09/18/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=10/08/2018
+Continuing Simulation at 10/08/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=10/28/2018
+Continuing Simulation at 10/28/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=11/17/2018
+Continuing Simulation at 11/17/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=12/07/2018
+Continuing Simulation at 12/07/2018 for RUN PERIOD 1
+Updating Shadowing Calculations, Start Date=12/27/2018
+Continuing Simulation at 12/27/2018 for RUN PERIOD 1
+Writing tabular output file results using HTML format.
+Computing Life Cycle Costs and Reporting
+Writing final SQL reports
+EnergyPlus Run Time=00hr 02min  0.66sec
+EnergyPlus Completed Successfully.

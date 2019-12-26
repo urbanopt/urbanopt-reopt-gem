@@ -36,6 +36,33 @@ Finally, obtain a developer.nrel.gov API key from the [NREL Developer Network](h
 
     DEVELOPER_NREL_KEY = '<insert your key here>'
 
+## Functionality
+
+This gem is used to call the REopt Lite API on a Scenario Report or Feature Report to update the object's Distributed Generation attributes (including system financial and sizing metrics). Moreover, the following optimal dispatch fields are added to its timeseries CSV. Where no system component is recommended the dispatch will be all zero (i.e. if no solar PV is recommended ElectricityProduced:PV:Total will be always be zero)
+
+|            output                        |  unit   |
+| -----------------------------------------| ------- |
+| ElectricityProduced:Total                | kWh     |
+| Electricity:Load:Total                   | kWh     |
+| Electricity:Grid:ToLoad                  | kWh     |
+| Electricity:Grid:ToBattery               | kWh     |
+| Electricity:Storage:ToLoad               | kWh     |
+| Electricity:Storage:ToGrid               | kWh     |
+| Electricity:Storage:StateOfCharge        | kWh     |
+| ElectricityProduced:Generator:Total      | kWh     |
+| ElectricityProduced:Generator:ToBattery  | kWh     |
+| ElectricityProduced:Generator:ToLoad     | kWh     |
+| ElectricityProduced:Generator:ToGrid     | kWh     |
+| ElectricityProduced:PV:Total             | kWh     |
+| ElectricityProduced:PV:ToBattery         | kWh     |
+| ElectricityProduced:PV:ToLoad            | kWh     |
+| ElectricityProduced:PV:ToGrid            | kWh     |
+| ElectricityProduced:Wind:Total           | kWh     |
+| ElectricityProduced:Wind:ToBattery       | kWh     |
+| ElectricityProduced:Wind:ToLoad          | kWh     |
+| ElectricityProduced:Wind:ToGrid          | kWh     |
+
+
 ## Testing
 
 Check out the repository and then execute:

@@ -1,0 +1,1276 @@
+{
+   "completed_at" : "20191226T143733Z",
+   "completed_status" : "Success",
+   "current_step" : 11,
+   "description" : "Mixed_use 1",
+   "eplusout_err" : "Program Version,EnergyPlus, Version 9.1.0-08d2e308bb, YMD=2019.12.26 07:35,\n   ** Warning ** Timestep: Requested number (1) is less than the suggested minimum of 4.\n   **   ~~~   ** Please see entry for Timestep in Input/Output Reference for discussion of considerations.\n   ************* Beginning Zone Sizing Calculations\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"39 SPACE(S) OCC SCH DEFAULT\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"39 SPACE(S) OCC SCH SATURDAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"39 SPACE(S) OCC SCH SUMMER DESIGN DAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"39 SPACE(S) OCC SCH SUNDAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"39 SPACE(S) OCC SCH WINTER DESIGN DAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ECONOMIZER MAX OA FRACTION 70 PCT DEFAULT\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"SCHEDULE DAY 1\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"SCHEDULE DAY 2\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"SCHEDULE DAY 3\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"SCHEDULE DAY 4\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"SCHEDULE DAY 5\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"SCHEDULE DAY 6\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"SCHEDULE DAY 7\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"SCHEDULE DAY 8\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Year=\"ECONOMIZER MAX OA FRACTION 70 PCT\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Year=\"ELEVATOR SCHEDULE\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Constant=\"ALWAYS OFF DISCRETE\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Constant=\"ALWAYS ON CONTINUOUS\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** CheckUsedConstructions: There are 10 nominally unused constructions in input.\n   **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;\n   ** Warning ** DetermineShadowingCombinations: There are 8 surfaces which are receiving surfaces and are non-convex.\n   **   ~~~   ** ...Shadowing values may be inaccurate. Check .shd report file for more surface shading details\n   **   ~~~   ** ...Add Output:Diagnostics,DisplayExtraWarnings; to see individual warnings for each surface.\n   ** Warning ** DeterminePolygonOverlap: Too many figures [>15000]  detected in an overlap calculation. Use Output:Diagnostics,DisplayExtraWarnings; for more details.\n   ************* Beginning System Sizing Calculations\n   ** Warning ** Since Zone Minimum Air Flow Input Method = CONSTANT, input for Fixed Minimum Air Flow Rate will be ignored.\n   **   ~~~   ** Occurs in AirTerminal:SingleDuct:VAV:Reheat = BUILDING STORY 1 THERMALZONE VAV TERMINAL\n   ** Warning ** Since Damper Heating Action = NORMAL, input for Maximum Flow Fraction During Reheat will be ignored.\n   **   ~~~   ** Occurs in AirTerminal:SingleDuct:VAV:Reheat = BUILDING STORY 1 THERMALZONE VAV TERMINAL\n   ** Warning ** Since Zone Minimum Air Flow Input Method = CONSTANT, input for Fixed Minimum Air Flow Rate will be ignored.\n   **   ~~~   ** Occurs in AirTerminal:SingleDuct:VAV:Reheat = BUILDING STORY 2 THERMALZONE VAV TERMINAL\n   ** Warning ** Since Damper Heating Action = NORMAL, input for Maximum Flow Fraction During Reheat will be ignored.\n   **   ~~~   ** Occurs in AirTerminal:SingleDuct:VAV:Reheat = BUILDING STORY 2 THERMALZONE VAV TERMINAL\n   ** Warning ** Since Zone Minimum Air Flow Input Method = CONSTANT, input for Fixed Minimum Air Flow Rate will be ignored.\n   **   ~~~   ** Occurs in AirTerminal:SingleDuct:VAV:Reheat = BUILDING STORY 3 THERMALZONE VAV TERMINAL\n   ** Warning ** Since Damper Heating Action = NORMAL, input for Maximum Flow Fraction During Reheat will be ignored.\n   **   ~~~   ** Occurs in AirTerminal:SingleDuct:VAV:Reheat = BUILDING STORY 3 THERMALZONE VAV TERMINAL\n   ** Warning ** Since Zone Minimum Air Flow Input Method = CONSTANT, input for Fixed Minimum Air Flow Rate will be ignored.\n   **   ~~~   ** Occurs in AirTerminal:SingleDuct:VAV:Reheat = BUILDING STORY 4 THERMALZONE VAV TERMINAL\n   ** Warning ** Since Damper Heating Action = NORMAL, input for Maximum Flow Fraction During Reheat will be ignored.\n   **   ~~~   ** Occurs in AirTerminal:SingleDuct:VAV:Reheat = BUILDING STORY 4 THERMALZONE VAV TERMINAL\n   ************* Beginning Plant Sizing Calculations\n   ** Warning ** In calculating the design coil UA for Coil:Cooling:Water 1 ZONE VAV CLG COIL\n   **   ~~~   ** the coil bypass factor is unrealistically large;\n   **   ~~~   ** The initial design conditions are: Tair,in = 30.3000\n   **   ~~~   **                                    Wair,in = 1.334551E-002\n   **   ~~~   **                                    Twater,in = 6.6667\n   **   ~~~   **                                    Tair,out = 10.9156\n   **   ~~~   **                                    Wair,out = 8.500000E-003\n   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.\n   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND TRANSFER AIR SOURCE] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.\n   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN A END_A - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.\n   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.\n   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND TRANSFER AIR SOURCE] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.\n   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN B END_A - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.\n   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.\n   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND TRANSFER AIR SOURCE] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.\n   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN C END_A - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.\n   ** Warning ** In calculating the design coil UA for Coil:Cooling:Water 1 ZONE VAV 1 CLG COIL\n   **   ~~~   ** the coil bypass factor is unrealistically large;\n   **   ~~~   ** The initial design conditions are: Tair,in = 24.3036\n   **   ~~~   **                                    Wair,in = 9.755634E-003\n   **   ~~~   **                                    Twater,in = 6.6667\n   **   ~~~   **                                    Tair,out = 10.9034\n   **   ~~~   **                                    Wair,out = 8.500000E-003\n   ** Warning ** In calculating the design coil UA for Coil:Cooling:Water 1 ZONE VAV 2 CLG COIL\n   **   ~~~   ** the coil bypass factor is unrealistically large;\n   **   ~~~   ** The initial design conditions are: Tair,in = 24.3027\n   **   ~~~   **                                    Wair,in = 9.778501E-003\n   **   ~~~   **                                    Twater,in = 6.6667\n   **   ~~~   **                                    Tair,out = 10.9035\n   **   ~~~   **                                    Wair,out = 8.500000E-003\n   ** Warning ** In calculating the design coil UA for Coil:Cooling:Water 1 ZONE VAV 3 CLG COIL\n   **   ~~~   ** the coil bypass factor is unrealistically large;\n   **   ~~~   ** The initial design conditions are: Tair,in = 27.8729\n   **   ~~~   **                                    Wair,in = 1.181898E-002\n   **   ~~~   **                                    Twater,in = 6.6667\n   **   ~~~   **                                    Tair,out = 10.9104\n   **   ~~~   **                                    Wair,out = 8.500000E-003\n   ** Warning ** GetElectricEIRChillerInput: Chiller:Electric:EIR=\"90.1-2004 WATERCOOLED  ROTARY SCREW CHILLER 0 3342TONS 0.6KW/TON\"\n   **   ~~~   ** Energy input ratio as a function of temperature curve output is not equal to 1.0 (+ or - 10%) at reference conditions.\n   **   ~~~   ** Curve output at reference conditions = 1.205\n   ** Warning ** Check input. Pump nominal power or motor efficiency is set to 0, for pump=BOOSTER WATER LOOP PUMP\n   ** Warning ** Missing temperature setpoint for LeavingSetpointModulated mode Boiler named BOILER 23557KBTU/HR 0.75 THERMAL EFF\n   **   ~~~   **   A temperature setpoint is needed at the outlet node of a boiler in variable flow mode\n   **   ~~~   **   use a Setpoint Manager to establish a setpoint at the boiler outlet node \n   **   ~~~   **   or use an EMS actuator to establish a setpoint at the boiler outlet node \n   **   ~~~   **   The overall loop setpoint will be assumed for Boiler. The simulation continues ... \n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"ADDITIONALFUEL:FACILITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"DISTRICTCOOLING:FACILITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"DISTRICTHEATING:FACILITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"DISTRICTCOOLING:FACILITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"DISTRICTHEATING:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly requested for \"Electricity:Facility\" (Hourly), already on \"Output:Meter\". Will report to both eplusout.eso and eplusout.mtr\n   ** Warning ** Output:Meter:MeterFileOnly: invalid Key Name=\"ELECTRICITYPRODUCED:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly requested for \"Gas:Facility\" (Hourly), already on \"Output:Meter\". Will report to both eplusout.eso and eplusout.mtr\n   ** Warning ** Output:Meter:MeterFileOnly: invalid Key Name=\"DISTRICTCOOLING:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly: invalid Key Name=\"DISTRICTHEATING:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly requested for \"Electricity:Facility\" (TimeStep), already on \"Output:Meter\". Will report to both eplusout.eso and eplusout.mtr\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ** Severe  ** Node Connection Error, Node=\"ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND EXHAUST FAN INLET AIR NODE\", Inlet node did not find an appropriate matching \"outlet\" node.\n   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.\n   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND EXHAUST FAN\n   ** Severe  ** Node Connection Error, Node=\"ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND TRANSFER AIR SOURCE INLET AIR NODE\", Inlet node did not find an appropriate matching \"outlet\" node.\n   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.\n   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND TRANSFER AIR SOURCE\n   ** Severe  ** Node Connection Error, Node=\"ZONE FULLSERVICERESTAURANT KITCHEN A END_A - STORY GROUND EXHAUST FAN INLET AIR NODE\", Inlet node did not find an appropriate matching \"outlet\" node.\n   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.\n   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN A END_A - STORY GROUND EXHAUST FAN\n   ** Severe  ** Node Connection Error, Node=\"ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND EXHAUST FAN INLET AIR NODE\", Inlet node did not find an appropriate matching \"outlet\" node.\n   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.\n   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND EXHAUST FAN\n   ** Severe  ** Node Connection Error, Node=\"ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND TRANSFER AIR SOURCE INLET AIR NODE\", Inlet node did not find an appropriate matching \"outlet\" node.\n   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.\n   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND TRANSFER AIR SOURCE\n   ** Severe  ** Node Connection Error, Node=\"ZONE FULLSERVICERESTAURANT KITCHEN B END_A - STORY GROUND EXHAUST FAN INLET AIR NODE\", Inlet node did not find an appropriate matching \"outlet\" node.\n   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.\n   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN B END_A - STORY GROUND EXHAUST FAN\n   ** Severe  ** Node Connection Error, Node=\"ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND EXHAUST FAN INLET AIR NODE\", Inlet node did not find an appropriate matching \"outlet\" node.\n   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.\n   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND EXHAUST FAN\n   ** Severe  ** Node Connection Error, Node=\"ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND TRANSFER AIR SOURCE INLET AIR NODE\", Inlet node did not find an appropriate matching \"outlet\" node.\n   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.\n   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND TRANSFER AIR SOURCE\n   ** Severe  ** Node Connection Error, Node=\"ZONE FULLSERVICERESTAURANT KITCHEN C END_A - STORY GROUND EXHAUST FAN INLET AIR NODE\", Inlet node did not find an appropriate matching \"outlet\" node.\n   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.\n   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN C END_A - STORY GROUND EXHAUST FAN\n   ************* There were 9 node connection errors noted.\n   ************* Beginning Simulation\n   ** Warning ** Processing Monthly Tabular Reports: Variable names not valid for this simulation\n   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual variables.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-ELECTRICITY\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-DISTILLATE OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-RESIDUAL OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-NATURAL GAS\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-COAL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ************* Simulation Error Summary *************\n   ** Warning ** The following Report Variables were requested but not generated -- check.rdd file\n   **   ~~~   ** Either the IDF did not contain these elements, the variable name is misspelled,\n   **   ~~~   ** or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;\n   ************* Key=*, VarName=DISTRICT COOLING CHILLED WATER RATE, Frequency=Hourly\n   ************* Key=*, VarName=DISTRICT COOLING MASS FLOW RATE, Frequency=Hourly\n   ************* Key=*, VarName=DISTRICT COOLING INLET TEMPERATURE, Frequency=Hourly\n   ************* Key=*, VarName=DISTRICT COOLING OUTLET TEMPERATURE, Frequency=Hourly\n   ************* Key=*, VarName=DISTRICT HEATING HOT WATER RATE, Frequency=Hourly\n   ************* Key=*, VarName=DISTRICT HEATING MASS FLOW RATE, Frequency=Hourly\n   ************* Key=*, VarName=DISTRICT HEATING INLET TEMPERATURE, Frequency=Hourly\n   ************* Key=*, VarName=DISTRICT HEATING OUTLET TEMPERATURE, Frequency=Hourly\n   ************* There are 9 unused schedules in input.\n   ************* There are 10 unused week schedules in input.\n   ************* There are 29 unused day schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   *************\n   ************* ===== Final Error Summary =====\n   ************* The following error categories occurred.  Consider correcting or noting.\n   ************* Node Connection Errors\n   ************* ..Node connection errors are often caused by spelling mistakes in a node name field.\n   ************* ..To track down the problem, search the idf file for each node name listed to see if it\n   ************* ..occurs in the expected input fields.\n   ************* Nominally Unused Constructions\n   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause\n   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm\n   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).\n   *************\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 28 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 131 Warning; 18 Severe Errors; Elapsed Time=00hr 02min  0.66sec\n",
+   "file_paths" : [
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/run/baseline_scenario/1/generated_files",
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/mappers/../weather/",
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.3/lib/files",
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.0/lib/files",
+      "/Users/tkwasnik/github/urbanopt-reopt-gem/lib/files",
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/weather",
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.0/lib/files",
+      "./files",
+      "./weather",
+      "../../files",
+      "../../weather",
+      "./"
+   ],
+   "hash" : "881F5A0F",
+   "measure_paths" : [
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.3/lib/measures",
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.0/lib/measures",
+      "/Users/tkwasnik/github/urbanopt-scenario-gem/lib/measures",
+      "/Users/tkwasnik/github/urbanopt-reopt-gem/lib/measures",
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/urbanopt-geojson-0.1.0/lib/measures",
+      "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.0/lib/measures"
+   ],
+   "name" : "Mixed_use 1",
+   "run_directory" : "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/run/baseline_scenario/1",
+   "seed_file" : null,
+   "started_at" : "20191226T143449Z",
+   "steps" : [
+      {
+         "arguments" : {
+            "begin_date" : "2018-01-01",
+            "end_date" : "2018-12-31",
+            "timesteps_per_hour" : 1
+         },
+         "measure_dir_name" : "set_run_period",
+         "result" : {
+            "completed_at" : "20191226T143449Z",
+            "measure_class_name" : "SetRunPeriod",
+            "measure_display_name" : "SetRunPeriod",
+            "measure_name" : "set_run_period",
+            "measure_taxonomy" : "Envelope.Form",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "7a84292a-3975-4ab3-9284-6edabcbe750b",
+            "measure_version_id" : "62323562-963d-4e61-8dc1-33935da3c01e",
+            "measure_version_modified" : "20191029T231304Z",
+            "measure_xml_checksum" : "2AF3A68E",
+            "started_at" : "20191226T143449Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_info" : [],
+            "step_result" : "Success",
+            "step_values" : [
+               {
+                  "name" : "timesteps_per_hour",
+                  "value" : 1
+               },
+               {
+                  "name" : "begin_date",
+                  "value" : "2018-01-01"
+               },
+               {
+                  "name" : "end_date",
+                  "value" : "2018-12-31"
+               }
+            ],
+            "step_warnings" : []
+         }
+      },
+      {
+         "arguments" : {
+            "climate_zone" : "6A",
+            "weather_file_name" : "USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.epw"
+         },
+         "measure_dir_name" : "ChangeBuildingLocation",
+         "result" : {
+            "completed_at" : "20191226T143450Z",
+            "measure_class_name" : "ChangeBuildingLocation",
+            "measure_display_name" : "ChangeBuildingLocation",
+            "measure_name" : "change_building_location",
+            "measure_taxonomy" : "Whole Building.Space Types",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "d4db4971-f5ba-11e3-a3ac-0800200c9a66",
+            "measure_version_id" : "9938c101-08b8-4eaa-9eb4-4f6e5c8921b0",
+            "measure_version_modified" : "20191029T231254Z",
+            "measure_xml_checksum" : "057E8D9D",
+            "started_at" : "20191226T143449Z",
+            "stderr" : "",
+            "stdout" : "[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription\n[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription\n",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_final_condition" : "The final weather file is Buffalo Niagara Intl Ap and the model has 3 design day objects.",
+            "step_info" : [
+               "city is Buffalo Niagara Intl Ap. State is NY",
+               "mean dry bulb is 8.966666666666667",
+               "Adding object Buffalo Niagara Intl Ap Ann Clg .4% Condns WB=>MDB",
+               "Adding object Buffalo Niagara Intl Ap Ann Clg .4% Condns DB=>MWB",
+               "Adding object Buffalo Niagara Intl Ap Ann Htg 99.6% Condns DB",
+               "Setting Climate Zone to 6A"
+            ],
+            "step_initial_condition" : "No weather file is set. The model has 0 design day objects",
+            "step_result" : "Success",
+            "step_values" : [
+               {
+                  "name" : "weather_file_name",
+                  "value" : "USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.epw"
+               },
+               {
+                  "name" : "climate_zone",
+                  "value" : "6A"
+               },
+               {
+                  "name" : "set_year",
+                  "value" : 0
+               },
+               {
+                  "name" : "use_upstream_args",
+                  "value" : true
+               }
+            ],
+            "step_warnings" : [ "weather_file.path is ." ]
+         }
+      },
+      {
+         "arguments" : {
+            "bar_division_method" : "Multiple Space Types - Individual Stories Sliced",
+            "bldg_type_a" : "MediumOffice",
+            "bldg_type_a_num_units" : 0,
+            "bldg_type_b" : "FullServiceRestaurant",
+            "bldg_type_b_fract_bldg_area" : 0.5,
+            "bldg_type_b_num_units" : 0,
+            "bldg_type_c" : "RetailStripmall",
+            "bldg_type_c_fract_bldg_area" : 0,
+            "bldg_type_c_num_units" : 0,
+            "bldg_type_d" : "LargeHotel",
+            "bldg_type_d_fract_bldg_area" : 0,
+            "bldg_type_d_num_units" : 0,
+            "building_rotation" : 0,
+            "floor_height" : 10,
+            "ns_to_ew_ratio" : 0,
+            "num_stories_above_grade" : 4,
+            "num_stories_below_grade" : 0,
+            "party_wall_fraction" : 0,
+            "single_floor_area" : 188046,
+            "story_multiplier" : "None",
+            "template" : "90.1-2004",
+            "wwr" : 0
+         },
+         "measure_dir_name" : "create_bar_from_building_type_ratios",
+         "result" : {
+            "completed_at" : "20191226T143457Z",
+            "measure_class_name" : "CreateBarFromBuildingTypeRatios",
+            "measure_display_name" : "Create Bar From Building Type Ratios",
+            "measure_name" : "create_bar_from_building_type_ratios",
+            "measure_taxonomy" : "Envelope.Form",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "6e3a14f8-c3c7-4e03-bc51-bef8a52e1a05",
+            "measure_version_id" : "c56c06d4-914c-4bb0-a924-d3e790ec69a7",
+            "measure_version_modified" : "20191030T020543Z",
+            "measure_xml_checksum" : "2AF3A68E",
+            "started_at" : "20191226T143454Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_final_condition" : "The building finished with 39 spaces.",
+            "step_info" : [
+               "0.0 value for aspect ratio will be replaced with smart default for MediumOffice of 1.5.",
+               "0.0 value for window to wall ratio will be replaced with smart default for MediumOffice of 0.33.",
+               "Creating Space Types for MediumOffice.",
+               "Creating Space Types for FullServiceRestaurant.",
+               "Intersecting surfaces, this will create additional geometry.",
+               "Created Bar envlope with floor area of 752,184 (ft^2)",
+               "Target party wall fraction is 0.0. Realized fraction is 0.0"
+            ],
+            "step_initial_condition" : "The building started with 0 spaces.",
+            "step_result" : "Success",
+            "step_values" : [
+               {
+                  "name" : "bldg_type_a",
+                  "value" : "MediumOffice"
+               },
+               {
+                  "name" : "bldg_type_a_num_units",
+                  "value" : 0
+               },
+               {
+                  "name" : "bldg_type_b",
+                  "value" : "FullServiceRestaurant"
+               },
+               {
+                  "name" : "bldg_type_b_fract_bldg_area",
+                  "value" : 0.5
+               },
+               {
+                  "name" : "bldg_type_b_num_units",
+                  "value" : 0
+               },
+               {
+                  "name" : "bldg_type_c",
+                  "value" : "RetailStripmall"
+               },
+               {
+                  "name" : "bldg_type_c_fract_bldg_area",
+                  "value" : 0
+               },
+               {
+                  "name" : "bldg_type_c_num_units",
+                  "value" : 0
+               },
+               {
+                  "name" : "bldg_type_d",
+                  "value" : "LargeHotel"
+               },
+               {
+                  "name" : "bldg_type_d_fract_bldg_area",
+                  "value" : 0
+               },
+               {
+                  "name" : "bldg_type_d_num_units",
+                  "value" : 0
+               },
+               {
+                  "name" : "single_floor_area",
+                  "value" : 188046
+               },
+               {
+                  "name" : "total_bldg_floor_area",
+                  "value" : 10000
+               },
+               {
+                  "name" : "floor_height",
+                  "value" : 10
+               },
+               {
+                  "name" : "num_stories_above_grade",
+                  "value" : 4
+               },
+               {
+                  "name" : "num_stories_below_grade",
+                  "value" : 0
+               },
+               {
+                  "name" : "building_rotation",
+                  "value" : 0
+               },
+               {
+                  "name" : "template",
+                  "value" : "90.1-2004"
+               },
+               {
+                  "name" : "ns_to_ew_ratio",
+                  "value" : 0
+               },
+               {
+                  "name" : "wwr",
+                  "value" : 0
+               },
+               {
+                  "name" : "party_wall_fraction",
+                  "value" : 0
+               },
+               {
+                  "name" : "party_wall_stories_north",
+                  "value" : 0
+               },
+               {
+                  "name" : "party_wall_stories_south",
+                  "value" : 0
+               },
+               {
+                  "name" : "party_wall_stories_east",
+                  "value" : 0
+               },
+               {
+                  "name" : "party_wall_stories_west",
+                  "value" : 0
+               },
+               {
+                  "name" : "bottom_story_ground_exposed_floor",
+                  "value" : true
+               },
+               {
+                  "name" : "top_story_exterior_exposed_roof",
+                  "value" : true
+               },
+               {
+                  "name" : "story_multiplier",
+                  "value" : "None"
+               },
+               {
+                  "name" : "bar_division_method",
+                  "value" : "Multiple Space Types - Individual Stories Sliced"
+               },
+               {
+                  "name" : "make_mid_story_surfaces_adiabatic",
+                  "value" : false
+               },
+               {
+                  "name" : "use_upstream_args",
+                  "value" : true
+               },
+               {
+                  "name" : "party_wall_fraction_actual",
+                  "value" : 0
+               }
+            ],
+            "step_warnings" : [
+               "Could not find color for 90.1-2004 Office WholeBuilding - Md Office",
+               "Could not find color for 90.1-2004 FullServiceRestaurant Dining",
+               "Could not find color for 90.1-2004 FullServiceRestaurant Kitchen",
+               "User-defined single floor area was used for calculation of total building floor area"
+            ]
+         }
+      },
+      {
+         "arguments" : {
+            "add_hvac" : false
+         },
+         "measure_dir_name" : "create_typical_building_from_model",
+         "name" : "create_typical_building_from_model 1",
+         "result" : {
+            "completed_at" : "20191226T143459Z",
+            "measure_class_name" : "CreateTypicalBuildingFromModel",
+            "measure_display_name" : "Create Typical Building from Model",
+            "measure_name" : "create_typical_building_from_model",
+            "measure_taxonomy" : "Whole Building.Space Types",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "339a2e3a-273c-4494-bb50-bfe586a0647c",
+            "measure_version_id" : "87ebffcf-eacc-4a82-9543-d033695df855",
+            "measure_version_modified" : "20191030T020543Z",
+            "measure_xml_checksum" : "EE13F09F",
+            "started_at" : "20191226T143457Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_final_condition" : "The building finished with 1353 objects.",
+            "step_info" : [
+               "Replacing argument named template from current measure with a value of 90.1-2004 from create_bar_from_building_type_ratios.",
+               "Adding loads to space type named FullServiceRestaurant Kitchen - 90.1-2004",
+               "Adding loads to space type named FullServiceRestaurant Dining - 90.1-2004",
+               "Adding loads to space type named Office WholeBuilding - Md Office - 90.1-2004",
+               "Adding default construction set named Res 90.1-2004 - Office - ASHRAE 169-2013-6A",
+               "Adding 35.0 elevators each with power of 16,055 (W), plus lights and fans.",
+               "Adding Exterior Lights named Parking Areas and Drives Def (W/ft^2) with design level of 0.15 * 1,768,846.",
+               "Adding Exterior Lights named Building Facades Def (W/ft^2) with design level of 0.2 * 17,703.",
+               "Adding Exterior Lights named Main Entries Def (W/ft) with design level of 30.0 * 75.",
+               "Adding Exterior Lights named Other Doors Def (W/ft) with design level of 20.0 * 226.",
+               "Adding 2,885 (cfm) of exhaust to Zone FullServiceRestaurant Kitchen A  - Story Ground, with 2,694 (cfm) of makeup air from Zone FullServiceRestaurant Dining A  - Story Ground",
+               "Adding 157 (cfm) of exhaust to Zone FullServiceRestaurant Kitchen A end_a - Story Ground",
+               "Adding 62,331 (cfm) of exhaust to Zone FullServiceRestaurant Kitchen B  - Story Ground, with 58,199 (cfm) of makeup air from Zone FullServiceRestaurant Dining B  - Story Ground",
+               "Adding 3,403 (cfm) of exhaust to Zone FullServiceRestaurant Kitchen B end_a - Story Ground",
+               "Adding 2,885 (cfm) of exhaust to Zone FullServiceRestaurant Kitchen C  - Story Ground, with 2,694 (cfm) of makeup air from Zone FullServiceRestaurant Dining C  - Story Ground",
+               "Adding 157 (cfm) of exhaust to Zone FullServiceRestaurant Kitchen C end_a - Story Ground",
+               "Adding FullServiceRestaurant Kitchen - 90.1-2004 Service Water Loop to the building. It has 1 water use connections.",
+               "Adding Office Shared Service Water Loop to the building. It has 1 water use connections.",
+               "Assigning FullServiceRestaurant Kitchen - 90.1-2004 Thermostat to thermal zones with FullServiceRestaurant Kitchen - 90.1-2004 assigned.",
+               "Assigning FullServiceRestaurant Dining - 90.1-2004 Thermostat to thermal zones with FullServiceRestaurant Dining - 90.1-2004 assigned.",
+               "Assigning Office WholeBuilding - Md Office - 90.1-2004 Thermostat to thermal zones with Office WholeBuilding - Md Office - 90.1-2004 assigned.",
+               "Using OpenStudio Standards version 0.2.10 with template 90.1-2004.",
+               "Loading OpenStudio Standards data for 90.1-2004",
+               "FullServiceRestaurant Kitchen had no people, one has been created.",
+               "FullServiceRestaurant Kitchen set occupancy to 5.0 people/1000 ft^2.",
+               "FullServiceRestaurant Kitchen had no lights, one has been created.",
+               "FullServiceRestaurant Kitchen set LPD to 1.2 W/ft^2.",
+               "FullServiceRestaurant Kitchen had no electric equipment, one has been created.",
+               "FullServiceRestaurant Kitchen set electric EPD to 37.53 W/ft^2.",
+               "FullServiceRestaurant Kitchen had no gas equipment, one has been created.",
+               "FullServiceRestaurant Kitchen set gas EPD to 205.81 Btu/hr*ft^2.",
+               "FullServiceRestaurant Kitchen had no ventilation specification, one has been created.",
+               "FullServiceRestaurant Kitchen set ventilation per area to 0.47 cfm/ft^2.",
+               "FullServiceRestaurant Kitchen set occupancy schedule to RestaurantSitDown BLDG_OCC_SCH.",
+               "FullServiceRestaurant Kitchen set occupant activity schedule to RestaurantSitDown ACTIVITY_SCH.",
+               "FullServiceRestaurant Kitchen set lighting schedule to RestaurantSitDown BLDG_LIGHT_KITCHEN_SCH_2004_2007.",
+               "FullServiceRestaurant Kitchen set electric equipment schedule to RestaurantSitDown BLDG_EQUIP_SCH.",
+               "FullServiceRestaurant Kitchen set gas equipment schedule to RestaurantSitDown Rest_GAS_EQUIP_SCH.",
+               "FullServiceRestaurant Kitchen set infiltration schedule to RestaurantSitDown INFIL_HALF_ON_SCH.",
+               "FullServiceRestaurant Dining had no people, one has been created.",
+               "FullServiceRestaurant Dining set occupancy to 70.0 people/1000 ft^2.",
+               "FullServiceRestaurant Dining had no lights, one has been created.",
+               "FullServiceRestaurant Dining set LPD to 2.1 W/ft^2.",
+               "FullServiceRestaurant Dining had no electric equipment, one has been created.",
+               "FullServiceRestaurant Dining set electric EPD to 6.032 W/ft^2.",
+               "FullServiceRestaurant Dining had no ventilation specification, one has been created.",
+               "FullServiceRestaurant Dining set ventilation per person to 20.0 cfm/person.",
+               "FullServiceRestaurant Dining set occupancy schedule to RestaurantSitDown BLDG_OCC_SCH.",
+               "FullServiceRestaurant Dining set occupant activity schedule to RestaurantSitDown ACTIVITY_SCH.",
+               "FullServiceRestaurant Dining set lighting schedule to RestaurantSitDown BLDG_LIGHT_KITCHEN_SCH_2004_2007.",
+               "FullServiceRestaurant Dining set electric equipment schedule to RestaurantSitDown BLDG_EQUIP_SCH.",
+               "FullServiceRestaurant Dining set infiltration schedule to RestaurantSitDown INFIL_HALF_ON_SCH.",
+               "Office WholeBuilding - Md Office had no people, one has been created.",
+               "Office WholeBuilding - Md Office set occupancy to 5.0 people/1000 ft^2.",
+               "Office WholeBuilding - Md Office had no lights, one has been created.",
+               "Office WholeBuilding - Md Office set LPD to 1.0 W/ft^2.",
+               "Office WholeBuilding - Md Office had no electric equipment, one has been created.",
+               "Office WholeBuilding - Md Office set electric EPD to 0.75 W/ft^2.",
+               "Office WholeBuilding - Md Office had no ventilation specification, one has been created.",
+               "Office WholeBuilding - Md Office set ventilation per area to 0.1 cfm/ft^2.",
+               "Office WholeBuilding - Md Office set occupancy schedule to OfficeMedium BLDG_OCC_SCH.",
+               "Office WholeBuilding - Md Office set occupant activity schedule to OfficeMedium ACTIVITY_SCH.",
+               "Office WholeBuilding - Md Office set lighting schedule to OfficeMedium BLDG_LIGHT_SCH_2004.",
+               "Office WholeBuilding - Md Office set electric equipment schedule to OfficeMedium BLDG_EQUIP_SCH_2004.",
+               "Office WholeBuilding - Md Office set infiltration schedule to OfficeMedium INFIL_SCH_PNNL.",
+               "Adding construction set: 90.1-2004-ASHRAE 169-2013-6A-Office--is_residentialNo",
+               "Adding construction Typical Insulated Exterior Mass Floor R-11.49.",
+               "Adding construction Typical Insulated Exterior Mass Wall R-9.62.",
+               "Adding construction Typical IEAD Roof R-15.87.",
+               "Adding construction Typical Interior Floor.",
+               "Adding construction Typical Interior Wall.",
+               "Adding construction Typical Interior Ceiling.",
+               "Adding construction Typical Insulated Carpeted 6in Slab Floor.",
+               "Adding construction Typical Insulated Basement Mass Wall.",
+               "Adding construction U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air.",
+               "Adding construction Typical Insulated Metal Door R-1.43.",
+               "Adding construction Typical Overhead Door R-2.0.",
+               "Adding construction U 1.17 SHGC 0.49 Simple Glazing Skylight U-1.17 SHGC 0.0.",
+               "Adding construction Typical Interior Window.",
+               "Adding construction Typical Interior Door.",
+               "Adding construction Typical Interior Partition.",
+               "For FullServiceRestaurant Dining A  - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining A  - Story Top, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining A end_a - Story Top, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining A end_b - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining A end_b - Story Top, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining B  - Story Ground, no exterior wall area was found, no infiltration will be added.",
+               "For FullServiceRestaurant Dining B  - Story Top, no exterior wall area was found, no infiltration will be added.",
+               "For FullServiceRestaurant Dining B end_a - Story Top, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining B end_b - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining B end_b - Story Top, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining C  - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining C  - Story Top, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining C end_a - Story Top, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining C end_b - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Dining C end_b - Story Top, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Kitchen A  - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Kitchen A end_a - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Kitchen B  - Story Ground, no exterior wall area was found, no infiltration will be added.",
+               "For FullServiceRestaurant Kitchen B end_a - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Kitchen C  - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For FullServiceRestaurant Kitchen C end_a - Story Ground, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office A  - Story Mid, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office A  - Story Mid2, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office A end_a - Story Mid, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office A end_a - Story Mid2, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office A end_b - Story Mid, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office A end_b - Story Mid2, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office B  - Story Mid, no exterior wall area was found, no infiltration will be added.",
+               "For Office WholeBuilding - Md Office B  - Story Mid2, no exterior wall area was found, no infiltration will be added.",
+               "For Office WholeBuilding - Md Office B end_a - Story Mid, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office B end_a - Story Mid2, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office B end_b - Story Mid, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office B end_b - Story Mid2, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office C  - Story Mid, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office C  - Story Mid2, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office C end_a - Story Mid, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office C end_a - Story Mid2, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office C end_b - Story Mid, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "For Office WholeBuilding - Md Office C end_b - Story Mid2, set infiltration rate to 0.202 cfm/ft2 exterior wall area (aka 1.8 cfm/ft2 @75Pa).",
+               "The building has fewer than 6 effective stories; assuming Hydraulic elevators.",
+               "For FullServiceRestaurant Dining - 90.1-2004, floor area = 273494 ft^2.",
+               "For FullServiceRestaurant Dining - 90.1-2004, number of spaces = 15.",
+               "For FullServiceRestaurant Dining - 90.1-2004, number of people = 19145.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, floor area = 102598 ft^2.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, number of spaces = 6.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, number of people = 513.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, floor area = 376092 ft^2.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, number of spaces = 18.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, number of people = 1880.",
+               "For FullServiceRestaurant Dining - 90.1-2004, adding 18.2 passenger elevators at 1 per 15000.0 ft^2.",
+               "Unexpected key, can't calculate number of freight elevators from template.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, adding 6.8 passenger elevators at 1 per 15000.0 ft^2.",
+               "Unexpected key, can't calculate number of freight elevators from template.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, adding 8.4 passenger elevators at 1 per 45000.0 ft^2.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, adding 0.8 freight/service elevators at 1 per 500000.0 ft^2.",
+               "No additional passenger elevators added to model.",
+               "No additional passenger elevators added to model.",
+               "Adding 35.0 Hydraulic elevators to the model in FullServiceRestaurant Kitchen B  - Story Ground.",
+               "For FullServiceRestaurant Dining - 90.1-2004, floor area = 273494 ft^2.",
+               "For FullServiceRestaurant Dining - 90.1-2004, number of spaces = 15.",
+               "For FullServiceRestaurant Dining - 90.1-2004, number of people = 19145.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, floor area = 102598 ft^2.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, number of spaces = 6.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, number of people = 513.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, floor area = 376092 ft^2.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, number of spaces = 18.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, number of people = 1880.",
+               "Facade and Landscape exterior lights shut off from {:hr=>24, :min=>0} to {:hr=>6, :min=>0}",
+               "Added 0.15 W/ft^2 of lighting for 1768845.6 ft^2 of parking area.",
+               "Added 0.2 W/ft^2 of lighting for 17703.38950596749 ft^2 of building facade area.",
+               "Added 30.0 W/ft of lighting for 75.21840000000009 ft of main entry length.",
+               "Added 20.0 W/ft of lighting for 225.65520000000012 ft of other doors.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen A  - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Zone FullServiceRestaurant Kitchen A  - Story Ground Exhaust Fan: allowed_hp = 0.45HP; motor eff = 29.0%; total fan eff = 16% based on 2885 cfm.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen A end_a - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Zone FullServiceRestaurant Kitchen A end_a - Story Ground Exhaust Fan: allowed_hp = 0.02HP; motor eff = 29.0%; total fan eff = 16% based on 157 cfm.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen B  - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Zone FullServiceRestaurant Kitchen B  - Story Ground Exhaust Fan: allowed_hp = 9.81HP; motor eff = 29.0%; total fan eff = 16% based on 62331 cfm.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen B end_a - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Zone FullServiceRestaurant Kitchen B end_a - Story Ground Exhaust Fan: allowed_hp = 0.54HP; motor eff = 29.0%; total fan eff = 16% based on 3403 cfm.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen C  - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Zone FullServiceRestaurant Kitchen C  - Story Ground Exhaust Fan: allowed_hp = 0.45HP; motor eff = 29.0%; total fan eff = 16% based on 2885 cfm.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen C end_a - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Zone FullServiceRestaurant Kitchen C end_a - Story Ground Exhaust Fan: allowed_hp = 0.02HP; motor eff = 29.0%; total fan eff = 16% based on 157 cfm.",
+               "For FullServiceRestaurant Dining - 90.1-2004, floor area = 273494 ft^2.",
+               "For FullServiceRestaurant Dining - 90.1-2004, number of spaces = 15.",
+               "For FullServiceRestaurant Dining - 90.1-2004, number of people = 19145.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, floor area = 102598 ft^2.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, number of spaces = 6.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004, number of people = 513.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, floor area = 376092 ft^2.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, number of spaces = 18.",
+               "For Office WholeBuilding - Md Office - 90.1-2004, number of people = 1880.",
+               "Added Booster FullServiceRestaurant Kitchen - 90.1-2004 Service Water Use 90.91gpm at 180F.",
+               "Added FullServiceRestaurant Kitchen - 90.1-2004 Service Water Use 60.61gpm at 140F.",
+               "Capacity of 5727300 Btu/hr = 1.0 peak fraction * 5455 gal/hr * 8.4 lb/gal * 1.0 Btu/lb F * (140 - 40 deltaF / 0.8 htg eff).",
+               "Added water heater called 5727gal NaturalGas Water Heater - 5727kBtu/hr",
+               "Pipe length 20ft. For non-circulating systems, assume water heater is close to point of use.",
+               "Added 20ft of Uninsulated copper pipe 0.75in type L losing heat to 70F air to FullServiceRestaurant Kitchen - 90.1-2004 Service Water Loop.",
+               "Added non-circulating SWH loop called FullServiceRestaurant Kitchen - 90.1-2004 Service Water Loop",
+               "Capacity of 1099642 Btu/hr = 1.0 peak fraction * 3273 gal/hr * 8.4 lb/gal * 1.0 Btu/lb F * (180 - 140 deltaF / 1.0 htg eff).",
+               "Adding booster water heater to FullServiceRestaurant Kitchen - 90.1-2004 Service Water Loop",
+               "Added Office WholeBuilding - Md Office - 90.1-2004 Service Water Use 5.96gpm at 140F.",
+               "Capacity of 214061 Btu/hr = 1.0 peak fraction * 204 gal/hr * 8.4 lb/gal * 1.0 Btu/lb F * (140 - 40 deltaF / 0.8 htg eff).",
+               "Capacity of 214061 Btu/hr = 1.0 peak fraction * 204 gal/hr * 8.4 lb/gal * 1.0 Btu/lb F * (140 - 40 deltaF / 0.8 htg eff).",
+               "Added water heater called 214gal Electricity Water Heater - 214kBtu/hr",
+               "Pipe length 887ft = 2.0 * ( (376092ft2 / 2.0 stories)^0.5 + (10.0ft * (2.0 stories - 1.0) ) )",
+               "Added 887ft of Uninsulated copper pipe 0.75in type L 1 losing heat to 70F air to Office Shared Service Water Loop.",
+               "Added circulating SWH loop called Office Shared Service Water Loop",
+               "Adding shared water heating loop for Office.",
+               "Started adding daylighting controls.",
+               "For FullServiceRestaurant Dining B  - Story Ground, daylighting control not applicable because no exterior fenestration is present.",
+               "For FullServiceRestaurant Dining B  - Story Top, daylighting control not applicable because no exterior fenestration is present.",
+               "For FullServiceRestaurant Kitchen B  - Story Ground, daylighting control not applicable because no exterior fenestration is present.",
+               "For Office WholeBuilding - Md Office B  - Story Mid, daylighting control not applicable because no exterior fenestration is present.",
+               "For Office WholeBuilding - Md Office B  - Story Mid2, daylighting control not applicable because no exterior fenestration is present.",
+               "Finished adding daylighting controls.",
+               "FullServiceRestaurant Kitchen - 90.1-2004 set heating setpoint schedule to RestaurantSitDown HTGSETP_KITCHEN_SCH_NO_OPTIMUM.",
+               "FullServiceRestaurant Kitchen - 90.1-2004 set cooling setpoint schedule to RestaurantSitDown CLGSETP_KITCHEN_SCH_NO_SETBACK.",
+               "FullServiceRestaurant Dining - 90.1-2004 set heating setpoint schedule to RestaurantSitDown HTGSETP_SCH_NO_OPTIMUM.",
+               "FullServiceRestaurant Dining - 90.1-2004 set cooling setpoint schedule to RestaurantSitDown CLGSETP_SCH_NO_SETBACK.",
+               "Office WholeBuilding - Md Office - 90.1-2004 set heating setpoint schedule to OfficeMedium HTGSETP_SCH_PACU_VAV_bot.",
+               "Office WholeBuilding - Md Office - 90.1-2004 set cooling setpoint schedule to OfficeMedium CLGSETP_SCH_NO_SETBACK.",
+               "Cannot remove Object of type 'OS:Schedule:Day' and named 'Schedule Day 41', because that would invalidate Object of type 'OS:Schedule:Ruleset' and named 'Schedule Ruleset 7'.",
+               "Cannot remove Object of type 'OS:Schedule:Day' and named 'Schedule Day 40', because that would invalidate Object of type 'OS:Schedule:Ruleset' and named 'Schedule Ruleset 6'.",
+               "Cannot remove Object of type 'OS:Schedule:Day' and named 'Schedule Day 37', because that would invalidate Object of type 'OS:Schedule:Ruleset' and named 'Schedule Ruleset 5'.",
+               "Cannot remove Object of type 'OS:Schedule:Day' and named 'Schedule Day 36', because that would invalidate Object of type 'OS:Schedule:Ruleset' and named 'Schedule Ruleset 4'.",
+               "Cannot remove Object of type 'OS:Schedule:Day' and named 'Schedule Day 35', because that would invalidate Object of type 'OS:Schedule:Ruleset' and named 'Schedule Ruleset 3'.",
+               "Cannot remove Object of type 'OS:Schedule:Day' and named 'Schedule Day 34', because that would invalidate Object of type 'OS:Schedule:Ruleset' and named 'Schedule Ruleset 2'."
+            ],
+            "step_initial_condition" : "The building started with 662 objects.",
+            "step_result" : "Success",
+            "step_values" : [
+               {
+                  "name" : "template",
+                  "value" : "90.1-2004"
+               },
+               {
+                  "name" : "system_type",
+                  "value" : "Inferred"
+               },
+               {
+                  "name" : "hvac_delivery_type",
+                  "value" : "Forced Air"
+               },
+               {
+                  "name" : "htg_src",
+                  "value" : "NaturalGas"
+               },
+               {
+                  "name" : "clg_src",
+                  "value" : "Electricity"
+               },
+               {
+                  "name" : "kitchen_makeup",
+                  "value" : "Adjacent"
+               },
+               {
+                  "name" : "exterior_lighting_zone",
+                  "value" : "3 - All Other Areas"
+               },
+               {
+                  "name" : "add_constructions",
+                  "value" : true
+               },
+               {
+                  "name" : "add_space_type_loads",
+                  "value" : true
+               },
+               {
+                  "name" : "add_elevators",
+                  "value" : true
+               },
+               {
+                  "name" : "add_exterior_lights",
+                  "value" : true
+               },
+               {
+                  "name" : "onsite_parking_fraction",
+                  "value" : 1
+               },
+               {
+                  "name" : "add_exhaust",
+                  "value" : true
+               },
+               {
+                  "name" : "add_swh",
+                  "value" : true
+               },
+               {
+                  "name" : "add_thermostat",
+                  "value" : true
+               },
+               {
+                  "name" : "add_hvac",
+                  "value" : false
+               },
+               {
+                  "name" : "remove_objects",
+                  "value" : true
+               },
+               {
+                  "name" : "use_upstream_args",
+                  "value" : true
+               },
+               {
+                  "name" : "enable_dst",
+                  "value" : true
+               }
+            ],
+            "step_warnings" : [
+               "[openstudio.standards.Model] Find object search criteria returned 5 results, the first one will be returned. Called from /Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-standards-0.2.10/lib/openstudio-standards/standards/Standards.Model.rb:2431:in `model_find_and_add_construction'. \n Search criteria: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\"}, capacity =  \n  All results: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>1.0, \"maximum_percent_of_surface\"=>10.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.49, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>10.001, \"maximum_percent_of_surface\"=>20.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>20.001, \"maximum_percent_of_surface\"=>30.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>30.001, \"maximum_percent_of_surface\"=>40.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.44 SHGC 0.20 Dbl Ref-B-H Tint 6mm/13mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>40.001, \"maximum_percent_of_surface\"=>100.0, \"assembly_maximum_u_value\"=>0.46, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.26, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}",
+               "[openstudio.standards.ConstructionBase] Can only set the u-value of opaque constructions or simple glazing. U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air is not opaque or simple glazing.",
+               "[openstudio.standards.Model] Find object search criteria returned 5 results, the first one will be returned. Called from /Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-standards-0.2.10/lib/openstudio-standards/standards/Standards.Model.rb:2431:in `model_find_and_add_construction'. \n Search criteria: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\"}, capacity =  \n  All results: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>1.0, \"maximum_percent_of_surface\"=>10.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.49, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>10.001, \"maximum_percent_of_surface\"=>20.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>20.001, \"maximum_percent_of_surface\"=>30.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>30.001, \"maximum_percent_of_surface\"=>40.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.44 SHGC 0.20 Dbl Ref-B-H Tint 6mm/13mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>40.001, \"maximum_percent_of_surface\"=>100.0, \"assembly_maximum_u_value\"=>0.46, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.26, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}",
+               "[openstudio.standards.Model] Find object search criteria returned 5 results, the first one will be returned. Called from /Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-standards-0.2.10/lib/openstudio-standards/standards/Standards.Model.rb:2431:in `model_find_and_add_construction'. \n Search criteria: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\"}, capacity =  \n  All results: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>1.0, \"maximum_percent_of_surface\"=>10.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.49, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>10.001, \"maximum_percent_of_surface\"=>20.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>20.001, \"maximum_percent_of_surface\"=>30.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>30.001, \"maximum_percent_of_surface\"=>40.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 6\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.44 SHGC 0.20 Dbl Ref-B-H Tint 6mm/13mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>40.001, \"maximum_percent_of_surface\"=>100.0, \"assembly_maximum_u_value\"=>0.46, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.26, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}",
+               "[openstudio.weather.Model] Could not find ground temperatures; will use generic temperatures, which will skew results.",
+               "[openstudio.model.Model] Model has zone with",
+               "[openstudio.model.Model] Model has zone with",
+               "[openstudio.model.Model] Model has zone with",
+               "[openstudio.model.Model] In model_add_typical, num_water_heaters = 1"
+            ]
+         }
+      },
+      {
+         "arguments" : {
+            "blend_method" : "Building Story"
+         },
+         "measure_dir_name" : "blended_space_type_from_model",
+         "result" : {
+            "completed_at" : "20191226T143500Z",
+            "measure_class_name" : "BlendedSpaceTypeFromModel",
+            "measure_display_name" : "Blended Space Type from Model",
+            "measure_name" : "blended_space_type_from_model",
+            "measure_taxonomy" : "Whole Building.Space Types",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "667c2f1f-0927-4dbd-a7be-1087b5c15181",
+            "measure_version_id" : "6822700e-3ee7-47bf-8bec-d90833ec1968",
+            "measure_version_modified" : "20191030T020542Z",
+            "measure_xml_checksum" : "28AD5222",
+            "started_at" : "20191226T143459Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_final_condition" : "The final building uses 4 spaces types.",
+            "step_info" : [
+               "Story Ground area is 188,046.00 ft^2, number of people is 6494.",
+               "Story Ground accounts for 2 space types.",
+               "Blending space type FullServiceRestaurant Dining - 90.1-2004 Story Ground. Floor area ratio is 0.454. People ratio is 0.921",
+               "Blending space type FullServiceRestaurant Kitchen - 90.1-2004 Story Ground. Floor area ratio is 0.546. People ratio is 0.079",
+               "Blending space FullServiceRestaurant Dining A end_b - Story Ground. Floor area ratio is 0.001. People ratio is 0.002",
+               "Blending space FullServiceRestaurant Dining B end_b - Story Ground. Floor area ratio is 0.026. People ratio is 0.052",
+               "Blending space FullServiceRestaurant Dining C  - Story Ground. Floor area ratio is 0.018. People ratio is 0.037",
+               "Blending space FullServiceRestaurant Dining A  - Story Ground. Floor area ratio is 0.018. People ratio is 0.037",
+               "Blending space FullServiceRestaurant Dining C end_b - Story Ground. Floor area ratio is 0.001. People ratio is 0.002",
+               "Blending space FullServiceRestaurant Kitchen A end_a - Story Ground. Floor area ratio is 0.001. People ratio is 0.0",
+               "Blending space FullServiceRestaurant Kitchen B end_a - Story Ground. Floor area ratio is 0.026. People ratio is 0.004",
+               "Blending space FullServiceRestaurant Kitchen B  - Story Ground. Floor area ratio is 0.474. People ratio is 0.069",
+               "Blending space FullServiceRestaurant Kitchen C  - Story Ground. Floor area ratio is 0.022. People ratio is 0.003",
+               "Blending space FullServiceRestaurant Kitchen A  - Story Ground. Floor area ratio is 0.022. People ratio is 0.003",
+               "Blending space FullServiceRestaurant Kitchen C end_a - Story Ground. Floor area ratio is 0.001. People ratio is 0.0",
+               "Story Mid area is 188,046.00 ft^2, number of people is 940.",
+               "Story Mid accounts for 1 space types.",
+               "Blending space type Office WholeBuilding - Md Office - 90.1-2004 Story Mid. Floor area ratio is 1.0. People ratio is 1.0",
+               "Blending space Office WholeBuilding - Md Office C end_b - Story Mid. Floor area ratio is 0.001. People ratio is 0.001",
+               "Blending space Office WholeBuilding - Md Office B end_b - Story Mid. Floor area ratio is 0.026. People ratio is 0.026",
+               "Blending space Office WholeBuilding - Md Office C  - Story Mid. Floor area ratio is 0.04. People ratio is 0.04",
+               "Blending space Office WholeBuilding - Md Office C end_a - Story Mid. Floor area ratio is 0.001. People ratio is 0.001",
+               "Blending space Office WholeBuilding - Md Office B end_a - Story Mid. Floor area ratio is 0.026. People ratio is 0.026",
+               "Blending space Office WholeBuilding - Md Office A  - Story Mid. Floor area ratio is 0.04. People ratio is 0.04",
+               "Blending space Office WholeBuilding - Md Office A end_b - Story Mid. Floor area ratio is 0.001. People ratio is 0.001",
+               "Blending space Office WholeBuilding - Md Office A end_a - Story Mid. Floor area ratio is 0.001. People ratio is 0.001",
+               "Story Mid2 area is 188,046.00 ft^2, number of people is 940.",
+               "Story Mid2 accounts for 1 space types.",
+               "Blending space type Office WholeBuilding - Md Office - 90.1-2004 Story Mid2. Floor area ratio is 1.0. People ratio is 1.0",
+               "Blending space Office WholeBuilding - Md Office C end_b - Story Mid2. Floor area ratio is 0.001. People ratio is 0.001",
+               "Blending space Office WholeBuilding - Md Office A end_b - Story Mid2. Floor area ratio is 0.001. People ratio is 0.001",
+               "Blending space Office WholeBuilding - Md Office C  - Story Mid2. Floor area ratio is 0.04. People ratio is 0.04",
+               "Blending space Office WholeBuilding - Md Office B end_b - Story Mid2. Floor area ratio is 0.026. People ratio is 0.026",
+               "Blending space Office WholeBuilding - Md Office A  - Story Mid2. Floor area ratio is 0.04. People ratio is 0.04",
+               "Blending space Office WholeBuilding - Md Office C end_a - Story Mid2. Floor area ratio is 0.001. People ratio is 0.001",
+               "Blending space Office WholeBuilding - Md Office B end_a - Story Mid2. Floor area ratio is 0.026. People ratio is 0.026",
+               "Blending space Office WholeBuilding - Md Office A end_a - Story Mid2. Floor area ratio is 0.001. People ratio is 0.001",
+               "Story Top area is 188,046.00 ft^2, number of people is 13163.",
+               "Story Top accounts for 1 space types.",
+               "Blending space type FullServiceRestaurant Dining - 90.1-2004 Story Top. Floor area ratio is 1.0. People ratio is 1.0",
+               "Blending space FullServiceRestaurant Dining C  - Story Top. Floor area ratio is 0.04. People ratio is 0.04",
+               "Blending space FullServiceRestaurant Dining A  - Story Top. Floor area ratio is 0.04. People ratio is 0.04",
+               "Blending space FullServiceRestaurant Dining C end_a - Story Top. Floor area ratio is 0.001. People ratio is 0.001",
+               "Blending space FullServiceRestaurant Dining B end_a - Story Top. Floor area ratio is 0.026. People ratio is 0.026",
+               "Blending space FullServiceRestaurant Dining A end_b - Story Top. Floor area ratio is 0.001. People ratio is 0.001",
+               "Blending space FullServiceRestaurant Dining C end_b - Story Top. Floor area ratio is 0.001. People ratio is 0.001",
+               "Blending space FullServiceRestaurant Dining B end_b - Story Top. Floor area ratio is 0.026. People ratio is 0.026",
+               "Blending space FullServiceRestaurant Dining A end_a - Story Top. Floor area ratio is 0.001. People ratio is 0.001"
+            ],
+            "step_initial_condition" : "The initial building uses 5 spaces types.",
+            "step_result" : "Success",
+            "step_values" : [
+               {
+                  "name" : "blend_method",
+                  "value" : "Building Story"
+               }
+            ],
+            "step_warnings" : []
+         }
+      },
+      {
+         "arguments" : {
+            "feature_id" : "1",
+            "geojson_file" : "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/example_project.json",
+            "surrounding_buildings" : "ShadingOnly"
+         },
+         "measure_dir_name" : "urban_geometry_creation",
+         "result" : {
+            "completed_at" : "20191226T143501Z",
+            "measure_class_name" : "UrbanGeometryCreation",
+            "measure_display_name" : "UrbanGeometryCreation",
+            "measure_name" : "urban_geometry_creation",
+            "measure_taxonomy" : "Envelope.Form",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "5ab85d6b-c9af-4361-8ab9-613ee99a5666",
+            "measure_version_id" : "0808dbbe-ec8a-46c7-b416-cbae39e2b06c",
+            "measure_version_modified" : "20190523T021410Z",
+            "measure_xml_checksum" : "D254E772",
+            "started_at" : "20191226T143500Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_info" : [
+               "Min_lat = 42.813153418927016, min_lon = -78.84786797764677",
+               "13 nearby buildings found",
+               "Intersecting surfaces",
+               "Matching surfaces",
+               "Changing adjacent surfaces to adiabatic"
+            ],
+            "step_result" : "Success",
+            "step_values" : [
+               {
+                  "name" : "geojson_file",
+                  "value" : "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/example_project.json"
+               },
+               {
+                  "name" : "feature_id",
+                  "value" : "1"
+               },
+               {
+                  "name" : "surrounding_buildings",
+                  "value" : "ShadingOnly"
+               }
+            ],
+            "step_warnings" : [
+               "Surface elevation not set for building 'Mixed_use 1'",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print",
+               "Reversing floor print"
+            ]
+         }
+      },
+      {
+         "arguments" : {
+            "add_constructions" : false,
+            "add_elevators" : false,
+            "add_exhaust" : false,
+            "add_exterior_lights" : false,
+            "add_hvac" : true,
+            "add_space_type_loads" : false,
+            "add_swh" : false,
+            "remove_objects" : false,
+            "system_type" : "Inferred",
+            "template" : "90.1-2004",
+            "use_upstream_args" : false
+         },
+         "measure_dir_name" : "create_typical_building_from_model",
+         "name" : "create_typical_building_from_model 2",
+         "result" : {
+            "completed_at" : "20191226T143520Z",
+            "measure_class_name" : "CreateTypicalBuildingFromModel",
+            "measure_display_name" : "Create Typical Building from Model",
+            "measure_name" : "create_typical_building_from_model",
+            "measure_taxonomy" : "Whole Building.Space Types",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "339a2e3a-273c-4494-bb50-bfe586a0647c",
+            "measure_version_id" : "87ebffcf-eacc-4a82-9543-d033695df855",
+            "measure_version_modified" : "20191030T020543Z",
+            "measure_xml_checksum" : "EE13F09F",
+            "started_at" : "20191226T143501Z",
+            "stderr" : "",
+            "stdout" : "[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_final_condition" : "The building finished with 1672 objects.",
+            "step_info" : [
+               "Assigning Story Top Blended Space Type Thermostat to thermal zones with Story Top Blended Space Type assigned.",
+               "Assigning Story Mid2 Blended Space Type Thermostat to thermal zones with Story Mid2 Blended Space Type assigned.",
+               "Assigning Story Ground Blended Space Type Thermostat to thermal zones with Story Ground Blended Space Type assigned.",
+               "Assigning Story Mid Blended Space Type Thermostat to thermal zones with Story Mid Blended Space Type assigned.",
+               "Using OpenStudio Standards version 0.2.10 with template 90.1-2004.",
+               "Loading OpenStudio Standards data for 90.1-2004",
+               "Started adding daylighting controls.",
+               "Finished adding daylighting controls.",
+               "Story Top Blended Space Type set heating setpoint schedule to RestaurantSitDown HTGSETP_SCH_NO_OPTIMUM.",
+               "Story Top Blended Space Type set cooling setpoint schedule to RestaurantSitDown CLGSETP_SCH_NO_SETBACK.",
+               "Story Mid2 Blended Space Type set heating setpoint schedule to OfficeMedium HTGSETP_SCH_PACU_VAV_bot.",
+               "Story Mid2 Blended Space Type set cooling setpoint schedule to OfficeMedium CLGSETP_SCH_NO_SETBACK.",
+               "Story Ground Blended Space Type set heating setpoint schedule to RestaurantSitDown HTGSETP_KITCHEN_SCH_NO_OPTIMUM.",
+               "Story Ground Blended Space Type set cooling setpoint schedule to RestaurantSitDown CLGSETP_KITCHEN_SCH_NO_SETBACK.",
+               "Story Mid Blended Space Type set heating setpoint schedule to OfficeMedium HTGSETP_SCH_PACU_VAV_bot.",
+               "Story Mid Blended Space Type set cooling setpoint schedule to OfficeMedium CLGSETP_SCH_NO_SETBACK.",
+               "Final system type group: occ = nonresidential, area = 751787 ft2, num stories = 4, zones:",
+               "--- Building Story 1 ThermalZone, Building Story 2 ThermalZone, Building Story 3 ThermalZone, Building Story 4 ThermalZone",
+               "System type is VAV Reheat for Nonresidential building of size 751787 ft^2 and 4 stories, and lookups {\"template\"=>\"90.1-2004\", \"size_category\"=>\"nonres_lg\", \"heating_source\"=>\"NaturalGas\", \"cooling_source\"=>\"Electricity\", \"delivery_type\"=>\"air\"}.",
+               "--- NaturalGas for main heating",
+               "--- NaturalGas for zone heat/reheat",
+               "--- Electricity for cooling",
+               "Determining which zones are served by the primary vs. secondary HVAC system.",
+               "For zone Building Story 1 ThermalZone, the weekly operating hrs 97.83 hrs - average weekly operating hrs 97.83 hrs = 0.0 hrs < tolerance of 40 hrs, stopping elimination process.",
+               "For zone Building Story 1 ThermalZone, the internal load 27.75 Btu/hr*ft^2 - average internal load 27.75 Btu/hr*ft^2 = 0.0 Btu/hr*ft^2 < tolerance of 10 Btu/hr*ft^2, stopping elimination process.",
+               "Primary system zones = Building Story 1 ThermalZone.",
+               "Adding hot water loop.",
+               "New high temperature hot water loop created.",
+               "Adding condenser water loop.",
+               "Adding chilled water loop.",
+               "Adding VAV system for 1 zones.",
+               "For 1 Zone VAV: VAV damper action was set to Single Maximum control.",
+               "Determining which zones are served by the primary vs. secondary HVAC system.",
+               "For zone Building Story 2 ThermalZone, the weekly operating hrs 56.7 hrs - average weekly operating hrs 56.7 hrs = 0.0 hrs < tolerance of 40 hrs, stopping elimination process.",
+               "For zone Building Story 2 ThermalZone, the internal load 5.97 Btu/hr*ft^2 - average internal load 5.97 Btu/hr*ft^2 = 0.0 Btu/hr*ft^2 < tolerance of 10 Btu/hr*ft^2, stopping elimination process.",
+               "Primary system zones = Building Story 2 ThermalZone.",
+               "Adding VAV system for 1 zones.",
+               "For 1 Zone VAV 1: VAV damper action was set to Single Maximum control.",
+               "Determining which zones are served by the primary vs. secondary HVAC system.",
+               "For zone Building Story 3 ThermalZone, the weekly operating hrs 56.7 hrs - average weekly operating hrs 56.7 hrs = 0.0 hrs < tolerance of 40 hrs, stopping elimination process.",
+               "For zone Building Story 3 ThermalZone, the internal load 5.97 Btu/hr*ft^2 - average internal load 5.97 Btu/hr*ft^2 = 0.0 Btu/hr*ft^2 < tolerance of 10 Btu/hr*ft^2, stopping elimination process.",
+               "Primary system zones = Building Story 3 ThermalZone.",
+               "Adding VAV system for 1 zones.",
+               "For 1 Zone VAV 2: VAV damper action was set to Single Maximum control.",
+               "Determining which zones are served by the primary vs. secondary HVAC system.",
+               "For zone Building Story 4 ThermalZone, the weekly operating hrs 97.83 hrs - average weekly operating hrs 97.83 hrs = 0.0 hrs < tolerance of 40 hrs, stopping elimination process.",
+               "For zone Building Story 4 ThermalZone, the internal load 207.3 Btu/hr*ft^2 - average internal load 207.3 Btu/hr*ft^2 = 0.0 Btu/hr*ft^2 < tolerance of 10 Btu/hr*ft^2, stopping elimination process.",
+               "Primary system zones = Building Story 4 ThermalZone.",
+               "Adding VAV system for 1 zones.",
+               "For 1 Zone VAV 3: VAV damper action was set to Single Maximum control.",
+               "Set sizing factors to 1.25 for heating and 1.15 for cooling.",
+               "Running simulation /Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/run/baseline_scenario/1/006_create_typical_building_from_model/SR1.",
+               "Finished run.",
+               "Started applying multizone vav OA sizing.",
+               "Finished applying multizone vav OA sizing.",
+               "Started applying prototype HVAC assumptions.",
+               "For Prototype: 1 Zone VAV 1 Fan: 102772cfm; Pressure Rise = 5.58in w.c.",
+               "For Prototype: 1 Zone VAV 2 Fan: 102518cfm; Pressure Rise = 5.58in w.c.",
+               "For Prototype: 1 Zone VAV 3 Fan: 377912cfm; Pressure Rise = 5.58in w.c.",
+               "For Prototype: 1 Zone VAV Fan: 263126cfm; Pressure Rise = 5.58in w.c.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen A  - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen A  - Story Ground Transfer Air Source: Pressure Rise = 0.5in w.c.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen A end_a - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen B  - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen B  - Story Ground Transfer Air Source: Pressure Rise = 0.5in w.c.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen B end_a - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen C  - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen C  - Story Ground Transfer Air Source: Pressure Rise = 0.5in w.c.",
+               "For Prototype: Zone FullServiceRestaurant Kitchen C end_a - Story Ground Exhaust Fan: Pressure Rise = 0.5in w.c.",
+               "For 1 Zone VAV 1 Fan: allowed_hp = 152.69HP; motor eff = 95.0%; total fan eff = 62% based on 102772 cfm.",
+               "For 1 Zone VAV 2 Fan: allowed_hp = 152.31HP; motor eff = 95.0%; total fan eff = 62% based on 102518 cfm.",
+               "For 1 Zone VAV 3 Fan: allowed_hp = 561.46HP; motor eff = 95.0%; total fan eff = 62% based on 377912 cfm.",
+               "For 1 Zone VAV Fan: allowed_hp = 390.92HP; motor eff = 95.0%; total fan eff = 62% based on 263126 cfm.",
+               "For Zone FullServiceRestaurant Kitchen A  - Story Ground Exhaust Fan: allowed_hp = 0.45HP; motor eff = 29.0%; total fan eff = 16% based on 2885 cfm.",
+               "For Zone FullServiceRestaurant Kitchen A  - Story Ground Transfer Air Source: allowed_hp = 0.42HP; motor eff = 29.0%; total fan eff = 16% based on 2694 cfm.",
+               "For Zone FullServiceRestaurant Kitchen A end_a - Story Ground Exhaust Fan: allowed_hp = 0.02HP; motor eff = 29.0%; total fan eff = 16% based on 157 cfm.",
+               "For Zone FullServiceRestaurant Kitchen B  - Story Ground Exhaust Fan: allowed_hp = 9.81HP; motor eff = 29.0%; total fan eff = 16% based on 62331 cfm.",
+               "For Zone FullServiceRestaurant Kitchen B  - Story Ground Transfer Air Source: allowed_hp = 9.16HP; motor eff = 29.0%; total fan eff = 16% based on 58199 cfm.",
+               "For Zone FullServiceRestaurant Kitchen B end_a - Story Ground Exhaust Fan: allowed_hp = 0.54HP; motor eff = 29.0%; total fan eff = 16% based on 3403 cfm.",
+               "For Zone FullServiceRestaurant Kitchen C  - Story Ground Exhaust Fan: allowed_hp = 0.45HP; motor eff = 29.0%; total fan eff = 16% based on 2885 cfm.",
+               "For Zone FullServiceRestaurant Kitchen C  - Story Ground Transfer Air Source: allowed_hp = 0.42HP; motor eff = 29.0%; total fan eff = 16% based on 2694 cfm.",
+               "For Zone FullServiceRestaurant Kitchen C end_a - Story Ground Exhaust Fan: allowed_hp = 0.02HP; motor eff = 29.0%; total fan eff = 16% based on 157 cfm.",
+               "Finished applying prototype HVAC assumptions.",
+               "Started applying HVAC efficiency standards.",
+               "For 1 Zone VAV, ERV required based on 100% OA flow, design supply air flow of 263126cfm, and climate zone . Exceeds minimum flow requirement of 5000cfm.",
+               "For 1 Zone VAV ERV, ERV power is calculated to be 89150 W, based on a min OA flow of 263126 cfm.",
+               "For 1 Zone VAV Fan: Set fan curve coefficients to reflect control type of 'Single Zone VAV Fan'.",
+               "For 1 Zone VAV: Single zone controls not applicable because no DX cooling.",
+               "For 1 Zone VAV: DCV is not required since the system has Energy Recovery.",
+               "For 1 Zone VAV: Annual occupied hours = 6205 hr/yr, assuming a 0.15 occupancy threshold.  This schedule will be used as the HVAC operation schedule.",
+               "For 1 Zone VAV: Motorized OA damper is required because the building has 4 stories, >= the minimum of 3 stories for climate zone , and the system OA intake of 263126 cfm is >= the minimum threshold of 0 cfm.",
+               "For 1 Zone VAV: Setting motorized OA damper schedule to 1 Zone VAV Occ Sch.",
+               "For Building Story 1 ThermalZone: DCV is not required since the occupant density is 70 people/1000 ft2, but the minimum occupant density is 100 people/1000 ft2.",
+               "For 1 Zone VAV: Optimum start is required since design flow rate of 263126 cfm exceeds the limit of 10000 cfm.",
+               "For 1 Zone VAV: Optimum start control enabled.",
+               "For 1 Zone VAV 1, ERV not required based on 18% OA flow, design supply air flow of 102772cfm, and climate zone .",
+               "For 1 Zone VAV 1 Fan: Set fan curve coefficients to reflect control type of 'Single Zone VAV Fan'.",
+               "For 1 Zone VAV 1: Single zone controls not applicable because no DX cooling.",
+               "For Building Story 2 ThermalZone: DCV is not required since the occupant density is 5 people/1000 ft2, but the minimum occupant density is 100 people/1000 ft2.",
+               "For 1 Zone VAV 1: Annual occupied hours = 3079 hr/yr, assuming a 0.15 occupancy threshold.  This schedule will be used as the HVAC operation schedule.",
+               "For 1 Zone VAV 1: Motorized OA damper is required because the building has 4 stories, >= the minimum of 3 stories for climate zone , and the system OA intake of 18795 cfm is >= the minimum threshold of 0 cfm.",
+               "For 1 Zone VAV 1: Setting motorized OA damper schedule to 1 Zone VAV 1 Occ Sch.",
+               "For Building Story 2 ThermalZone: DCV is not required since the occupant density is 5 people/1000 ft2, but the minimum occupant density is 100 people/1000 ft2.",
+               "For 1 Zone VAV 1: Optimum start is required since design flow rate of 102772 cfm exceeds the limit of 10000 cfm.",
+               "For 1 Zone VAV 1: Optimum start control enabled.",
+               "For 1 Zone VAV 2, ERV not required based on 18% OA flow, design supply air flow of 102518cfm, and climate zone .",
+               "For 1 Zone VAV 2 Fan: Set fan curve coefficients to reflect control type of 'Single Zone VAV Fan'.",
+               "For 1 Zone VAV 2: Single zone controls not applicable because no DX cooling.",
+               "For Building Story 3 ThermalZone: DCV is not required since the occupant density is 5 people/1000 ft2, but the minimum occupant density is 100 people/1000 ft2.",
+               "For 1 Zone VAV 2: Annual occupied hours = 3079 hr/yr, assuming a 0.15 occupancy threshold.  This schedule will be used as the HVAC operation schedule.",
+               "For 1 Zone VAV 2: Motorized OA damper is required because the building has 4 stories, >= the minimum of 3 stories for climate zone , and the system OA intake of 18795 cfm is >= the minimum threshold of 0 cfm.",
+               "For 1 Zone VAV 2: Setting motorized OA damper schedule to 1 Zone VAV 2 Occ Sch.",
+               "For Building Story 3 ThermalZone: DCV is not required since the occupant density is 5 people/1000 ft2, but the minimum occupant density is 100 people/1000 ft2.",
+               "For 1 Zone VAV 2: Optimum start is required since design flow rate of 102518 cfm exceeds the limit of 10000 cfm.",
+               "For 1 Zone VAV 2: Optimum start control enabled.",
+               "For 1 Zone VAV 3, ERV not required based on 44% OA flow, design supply air flow of 377912cfm, and climate zone .",
+               "For 1 Zone VAV 3 Fan: Set fan curve coefficients to reflect control type of 'Single Zone VAV Fan'.",
+               "For 1 Zone VAV 3: Single zone controls not applicable because no DX cooling.",
+               "For Building Story 4 ThermalZone: DCV is not required since the occupant density is 35 people/1000 ft2, but the minimum occupant density is 100 people/1000 ft2.",
+               "For 1 Zone VAV 3: Annual occupied hours = 6205 hr/yr, assuming a 0.15 occupancy threshold.  This schedule will be used as the HVAC operation schedule.",
+               "For 1 Zone VAV 3: Motorized OA damper is required because the building has 4 stories, >= the minimum of 3 stories for climate zone , and the system OA intake of 167760 cfm is >= the minimum threshold of 0 cfm.",
+               "For 1 Zone VAV 3: Setting motorized OA damper schedule to 1 Zone VAV 3 Occ Sch.",
+               "For Building Story 4 ThermalZone: DCV is not required since the occupant density is 35 people/1000 ft2, but the minimum occupant density is 100 people/1000 ft2.",
+               "For 1 Zone VAV 3: Optimum start is required since design flow rate of 377912 cfm exceeds the limit of 10000 cfm.",
+               "For 1 Zone VAV 3: Optimum start control enabled.",
+               "For 1 Zone VAV 1 Fan: motor nameplate = 150HP, motor eff = 95.0%.",
+               "For 1 Zone VAV 2 Fan: motor nameplate = 150HP, motor eff = 95.0%.",
+               "For 1 Zone VAV 3 Fan: motor nameplate = 511HP, motor eff = 95.0%.",
+               "For 1 Zone VAV Fan: motor nameplate = 356HP, motor eff = 95.0%.",
+               "For Zone FullServiceRestaurant Kitchen A  - Story Ground Exhaust Fan: motor eff = 29.0%; assumed to represent several < 1 HP motors.",
+               "For Zone FullServiceRestaurant Kitchen A  - Story Ground Transfer Air Source: motor eff = 29.0%; assumed to represent several < 1 HP motors.",
+               "For Zone FullServiceRestaurant Kitchen A end_a - Story Ground Exhaust Fan: motor eff = 29.0%; assumed to represent several < 1 HP motors.",
+               "For Zone FullServiceRestaurant Kitchen B  - Story Ground Exhaust Fan: motor eff = 29.0%; assumed to represent several < 1 HP motors.",
+               "For Zone FullServiceRestaurant Kitchen B  - Story Ground Transfer Air Source: motor eff = 29.0%; assumed to represent several < 1 HP motors.",
+               "For Zone FullServiceRestaurant Kitchen B end_a - Story Ground Exhaust Fan: motor eff = 29.0%; assumed to represent several < 1 HP motors.",
+               "For Zone FullServiceRestaurant Kitchen C  - Story Ground Exhaust Fan: motor eff = 29.0%; assumed to represent several < 1 HP motors.",
+               "For Zone FullServiceRestaurant Kitchen C  - Story Ground Transfer Air Source: motor eff = 29.0%; assumed to represent several < 1 HP motors.",
+               "For Zone FullServiceRestaurant Kitchen C end_a - Story Ground Exhaust Fan: motor eff = 29.0%; assumed to represent several < 1 HP motors.",
+               "For Chilled Water Loop Primary Pump: brake hp = 38.47HP, motor nameplate = 40.0HP, motor eff = 93.0%.",
+               "For Condenser Water Loop Constant Pump: brake hp = 152.79HP, motor nameplate = 200.0HP, motor eff = 95.0%.",
+               "For Office Shared Service Water Loop Circulator Pump: brake hp = 0.02HP, motor nameplate = 1.0HP, motor eff = 82.5%.",
+               "For Booster Water Loop Pump: brake hp = 0.0HP, motor nameplate = 0.0HP, motor eff = 100.0%.",
+               "For Chilled Water Loop Secondary Pump: brake hp = 115.4HP, motor nameplate = 125.0HP, motor eff = 94.5%.",
+               "For FullServiceRestaurant Kitchen - 90.1-2004 Service Water Loop Water Mains Pressure Driven: brake hp = 0.0HP, motor nameplate = 1.0HP, motor eff = 82.5%.",
+               "For Hot Water Loop Pump: brake hp = 46.56HP, motor nameplate = 50.0HP, motor eff = 93.0%.",
+               "For 90.1-2004: 90.1-2004 WaterCooled  Rotary Screw Chiller 0 3342tons 0.6kW/ton: WaterCooled  Rotary Screw Capacity = 3342tons; COP = 5.5 (0.6kW/ton)",
+               "For 90.1-2004: Boiler: Gas Hot Water Capacity = 23557kBtu/hr; Thermal Efficiency = 0.75",
+               "For 90.1-2004: 214gal Electricity Water Heater - 214kBtu/hr 1.0 Therm Eff; thermal efficiency = 1.0, skin-loss UA = 8Btu/hr",
+               "For 90.1-2004: 5727gal NaturalGas Water Heater - 5727kBtu/hr 0.808 Therm Eff; thermal efficiency = 0.808, skin-loss UA = 859Btu/hr",
+               "For 90.1-2004: 6.0gal Electricity Booster Water Heater - 1100kBtu/hr 1.0 Therm Eff; thermal efficiency = 1.0, skin-loss UA = 3Btu/hr",
+               "For Propeller or Axial TwoSpeed Fan Open Cooling Tower, design water flow = 9482 gpm, minimum performance = 38.2 gpm/hp (nameplate).",
+               "For Propeller or Axial TwoSpeed Fan Open Cooling Tower, allowed fan motor nameplate hp = 248.2 hp, fan brake horsepower = 223.4, and fan motor actual power = 235.2 hp (175356 W) at 0.95 motor efficiency.",
+               "For 1 Zone VAV ERV: Set sensible and latent effectiveness to 50%.",
+               "Finished applying HVAC efficiency standards."
+            ],
+            "step_initial_condition" : "The building started with 1101 objects.",
+            "step_result" : "Success",
+            "step_values" : [
+               {
+                  "name" : "template",
+                  "value" : "90.1-2004"
+               },
+               {
+                  "name" : "system_type",
+                  "value" : "Inferred"
+               },
+               {
+                  "name" : "hvac_delivery_type",
+                  "value" : "Forced Air"
+               },
+               {
+                  "name" : "htg_src",
+                  "value" : "NaturalGas"
+               },
+               {
+                  "name" : "clg_src",
+                  "value" : "Electricity"
+               },
+               {
+                  "name" : "kitchen_makeup",
+                  "value" : "Adjacent"
+               },
+               {
+                  "name" : "exterior_lighting_zone",
+                  "value" : "3 - All Other Areas"
+               },
+               {
+                  "name" : "add_constructions",
+                  "value" : false
+               },
+               {
+                  "name" : "add_space_type_loads",
+                  "value" : false
+               },
+               {
+                  "name" : "add_elevators",
+                  "value" : false
+               },
+               {
+                  "name" : "add_exterior_lights",
+                  "value" : false
+               },
+               {
+                  "name" : "onsite_parking_fraction",
+                  "value" : 1
+               },
+               {
+                  "name" : "add_exhaust",
+                  "value" : false
+               },
+               {
+                  "name" : "add_swh",
+                  "value" : false
+               },
+               {
+                  "name" : "add_thermostat",
+                  "value" : true
+               },
+               {
+                  "name" : "add_hvac",
+                  "value" : true
+               },
+               {
+                  "name" : "remove_objects",
+                  "value" : false
+               },
+               {
+                  "name" : "use_upstream_args",
+                  "value" : false
+               },
+               {
+                  "name" : "enable_dst",
+                  "value" : true
+               }
+            ],
+            "step_warnings" : [
+               "[openstudio.model.Model] The run completed but had the following severe errors: InitFans: Fan=",
+               "[openstudio.standards.Fan] For 1 Zone VAV 3 Fan, there is no greater nominal HP.  Use the efficiency of the largest motor category.",
+               "[openstudio.standards.Fan] For 1 Zone VAV Fan, there is no greater nominal HP.  Use the efficiency of the largest motor category.",
+               "[openstudio.standards.AirLoopHVAC] Cannot find economizer limits for 90.1-2004, , assuming no economizer required.",
+               "[openstudio.standards.AirLoopHVAC] Cannot find economizer limits for 90.1-2004, , assuming no economizer required.",
+               "[openstudio.standards.AirLoopHVAC] Cannot find economizer limits for 90.1-2004, , assuming no economizer required.",
+               "[openstudio.standards.AirLoopHVAC] Cannot find economizer limits for 90.1-2004, , assuming no economizer required.",
+               "[openstudio.standards.Fan] For 1 Zone VAV 3 Fan, there is no greater nominal HP.  Use the efficiency of the largest motor category.",
+               "[openstudio.standards.Fan] For 1 Zone VAV Fan, there is no greater nominal HP.  Use the efficiency of the largest motor category."
+            ]
+         }
+      },
+      {
+         "arguments" : {
+            "__SKIP__" : true,
+            "r_value" : 10
+         },
+         "measure_dir_name" : "IncreaseInsulationRValueForExteriorWalls",
+         "result" : {
+            "completed_at" : "20191226T143520Z",
+            "measure_class_name" : "IncreaseInsulationRValueForExteriorWalls",
+            "measure_display_name" : "Increase R-value of Insulation for Exterior Walls to a Specific Value",
+            "measure_name" : "increase_insulation_r_value_for_exterior_walls",
+            "measure_taxonomy" : "Envelope.Opaque",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "3fdf9c39-d305-449b-a4b5-077166af5a67",
+            "measure_version_id" : "185d23d1-67c9-435c-97d2-f28e7f80632b",
+            "measure_version_modified" : "20191029T231254Z",
+            "measure_xml_checksum" : "0F858D9E",
+            "started_at" : "20191226T143520Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_info" : [],
+            "step_result" : "Skip",
+            "step_values" : [],
+            "step_warnings" : []
+         }
+      },
+      {
+         "arguments" : {
+            "__SKIP__" : true,
+            "elecequip_power_reduction_percent" : 20
+         },
+         "measure_dir_name" : "ReduceElectricEquipmentLoadsByPercentage",
+         "result" : {
+            "completed_at" : "20191226T143520Z",
+            "measure_class_name" : "ReduceElectricEquipmentLoadsByPercentage",
+            "measure_display_name" : "Reduce Electric Equipment Loads by Percentage",
+            "measure_name" : "reduce_electric_equipment_loads_by_percentage",
+            "measure_taxonomy" : "Equipment.Electric Equipment",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "0902e302-70db-4339-99b0-17f08bc93629",
+            "measure_version_id" : "7be9778a-f317-46fb-b48a-4159ce1ec158",
+            "measure_version_modified" : "20191029T231304Z",
+            "measure_xml_checksum" : "F9A5B8F0",
+            "started_at" : "20191226T143520Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_info" : [],
+            "step_result" : "Skip",
+            "step_values" : [],
+            "step_warnings" : []
+         }
+      },
+      {
+         "arguments" : {
+            "__SKIP__" : true,
+            "lighting_power_reduction_percent" : 30
+         },
+         "measure_dir_name" : "ReduceLightingLoadsByPercentage",
+         "result" : {
+            "completed_at" : "20191226T143520Z",
+            "measure_class_name" : "ReduceLightingLoadsByPercentage",
+            "measure_display_name" : "Reduce Lighting Loads by Percentage",
+            "measure_name" : "reduce_lighting_loads_by_percentage",
+            "measure_taxonomy" : "Electric Lighting.Lighting Equipment",
+            "measure_type" : "ModelMeasure",
+            "measure_uid" : "791f3404-a28b-4a80-ba3f-e15b339e39ea",
+            "measure_version_id" : "1da578d2-2b29-4536-9382-08364c5d5219",
+            "measure_version_modified" : "20191029T231304Z",
+            "measure_xml_checksum" : "293730A7",
+            "started_at" : "20191226T143520Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_info" : [],
+            "step_result" : "Skip",
+            "step_values" : [],
+            "step_warnings" : []
+         }
+      },
+      {
+         "arguments" : {
+            "feature_id" : "1",
+            "feature_name" : "Mixed_use 1",
+            "feature_type" : "Building"
+         },
+         "measure_dir_name" : "default_feature_reports",
+         "result" : {
+            "completed_at" : "20191226T143731Z",
+            "measure_class_name" : "DefaultFeatureReports",
+            "measure_display_name" : "DefaultFeatureReports",
+            "measure_name" : "default_feature_reports",
+            "measure_taxonomy" : "Reporting.QAQC",
+            "measure_type" : "ReportingMeasure",
+            "measure_uid" : "9ee3135a-8070-4408-bfa1-b75fecf9dd4f",
+            "measure_version_id" : "803f9d76-a088-489d-88d3-6f3a5ae50d8a",
+            "measure_version_modified" : "20191030T020950Z",
+            "measure_xml_checksum" : "FB304155",
+            "started_at" : "20191226T143722Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [
+               "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/run/baseline_scenario/1/010_default_feature_reports/default_feature_reports.json",
+               "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/run/baseline_scenario/1/010_default_feature_reports/default_feature_reports.csv"
+            ],
+            "step_final_condition" : "Default Feature Reports generated successfully.",
+            "step_info" : [
+               "TIMESERIES: Electricity:Facility",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: Electricity:Facility AND key_value: ",
+               "First timeseries",
+               "TIMESERIES: ElectricityProduced:Facility",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: ElectricityProduced:Facility AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: Gas:Facility",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: Gas:Facility AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: DistrictCooling:Facility",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: DistrictCooling:Facility AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: DistrictHeating:Facility",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: DistrictHeating:Facility AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: District Cooling Chilled Water Rate",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: District Cooling Chilled Water Rate AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: District Cooling Mass Flow Rate",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: District Cooling Mass Flow Rate AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: District Cooling Inlet Temperature",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: District Cooling Inlet Temperature AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: District Cooling Outlet Temperature",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: District Cooling Outlet Temperature AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: District Heating Hot Water Rate",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: District Heating Hot Water Rate AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: District Heating Mass Flow Rate",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: District Heating Mass Flow Rate AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: District Heating Inlet Temperature",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: District Heating Inlet Temperature AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: District Heating Outlet Temperature",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: District Heating Outlet Temperature AND key_value: ",
+               "Is NOT Initialized",
+               "new final_timeseries_names size: 13"
+            ],
+            "step_result" : "Success",
+            "step_values" : [
+               {
+                  "name" : "feature_id",
+                  "value" : "1"
+               },
+               {
+                  "name" : "feature_name",
+                  "value" : "Mixed_use 1"
+               },
+               {
+                  "name" : "feature_type",
+                  "value" : "Building"
+               },
+               {
+                  "name" : "reporting_frequency",
+                  "value" : "Hourly"
+               }
+            ],
+            "step_warnings" : []
+         }
+      }
+   ],
+   "updated_at" : "20191226T143733Z",
+   "weather_file" : null
+}

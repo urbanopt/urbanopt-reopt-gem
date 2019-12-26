@@ -122,7 +122,7 @@ module URBANopt  # :nodoc:
         begin
           col_num = scenario_report.timeseries_csv.column_names.index("Electricity:Facility")
           t = CSV.read(scenario_report.timeseries_csv.path,headers: true,converters: :numeric)
-          energy_timeseries_kwh = t.by_col[col_num].map {|e| e/3412.142 ? e : 0}
+          energy_timeseries_kwh = t.by_col[col_num].map {|e| ((e or 0) * 0.293071)}  #convert kBTU to KWH
 
           if (scenario_report.timesteps_per_hour or 1) > 1
              energy_timeseries_kwh = energy_timeseries_kwh.each_slice(scenario_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.length.to_f)}

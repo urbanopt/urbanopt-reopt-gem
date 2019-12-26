@@ -40,7 +40,6 @@ require 'uri'
 require 'json'
 require 'securerandom'
 require_relative '../../../developer_nrel_key'
-require 'pry'
 
 module URBANopt # :nodoc:
   module REopt  # :nodoc:

@@ -1,0 +1,92 @@
+Program Version,EnergyPlus, Version 9.1.0-08d2e308bb, YMD=2019.12.26 07:35,
+   ** Warning ** Timestep: Requested number (1) is less than the suggested minimum of 4.
+   **   ~~~   ** Please see entry for Timestep in Input/Output Reference for discussion of considerations.
+   ************* Beginning Zone Sizing Calculations
+   ** Warning ** ProcessScheduleInput: Schedule:Constant="ALWAYS OFF DISCRETE", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Constant="ALWAYS ON CONTINUOUS", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** CheckUsedConstructions: There are 11 nominally unused constructions in input.
+   **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;
+   ************* Beginning System Sizing Calculations
+   ************* Beginning Plant Sizing Calculations
+   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.
+   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND TRANSFER AIR SOURCE] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.
+   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN A END_B - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.
+   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.
+   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND TRANSFER AIR SOURCE] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.
+   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN B END_B - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.
+   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.
+   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND TRANSFER AIR SOURCE] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.
+   ** Severe  ** InitFans: Fan=[Fan:ZoneExhaust,ZONE FULLSERVICERESTAURANT KITCHEN C END_B - STORY GROUND EXHAUST FAN] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.
+   ** Warning ** Check input. Pump nominal power or motor efficiency is set to 0, for pump=BOOSTER WATER LOOP PUMP
+   ** Warning ** SizePlantLoop: Calculated Plant Sizing Design Volume Flow Rate=[0.00] is too small. Set to 0.0
+   **   ~~~   ** ..occurs for PlantLoop=HOT WATER LOOP
+   ** Warning ** SizePump: Calculated Pump Nominal Volume Flow Rate=[0.00] is too small. Set to 0.0
+   **   ~~~   ** ..occurs for Pump=HOT WATER LOOP PUMP
+   ** Warning ** Check input. Pump nominal power or motor efficiency is set to 0, for pump=HOT WATER LOOP PUMP
+   ** Warning ** Check input. Pump nominal flow rate is set or calculated = 0, for pump=HOT WATER LOOP PUMP
+   ** Warning ** Missing temperature setpoint for LeavingSetpointModulated mode Boiler named BOILER
+   **   ~~~   **   A temperature setpoint is needed at the outlet node of a boiler in variable flow mode
+   **   ~~~   **   use a Setpoint Manager to establish a setpoint at the boiler outlet node 
+   **   ~~~   **   or use an EMS actuator to establish a setpoint at the boiler outlet node 
+   **   ~~~   **   The overall loop setpoint will be assumed for Boiler. The simulation continues ... 
+   ** Warning ** Output:Meter: invalid Key Name="DISTRICTCOOLING:FACILITY" - not found.
+   ** Warning ** Output:Meter: invalid Key Name="DISTRICTHEATING:FACILITY" - not found.
+   ** Warning ** Output:Meter:MeterFileOnly requested for "Electricity:Facility" (TimeStep), already on "Output:Meter". Will report to both eplusout.eso and eplusout.mtr
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ** Severe  ** Node Connection Error, Node="ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND EXHAUST FAN INLET AIR NODE", Inlet node did not find an appropriate matching "outlet" node.
+   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.
+   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND EXHAUST FAN
+   ** Severe  ** Node Connection Error, Node="ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND TRANSFER AIR SOURCE INLET AIR NODE", Inlet node did not find an appropriate matching "outlet" node.
+   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.
+   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN A  - STORY GROUND TRANSFER AIR SOURCE
+   ** Severe  ** Node Connection Error, Node="ZONE FULLSERVICERESTAURANT KITCHEN A END_B - STORY GROUND EXHAUST FAN INLET AIR NODE", Inlet node did not find an appropriate matching "outlet" node.
+   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.
+   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN A END_B - STORY GROUND EXHAUST FAN
+   ** Severe  ** Node Connection Error, Node="ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND EXHAUST FAN INLET AIR NODE", Inlet node did not find an appropriate matching "outlet" node.
+   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.
+   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND EXHAUST FAN
+   ** Severe  ** Node Connection Error, Node="ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND TRANSFER AIR SOURCE INLET AIR NODE", Inlet node did not find an appropriate matching "outlet" node.
+   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.
+   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN B  - STORY GROUND TRANSFER AIR SOURCE
+   ** Severe  ** Node Connection Error, Node="ZONE FULLSERVICERESTAURANT KITCHEN B END_B - STORY GROUND EXHAUST FAN INLET AIR NODE", Inlet node did not find an appropriate matching "outlet" node.
+   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.
+   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN B END_B - STORY GROUND EXHAUST FAN
+   ** Severe  ** Node Connection Error, Node="ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND EXHAUST FAN INLET AIR NODE", Inlet node did not find an appropriate matching "outlet" node.
+   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.
+   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND EXHAUST FAN
+   ** Severe  ** Node Connection Error, Node="ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND TRANSFER AIR SOURCE INLET AIR NODE", Inlet node did not find an appropriate matching "outlet" node.
+   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.
+   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN C  - STORY GROUND TRANSFER AIR SOURCE
+   ** Severe  ** Node Connection Error, Node="ZONE FULLSERVICERESTAURANT KITCHEN C END_B - STORY GROUND EXHAUST FAN INLET AIR NODE", Inlet node did not find an appropriate matching "outlet" node.
+   **   ~~~   ** If this is an outdoor air inlet node, it must be listed in an OutdoorAir:Node or OutdoorAir:NodeList object.
+   **   ~~~   ** Reference Object=FAN:ZONEEXHAUST, Name=ZONE FULLSERVICERESTAURANT KITCHEN C END_B - STORY GROUND EXHAUST FAN
+   ************* There were 9 node connection errors noted.
+   ************* Beginning Simulation
+   ** Warning ** Output:Table:Monthly requested with SimulationControl Run Simulation for Weather File Run Periods set to No so Output:Table:Monthly will not be generated
+   ************* Simulation Error Summary *************
+   ************* There are 8 unused objects in input.
+   ************* Use Output:Diagnostics,DisplayUnusedObjects; to see them.
+   ************* There are 8 unused schedules in input.
+   ************* There are 8 unused week schedules in input.
+   ************* There are 18 unused day schedules in input.
+   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Node Connection Errors
+   ************* ..Node connection errors are often caused by spelling mistakes in a node name field.
+   ************* ..To track down the problem, search the idf file for each node name listed to see if it
+   ************* ..occurs in the expected input fields.
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 3 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 14 Warning; 18 Severe Errors; Elapsed Time=00hr 00min  0.76sec

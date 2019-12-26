@@ -102,7 +102,7 @@ module URBANopt # :nodoc:
         begin
           col_num = feature_report.timeseries_csv.column_names.index("Electricity:Facility")
           t = CSV.read(feature_report.timeseries_csv.path,headers: true,converters: :numeric)
-          energy_timeseries_kwh = t.by_col[col_num]
+          energy_timeseries_kwh = t.by_col[col_num].map {|e| ((e or 0) * 0.293071)} #convert kBTU to KWH
           if (feature_report.timesteps_per_hour or 1) > 1
              energy_timeseries_kwh = energy_timeseries_kwh.each_slice(feature_report.timesteps_per_hour).to_a.map {|x| x.inject(0, :+)/(x.length.to_f)}
           end
@@ -111,7 +111,7 @@ module URBANopt # :nodoc:
             energy_timeseries_kwh = energy_timeseries_kwh + [0]*((feature_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
             p "Assuming load profile for Feature Report #{feature_report.name} #{feature_report.id} starts January 1 - filling in rest  with zeros"
           end
-          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map {|e| e/3412.142 ? e : 0}
+          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map {|e| e ? e : 0}
         rescue
           raise "Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}"
         end
