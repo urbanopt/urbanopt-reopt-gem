@@ -69,6 +69,8 @@ RSpec.describe URBANopt::REopt do
     
     feature_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario/1')
     feature_report.directory_name = feature_report_dir
+    feature_report.timeseries_csv.path = 'spec/run/example_scenario/1/010_default_feature_reports/default_feature_reports.csv'
+
     
     reopt_output_file = File.join(feature_report.directory_name, 'feature_report_reopt_run1.json')
     timeseries_output_file = File.join(feature_report.directory_name, 'feature_report_timeseries1.csv')
@@ -107,6 +109,7 @@ RSpec.describe URBANopt::REopt do
       
       feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
       feature_report.directory_name = feature_report_dir
+      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.csv"
       scenario_report.add_feature_report(feature_report)
     end
     
@@ -143,6 +146,7 @@ RSpec.describe URBANopt::REopt do
       
       feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
       feature_report.directory_name = feature_report_dir
+      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.csv"
       
       reopt_assumption_files << reopt_assumptions_file
       #reopt_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_reopt_run.json")
@@ -185,6 +189,7 @@ RSpec.describe URBANopt::REopt do
       feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_json)
       feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
       feature_report.directory_name = feature_report_dir
+      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.csv"
 
       reopt_assumption_files << reopt_assumptions_file
       reopt_assumption_jsons << Marshal.load(Marshal.dump(reopt_assumptions))
