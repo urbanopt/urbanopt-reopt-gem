@@ -35,5 +35,3 @@ gem 'simplecov', github: 'NREL/simplecov'
 
 gem 'certified'
 
-gem 'pry'
-

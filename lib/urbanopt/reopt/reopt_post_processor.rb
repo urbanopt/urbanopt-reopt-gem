@@ -37,7 +37,6 @@ require 'bundler/setup'
 require "urbanopt/scenario/default_reports"
 require 'urbanopt/reopt'
 require 'csv'
-require 'pry'
 
 module URBANopt  # :nodoc:
   module REopt  # :nodoc:
@@ -208,7 +207,6 @@ module URBANopt  # :nodoc:
             new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, @feature_reports_timeseries_default_output_files[idx])
             new_feature_reports.push(new_feature_report)
           rescue
-            binding.pry
             p "Could not optimize Feature Report #{feature_report.name} #{feature_report.id}"
           end
         end
@@ -221,7 +219,7 @@ module URBANopt  # :nodoc:
       #
       # [*parameters:*]
       #
-      # * +scenario_reports+ - _Array_ -  A _URBANopt::Scenario::DefaultReports::ScenarioReport_ which will each be used to create (and is subsquently updated by) \REopt Lite opimization responses for each of its FeatureReports.
+      # * +scenario_report+ - _Array_ -  A _URBANopt::Scenario::DefaultReports::ScenarioReport_ which will each be used to create (and is subsquently updated by) \REopt Lite opimization responses for each of its FeatureReports.
       # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of \REopt Lite formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the array in ScenarioReport.feature_reports. 
       # * +reopt_output_files+ - _Array_ - Optional. An array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       # * +timeseries_csv_path+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.

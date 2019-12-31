@@ -64,7 +64,7 @@ module URBANopt  # :nodoc:
         description = "scenario_report_#{name}_#{scenario_id}"
 
         #Create base REpopt Lite post
-        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
+        reopt_inputs = {:Scenario => {:Site => {:ElectricTariff => {:blended_monthly_demand_charges_us_dollars_per_kw => [0,0,0,0,0,0,0,0,0,0,0,0], :blended_monthly_rates_us_dollars_per_kwh => [0.13,0.13,0.13,0.13,0.13,0.13,0.13,0.13,0.13,0.13,0.13,0.13]}, :LoadProfile => {},:Wind => {:max_kw => 0}}}}
         if !reopt_assumptions_json.nil?
           reopt_inputs = reopt_assumptions_json
         else
