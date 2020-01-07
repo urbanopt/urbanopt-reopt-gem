@@ -1,4 +1,4 @@
-Thu, 26 Dec 2019 11:14:55 -0700
+Tue, 07 Jan 2020 13:28:13 -0700
 ./RDOC_MAIN.md	Mon, 28 Oct 2019 12:48:28 -0600
 ./developer_nrel_key.rb	Wed, 11 Dec 2019 21:37:32 -0700
 ./lib/urbanopt/reopt.rb	Fri, 08 Nov 2019 14:10:02 -0700
@@ -7,9 +7,9 @@ Thu, 26 Dec 2019 11:14:55 -0700
 ./lib/urbanopt/reopt/reopt_schema/reopt_input_schema.json	Mon, 28 Oct 2019 15:51:02 -0600
 ./lib/urbanopt/reopt/reopt_schema/reopt_output_schema.json	Mon, 02 Dec 2019 21:17:46 -0700
 ./lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb	Fri, 22 Nov 2019 15:41:11 -0700
-./lib/urbanopt/reopt/scenario_report_adapter.rb	Tue, 24 Dec 2019 13:06:18 -0700
-./lib/urbanopt/reopt/feature_report_adapter.rb	Tue, 24 Dec 2019 13:06:09 -0700
-./lib/urbanopt/reopt/reopt_post_processor.rb	Thu, 26 Dec 2019 09:48:53 -0700
+./lib/urbanopt/reopt/scenario_report_adapter.rb	Fri, 27 Dec 2019 14:51:56 -0700
+./lib/urbanopt/reopt/feature_report_adapter.rb	Fri, 27 Dec 2019 14:52:06 -0700
+./lib/urbanopt/reopt/reopt_post_processor.rb	Mon, 30 Dec 2019 17:04:39 -0700
 ./lib/urbanopt/reopt/version.rb	Mon, 28 Oct 2019 10:45:11 -0600
 ./lib/urbanopt/reopt_scenario.rb	Fri, 08 Nov 2019 14:09:46 -0700
 ./lib/urbanopt-reopt.rb	Wed, 11 Dec 2019 13:26:42 -0700
