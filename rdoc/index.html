@@ -135,11 +135,53 @@ $ bundle update</pre>
 
 <h2 id="label-Functionality">Functionality<span><a href="#label-Functionality">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>This gem is used to call the REopt Lite API on a Scenario Report or Feature Report to update the object&#39;s Distributed Generation attributes (including system financial and sizing metrics) as shown in an example below: <code>         &quot;distributed_generation&quot;: {               &quot;lcc_us_dollars&quot;: 100000000.0,               &quot;npv_us_dollars&quot;: 10000000.0,               &quot;year_one_energy_cost_us_dollars&quot;: 7000000.0,               &quot;year_one_demand_cost_us_dollars&quot;: 3000000.0,               &quot;year_one_bill_us_dollars&quot;: 10000000.0,               &quot;total_energy_cost_us_dollars&quot;: 70000000.0,               &quot;solar_pv&quot;: {                 &quot;size_kw&quot;: 30000.0               },               &quot;wind&quot;: {                 &quot;size_kw&quot;: 0.0               },               &quot;generator&quot;: {                 &quot;size_kw&quot;: 0.0               },               &quot;storage&quot;: {                 &quot;size_kw&quot;: 2000.0,                 &quot;size_kwh&quot;: 5000.0               }             } </code></p>
+<p>This gem is used to call the REopt Lite API on a Scenario Report or Feature Report to update the object&#39;s Distributed Generation attributes (including system financial and sizing metrics) as shown in an example below:</p>
+
+<pre>&quot;distributed_generation&quot;: {
+              &quot;lcc_us_dollars&quot;: 100000000.0,
+              &quot;npv_us_dollars&quot;: 10000000.0,
+              &quot;year_one_energy_cost_us_dollars&quot;: 7000000.0,
+              &quot;year_one_demand_cost_us_dollars&quot;: 3000000.0,
+              &quot;year_one_bill_us_dollars&quot;: 10000000.0,
+              &quot;total_energy_cost_us_dollars&quot;: 70000000.0,
+              &quot;solar_pv&quot;: {
+                &quot;size_kw&quot;: 30000.0
+              },
+              &quot;wind&quot;: {
+                &quot;size_kw&quot;: 0.0
+              },
+              &quot;generator&quot;: {
+                &quot;size_kw&quot;: 0.0
+              },
+              &quot;storage&quot;: {
+                &quot;size_kw&quot;: 2000.0,
+                &quot;size_kwh&quot;: 5000.0
+              }
+            }</pre>
 
 <p>Moreover, the following optimal dispatch fields are added to its timeseries CSV. Where no system component is recommended the dispatch will be all zero (i.e. if no solar PV is recommended ElectricityProduced:PV:Total will be always be zero)</p>
 
-<p>| output | unit | | —————————————–| ——- | | ElectricityProduced:Total | kWh | | Electricity:Load:Total | kWh | | Electricity:Grid:ToLoad | kWh | | Electricity:Grid:ToBattery | kWh | | Electricity:Storage:ToLoad | kWh | | Electricity:Storage:ToGrid | kWh | | Electricity:Storage:StateOfCharge | kWh | | ElectricityProduced:Generator:Total | kWh | | ElectricityProduced:Generator:ToBattery | kWh | | ElectricityProduced:Generator:ToLoad | kWh | | ElectricityProduced:Generator:ToGrid | kWh | | ElectricityProduced:PV:Total | kWh | | ElectricityProduced:PV:ToBattery | kWh | | ElectricityProduced:PV:ToLoad | kWh | | ElectricityProduced:PV:ToGrid | kWh | | ElectricityProduced:Wind:Total | kWh | | ElectricityProduced:Wind:ToBattery | kWh | | ElectricityProduced:Wind:ToLoad | kWh | | ElectricityProduced:Wind:ToGrid | kWh |</p>
+<pre>|            output                        |  unit   |
+| -----------------------------------------| ------- |
+| ElectricityProduced:Total                | kWh     |
+| Electricity:Load:Total                   | kWh     |
+| Electricity:Grid:ToLoad                  | kWh     |
+| Electricity:Grid:ToBattery               | kWh     |
+| Electricity:Storage:ToLoad               | kWh     |
+| Electricity:Storage:ToGrid               | kWh     |
+| Electricity:Storage:StateOfCharge        | kWh     |
+| ElectricityProduced:Generator:Total      | kWh     |
+| ElectricityProduced:Generator:ToBattery  | kWh     |
+| ElectricityProduced:Generator:ToLoad     | kWh     |
+| ElectricityProduced:Generator:ToGrid     | kWh     |
+| ElectricityProduced:PV:Total             | kWh     |
+| ElectricityProduced:PV:ToBattery         | kWh     |
+| ElectricityProduced:PV:ToLoad            | kWh     |
+| ElectricityProduced:PV:ToGrid            | kWh     |
+| ElectricityProduced:Wind:Total           | kWh     |
+| ElectricityProduced:Wind:ToBattery       | kWh     |
+| ElectricityProduced:Wind:ToLoad          | kWh     |
+| ElectricityProduced:Wind:ToGrid          | kWh     |</pre>
 
 <p>The REopt Lite has default values for all non-required input parameters that are used unless the user specifies custom assumptions. See &lt;StaticLink target=“_blank” href=“<a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">https://developer.nrel.gov/docs/energy-optimization/reopt-v1/</StaticLink">developer.nrel.gov/docs/energy-optimization/reopt-v1/”>https://developer.nrel.gov/docs/energy-optimization/reopt-v1/</StaticLink</a>&gt; for more detailed information on input parameters and default assumptions.</p>
 
@@ -172,37 +214,38 @@ $ bundle update</pre>
 <span class="ruby-identifier">updated_feature_report</span> = <span class="ruby-identifier">reopt_post_processor</span>.<span class="ruby-identifier">run_feature_report</span>(<span class="ruby-identifier">feature_report</span>,<span class="ruby-identifier">reopt_assumptions_file</span>,<span class="ruby-identifier">reopt_output_file</span>,<span class="ruby-identifier">timeseries_output_file</span>)
 </pre>
 
-<p>More commonly, this gem can be used to run REopt a collection of features stored in a Scenario Report as show here: “`ruby require &#39;urbanopt/reopt&#39;</p>
+<p>More commonly, this gem can be used to run REopt a collection of features stored in a Scenario Report as show here:</p>
 
-<h1 id="label-Create+a+Scenario+Report">Create a Scenario Report<span><a href="#label-Create+a+Scenario+Report">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;urbanopt/reopt&#39;</span>
+<span class="ruby-comment">#Create a Scenario Report</span>
+<span class="ruby-identifier">scenario_report</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">Scenario</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultReports</span><span class="ruby-operator">::</span><span class="ruby-constant">ScenarioReport</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">:directory_name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;../run/example_scenario&#39;</span>), <span class="ruby-value">:timeseries_csv</span> <span class="ruby-operator">=&gt;</span> {<span class="ruby-value">:path</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;../run/example_scenario/timeseries.csv&#39;</span>) }})
 
-<p>scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new({:directory_name =&gt; File.join(File.dirname(<strong>FILE</strong>), &#39;../run/example_scenario&#39;), :timeseries_csv =&gt; {:path =&gt; File.join(File.dirname(<strong>FILE</strong>), &#39;../run/example_scenario/timeseries.csv&#39;) }})</p>
+<span class="ruby-comment">#Load Feature Reports into the Scenario Report</span>
+(<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">feature_reports_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-node">&quot;../run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.json&quot;</span>)
 
-<h1 id="label-Load+Feature+Reports+into+the+Scenario+Report">Load Feature Reports into the Scenario Report<span><a href="#label-Load+Feature+Reports+into+the+Scenario+Report">&para;</a> <a href="#top">&uarr;</a></span></h1>
+  <span class="ruby-identifier">feature_reports_hash</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">feature_reports_path</span>, <span class="ruby-string">&#39;r&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">feature_reports_hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>, <span class="ruby-value">symbolize_names:</span> <span class="ruby-keyword">true</span>)
+  <span class="ruby-keyword">end</span>
 
-<p>(1..2).each do |i|  feature_reports_path = File.join(File.dirname(<strong>FILE</strong>), “../run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.json”)</p>
+  <span class="ruby-identifier">feature_report</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">Scenario</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultReports</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReport</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">feature_reports_hash</span>)
+  
+  <span class="ruby-identifier">feature_report_dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-node">&quot;../run/example_scenario/#{i}&quot;</span>)
+  <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">directory_name</span> = <span class="ruby-identifier">feature_report_dir</span>
 
-<p>feature_reports_hash = nil  File.open(feature_reports_path, &#39;r&#39;) do |file|  feature_reports_hash = JSON.parse(file.read, symbolize_names: true)  end</p>
+  <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">add_feature_report</span>(<span class="ruby-identifier">feature_report</span>)
+<span class="ruby-keyword">end</span>
 
-<p>feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_hash)</p>
+<span class="ruby-comment">#Specify non-default REopt Lite assumptions, saved in JSON format, to be used in calling the API</span>
+<span class="ruby-identifier">reopt_assumptions_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;../files/reopt_assumptions_basic.json&#39;</span>)
 
-<p>feature_report_dir = File.join(File.dirname(<strong>FILE</strong>), “../run/example_scenario/#{i}”)  feature_report.directory_name = feature_report_dir</p>
+<span class="ruby-comment">#Create a REopt Lite Post Processor to call the API, note you will need a Developer.nrel.gov API key in this step</span>
+<span class="ruby-identifier">reopt_post_processor</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REoptPostProcessor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_file</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-constant">DEVELOPER_NREL_KEY</span>)
 
-<p>scenario_report.add_feature_report(feature_report) end</p>
-
-<h1 id="label-Specify+non-default+REopt+Lite+assumptions-2C+saved+in+JSON+format-2C+to+be+used+in+calling+the+API">Specify non-default REopt Lite assumptions, saved in JSON format, to be used in calling the API<span><a href="#label-Specify+non-default+REopt+Lite+assumptions-2C+saved+in+JSON+format-2C+to+be+used+in+calling+the+API">&para;</a> <a href="#top">&uarr;</a></span></h1>
-
-<p>reopt_assumptions_file = File.join(File.dirname(<strong>FILE</strong>), &#39;../files/reopt_assumptions_basic.json&#39;)</p>
-
-<h1 id="label-Create+a+REopt+Lite+Post+Processor+to+call+the+API-2C+note+you+will+need+a+Developer.nrel.gov+API+key+in+this+step">Create a REopt Lite Post Processor to call the API, note you will need a Developer.nrel.gov API key in this step<span><a href="#label-Create+a+REopt+Lite+Post+Processor+to+call+the+API-2C+note+you+will+need+a+Developer.nrel.gov+API+key+in+this+step">&para;</a> <a href="#top">&uarr;</a></span></h1>
-
-<p>reopt_post_processor = <a href="URBANopt/REopt/REoptPostProcessor.html#method-c-new"><code>URBANopt::REopt::REoptPostProcessor.new</code></a>(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)</p>
-
-<h1 id="label-Call+REopt+Lite+with+the+post+processor+once+on+the+sceanrio-27s+aggregated+load+to+update+the+scenario-27s+distributed+generation+attributes+and+timeseries+CSV.">Call REopt Lite with the post processor once on the sceanrio&#39;s aggregated load to update the scenario&#39;s distributed generation attributes and timeseries CSV.<span><a href="#label-Call+REopt+Lite+with+the+post+processor+once+on+the+sceanrio-27s+aggregated+load+to+update+the+scenario-27s+distributed+generation+attributes+and+timeseries+CSV.">&para;</a> <a href="#top">&uarr;</a></span></h1>
-
-<p>updated_scenario_report = reopt_post_processor.run_scenario_report(scenario_report)</p>
-
-<p>“`</p>
+<span class="ruby-comment">#Call REopt Lite with the post processor once on the sceanrio&#39;s aggregated load to update the scenario&#39;s distributed generation attributes and timeseries CSV.</span>
+<span class="ruby-identifier">updated_scenario_report</span> = <span class="ruby-identifier">reopt_post_processor</span>.<span class="ruby-identifier">run_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>)
+</pre>
 
 <h2 id="label-Testing">Testing<span><a href="#label-Testing">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
