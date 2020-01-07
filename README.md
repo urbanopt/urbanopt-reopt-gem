@@ -1,4 +1,4 @@
-# URBANOpt REopt Gem
+# URBANopt REopt Gem
 
 ### <StaticLink target="\_blank" href="rdoc/">Rdocs</StaticLink>
 

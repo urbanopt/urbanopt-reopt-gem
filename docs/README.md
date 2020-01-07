@@ -1,13 +1,26 @@
-# URBANOpt REopt Gem
+# URBANopt REopt Gem
 
 ### <StaticLink target="\_blank" href="rdoc/">Rdocs</StaticLink>
 
-The **URBANopt REopt Gem** extends **URBANopt::Scenario::DefaultReports::ScenarioReport** and **URBANopt::Scenario::DefaultReports::FeatureReport** with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the <StaticLink target="\_blank" href="https://reopt.nrel.gov/tool">REopt Lite</StaticLink> decision support platform. 
+The **URBANopt REopt Gem** extends a **URBANopt::Scenario::DefaultReports::ScenarioReport** and **URBANopt::Scenario::DefaultReports::FeatureReport** with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the <StaticLink target="\_blank" href="https://reopt.nrel.gov/tool">REopt Lite</StaticLink> decision support platform. 
 REopt Lite is a technoeconomic model which leverages mixed integer linear programming to identify the cost-optimal sizing of solar PV, Wind, Storage and/or diesel generation given an electric load profile, a utility rate tariff and other technoeconomic parameters. See <StaticLink target="\_blank" href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">https://developer.nrel.gov/docs/energy-optimization/reopt-v1/</StaticLink> for more detailed information on input parameters and default assumptions. 
+
+The REopt Gem accomplishes three basic functions (described more below in the _Functionality_ section):
+
+1. Accepts a json (or hash) of **assumptions** (i.e. utility rate, installation costs, escalation rates) to use in running REopt for a Scenario or Feature Report
+2. Updates the **distributed_generation** attributes of a Feature Report or Scenario Report based on a cost-optimal DER system
+3. Updates the **timeseries_CSV** attributes of a Feature Report or Scenario Report based on the dispatch of a cost-optimal DER system
+
+Moreover, the REopt Gem can be run in several modes, either on:
+
+ * A Feature Report, 
+ * A collection of Feature Reports 
+ * All the features in a Scenario Report before aggregating results at the scenario level
+ * The collection of features in aggregate as summarized in a Scenario Report
 
 See the <StaticLink target="\_blank" href="https://github.com/TK-23/urbanopt-example-geojson-reopt-project.git">example project</StaticLink> for more infomation about usage of this gem.
 
-<b>Note:</b> this module requires an API Key from the <StaticLink target='blank' href="https://developer.nrel.gov/">NREL Developer Network</StaticLink>.
+<b>Note:</b> This module requires an API Key from the <StaticLink target='blank' href="https://developer.nrel.gov/">NREL Developer Network</StaticLink>.
 
 <StaticLink target="\_blank" href="https://urbanopt.github.io/urbanopt-reopt-gem/">RDoc Documentation</StaticLink>
 
@@ -88,7 +101,7 @@ Moreover, the following optimal dispatch fields are added to its timeseries CSV.
 
 The REopt Lite has default values for all non-required input parameters that are used unless the user specifies custom assumptions. See <StaticLink target="\_blank" href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">https://developer.nrel.gov/docs/energy-optimization/reopt-v1/</StaticLink> for more detailed information on input parameters and default assumptions. 
 
-<b>Note:</b> Required attributes for a REopt run include latitude and longitude. If no utility rate is specified in your REopt Lite assumption settings, then a constant default rate of $0.13 is assumed without demand charges. Also, by default, only solar PV and storage are considered in the analysis (i.e. Wind and Generators are excluded from consideration).
+<b>Note:</b> Required attributes for a REopt run include latitude and longitude, parsed from the Feature or Scenario Report attributes. If no utility rate is specified in your assumptions, then a constant rate of $0.13 is assumed without demand charges. Also, by default, only solar PV and storage are considered in the analysis (i.e. Wind and Generators are excluded from consideration).
 
 
 
@@ -98,17 +111,20 @@ The code below shows how to run the REopt API on a single Feature Report hash us
 
 ```ruby
 require 'urbanopt/reopt'
+
+DEVELOPER_NREL_KEY = "" # <insert a valid API key from https://developer.nrel.gov/signup >
+
 #Load a Feature Report Hash
-feature_reports_hash = {} # <insert a Feature Report hash here>
+feature_reports_hash = {} # <insert a valid Feature Report hash here with latitude and longitude filled in>
 
 #Create a Feature Report
 feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_hash)
 
 #Specify a file name where REopt Lite results will be written in JSON format
-reopt_output_file = File.join(feature_report.directory_name, 'feature_report_reopt_run1.json')
+reopt_output_file = File.join(feature_report.directory_name, 'feature_report_reopt_run.json')
 
 #Specify a file name where the new timeseries CSV will be written after REopt Lite has determined cost optimal dispatch
-timeseries_output_file = File.join(feature_report.directory_name, 'feature_report_timeseries1.csv')
+timeseries_output_file = File.join(feature_report.directory_name, 'feature_report_timeseries.csv')
 
 #Specify non-default REopt Lite assumptions, saved in JSON format, to be used in calling the API
 reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
@@ -124,12 +140,14 @@ updated_feature_report = reopt_post_processor.run_feature_report(feature_report,
 More commonly, this gem can be used to run REopt a collection of features stored in a Scenario Report as show here:
 ```ruby
 require 'urbanopt/reopt'
+DEVELOPER_NREL_KEY = "" # <insert a valid API key from https://developer.nrel.gov/signup >
+
 #Create a Scenario Report
-scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new({:directory_name => File.join(File.dirname(__FILE__), '../run/example_scenario'), :timeseries_csv => {:path => File.join(File.dirname(__FILE__), '../run/example_scenario/timeseries.csv') }})
+scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new({:directory_name => File.join(File.dirname(__FILE__), 'run/example_scenario'), :timeseries_csv => {:path => File.join(File.dirname(__FILE__), 'run/example_scenario/timeseries.csv') }})
 
 #Load Feature Reports into the Scenario Report     
 (1..2).each do |i|
-  feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.json")
+  feature_reports_path = File.join(File.dirname(__FILE__), "run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.json")
 
   feature_reports_hash = nil
   File.open(feature_reports_path, 'r') do |file|
@@ -138,14 +156,14 @@ scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new({:direc
 
   feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_hash)
   
-  feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
+  feature_report_dir = File.join(File.dirname(__FILE__), "run/example_scenario/#{i}")
   feature_report.directory_name = feature_report_dir
 
   scenario_report.add_feature_report(feature_report)
 end
 
 #Specify non-default REopt Lite assumptions, saved in JSON format, to be used in calling the API
-reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
+reopt_assumptions_file = File.join(File.dirname(__FILE__), 'files/reopt_assumptions_basic.json')
 
 #Create a REopt Lite Post Processor to call the API, note you will need a Developer.nrel.gov API key in this step
 reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
