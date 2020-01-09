@@ -34,6 +34,7 @@
 # *******************************************************************************
 
 require "urbanopt/scenario/default_reports"
+require "urbanopt/reopt/reopt_logger"
 require 'csv'
 require 'matrix'
 
@@ -47,6 +48,8 @@ module URBANopt # :nodoc:
       # [*parameters:*]
       ##
       def initialize
+        # initialize @@logger
+        @@logger ||= URBANopt::REopt.reopt_logger
       end
       
       ##
@@ -67,7 +70,7 @@ module URBANopt # :nodoc:
         if !reopt_assumptions_hash.nil?
           reopt_inputs = reopt_assumptions_hash
         else
-          p 'Using default REopt Lite assumptions'
+          @@logger.info('Using default REopt Lite assumptions')
         end
 
         #Check FeatureReport has required data
@@ -78,6 +81,7 @@ module URBANopt # :nodoc:
           requireds.each_with_index do |i,x|
              if [nil,0].include? x
               n = requireds_names[i]
+              p 'a' #@@logger.error("Missing value for #{n} - this is a required input")
               raise "Missing value for #{n} - this is a required input"
              end
           end
@@ -109,10 +113,11 @@ module URBANopt # :nodoc:
 
           if energy_timeseries_kwh.length < feature_report.timesteps_per_hour * 8760
             energy_timeseries_kwh = energy_timeseries_kwh + [0]*((feature_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
-            p "Assuming load profile for Feature Report #{feature_report.name} #{feature_report.id} starts January 1 - filling in rest  with zeros"
+            @@logger.info("Assuming load profile for Feature Report #{feature_report.name} #{feature_report.id} starts January 1 - filling in rest  with zeros")
           end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map {|e| e ? e : 0}
         rescue
+          @@logger.error("Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}")
           raise "Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}"
         end
         return reopt_inputs
@@ -133,7 +138,7 @@ module URBANopt # :nodoc:
 
         # Check if the \REopt Lite response is valid
         if reopt_output['outputs']['Scenario']['status'] != 'optimal'
-          p "Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal"
+          @@logger.info("Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal")
           return feature_report
         end
 

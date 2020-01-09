@@ -35,6 +35,7 @@
 
 require 'bundler/setup'
 require "urbanopt/scenario/default_reports"
+require "urbanopt/reopt/reopt_logger"
 require 'urbanopt/reopt'
 require 'csv'
 
@@ -54,6 +55,9 @@ module URBANopt  # :nodoc:
       # * +nrel_developer_key+ - _String_ - API used to access the \REopt Lite APi. Required only if +localhost+ is false. Obtain from https://developer.nrel.gov/signup/
       ##
       def initialize(scenario_report, scenario_reopt_assumptions_file=nil, reopt_feature_assumptions=[], nrel_developer_key=nil, localhost=false)
+         # initialize @@logger
+        @@logger ||= URBANopt::REopt.reopt_logger
+        
         if reopt_feature_assumptions.nil?
           reopt_feature_assumptions = []
         end
@@ -207,7 +211,7 @@ module URBANopt  # :nodoc:
             new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, @feature_reports_timeseries_default_output_files[idx])
             new_feature_reports.push(new_feature_report)
           rescue
-            p "Could not optimize Feature Report #{feature_report.name} #{feature_report.id}"
+            @@logger.info("Could not optimize Feature Report #{feature_report.name} #{feature_report.id}")
           end
         end
 

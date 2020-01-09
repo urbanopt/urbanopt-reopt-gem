@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'openstudio-extension'
   spec.add_dependency 'urbanopt-scenario'
   spec.add_dependency 'json_pure'
+  spec.add_dependency 'certified'
 end

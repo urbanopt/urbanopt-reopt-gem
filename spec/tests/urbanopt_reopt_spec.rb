@@ -43,11 +43,6 @@ RSpec.describe URBANopt::REopt do
     expect(URBANopt::REopt::VERSION).not_to be nil
   end
 
-  it 'has a measures directory' do
-    instance = URBANopt::REopt::Extension.new
-    expect(File.exist?(instance.measures_dir)).to be true
-  end
-
   it 'can connect to reopt lite' do
 	api = URBANopt::REopt::REoptLiteAPI.new(DEVELOPER_NREL_KEY, false)
     dummy_data = {:Scenario => {:Site => {:latitude => 40, :longitude => -110, :Wind => {:max_kw => 0}, :ElectricTariff => {:urdb_label => '594976725457a37b1175d089'}, :LoadProfile => {:doe_reference_name => 'Hospital', :annual_kwh => 1000000 }}}}

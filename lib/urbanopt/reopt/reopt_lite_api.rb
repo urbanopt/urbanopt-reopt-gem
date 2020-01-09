@@ -41,6 +41,7 @@ require 'json'
 require 'securerandom'
 require 'certified'
 require_relative '../../../developer_nrel_key'
+require "urbanopt/reopt/reopt_logger"
 
 module URBANopt # :nodoc:
   module REopt  # :nodoc:
@@ -70,6 +71,8 @@ module URBANopt # :nodoc:
           end
           @nrel_developer_key =  nrel_developer_key
           @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@nrel_developer_key}")
+          # initialize @@logger
+          @@logger ||= URBANopt::REopt.reopt_logger
         end
       end
 
@@ -128,7 +131,8 @@ module URBANopt # :nodoc:
         response = make_request(http, request)
 		
         if !response.is_a?(Net::HTTPSuccess)
-		    raise "Check_connection Failed"
+		    @@logger.error("Check_connection Failed")
+        raise "Check_connection Failed"
         end
         return true
       end
@@ -152,7 +156,7 @@ module URBANopt # :nodoc:
 
         description = reopt_input[:Scenario][:description]
 
-        p "Submitting #{description} to REopt Lite API"
+        @@logger.info("Submitting #{description} to REopt Lite API")
 
         # Format the request
         header = {'Content-Type'=> 'application/json'}
@@ -177,7 +181,7 @@ module URBANopt # :nodoc:
             run_uuid = "error#{SecureRandom.uuid}"
           end
           filename = File.join(filename, "#{description}_#{run_uuid}.json")
-          p "REopt results saved to #{filename}"
+          @@logger.info("REopt results saved to #{filename}")
         end
 
         if response.code != '201'

@@ -34,6 +34,8 @@
 # *******************************************************************************
 
 require "urbanopt/scenario/default_reports"
+require "urbanopt/reopt/reopt_logger"
+
 require 'csv'
 
 module URBANopt  # :nodoc:
@@ -44,7 +46,8 @@ module URBANopt  # :nodoc:
       ##
       # [*parameters:*]
       def initialize
-
+        # initialize @@logger
+        @@logger ||= URBANopt::REopt.reopt_logger
       end
       
       ##
@@ -68,7 +71,7 @@ module URBANopt  # :nodoc:
         if !reopt_assumptions_json.nil?
           reopt_inputs = reopt_assumptions_json
         else
-          p 'Using default REopt Lite assumptions'
+          @@logger.info('Using default REopt Lite assumptions')
         end
 
         #Update required info
@@ -130,7 +133,7 @@ module URBANopt  # :nodoc:
 
           if energy_timeseries_kwh.length < scenario_report.timesteps_per_hour * 8760
             energy_timeseries_kwh = energy_timeseries_kwh + [0]*((scenario_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
-            p "Assuming load profile for Scenario Report #{scenario_report.name} #{scenario_report.id} starts January 1 - filling in rest with zeros"
+            @@logger.info("Assuming load profile for Scenario Report #{scenario_report.name} #{scenario_report.id} starts January 1 - filling in rest with zeros")
           end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
         rescue
@@ -177,7 +180,7 @@ module URBANopt  # :nodoc:
       def update_scenario_report(scenario_report, reopt_output, timeseries_csv_path=nil)
 
         if reopt_output['outputs']['Scenario']['status'] != 'optimal'
-          p "Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal"
+          @@logger.info("Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal")
           return scenario_report
         end
 
