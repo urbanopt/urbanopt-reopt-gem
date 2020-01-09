@@ -1,15 +1,17 @@
-Wed, 08 Jan 2020 20:55:20 +0000
-./lib/urbanopt/reopt.rb	Wed, 08 Jan 2020 20:54:36 +0000
-./lib/urbanopt/reopt/scenario_report_adapter.rb	Wed, 08 Jan 2020 20:54:46 +0000
-./lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb	Wed, 08 Jan 2020 20:54:36 +0000
-./lib/urbanopt/reopt/feature_report_adapter.rb	Wed, 08 Jan 2020 20:54:46 +0000
-./lib/urbanopt/reopt/reopt_schema/reopt_output_schema.json	Wed, 08 Jan 2020 20:54:36 +0000
-./lib/urbanopt/reopt/reopt_schema/reopt_input_schema.json	Wed, 08 Jan 2020 20:54:36 +0000
-./lib/urbanopt/reopt/extension.rb	Wed, 08 Jan 2020 20:54:36 +0000
-./lib/urbanopt/reopt/reopt_lite_api.rb	Wed, 08 Jan 2020 20:54:36 +0000
-./lib/urbanopt/reopt/version.rb	Wed, 08 Jan 2020 20:54:36 +0000
-./lib/urbanopt/reopt/reopt_post_processor.rb	Wed, 08 Jan 2020 20:54:46 +0000
-./lib/urbanopt/reopt_scenario.rb	Wed, 08 Jan 2020 20:54:36 +0000
-./lib/urbanopt-reopt.rb	Wed, 08 Jan 2020 20:54:36 +0000
-./RDOC_MAIN.md	Wed, 08 Jan 2020 20:54:46 +0000
-./developer_nrel_key.rb	Wed, 08 Jan 2020 20:54:36 +0000
+Thu, 09 Jan 2020 15:36:21 -0700
+./CHANGELOG.md	Thu, 09 Jan 2020 14:47:28 -0700
+./developer_nrel_key.rb	Thu, 09 Jan 2020 14:47:55 -0700
+./lib/urbanopt/reopt/extension.rb	Mon, 23 Dec 2019 15:16:03 -0700
+./lib/urbanopt/reopt/feature_report_adapter.rb	Thu, 09 Jan 2020 14:47:28 -0700
+./lib/urbanopt/reopt/reopt_lite_api.rb	Thu, 09 Jan 2020 14:47:28 -0700
+./lib/urbanopt/reopt/reopt_logger.rb	Thu, 09 Jan 2020 14:47:28 -0700
+./lib/urbanopt/reopt/reopt_post_processor.rb	Thu, 09 Jan 2020 14:47:28 -0700
+./lib/urbanopt/reopt/reopt_schema/reopt_input_schema.json	Mon, 23 Dec 2019 15:16:03 -0700
+./lib/urbanopt/reopt/reopt_schema/reopt_output_schema.json	Mon, 23 Dec 2019 15:16:03 -0700
+./lib/urbanopt/reopt/scenario/reopt_scenario_csv.rb	Mon, 23 Dec 2019 15:16:03 -0700
+./lib/urbanopt/reopt/scenario_report_adapter.rb	Thu, 09 Jan 2020 14:47:28 -0700
+./lib/urbanopt/reopt/version.rb	Thu, 09 Jan 2020 14:47:28 -0700
+./lib/urbanopt/reopt.rb	Mon, 23 Dec 2019 15:16:03 -0700
+./lib/urbanopt/reopt_scenario.rb	Mon, 23 Dec 2019 15:16:03 -0700
+./lib/urbanopt-reopt.rb	Thu, 09 Jan 2020 14:47:28 -0700
+./RDOC_MAIN.md	Thu, 09 Jan 2020 14:47:28 -0700
