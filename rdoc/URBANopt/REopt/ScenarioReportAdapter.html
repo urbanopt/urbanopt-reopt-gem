@@ -136,10 +136,9 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 48</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
-  <span class="ruby-comment"># initialize @@logger</span>
-  <span class="ruby-identifier">@@logger</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span>.<span class="ruby-identifier">reopt_logger</span>
+
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -187,7 +186,7 @@
 
           
           <div class="method-source-code" id="reopt_json_from_scenario_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 63</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_json_from_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_json</span>=<span class="ruby-keyword">nil</span>)
   
   <span class="ruby-identifier">name</span> = <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-string">&#39; &#39;</span>,<span class="ruby-string">&#39;&#39;</span>
@@ -199,7 +198,7 @@
   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_assumptions_json</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-identifier">reopt_inputs</span> = <span class="ruby-identifier">reopt_assumptions_json</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&#39;Using default REopt Lite assumptions&#39;</span>)
+    <span class="ruby-identifier">p</span> <span class="ruby-string">&#39;Using default REopt Lite assumptions&#39;</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-comment">#Update required info</span>
@@ -261,7 +260,7 @@
 
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">energy_timeseries_kwh</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> <span class="ruby-operator">*</span> <span class="ruby-value">8760</span>
       <span class="ruby-identifier">energy_timeseries_kwh</span> = <span class="ruby-identifier">energy_timeseries_kwh</span> <span class="ruby-operator">+</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span>((<span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> <span class="ruby-operator">*</span> <span class="ruby-value">8760</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">energy_timeseries_kwh</span>.<span class="ruby-identifier">length</span>)
-      <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Assuming load profile for Scenario Report #{scenario_report.name} #{scenario_report.id} starts January 1 - filling in rest with zeros&quot;</span>)
+      <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;Assuming load profile for Scenario Report #{scenario_report.name} #{scenario_report.id} starts January 1 - filling in rest with zeros&quot;</span>
     <span class="ruby-keyword">end</span>
     <span class="ruby-identifier">reopt_inputs</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:Site</span>][<span class="ruby-value">:LoadProfile</span>][<span class="ruby-value">:loads_kw</span>] = <span class="ruby-identifier">energy_timeseries_kwh</span>
   <span class="ruby-keyword">rescue</span>
@@ -308,7 +307,7 @@
 
           
           <div class="method-source-code" id="reopt_jsons_from_scenario_feature_reports-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 157</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 154</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_jsons_from_scenario_feature_reports</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_assumptions_hashes</span> = [])
   <span class="ruby-identifier">results</span> = []
   <span class="ruby-identifier">adapter</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReportAdapter</span>.<span class="ruby-identifier">new</span>
@@ -360,11 +359,11 @@
 
           
           <div class="method-source-code" id="update_scenario_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 180</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/scenario_report_adapter.rb, line 177</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_scenario_report</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">reopt_output</span>, <span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;status&#39;</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;optimal&#39;</span>
-    <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal&quot;</span>)
+    <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal&quot;</span>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">scenario_report</span>
   <span class="ruby-keyword">end</span>
 

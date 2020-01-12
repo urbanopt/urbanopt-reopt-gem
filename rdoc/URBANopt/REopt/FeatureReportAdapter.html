@@ -134,10 +134,8 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 50</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
-  <span class="ruby-comment"># initialize @@logger</span>
-  <span class="ruby-identifier">@@logger</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span>.<span class="ruby-identifier">reopt_logger</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -185,7 +183,7 @@
 
           
           <div class="method-source-code" id="reopt_json_from_feature_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 65</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_json_from_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_assumptions_hash</span>=<span class="ruby-keyword">nil</span>)
   
   <span class="ruby-identifier">name</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-string">&#39; &#39;</span>,<span class="ruby-string">&#39;&#39;</span>
@@ -194,7 +192,7 @@
   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_assumptions_hash</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-identifier">reopt_inputs</span> = <span class="ruby-identifier">reopt_assumptions_hash</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&#39;Using default REopt Lite assumptions&#39;</span>)
+    <span class="ruby-identifier">p</span> <span class="ruby-string">&#39;Using default REopt Lite assumptions&#39;</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-comment">#Check FeatureReport has required data</span>
@@ -205,7 +203,6 @@
     <span class="ruby-identifier">requireds</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span>,<span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
        <span class="ruby-keyword">if</span> [<span class="ruby-keyword">nil</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">x</span>
         <span class="ruby-identifier">n</span> = <span class="ruby-identifier">requireds_names</span>[<span class="ruby-identifier">i</span>]
-        <span class="ruby-identifier">p</span> <span class="ruby-string">&#39;a&#39;</span> <span class="ruby-comment">#@@logger.error(&quot;Missing value for #{n} - this is a required input&quot;)</span>
         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Missing value for #{n} - this is a required input&quot;</span>
        <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
@@ -237,11 +234,10 @@
 
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">energy_timeseries_kwh</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> <span class="ruby-operator">*</span> <span class="ruby-value">8760</span>
       <span class="ruby-identifier">energy_timeseries_kwh</span> = <span class="ruby-identifier">energy_timeseries_kwh</span> <span class="ruby-operator">+</span> [<span class="ruby-value">0</span>]<span class="ruby-operator">*</span>((<span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">timesteps_per_hour</span> <span class="ruby-operator">*</span> <span class="ruby-value">8760</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">energy_timeseries_kwh</span>.<span class="ruby-identifier">length</span>)
-      <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Assuming load profile for Feature Report #{feature_report.name} #{feature_report.id} starts January 1 - filling in rest  with zeros&quot;</span>)
+      <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;Assuming load profile for Feature Report #{feature_report.name} #{feature_report.id} starts January 1 - filling in rest  with zeros&quot;</span>
     <span class="ruby-keyword">end</span>
     <span class="ruby-identifier">reopt_inputs</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:Site</span>][<span class="ruby-value">:LoadProfile</span>][<span class="ruby-value">:loads_kw</span>] = <span class="ruby-identifier">energy_timeseries_kwh</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>}
   <span class="ruby-keyword">rescue</span>
-    <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}&quot;</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}&quot;</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">reopt_inputs</span>
@@ -286,12 +282,12 @@
 
           
           <div class="method-source-code" id="update_feature_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 137</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 132</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_output</span>, <span class="ruby-identifier">timeseries_csv_path</span>=<span class="ruby-keyword">nil</span>)
 
   <span class="ruby-comment"># Check if the \REopt Lite response is valid</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;status&#39;</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;optimal&#39;</span>
-    <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal&quot;</span>)
+    <span class="ruby-identifier">p</span> <span class="ruby-node">&quot;Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal&quot;</span>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">feature_report</span>
   <span class="ruby-keyword">end</span>
 
