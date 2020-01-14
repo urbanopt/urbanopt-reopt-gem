@@ -405,14 +405,7 @@ module URBANopt  # :nodoc:
         }
         mod_data[0] = scenario_report.timeseries_csv.column_names
 
-        if timeseries_csv_path.nil?
-          scenario_report.timeseries_csv.path = scenario_report.timeseries_csv.path.sub! '.csv',"_reopt#{reopt_output['inputs']['Scenario']['run_uuid']}.csv"
-        else
-          scenario_report.timeseries_csv.path = timeseries_csv_path
-        end
-
-        File.write(scenario_report.timeseries_csv.path, mod_data.map(&:to_csv).join)
-        scenario_report.timeseries_csv.reload_data
+        scenario_report.timeseries_csv.reload_data(mod_data)
         return scenario_report
       end
     end

@@ -366,16 +366,8 @@ module URBANopt # :nodoc:
         }
         
         mod_data[0] = feature_report.timeseries_csv.column_names
-
-        # Write a new timeseries csv and update the FeatureReport to reference it
-        if !timeseries_csv_path.nil?
-          feature_report.timeseries_csv.path = timeseries_csv_path
-        else
-          feature_report.timeseries_csv.path = feature_report.timeseries_csv.path.sub! '.csv',"_reopt#{reopt_output['inputs']['Scenario']['run_uuid']}.csv"
-        end
-
-        File.write(feature_report.timeseries_csv.path, mod_data.map(&:to_csv).join)
-        feature_report.timeseries_csv.reload_data
+        
+        feature_report.timeseries_csv.reload_data(mod_data)
         return feature_report
       end
 
