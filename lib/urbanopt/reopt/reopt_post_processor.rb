@@ -226,13 +226,10 @@ module URBANopt  # :nodoc:
       # * +scenario_report+ - _Array_ -  A _URBANopt::Scenario::DefaultReports::ScenarioReport_ which will each be used to create (and is subsquently updated by) \REopt Lite opimization responses for each of its FeatureReports.
       # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of \REopt Lite formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the array in ScenarioReport.feature_reports. 
       # * +reopt_output_files+ - _Array_ - Optional. An array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
-      # * +timeseries_csv_path+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
+      # * +feature_report_timeseries_csv_paths+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
-      def run_scenario_report_features(scenario_report, reopt_assumptions_hashes=[], reopt_output_files=[],feature_report_timeseries_csv_paths=[], scenario_report_timeseries_csv_path=nil)
-        if !scenario_report_timeseries_csv_path.nil?
-          @scenario_timeseries_default_output_file = scenario_report_timeseries_csv_path
-        end
+      def run_scenario_report_features(scenario_report, reopt_assumptions_hashes=[], reopt_output_files=[],feature_report_timeseries_csv_paths=[])
         
         new_feature_reports = self.run_feature_reports(scenario_report.feature_reports, reopt_assumptions_hashes, reopt_output_files, feature_report_timeseries_csv_paths ) 
 
@@ -240,21 +237,14 @@ module URBANopt  # :nodoc:
         new_scenario_report.id = scenario_report.id
         new_scenario_report.name = scenario_report.name
         new_scenario_report.directory_name = scenario_report.directory_name
-        
-        if @scenario_timeseries_default_output_file.nil?
-          feature_ids = scenario_report.feature_reports.map { |x|  x.id }
-          @scenario_timeseries_default_output_file = scenario_report.timeseries_csv.path.sub! '.csv',"_updated_features#{feature_ids.join('_')}.csv"
-        end
-        
-        timeseries_hash = {:path => @scenario_timeseries_default_output_file, :column_names => scenario_report.timeseries_csv.column_names }
+                
+        timeseries_hash = {:column_names => scenario_report.timeseries_csv.column_names }
         new_scenario_report.timeseries_csv = URBANopt::Scenario::DefaultReports::TimeseriesCSV.new(timeseries_hash)
 
         new_feature_reports.each do |feature_report|
           new_scenario_report.add_feature_report(feature_report)
         end
-        
-        new_scenario_report.timeseries_csv.save_data(@scenario_timeseries_default_output_file)
-        
+                
         return new_scenario_report
       end
     end
