@@ -18,7 +18,7 @@ Moreover, the REopt Gem can be run in several modes, either on:
  * All the features in a Scenario Report before aggregating results at the scenario level
  * The collection of features in aggregate as summarized in a Scenario Report
 
-See the <StaticLink target="\_blank" href="https://github.com/TK-23/urbanopt-example-geojson-reopt-project.git">example project</StaticLink> for more infomation about usage of this gem.
+See the <StaticLink target="\_blank" href="https://github.com/urbanopt/urbanopt-example-reopt-project.git">example project</StaticLink> for more infomation about usage of this gem.
 
 <b>Note:</b> This module requires an API Key from the <StaticLink target='blank' href="https://developer.nrel.gov/">NREL Developer Network</StaticLink>.
 
