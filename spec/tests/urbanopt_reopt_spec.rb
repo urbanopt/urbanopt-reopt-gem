@@ -107,6 +107,7 @@ RSpec.describe URBANopt::REopt do
       feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.csv"
       scenario_report.add_feature_report(feature_report)
     end
+    scenario_report.save
     
     reopt_output_file = File.join(scenario_report.directory_name, "scenario_report_reopt_run.json")
     timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
@@ -193,7 +194,7 @@ RSpec.describe URBANopt::REopt do
       
       scenario_report.add_feature_report(feature_report)
     end
-    
+    scenario_report.save
     reopt_output_file = File.join(scenario_report.directory_name, "scenario_report_reopt_run.json")
     timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
     reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
