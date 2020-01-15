@@ -12,7 +12,7 @@ require 'urbanopt/reopt/extension'
 os_extension = OpenStudio::Extension::RakeTask.new
 os_extension.set_extension_class(URBANopt::REopt::Extension)
 
-desc "CLI OpenSSL test"
+desc 'CLI OpenSSL test'
 task :cli_openssl_test do
   runner = OpenStudio::Extension::Runner.new(URBANopt::REopt::Extension.new.root_dir)
 
@@ -25,7 +25,6 @@ task :cli_openssl_test do
   result = runner.run_command(the_call)
   puts "DONE, result = #{result}"
   STDOUT.flush
-  
 end
 
 task default: :spec

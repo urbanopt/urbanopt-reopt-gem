@@ -32,11 +32,11 @@ require 'logger'
 
 module URBANopt
   module REopt
-      @@reopt_logger = Logger.new(STDOUT)
-      ##
-      # Definining class variable "@@logger" to log errors, info and warning messages.
-      def self.reopt_logger
-        @@reopt_logger
-      end
+    @@reopt_logger = Logger.new(STDOUT)
+    ##
+    # Definining class variable "@@logger" to log errors, info and warning messages.
+    def self.reopt_logger
+      @@reopt_logger
+    end
   end
 end

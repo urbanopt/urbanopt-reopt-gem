@@ -27,8 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '3.7.0'
   spec.add_development_dependency 'rubocop', '~> 0.54.0'
 
-  spec.add_dependency 'openstudio-extension'
-  spec.add_dependency 'urbanopt-scenario'
-  spec.add_dependency 'json_pure'
   spec.add_dependency 'certified'
+  spec.add_dependency 'json_pure'
+  spec.add_dependency 'urbanopt-scenario', '0.1.1'
 end

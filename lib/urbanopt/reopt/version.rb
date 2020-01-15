@@ -33,8 +33,8 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # *******************************************************************************
 
-module URBANopt  # :nodoc:
-  module REopt  # :nodoc:
+module URBANopt # :nodoc:
+  module REopt # :nodoc:
     VERSION = '0.1.0'.freeze
   end
 end
