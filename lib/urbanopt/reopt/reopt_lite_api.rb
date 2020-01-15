@@ -1,47 +1,42 @@
-# *******************************************************************************
-# OpenStudio(R), Copyright (c) 2008-2019, Alliance for Sustainable Energy, LLC.
-# All rights reserved.
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are met:
+# *********************************************************************************
+# URBANopt, Copyright (c) 2019-2020, Alliance for Sustainable Energy, LLC, and other
+# contributors. All rights reserved.
 #
-# (1) Redistributions of source code must retain the above copyright notice,
-# this list of conditions and the following disclaimer.
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
 #
-# (2) Redistributions in binary form must reproduce the above copyright notice,
-# this list of conditions and the following disclaimer in the documentation
-# and/or other materials provided with the distribution.
+# Redistributions of source code must retain the above copyright notice, this list
+# of conditions and the following disclaimer.
 #
-# (3) Neither the name of the copyright holder nor the names of any contributors
-# may be used to endorse or promote products derived from this software without
-# specific prior written permission from the respective party.
+# Redistributions in binary form must reproduce the above copyright notice, this
+# list of conditions and the following disclaimer in the documentation and/or other
+# materials provided with the distribution.
 #
-# (4) Other than as required in clauses (1) and (2), distributions in any form
-# of modifications or other derivative works may not use the "OpenStudio"
-# trademark, "OS", "os", or any other confusingly similar designation without
-# specific prior written permission from Alliance for Sustainable Energy, LLC.
+# Neither the name of the copyright holder nor the names of its contributors may be
+# used to endorse or promote products derived from this software without specific
+# prior written permission.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER(S) AND ANY CONTRIBUTORS
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER(S), ANY CONTRIBUTORS, THE
-# UNITED STATES GOVERNMENT, OR THE UNITED STATES DEPARTMENT OF ENERGY, NOR ANY OF
-# THEIR EMPLOYEES, BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
-# OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-# STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# *******************************************************************************
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+# INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+# LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+# OF THE POSSIBILITY OF SUCH DAMAGE.
+# *********************************************************************************
 
-require "net/https"
-require "openssl"
-require "uri"
+require 'net/https'
+require 'openssl'
+require 'uri'
 require 'uri'
 require 'json'
 require 'securerandom'
 require 'certified'
 require_relative '../../../developer_nrel_key'
-require "urbanopt/reopt/reopt_logger"
+require 'urbanopt/reopt/reopt_logger'
 
 module URBANopt # :nodoc:
   module REopt  # :nodoc:
@@ -54,22 +49,22 @@ module URBANopt # :nodoc:
       #
       # [*parameters:*]
       #
-      # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt Lite API running on localhost. Default is false, such that the production version of \REopt Lite is accessed. 
+      # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt Lite API running on localhost. Default is false, such that the production version of \REopt Lite is accessed.
       # * +nrel_developer_key+ - _String_ - API key used to access the \REopt Lite APi. Required only if localhost is false. Obtain from https://developer.nrel.gov/signup/
       ##
-      def initialize(nrel_developer_key=nil, use_localhost=false)
+      def initialize(nrel_developer_key = nil, use_localhost = false)
         @use_localhost = use_localhost
         if @use_localhost
-          @uri_submit = URI.parse("http//:127.0.0.1:8000/v1/job/")
+          @uri_submit = URI.parse('http//:127.0.0.1:8000/v1/job/')
         else
-          if [nil, '','<insert your key here>'].include? nrel_developer_key
-            if [nil, '','<insert your key here>'].include? DEVELOPER_NREL_KEY
+          if [nil, '', '<insert your key here>'].include? nrel_developer_key
+            if [nil, '', '<insert your key here>'].include? DEVELOPER_NREL_KEY
               raise 'A developer.nrel.gov API key is required. Please see https://developer.nrel.gov/signup/ then update the file urbanopt-reopt-gem/developer_nrel_key.rb'
             else
               nrel_developer_key = DEVELOPER_NREL_KEY
             end
           end
-          @nrel_developer_key =  nrel_developer_key
+          @nrel_developer_key = nrel_developer_key
           @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@nrel_developer_key}")
           # initialize @@logger
           @@logger ||= URBANopt::REopt.reopt_logger
@@ -92,21 +87,21 @@ module URBANopt # :nodoc:
         end
         return URI.parse("https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
       end
-      
-	  def make_request(http, r, max_tries = 3)
-		result = nil
-		tries = 0
-		while tries < max_tries
-			begin 
-			    result = http.request(r)
-				tries = 4
-		    rescue 
-			     tries += 1
-		    end
-		end
-		return result
-	  end
-	  
+
+      def make_request(http, r, max_tries = 3)
+        result = nil
+        tries = 0
+        while tries < max_tries
+          begin
+               result = http.request(r)
+               tries = 4
+             rescue StandardError
+               tries += 1
+             end
+        end
+        return result
+      end
+
       ##
       # Checks if a optimization task can be submitted to the \REopt Lite API
       ##
@@ -118,29 +113,27 @@ module URBANopt # :nodoc:
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
       def check_connection(data)
-        header = {'Content-Type'=> 'application/json'}
+        header = { 'Content-Type' => 'application/json' }
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
         if !@use_localhost
           http.use_ssl = true
-		end
+    end
 
-		request = Net::HTTP::Post.new(@uri_submit, header)
+        request = Net::HTTP::Post.new(@uri_submit, header)
         request.body = data.to_json
 
         # Send the request
         response = make_request(http, request)
-		
+
         if !response.is_a?(Net::HTTPSuccess)
-		    @@logger.error("Check_connection Failed")
-        raise "Check_connection Failed"
+          @@logger.error('Check_connection Failed')
+          raise 'Check_connection Failed'
         end
         return true
       end
-      
-	 
-	  
+
       ##
-      # Completes a \REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API. 
+      # Completes a \REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API.
       # Results are polled at 5 second interval until they are ready or an error is returned from the API. Results
       # are written to disk.
       ##
@@ -153,13 +146,12 @@ module URBANopt # :nodoc:
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
       def reopt_request(reopt_input, filename)
-
         description = reopt_input[:Scenario][:description]
 
         @@logger.info("Submitting #{description} to REopt Lite API")
 
         # Format the request
-        header = {'Content-Type'=> 'application/json'}
+        header = { 'Content-Type' => 'application/json' }
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
         if !@use_localhost
           http.use_ssl = true
@@ -169,10 +161,10 @@ module URBANopt # :nodoc:
 
         # Send the request
         response = make_request(http, request)
-        
+
         # Get UUID
         run_uuid = JSON.parse(response.body)['run_uuid']
-        
+
         if File.directory? filename
           if run_uuid.nil?
             run_uuid = 'error'
@@ -185,48 +177,48 @@ module URBANopt # :nodoc:
         end
 
         if response.code != '201'
-          File.open(filename,"w") do |f|
+          File.open(filename, 'w') do |f|
             f.write(response.body)
           end
           raise "Error in REopt optimization post - see #{filename}"
         end
-        
+
         # Poll results until ready or error occurs
-        status = "Optimizing..."
-        uri = self.uri_results(run_uuid)
+        status = 'Optimizing...'
+        uri = uri_results(run_uuid)
         http = Net::HTTP.new(uri.host, uri.port)
         if !@use_localhost
           http.use_ssl = true
         end
 
         request = Net::HTTP::Get.new(uri.request_uri)
-        
-        while status == "Optimizing..."
+
+        while status == 'Optimizing...'
           response = make_request(http, request)
           data = JSON.parse(response.body)
-          sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) 
+          sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
           status = data['outputs']['Scenario']['status']
 
           sleep 5
         end
-        
+
         _max_retry = 5
         _tries = 0
-        check_complete = sizes==0 and (data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0
-        while (_tries < _max_retry) and check_complete
+        (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
+        while (_tries < _max_retry) && check_complete
           sleep 1
           response = make_request(http, request)
           data = JSON.parse(response.body)
-          sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) 
-          check_complete = sizes==0 and (data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0
-          _tries +=1
+          sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
+          (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
+          _tries += 1
         end
 
-        File.open(filename,"w") do |f|
+        File.open(filename, 'w') do |f|
           f.write(data.to_json)
         end
 
-        if status == 'optimal'   
+        if status == 'optimal'
           return data
         end
 
