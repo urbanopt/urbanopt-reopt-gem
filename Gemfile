@@ -32,3 +32,4 @@ gem 'openstudio_measure_tester', '= 0.1.7' # This includes the dependencies for 
 gem 'simplecov', github: 'NREL/simplecov'
 
 gem 'certified'
+gem 'rdoc'
