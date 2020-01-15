@@ -85,7 +85,7 @@ RSpec.describe URBANopt::REopt do
   end
 
   it 'can process a scenario report' do
-    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new({:timeseries_csv => {:path => File.join(File.dirname(__FILE__), '../run/example_scenario/timeseries.csv') }})
+    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new()
     
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
     scenario_report.directory_name = scenario_report_dir
@@ -155,7 +155,7 @@ RSpec.describe URBANopt::REopt do
   end
 
   it 'can process all feature reports in a scenario report individually' do
-    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new({:timeseries_csv => {:path => File.join(File.dirname(__FILE__), '../run/example_scenario/timeseries.csv') }})
+    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new()
     
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
     scenario_report.directory_name = scenario_report_dir
