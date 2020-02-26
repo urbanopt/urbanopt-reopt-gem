@@ -1,5 +1,5 @@
 # *********************************************************************************
-# URBANopt, Copyright (c) 2019, Alliance for Sustainable Energy, LLC, and other
+# URBANopt, Copyright (c) 2019-2020, Alliance for Sustainable Energy, LLC, and other
 # contributors. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification,
@@ -32,11 +32,11 @@ require 'logger'
 
 module URBANopt
   module REopt
-      @@reopt_logger = Logger.new(STDOUT)
-      ##
-      # Definining class variable "@@logger" to log errors, info and warning messages.
-      def self.reopt_logger
-        @@reopt_logger
-      end
+    @@reopt_logger = Logger.new(STDOUT)
+    ##
+    # Definining class variable "@@logger" to log errors, info and warning messages.
+    def self.reopt_logger
+      @@reopt_logger
+    end
   end
 end
