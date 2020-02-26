@@ -183,6 +183,7 @@ module URBANopt # :nodoc:
         scenario_report.timesteps_per_hour = reopt_output['inputs']['Scenario']['time_steps_per_hour']
 
         # Update distributed generation sizing and financials
+
         scenario_report.distributed_generation.lcc_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc_us_dollars'] || 0
         scenario_report.distributed_generation.npv_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0
         scenario_report.distributed_generation.year_one_energy_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars'] || 0
@@ -327,7 +328,7 @@ module URBANopt # :nodoc:
           $generator_to_grid_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('ElectricityProduced:Generator:ToGrid')
         end
-        
+
         $pv_total_col = scenario_report.timeseries_csv.column_names.index('ElectricityProduced:PV:Total')
         if $pv_total_col.nil?
           $pv_total_col = scenario_report.timeseries_csv.column_names.length

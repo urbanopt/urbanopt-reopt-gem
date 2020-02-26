@@ -286,7 +286,7 @@ module URBANopt # :nodoc:
           $generator_to_grid_col = feature_report.timeseries_csv.column_names.length
           feature_report.timeseries_csv.column_names.push('ElectricityProduced:Generator:ToGrid')
         end
-        
+
         $pv_total_col = feature_report.timeseries_csv.column_names.index('ElectricityProduced:PV:Total')
         if $pv_total_col.nil?
           $pv_total_col = feature_report.timeseries_csv.column_names.length
@@ -299,11 +299,13 @@ module URBANopt # :nodoc:
           feature_report.timeseries_csv.column_names.push('ElectricityProduced:PV:ToBattery')
         end
 
+
         $pv_to_load_col = feature_report.timeseries_csv.column_names.index('ElectricityProduced:PV:ToLoad')
         if $pv_to_load_col.nil?
           $pv_to_load_col = feature_report.timeseries_csv.column_names.length
           feature_report.timeseries_csv.column_names.push('ElectricityProduced:PV:ToLoad')
         end
+
 
         $pv_to_grid_col = feature_report.timeseries_csv.column_names.index('ElectricityProduced:PV:ToGrid')
         if $pv_to_grid_col.nil?
