@@ -32,6 +32,7 @@ require 'urbanopt/scenario/default_reports'
 require 'urbanopt/reopt/reopt_logger'
 require 'matrix'
 require 'csv'
+require 'time'
 
 module URBANopt # :nodoc:
   module REopt # :nodoc:
@@ -116,23 +117,23 @@ module URBANopt # :nodoc:
 
         # Update load profile info
         begin
-          col_num = scenario_report.timeseries_csv.column_names.index('REopt:Electricity:Facility')
+          col_num = scenario_report.timeseries_csv.column_names.index('Electricity:Facility')
           t = CSV.read(scenario_report.timeseries_csv.path, headers: true, converters: :numeric)
           energy_timeseries_kwh = t.by_col[col_num].map { |e| ((e || 0) * 0.293071) } # convert kBTU to KWH
-
-          if (scenario_report.timesteps_per_hour || 1) > 1
-            energy_timeseries_kwh = energy_timeseries_kwh.each_slice(scenario_report.timesteps_per_hour).to_a.map { |x| x.inject(0, :+) / x.length.to_f }
-          end
-
           if energy_timeseries_kwh.length < scenario_report.timesteps_per_hour * 8760
-            energy_timeseries_kwh += [0] * ((scenario_report.timesteps_per_hour * 8760) - energy_timeseries_kwh.length)
-            @@logger.info("Assuming load profile for Scenario Report #{scenario_report.name} #{scenario_report.id} starts January 1 - filling in rest with zeros")
+            start_date = Time.parse(t.by_col["Datetime"][0])
+            start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) /
+                        (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
+            end_date = Time.parse(t.by_col["Datetime"][-1])
+            end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) /
+                        (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
+            energy_timeseries_kwh = [0.0]*(start_ts-1) + energy_timeseries_kwh + [0.0]*((scenario_report.timesteps_per_hour * 8760) - end_ts)
           end
-          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh
+          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map { |e| e ? e : 0 }[0,8760]
         rescue StandardError
+          @@logger.error("Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}")
           raise "Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}"
         end
-
         return reopt_inputs
       end
 

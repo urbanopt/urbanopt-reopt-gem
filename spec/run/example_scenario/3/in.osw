@@ -1,0 +1,90 @@
+{
+  "seed_file": null,
+  "weather_file": null,
+  "measure_paths": [
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.2/lib/measures",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.1/lib/measures",
+    "C:/gitrepos/urbanopt-scenario-gem/lib/measures",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.6/lib/measures"
+  ],
+  "file_paths": [
+    "C:/gitrepos/urbanopt-scenario-gem/spec/files/mappers/../weather/",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.2/lib/files",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.1/lib/files",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.6/lib/files"
+  ],
+  "run_directory": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/3",
+  "steps": [
+    {
+      "measure_dir_name": "ChangeBuildingLocation",
+      "arguments": {
+        "weather_file_name": "urbanopt_scenario_tests.epw",
+        "climate_zone": "ASHRAE 169-2013-5B"
+      }
+    },
+    {
+      "measure_dir_name": "set_run_period",
+      "arguments": {
+        "timesteps_per_hour": 1,
+        "begin_date": "2012-06-01",
+        "end_date": "2012-06-01"
+      }
+    },
+    {
+      "measure_dir_name": "create_bar_from_building_type_ratios",
+      "arguments": {
+        "total_bldg_floor_area": 3000,
+        "ns_to_ew_ratio": 0.0,
+        "floor_height": 0.0,
+        "wwr": 0.0
+      }
+    },
+    {
+      "measure_dir_name": "create_typical_building_from_model",
+      "arguments": {
+      }
+    },
+    {
+      "name": "predicted_mean_vote",
+      "measure_dir_name": "PredictedMeanVote",
+      "arguments": {
+        "__SKIP__": false,
+        "comfortWarnings": true,
+        "workEfficiencySchedule": "Work Efficiency Schedule",
+        "clothingSchedule": "Clothing Schedule",
+        "airVelocitySchedule": "Air Velocity Schedule"
+      }
+    },
+    {
+      "measure_dir_name": "AddCostPerFloorAreaToBuilding",
+      "arguments": {
+        "__SKIP__": false,
+        "material_cost_ip": 100
+      }
+    },
+    {
+      "measure_dir_name": "tariff_selection_flat",
+      "arguments": {
+        "demand_window_length": "FullHour",
+        "elec_rate": 0.12,
+        "elec_demand_rate": 12.0,
+        "elec_monthly_rate": 120.0,
+        "gas_rate": 0.5,
+        "gas_monthly_rate": 50,
+        "water_rate": 0.005,
+        "disthtg_rate": 0.2,
+        "distclg_rate": 0.2
+      }
+    },
+    {
+      "measure_dir_name": "default_feature_reports",
+      "arguments": {
+        "feature_id": "3",
+        "feature_name": "Building 3",
+        "feature_type": "Building"
+      }
+    }
+  ],
+  "name": "Building 3",
+  "description": "Building 3"
+}
