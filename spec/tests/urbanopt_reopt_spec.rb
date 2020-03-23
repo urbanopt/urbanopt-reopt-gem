@@ -107,6 +107,54 @@ RSpec.describe URBANopt::REopt do
 
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report)
+    scenario_report.save('updated_scenario_report')
+  end
+
+  it 'can process multiple PV\'s ' do
+    scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new
+
+    scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
+    scenario_report.directory_name = scenario_report_dir
+
+    (1..2).each do |i|
+      feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.json")
+
+      expect(File.exist?(feature_reports_path)).to be true
+
+      feature_reports_json = nil
+      File.open(feature_reports_path, 'r') do |file|
+        feature_reports_json = JSON.parse(file.read, symbolize_names: true)
+      end
+
+      feature_report = URBANopt::Scenario::DefaultReports::FeatureReport.new(feature_reports_json)
+
+      feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
+      feature_report.directory_name = feature_report_dir
+      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/010_default_feature_reports/default_feature_reports.csv"
+      scenario_report.add_feature_report(feature_report)
+    end
+    
+    scenario_report.save
+
+    reopt_output_file = File.join(scenario_report.directory_name, 'scenario_report_reopt_run.json')
+    timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
+    reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
+    
+    File.open(reopt_assumptions_file, 'r') do |file|
+      @scenario_reopt_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
+    end
+
+    api = URBANopt::REopt::REoptLiteAPI.new(DEVELOPER_NREL_KEY, @localhost)
+    adapter = URBANopt::REopt::ScenarioReportAdapter.new
+
+    reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash)
+    reopt_input[:Scenario][:Site][:PV][:min_kw] = 5
+    reopt_output = api.reopt_request(reopt_input, reopt_output_file)
+
+    reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV'],reopt_output['outputs']['Scenario']['Site']['PV']] 
+
+    scenario_report = adapter.update_scenario_report(scenario_report, reopt_output, timeseries_output_file)
+    scenario_report.save('scenario_report_mulitPV')
   end
 
   it 'can process a set of feature reports' do
