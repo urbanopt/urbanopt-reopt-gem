@@ -31,6 +31,8 @@
 require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
 require 'certified'
+require 'pry'
+
 
 RSpec.describe URBANopt::REopt do
   it 'has a version number' do

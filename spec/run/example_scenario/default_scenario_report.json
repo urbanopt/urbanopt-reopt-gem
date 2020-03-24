@@ -464,6 +464,8 @@
         "storage": [
 
         ]
+      },
+      "power_distribution": {
       }
     },
     {
@@ -698,6 +700,8 @@
         "storage": [
 
         ]
+      },
+      "power_distribution": {
       }
     }
   ]
