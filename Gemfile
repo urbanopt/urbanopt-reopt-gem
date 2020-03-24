@@ -41,15 +41,13 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 #   gem 'openstudio-model-articulation', '0.1.0'
 # end
 
-gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'develop'
-
-# if allow_local && File.exist?('../urbanopt-scenario-gem')
-#   gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
-# elsif allow_local
-#   gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'develop'
-# else
-#   gem 'urbanopt-scenario', '0.1.1'
-# end
+if allow_local && File.exist?('../urbanopt-scenario-gem')
+  gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
+elsif allow_local
+  gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'develop'
+else
+  gem 'urbanopt-scenario', '0.1.1'
+end
 
 if allow_local && File.exists?('../urbanopt-geojson-gem')
   # gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'develop'
