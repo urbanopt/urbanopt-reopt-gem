@@ -234,7 +234,7 @@ module URBANopt # :nodoc:
 
         storage = reopt_output['outputs']['Scenario']['Site']['Storage']
         if !storage['size_kw'].nil?  and storage['size_kw'] != 0
-          scenario_report.distributed_generation.add_tech 'storage',  URBANopt::Scenario::DefaultReports::SolarPV.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
+          scenario_report.distributed_generation.add_tech 'storage',  URBANopt::Scenario::DefaultReports::Storage.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
         
         generation_timeseries_kwh = Matrix[[0] * 8760]
@@ -444,7 +444,6 @@ module URBANopt # :nodoc:
         end
 
         old_data = CSV.open(scenario_report.timeseries_csv.path).read
-
         start_date = Time.parse(old_data[1][0])
         start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) / (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
         mod_data = old_data.map.with_index do |x, i|

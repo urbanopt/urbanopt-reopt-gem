@@ -197,7 +197,7 @@ module URBANopt # :nodoc:
 
         storage = reopt_output['outputs']['Scenario']['Site']['Storage']
         if !storage['size_kw'].nil?  and storage['size_kw'] != 0
-          feature_report.distributed_generation.add_tech 'storage',  URBANopt::Scenario::DefaultReports::SolarPV.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
+          feature_report.distributed_generation.add_tech 'storage',  URBANopt::Scenario::DefaultReports::Storage.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
         
         generation_timeseries_kwh = Matrix[[0] * 8760]
