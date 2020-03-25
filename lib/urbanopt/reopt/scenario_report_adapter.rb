@@ -213,7 +213,7 @@ module URBANopt # :nodoc:
         scenario_report.distributed_generation.total_energy_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars'] || 0
         
         if reopt_output['outputs']['Scenario']['Site']['PV'].class == Hash
-          reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV'],reopt_output['outputs']['Scenario']['Site']['PV']]
+          reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV']]
         elsif reopt_output['outputs']['Scenario']['Site']['PV'].nil?
           reopt_output['outputs']['Scenario']['Site']['PV'] = []
         end
