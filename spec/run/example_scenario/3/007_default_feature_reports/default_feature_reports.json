@@ -1,12 +1,12 @@
 {
   "id": "3",
   "name": "Building 3",
-  "directory_name": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/3",
+  "directory_name": "spec/test/example_scenario/3",
   "feature_type": "Building",
   "timesteps_per_hour": 1,
   "simulation_status": "Complete",
   "timeseries_csv": {
-    "path": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/3/007_default_feature_reports/default_feature_reports.csv",
+    "path": "spec/test/example_scenario/3/007_default_feature_reports/default_feature_reports.csv",
     "first_report_datetime": "0",
     "column_names": [
       "Datetime",

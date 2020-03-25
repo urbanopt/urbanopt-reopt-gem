@@ -68,5 +68,3 @@ gem 'simplecov', github: 'NREL/simplecov'
 gem 'certified'
 
 gem 'rdoc', '4.3.0'
-
-gem 'pry'

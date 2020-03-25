@@ -31,7 +31,6 @@
 require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
 require 'certified'
-require 'pry'
 
 
 RSpec.describe URBANopt::REopt do
@@ -138,7 +137,7 @@ RSpec.describe URBANopt::REopt do
     
     scenario_report.save
 
-    reopt_output_file = File.join(scenario_report.directory_name, 'scenario_report_reopt_run.json')
+    reopt_output_file = File.join(scenario_report.directory_name, 'scenario_report_multiPV_reopt_run.json')
     timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
     reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
     

@@ -2,14 +2,14 @@
   "scenario_report": {
     "id": "",
     "name": "",
-    "directory_name": "/Users/tkwasnik/github/urbanopt-reopt-gem/spec/tests/../run/example_scenario",
+    "directory_name": "spec/run/example_scenario",
     "timesteps_per_hour": 1,
     "number_of_not_started_simulations": 0,
     "number_of_started_simulations": 0,
     "number_of_complete_simulations": 2,
     "number_of_failed_simulations": 0,
     "timeseries_csv": {
-      "path": "/Users/tkwasnik/github/urbanopt-reopt-gem/spec/tests/../run/example_scenario/default_scenario_report.csv",
+      "path": "spec/run/example_scenario/default_scenario_report.csv",
       "first_report_datetime": "0",
       "column_names": [
         "Datetime",
@@ -471,7 +471,7 @@
     {
       "id": "2",
       "name": "Building 2",
-      "directory_name": "/Users/tkwasnik/github/urbanopt-reopt-gem/spec/tests/../run/example_scenario/2",
+      "directory_name": "spec/run/example_scenario/2",
       "feature_type": "Building",
       "timesteps_per_hour": 1,
       "simulation_status": "Complete",
