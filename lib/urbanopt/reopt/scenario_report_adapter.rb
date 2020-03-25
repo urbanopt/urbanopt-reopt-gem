@@ -117,9 +117,8 @@ module URBANopt # :nodoc:
 
         # Update load profile info
         begin
-          col_num = scenario_report.timeseries_csv.column_names.index('Electricity:Facility')
+          col_num = scenario_report.timeseries_csv.column_names.index('Electricity:Facility(kWh)')
           t = CSV.read(scenario_report.timeseries_csv.path, headers: true, converters: :numeric)
-          energy_timeseries_kwh = t.by_col[col_num].map { |e| ((e || 0) * 0.293071) } # convert kBTU to KWH
           if energy_timeseries_kwh.length < (scenario_report.timesteps_per_hour * 8760)
             start_date = Time.parse(t.by_col["Datetime"][0])
             start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) /
