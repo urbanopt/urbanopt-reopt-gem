@@ -448,7 +448,7 @@ module URBANopt # :nodoc:
         start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) / (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
         mod_data = old_data.map.with_index do |x, i|
           if i > 0
-            modrow(x, start_ts + i - 1)
+            modrow(x, start_ts + i)
           else
             x
           end
