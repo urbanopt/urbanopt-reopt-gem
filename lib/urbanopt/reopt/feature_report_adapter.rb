@@ -414,7 +414,7 @@ module URBANopt # :nodoc:
 
         mod_data = old_data.map.with_index do |x, i|
           if i > 0
-            modrow(x, start_ts + i - 1)
+            modrow(x, start_ts + i)
           else
             x
           end
