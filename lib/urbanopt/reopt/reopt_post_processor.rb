@@ -218,7 +218,7 @@ module URBANopt # :nodoc:
             new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, @feature_reports_timeseries_default_output_files[idx])
             new_feature_reports.push(new_feature_report)
             if !save_names.nil?
-              if save_names.length == new_feature_reports.length
+              if save_names.length == feature_reports.length
                 new_feature_report.save_feature_report save_names[idx]
               else
                 warn "Could not save feature reports - the number of save names provided did not match the number of feature reports"
