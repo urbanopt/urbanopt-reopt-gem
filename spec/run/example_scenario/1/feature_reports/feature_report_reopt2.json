@@ -6,7 +6,7 @@
   "timesteps_per_hour": 1,
   "simulation_status": "Complete",
   "timeseries_csv": {
-    "path": "/Users/tkwasnik/github/urbanopt-reopt-gem/spec/tests/../run/example_scenario/1/feature_reports/default_feature_report_updated.csv",
+    "path": "/Users/tkwasnik/github/urbanopt-reopt-gem/spec/tests/../run/example_scenario/1/feature_reports/feature_report_reopt2.csv",
     "first_report_datetime": "0",
     "column_names": [
       "Datetime",
@@ -23,8 +23,6 @@
       "District Heating Mass Flow Rate()",
       "District Heating Inlet Temperature()",
       "District Heating Outlet Temperature()",
-      "Zone Thermal Comfort Fanger Model PMV()",
-      "Zone Thermal Comfort Fanger Model PPD()",
       "Net Electric Energy(kWh)",
       "Electricity:Facility Power(kW)",
       "ElectricityProduced:Facility Power(kW)",
@@ -244,6 +242,12 @@
     "year_one_bill_us_dollars": 128.27,
     "total_solar_pv_kw": 0.0,
     "solar_pv": [
+      {
+        "size_kw": 0.0
+      },
+      {
+        "size_kw": 0.0
+      },
       {
         "size_kw": 0.0
       }
