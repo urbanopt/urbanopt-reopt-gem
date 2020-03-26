@@ -217,19 +217,18 @@ module URBANopt # :nodoc:
             reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])
             new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, @feature_reports_timeseries_default_output_files[idx])
             new_feature_reports.push(new_feature_report)
+            if !save_names.nil?
+              if save_names.length == new_feature_reports.length
+                new_feature_report.save_feature_report save_names[idx]
+              else
+                warn "Could not save feature reports - the number of save names provided did not match the number of feature reports"
+              end
+          end
           rescue StandardError
             @@logger.info("Could not optimize Feature Report #{feature_report.name} #{feature_report.id}")
           end
         end
-        if !save_names.nil?
-          if save_names.length == new_feature_reports.length
-            save_names.each_with_index do |n, i|
-              new_feature_reports[i].save_feature_report n
-            end
-          else
-            warn "Could not save feature reports - the number of save names provided did not match the number of feature reports"
-          end
-        end
+        
         return new_feature_reports
       end
 
