@@ -1,6 +1,6 @@
 # URBANopt REopt Gem
  
-## Version 0.1.1 
+## Version 0.2.0 
 
 * Handles multiple PV systems in the REopt Lite assumptions
 * Changes REoptPostProcessor run_scenario and run_scenario_features methods to save feature and scenario reports with custom names
