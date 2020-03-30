@@ -146,7 +146,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _String_ - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
-      def run_scenario_report(scenario_report:, reopt_assumptions_hash:nil, reopt_output_file:nil, timeseries_csv_path:nil, save_name:nil)
+      def run_scenario_report(scenario_report, reopt_assumptions_hash:nil, reopt_output_file:nil, timeseries_csv_path:nil, save_name:nil)
         if !reopt_assumptions_hash.nil?
           @scenario_reopt_default_assumptions_hash = reopt_assumptions_hash
         end
@@ -243,7 +243,7 @@ module URBANopt # :nodoc:
       # * +feature_report_timeseries_csv_paths+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
-      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes:[], reopt_output_files:[], feature_report_timeseries_csv_paths:[], save_names_feature_reports:nil, save_name_scenario_report:nil)
+      def run_scenario_report_features(scenario_report, reopt_assumptions_hashes:[], reopt_output_files:[], feature_report_timeseries_csv_paths:[], save_names_feature_reports:nil, save_name_scenario_report:nil)
         new_feature_reports = run_feature_reports(feature_reports:scenario_report.feature_reports, reopt_assumptions_hashes:reopt_assumptions_hashes, reopt_output_files:reopt_output_files, timeseries_csv_paths:feature_report_timeseries_csv_paths,save_names:save_names_feature_reports)
 
         new_scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new
