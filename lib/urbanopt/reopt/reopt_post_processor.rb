@@ -70,11 +70,18 @@ module URBANopt # :nodoc:
         if !scenario_report.nil?
           @scenario_report = scenario_report
 
-          @scenario_reopt_default_output_file = File.join(@scenario_report.directory_name, "scenario_report_#{@scenario_report.id}_reopt_run.json")
+          if  !Dir.exist?(File.join(@scenario_report.directory_name, "reopt"))
+            Dir.mkdir(File.join(@scenario_report.directory_name, "reopt"))
+          end
+
+          @scenario_reopt_default_output_file = File.join(@scenario_report.directory_name, "reopt/scenario_report_#{@scenario_report.id}_reopt_run.json")
           @scenario_timeseries_default_output_file = File.join(@scenario_report.directory_name, "scenario_report_#{@scenario_report.id}_timeseries.csv")
 
           @scenario_report.feature_reports.each do |fr|
-            @feature_reports_reopt_default_output_files << File.join(fr.directory_name, "feature_report_#{fr.id}_reopt_run.json")
+            if !Dir.exist?(File.join(fr.directory_name, "reopt"))
+              Dir.mkdir(File.join(fr.directory_name, "reopt"))
+            end
+            @feature_reports_reopt_default_output_files << File.join(fr.directory_name, "reopt/feature_report_#{fr.id}_reopt_run.json")
           end
 
           @scenario_report.feature_reports.each do |fr|
@@ -111,7 +118,7 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::FeatureReport_ - Returns an updated FeatureReport
       ##
-      def run_feature_report(feature_report, reopt_assumptions_hash = nil, reopt_output_file = nil, timeseries_csv_path = nil)
+      def run_feature_report(feature_report:, reopt_assumptions_hash:nil, reopt_output_file:nil, timeseries_csv_path:nil, save_name:nil)
         api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
         adapter = URBANopt::REopt::FeatureReportAdapter.new
 
@@ -120,7 +127,11 @@ module URBANopt # :nodoc:
           reopt_output_file = feature_report.directory_name
         end
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
-        return adapter.update_feature_report(feature_report, reopt_output, timeseries_csv_path)
+        result = adapter.update_feature_report(feature_report, reopt_output, timeseries_csv_path)
+        if !save_name.nil?
+          result.save_feature_report save_name
+        end
+        return result
       end
 
       ##
@@ -135,7 +146,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _String_ - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
-      def run_scenario_report(scenario_report, reopt_assumptions_hash = nil, reopt_output_file = nil, timeseries_csv_path = nil)
+      def run_scenario_report(scenario_report:, reopt_assumptions_hash:nil, reopt_output_file:nil, timeseries_csv_path:nil, save_name:nil)
         if !reopt_assumptions_hash.nil?
           @scenario_reopt_default_assumptions_hash = reopt_assumptions_hash
         end
@@ -153,7 +164,11 @@ module URBANopt # :nodoc:
 
         reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)
 
-        return adapter.update_scenario_report(scenario_report, reopt_output, @scenario_timeseries_default_output_file)
+        result = adapter.update_scenario_report(scenario_report, reopt_output, @scenario_timeseries_default_output_file)
+        if !save_name.nil?
+          result.save save_name
+        end
+        return result
       end
 
       # Updates a set of FeatureReports based on an optional set of \REopt Lite optimization assumptions.
@@ -167,7 +182,8 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _Array_ - Optional. A array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the feature_reports array.
       #
       # [*return:*] _Array_ Returns an array of updated _URBANopt::Scenario::DefaultReports::FeatureReport_ objects
-      def run_feature_reports(feature_reports, reopt_assumptions_hashes = [], reopt_output_files = [], timeseries_csv_paths = [])
+      def run_feature_reports(feature_reports:, reopt_assumptions_hashes:[], reopt_output_files:[], timeseries_csv_paths:[], save_names:nil)
+
         if !reopt_assumptions_hashes.empty?
           @feature_reports_reopt_default_assumption_hashes = reopt_assumptions_hashes
         end
@@ -182,7 +198,7 @@ module URBANopt # :nodoc:
 
         if @feature_reports_reopt_default_output_files.empty?
           feature_reports.each do |fr|
-            @feature_reports_reopt_default_output_files << File.join(fr.directory_name, "feature_report_#{fr.id}_reopt_run.json")
+            @feature_reports_reopt_default_output_files << File.join(fr.directory_name, "reopt/feature_report_#{fr.id}_reopt_run.json")
           end
         end
 
@@ -198,17 +214,21 @@ module URBANopt # :nodoc:
         feature_reports.each_with_index do |feature_report, idx|
           begin
             reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx])
-            if reopt_output_files[idx].nil?
-              reopt_output_files[idx] = feature_report.directory_name
-            end
             reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])
             new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, @feature_reports_timeseries_default_output_files[idx])
             new_feature_reports.push(new_feature_report)
+            if !save_names.nil?
+              if save_names.length == feature_reports.length
+                new_feature_report.save_feature_report save_names[idx]
+              else
+                warn "Could not save feature reports - the number of save names provided did not match the number of feature reports"
+              end
+          end
           rescue StandardError
             @@logger.info("Could not optimize Feature Report #{feature_report.name} #{feature_report.id}")
           end
         end
-
+        
         return new_feature_reports
       end
 
@@ -223,8 +243,8 @@ module URBANopt # :nodoc:
       # * +feature_report_timeseries_csv_paths+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
-      def run_scenario_report_features(scenario_report, reopt_assumptions_hashes = [], reopt_output_files = [], feature_report_timeseries_csv_paths = [])
-        new_feature_reports = run_feature_reports(scenario_report.feature_reports, reopt_assumptions_hashes, reopt_output_files, feature_report_timeseries_csv_paths)
+      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes:[], reopt_output_files:[], feature_report_timeseries_csv_paths:[], save_names_feature_reports:nil, save_name_scenario_report:nil)
+        new_feature_reports = run_feature_reports(feature_reports:scenario_report.feature_reports, reopt_assumptions_hashes:reopt_assumptions_hashes, reopt_output_files:reopt_output_files, timeseries_csv_paths:feature_report_timeseries_csv_paths,save_names:save_names_feature_reports)
 
         new_scenario_report = URBANopt::Scenario::DefaultReports::ScenarioReport.new
         new_scenario_report.id = scenario_report.id
@@ -237,7 +257,9 @@ module URBANopt # :nodoc:
         new_feature_reports.each do |feature_report|
           new_scenario_report.add_feature_report(feature_report)
         end
-
+        if !save_name_scenario_report.nil?
+          new_scenario_report.save save_name_scenario_report
+        end
         return new_scenario_report
       end
     end

@@ -2,133 +2,89 @@
   "seed_file": null,
   "weather_file": null,
   "measure_paths": [
-    "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.3/lib/measures",
-    "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.0/lib/measures",
-    "/Users/tkwasnik/github/urbanopt-scenario-gem/lib/measures",
-    "/Users/tkwasnik/github/urbanopt-reopt-gem/lib/measures",
-    "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/urbanopt-geojson-0.1.0/lib/measures",
-    "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.0/lib/measures"
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.2/lib/measures",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.1/lib/measures",
+    "C:/gitrepos/urbanopt-scenario-gem/lib/measures",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.6/lib/measures"
   ],
   "file_paths": [
-    "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/mappers/../weather/",
-    "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.3/lib/files",
-    "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.0/lib/files",
-    "/Users/tkwasnik/github/urbanopt-reopt-gem/lib/files",
-    "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/weather",
-    "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.0/lib/files"
+    "C:/gitrepos/urbanopt-scenario-gem/spec/files/mappers/../weather/",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.2/lib/files",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.1/lib/files",
+    "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.6/lib/files"
   ],
-  "run_directory": "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/run/baseline_scenario/1",
+  "run_directory": "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1",
   "steps": [
+    {
+      "measure_dir_name": "ChangeBuildingLocation",
+      "arguments": {
+        "weather_file_name": "urbanopt_scenario_tests.epw",
+        "climate_zone": "ASHRAE 169-2013-5B"
+      }
+    },
     {
       "measure_dir_name": "set_run_period",
       "arguments": {
         "timesteps_per_hour": 1,
-        "begin_date": "2018-01-01",
-        "end_date": "2018-12-31"
-      }
-    },
-    {
-      "measure_dir_name": "ChangeBuildingLocation",
-      "arguments": {
-        "weather_file_name": "USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.epw",
-        "climate_zone": "6A"
+        "begin_date": "2012-06-01",
+        "end_date": "2012-06-01"
       }
     },
     {
       "measure_dir_name": "create_bar_from_building_type_ratios",
       "arguments": {
-        "bldg_type_a": "MediumOffice",
-        "bldg_type_a_num_units": 0,
-        "bldg_type_b": "FullServiceRestaurant",
-        "bldg_type_b_fract_bldg_area": 0.5,
-        "bldg_type_b_num_units": 0,
-        "bldg_type_c": "RetailStripmall",
-        "bldg_type_c_fract_bldg_area": 0.0,
-        "bldg_type_c_num_units": 0,
-        "bldg_type_d": "LargeHotel",
-        "bldg_type_d_fract_bldg_area": 0.0,
-        "bldg_type_d_num_units": 0,
-        "single_floor_area": 188046,
-        "floor_height": 10,
-        "num_stories_above_grade": 4,
-        "num_stories_below_grade": 0,
-        "building_rotation": 0,
-        "template": "90.1-2004",
-        "ns_to_ew_ratio": 0,
-        "wwr": 0,
-        "party_wall_fraction": 0,
-        "story_multiplier": "None",
-        "bar_division_method": "Multiple Space Types - Individual Stories Sliced"
+        "total_bldg_floor_area": 1000,
+        "ns_to_ew_ratio": 0.0,
+        "floor_height": 0.0,
+        "wwr": 0.0
       }
     },
     {
-      "name": "create_typical_building_from_model 1",
       "measure_dir_name": "create_typical_building_from_model",
       "arguments": {
-        "add_hvac": false
       }
     },
     {
-      "measure_dir_name": "blended_space_type_from_model",
+      "name": "predicted_mean_vote",
+      "measure_dir_name": "PredictedMeanVote",
       "arguments": {
-        "blend_method": "Building Story"
+        "__SKIP__": false,
+        "comfortWarnings": true,
+        "workEfficiencySchedule": "Work Efficiency Schedule",
+        "clothingSchedule": "Clothing Schedule",
+        "airVelocitySchedule": "Air Velocity Schedule"
       }
     },
     {
-      "measure_dir_name": "urban_geometry_creation",
+      "measure_dir_name": "AddCostPerFloorAreaToBuilding",
       "arguments": {
-        "geojson_file": "/Users/tkwasnik/github/urbanopt-example-geojson-reopt-project/example_project.json",
-        "feature_id": "1",
-        "surrounding_buildings": "ShadingOnly"
+        "__SKIP__": false,
+        "material_cost_ip": 100
       }
     },
     {
-      "name": "create_typical_building_from_model 2",
-      "measure_dir_name": "create_typical_building_from_model",
+      "measure_dir_name": "tariff_selection_flat",
       "arguments": {
-        "template": "90.1-2004",
-        "add_constructions": false,
-        "add_space_type_loads": false,
-        "add_elevators": false,
-        "add_exterior_lights": false,
-        "add_exhaust": false,
-        "add_swh": false,
-        "remove_objects": false,
-        "system_type": "Inferred",
-        "add_hvac": true,
-        "use_upstream_args": false
-      }
-    },
-    {
-      "measure_dir_name": "IncreaseInsulationRValueForExteriorWalls",
-      "arguments": {
-        "__SKIP__": true,
-        "r_value": 10
-      }
-    },
-    {
-      "measure_dir_name": "ReduceElectricEquipmentLoadsByPercentage",
-      "arguments": {
-        "__SKIP__": true,
-        "elecequip_power_reduction_percent": 20
-      }
-    },
-    {
-      "measure_dir_name": "ReduceLightingLoadsByPercentage",
-      "arguments": {
-        "__SKIP__": true,
-        "lighting_power_reduction_percent": 30
+        "demand_window_length": "FullHour",
+        "elec_rate": 0.12,
+        "elec_demand_rate": 12.0,
+        "elec_monthly_rate": 120.0,
+        "gas_rate": 0.5,
+        "gas_monthly_rate": 50,
+        "water_rate": 0.005,
+        "disthtg_rate": 0.2,
+        "distclg_rate": 0.2
       }
     },
     {
       "measure_dir_name": "default_feature_reports",
       "arguments": {
         "feature_id": "1",
-        "feature_name": "Mixed_use 1",
+        "feature_name": "Building 1",
         "feature_type": "Building"
       }
     }
   ],
-  "name": "Mixed_use 1",
-  "description": "Mixed_use 1"
+  "name": "Building 1",
+  "description": "Building 1"
 }

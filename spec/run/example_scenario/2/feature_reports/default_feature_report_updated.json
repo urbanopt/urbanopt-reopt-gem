@@ -1,0 +1,263 @@
+{
+  "id": "2",
+  "name": "Building 2",
+  "directory_name": "/Users/tkwasnik/github/urbanopt-reopt-gem/spec/tests/../run/example_scenario/2",
+  "feature_type": "Building",
+  "timesteps_per_hour": 1,
+  "simulation_status": "Complete",
+  "timeseries_csv": {
+    "path": "/Users/tkwasnik/github/urbanopt-reopt-gem/spec/tests/../run/example_scenario/2/feature_reports/default_feature_report_updated.csv",
+    "first_report_datetime": "0",
+    "column_names": [
+      "Datetime",
+      "Electricity:Facility(kWh)",
+      "ElectricityProduced:Facility()",
+      "Gas:Facility(kBtu)",
+      "DistrictCooling:Facility()",
+      "DistrictHeating:Facility()",
+      "District Cooling Chilled Water Rate()",
+      "District Cooling Mass Flow Rate()",
+      "District Cooling Inlet Temperature()",
+      "District Cooling Outlet Temperature()",
+      "District Heating Hot Water Rate()",
+      "District Heating Mass Flow Rate()",
+      "District Heating Inlet Temperature()",
+      "District Heating Outlet Temperature()",
+      "Zone Thermal Comfort Fanger Model PMV()",
+      "Zone Thermal Comfort Fanger Model PPD()",
+      "Net Electric Energy(kWh)",
+      "Electricity:Facility Power(kW)",
+      "ElectricityProduced:Facility Power(kW)",
+      "Electricity:Facility Apparent Power(kW)",
+      "ElectricityProduced:Facility Apparent Power(kW)",
+      "Net Power(kW)",
+      "Net Apparent Power(kW)",
+      "REopt:ElectricityProduced:Total(kw)",
+      "REopt:Electricity:Load:Total(kw)",
+      "REopt:Electricity:Grid:ToLoad(kw)",
+      "REopt:Electricity:Grid:ToBattery(kw)",
+      "REopt:Electricity:Storage:ToLoad(kw)",
+      "REopt:Electricity:Storage:ToGrid(kw)",
+      "REopt:Electricity:Storage:StateOfCharge(pct)",
+      "REopt:ElectricityProduced:Generator:Total(kw)",
+      "REopt:ElectricityProduced:Generator:ToBattery(kw)",
+      "REopt:ElectricityProduced:Generator:ToLoad(kw)",
+      "REopt:ElectricityProduced:Generator:ToGrid(kw)",
+      "REopt:ElectricityProduced:PV:Total(kw)",
+      "REopt:ElectricityProduced:PV:ToBattery(kw)",
+      "REopt:ElectricityProduced:PV:ToLoad(kw)",
+      "REopt:ElectricityProduced:PV:ToGrid(kw)",
+      "REopt:ElectricityProduced:Wind:Total(kw)",
+      "REopt:ElectricityProduced:Wind:ToBattery(kw)",
+      "REopt:ElectricityProduced:Wind:ToLoad(kw)",
+      "REopt:ElectricityProduced:Wind:ToGrid(kw)"
+    ]
+  },
+  "location": {
+    "latitude": 39.74,
+    "longitude": -105.18,
+    "surface_elevation": 1829.0
+  },
+  "program": {
+    "floor_area": 2000.0421945288335,
+    "conditioned_area": 2000.0421945288335,
+    "unconditioned_area": 0.0,
+    "footprint_area": 2000.0421945288335,
+    "maximum_roof_height": 0.0,
+    "maximum_number_of_stories": 1,
+    "number_of_residential_units": 1,
+    "building_types": [
+      {
+        "building_type": "Office",
+        "floor_area": 2000.0000000000095,
+        "maximum_occupancy": 11.200000000000045
+      }
+    ],
+    "window_area": {
+      "north_window_area": 82.12863647949517,
+      "south_window_area": 82.12863647949517,
+      "east_window_area": 54.78830402105248,
+      "west_window_area": 54.78830402105248,
+      "total_window_area": 273.83388100109534
+    },
+    "wall_area": {
+      "north_wall_area": 547.7754011063578,
+      "south_wall_area": 547.7754011063578,
+      "east_wall_area": 365.1118413347938,
+      "west_wall_area": 365.1118413347938,
+      "total_wall_area": 1825.774484882303
+    },
+    "roof_area": {
+      "total_roof_area": 2000.0000000000095
+    },
+    "orientation": 0.0,
+    "aspect_ratio": 1.5002948113207546,
+    "total_construction_cost": 200000.0
+  },
+  "construction_costs": [
+
+  ],
+  "reporting_periods": [
+    {
+      "start_date": {
+        "month": 6,
+        "day_of_month": 1,
+        "year": 2012
+      },
+      "end_date": {
+        "month": 6,
+        "day_of_month": 1,
+        "year": 2012
+      },
+      "total_site_energy": 236.95428007832933,
+      "total_source_energy": 729.8191826412543,
+      "net_site_energy": 236.95428007832933,
+      "net_source_energy": 729.8191826412543,
+      "electricity": 227.47610887519613,
+      "natural_gas": 9.478171203133172,
+      "additional_fuel": 0.0,
+      "district_cooling": 0.0,
+      "district_heating": 0.0,
+      "water": 0.03,
+      "electricity_produced": 224.6326575142562,
+      "end_uses": {
+        "electricity": {
+          "heating": 0.0,
+          "cooling": 9.478171203133172,
+          "interior_lighting": 85.30354082819856,
+          "exterior_lighting": 28.434513609399517,
+          "interior_equipment": 66.3471984219322,
+          "exterior_equipment": 0.0,
+          "fans": 37.91268481253269,
+          "pumps": 0.0,
+          "heat_rejection": 0.0,
+          "humidification": 0.0,
+          "heat_recovery": 0.0,
+          "water_systems": 0.0,
+          "refrigeration": 0.0,
+          "generators": 0.0
+        },
+        "natural_gas": {
+          "heating": 0.0,
+          "cooling": 0.0,
+          "interior_lighting": 0.0,
+          "exterior_lighting": 0.0,
+          "interior_equipment": 0.0,
+          "exterior_equipment": 0.0,
+          "fans": 0.0,
+          "pumps": 0.0,
+          "heat_rejection": 0.0,
+          "humidification": 0.0,
+          "heat_recovery": 0.0,
+          "water_systems": 9.478171203133172,
+          "refrigeration": 0.0,
+          "generators": 0.0
+        },
+        "additional_fuel": {
+          "heating": 0.0,
+          "cooling": 0.0,
+          "interior_lighting": 0.0,
+          "exterior_lighting": 0.0,
+          "interior_equipment": 0.0,
+          "exterior_equipment": 0.0,
+          "fans": 0.0,
+          "pumps": 0.0,
+          "heat_rejection": 0.0,
+          "humidification": 0.0,
+          "heat_recovery": 0.0,
+          "water_systems": 0.0,
+          "refrigeration": 0.0,
+          "generators": 0.0
+        },
+        "district_cooling": {
+          "heating": 0.0,
+          "cooling": 0.0,
+          "interior_lighting": 0.0,
+          "exterior_lighting": 0.0,
+          "interior_equipment": 0.0,
+          "exterior_equipment": 0.0,
+          "fans": 0.0,
+          "pumps": 0.0,
+          "heat_rejection": 0.0,
+          "humidification": 0.0,
+          "heat_recovery": 0.0,
+          "water_systems": 0.0,
+          "refrigeration": 0.0,
+          "generators": 0.0
+        },
+        "district_heating": {
+          "heating": 0.0,
+          "cooling": 0.0,
+          "interior_lighting": 0.0,
+          "exterior_lighting": 0.0,
+          "interior_equipment": 0.0,
+          "exterior_equipment": 0.0,
+          "fans": 0.0,
+          "pumps": 0.0,
+          "heat_rejection": 0.0,
+          "humidification": 0.0,
+          "heat_recovery": 0.0,
+          "water_systems": 0.0,
+          "refrigeration": 0.0,
+          "generators": 0.0
+        },
+        "water": {
+          "heating": 0.0,
+          "cooling": 0.0,
+          "interior_lighting": 0.0,
+          "exterior_lighting": 0.0,
+          "interior_equipment": 0.0,
+          "exterior_equipment": 0.0,
+          "fans": 0.0,
+          "pumps": 0.0,
+          "heat_rejection": 0.0,
+          "humidification": 0.0,
+          "heat_recovery": 0.0,
+          "water_systems": 28.434513609399517,
+          "refrigeration": 0.0,
+          "generators": 0.0
+        }
+      },
+      "energy_production": {
+        "electricity_produced": {
+          "photovoltaic": 0.0
+        }
+      },
+      "utility_costs": [
+        {
+        }
+      ],
+      "comfort_result": {
+        "time_setpoint_not_met_during_occupied_cooling": 0.0,
+        "time_setpoint_not_met_during_occupied_heating": 0.0,
+        "time_setpoint_not_met_during_occupied_hours": 0.0,
+        "hours_out_of_comfort_bounds_PMV": 0.0,
+        "hours_out_of_comfort_bounds_PPD": 0.0
+      }
+    }
+  ],
+  "distributed_generation": {
+    "lcc_us_dollars": 1209.0,
+    "npv_us_dollars": 0.0,
+    "year_one_energy_cost_us_dollars": 15.15,
+    "year_one_demand_cost_us_dollars": 0.0,
+    "year_one_bill_us_dollars": 135.15,
+    "total_solar_pv_kw": 0.0,
+    "solar_pv": [
+      {
+        "size_kw": 0.0
+      }
+    ],
+    "wind": [
+
+    ],
+    "generator": [
+
+    ],
+    "storage": [
+
+    ]
+  },
+  "power_distribution": {
+  }
+}

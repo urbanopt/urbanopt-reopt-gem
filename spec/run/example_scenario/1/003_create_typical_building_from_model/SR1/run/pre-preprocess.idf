@@ -1,0 +1,3334 @@
+
+Version,
+  9.1;                                    !- Version Identifier
+
+Timestep,
+  1;                                      !- Number of Timesteps per Hour
+
+LifeCycleCost:Parameters,
+  Life Cycle Cost Parameters,             !- Name
+  EndOfYear,                              !- Discounting Convention
+  ConstantDollar,                         !- Inflation Approach
+  0.03,                                   !- Real Discount Rate
+  ,                                       !- Nominal Discount Rate
+  ,                                       !- Inflation
+  ,                                       !- Base Date Month
+  2011,                                   !- Base Date Year
+  ,                                       !- Service Date Month
+  2011,                                   !- Service Date Year
+  25,                                     !- Length of Study Period in Years
+  ,                                       !- Tax rate
+  None;                                   !- Depreciation Method
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Electricity,       !- LCC Price Escalation Name
+  Electricity,                            !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.9838,                                 !- Year Escalation 1
+  0.9730,                                 !- Year Escalation 2
+  0.9632,                                 !- Year Escalation 3
+  0.9611,                                 !- Year Escalation 4
+  0.9571,                                 !- Year Escalation 5
+  0.9553,                                 !- Year Escalation 6
+  0.9539,                                 !- Year Escalation 7
+  0.9521,                                 !- Year Escalation 8
+  0.9546,                                 !- Year Escalation 9
+  0.9550,                                 !- Year Escalation 10
+  0.9553,                                 !- Year Escalation 11
+  0.9564,                                 !- Year Escalation 12
+  0.9575,                                 !- Year Escalation 13
+  0.9596,                                 !- Year Escalation 14
+  0.9618,                                 !- Year Escalation 15
+  0.9614,                                 !- Year Escalation 16
+  0.9618,                                 !- Year Escalation 17
+  0.9618,                                 !- Year Escalation 18
+  0.9593,                                 !- Year Escalation 19
+  0.9589,                                 !- Year Escalation 20
+  0.9607,                                 !- Year Escalation 21
+  0.9625,                                 !- Year Escalation 22
+  0.9650,                                 !- Year Escalation 23
+  0.9708,                                 !- Year Escalation 24
+  0.9751,                                 !- Year Escalation 25
+  0.9762,                                 !- Year Escalation 26
+  0.9766,                                 !- Year Escalation 27
+  0.9766,                                 !- Year Escalation 28
+  0.9769,                                 !- Year Escalation 29
+  0.9773;                                 !- Year Escalation 30
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Distillate Oil,    !- LCC Price Escalation Name
+  FuelOil#1,                              !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.9714,                                 !- Year Escalation 1
+  0.9730,                                 !- Year Escalation 2
+  0.9942,                                 !- Year Escalation 3
+  1.0164,                                 !- Year Escalation 4
+  1.0541,                                 !- Year Escalation 5
+  1.0928,                                 !- Year Escalation 6
+  1.1267,                                 !- Year Escalation 7
+  1.1580,                                 !- Year Escalation 8
+  1.1792,                                 !- Year Escalation 9
+  1.1967,                                 !- Year Escalation 10
+  1.2200,                                 !- Year Escalation 11
+  1.2333,                                 !- Year Escalation 12
+  1.2566,                                 !- Year Escalation 13
+  1.2709,                                 !- Year Escalation 14
+  1.2826,                                 !- Year Escalation 15
+  1.2985,                                 !- Year Escalation 16
+  1.3102,                                 !- Year Escalation 17
+  1.3250,                                 !- Year Escalation 18
+  1.3261,                                 !- Year Escalation 19
+  1.3282,                                 !- Year Escalation 20
+  1.3324,                                 !- Year Escalation 21
+  1.3356,                                 !- Year Escalation 22
+  1.3431,                                 !- Year Escalation 23
+  1.3510,                                 !- Year Escalation 24
+  1.3568,                                 !- Year Escalation 25
+  1.3606,                                 !- Year Escalation 26
+  1.3637,                                 !- Year Escalation 27
+  1.3674,                                 !- Year Escalation 28
+  1.3706,                                 !- Year Escalation 29
+  1.3743;                                 !- Year Escalation 30
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Residual Oil,      !- LCC Price Escalation Name
+  FuelOil#2,                              !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.8469,                                 !- Year Escalation 1
+  0.8257,                                 !- Year Escalation 2
+  0.8681,                                 !- Year Escalation 3
+  0.8988,                                 !- Year Escalation 4
+  0.9289,                                 !- Year Escalation 5
+  0.9604,                                 !- Year Escalation 6
+  0.9897,                                 !- Year Escalation 7
+  1.0075,                                 !- Year Escalation 8
+  1.0314,                                 !- Year Escalation 9
+  1.0554,                                 !- Year Escalation 10
+  1.0861,                                 !- Year Escalation 11
+  1.1278,                                 !- Year Escalation 12
+  1.1497,                                 !- Year Escalation 13
+  1.1620,                                 !- Year Escalation 14
+  1.1743,                                 !- Year Escalation 15
+  1.1852,                                 !- Year Escalation 16
+  1.1948,                                 !- Year Escalation 17
+  1.2037,                                 !- Year Escalation 18
+  1.2071,                                 !- Year Escalation 19
+  1.2119,                                 !- Year Escalation 20
+  1.2139,                                 !- Year Escalation 21
+  1.2194,                                 !- Year Escalation 22
+  1.2276,                                 !- Year Escalation 23
+  1.2365,                                 !- Year Escalation 24
+  1.2420,                                 !- Year Escalation 25
+  1.2461,                                 !- Year Escalation 26
+  1.2509,                                 !- Year Escalation 27
+  1.2550,                                 !- Year Escalation 28
+  1.2591,                                 !- Year Escalation 29
+  1.2638;                                 !- Year Escalation 30
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Natural gas,       !- LCC Price Escalation Name
+  NaturalGas,                             !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.9823,                                 !- Year Escalation 1
+  0.9557,                                 !- Year Escalation 2
+  0.9279,                                 !- Year Escalation 3
+  0.9257,                                 !- Year Escalation 4
+  0.9346,                                 !- Year Escalation 5
+  0.9412,                                 !- Year Escalation 6
+  0.9512,                                 !- Year Escalation 7
+  0.9645,                                 !- Year Escalation 8
+  0.9856,                                 !- Year Escalation 9
+  1.0067,                                 !- Year Escalation 10
+  1.0222,                                 !- Year Escalation 11
+  1.0410,                                 !- Year Escalation 12
+  1.0610,                                 !- Year Escalation 13
+  1.0787,                                 !- Year Escalation 14
+  1.0942,                                 !- Year Escalation 15
+  1.1098,                                 !- Year Escalation 16
+  1.1220,                                 !- Year Escalation 17
+  1.1308,                                 !- Year Escalation 18
+  1.1386,                                 !- Year Escalation 19
+  1.1486,                                 !- Year Escalation 20
+  1.1619,                                 !- Year Escalation 21
+  1.1763,                                 !- Year Escalation 22
+  1.1918,                                 !- Year Escalation 23
+  1.2118,                                 !- Year Escalation 24
+  1.2284,                                 !- Year Escalation 25
+  1.2439,                                 !- Year Escalation 26
+  1.2605,                                 !- Year Escalation 27
+  1.2772,                                 !- Year Escalation 28
+  1.2938,                                 !- Year Escalation 29
+  1.3115;                                 !- Year Escalation 30
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Coal,              !- LCC Price Escalation Name
+  Coal,                                   !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.9970,                                 !- Year Escalation 1
+  1.0089,                                 !- Year Escalation 2
+  1.0089,                                 !- Year Escalation 3
+  0.9941,                                 !- Year Escalation 4
+  0.9941,                                 !- Year Escalation 5
+  1.0000,                                 !- Year Escalation 6
+  1.0030,                                 !- Year Escalation 7
+  1.0059,                                 !- Year Escalation 8
+  1.0089,                                 !- Year Escalation 9
+  1.0119,                                 !- Year Escalation 10
+  1.0148,                                 !- Year Escalation 11
+  1.0178,                                 !- Year Escalation 12
+  1.0208,                                 !- Year Escalation 13
+  1.0267,                                 !- Year Escalation 14
+  1.0297,                                 !- Year Escalation 15
+  1.0356,                                 !- Year Escalation 16
+  1.0415,                                 !- Year Escalation 17
+  1.0534,                                 !- Year Escalation 18
+  1.0564,                                 !- Year Escalation 19
+  1.0593,                                 !- Year Escalation 20
+  1.0653,                                 !- Year Escalation 21
+  1.0712,                                 !- Year Escalation 22
+  1.0742,                                 !- Year Escalation 23
+  1.0801,                                 !- Year Escalation 24
+  1.0831,                                 !- Year Escalation 25
+  1.0831,                                 !- Year Escalation 26
+  1.0861,                                 !- Year Escalation 27
+  1.0890,                                 !- Year Escalation 28
+  1.0920,                                 !- Year Escalation 29
+  1.0950;                                 !- Year Escalation 30
+
+Building,
+  90.1-2004|SmallOffice,                  !- Name
+  ,                                       !- North Axis {deg}
+  City,                                   !- Terrain
+  ,                                       !- Loads Convergence Tolerance Value
+  ,                                       !- Temperature Convergence Tolerance Value {deltaC}
+  ,                                       !- Solar Distribution
+  ,                                       !- Maximum Number of Warmup Days
+  ;                                       !- Minimum Number of Warmup Days
+
+Zone,
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Name
+  -0,                                     !- Direction of Relative North {deg}
+  -5.9024266196201,                       !- X Origin {m}
+  -3.93495107974674,                      !- Y Origin {m}
+  0,                                      !- Z Origin {m}
+  ,                                       !- Type
+  1,                                      !- Multiplier
+  ,                                       !- Ceiling Height {m}
+  ,                                       !- Volume {m3}
+  ,                                       !- Floor Area {m2}
+  ,                                       !- Zone Inside Convection Algorithm
+  ;                                       !- Zone Outside Convection Algorithm
+
+BuildingSurface:Detailed,
+  Surface 1,                              !- Name
+  Floor,                                  !- Surface Type
+  Typical Insulated Carpeted 6in Slab Floor, !- Construction Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone Name
+  Ground,                                 !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  NoSun,                                  !- Sun Exposure
+  NoWind,                                 !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.66453525910038e-015, -4.44089209850063e-015, 0, !- X,Y,Z Vertex 1 {m}
+  2.66453525910038e-015, 7.86990215949348, 0, !- X,Y,Z Vertex 2 {m}
+  11.8048532392402, 7.86990215949348, 0,  !- X,Y,Z Vertex 3 {m}
+  11.8048532392402, -4.44089209850063e-015, 0; !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  Surface 2,                              !- Name
+  Wall,                                   !- Surface Type
+  Typical Insulated Exterior Mass Wall R-8.13, !- Construction Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.66453525910038e-015, 7.86990215949348, 3.048, !- X,Y,Z Vertex 1 {m}
+  2.66453525910038e-015, 7.86990215949348, 0, !- X,Y,Z Vertex 2 {m}
+  2.66453525910038e-015, -4.44089209850063e-015, 0, !- X,Y,Z Vertex 3 {m}
+  2.66453525910038e-015, -4.44089209850063e-015, 3.048; !- X,Y,Z Vertex 4 {m}
+
+FenestrationSurface:Detailed,
+  Sub Surface 3,                          !- Name
+  Window,                                 !- Surface Type
+  U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air,  !- Construction Name
+  Surface 2,                              !- Building Surface Name
+  ,                                       !- Outside Boundary Condition Object
+  ,                                       !- View Factor to Ground
+  ,                                       !- Frame and Divider Name
+  ,                                       !- Multiplier
+  ,                                       !- Number of Vertices
+  2.66453525910038e-015, 7.84450215949348, 1.22217038707594, !- X,Y,Z Vertex 1 {m}
+  2.66453525910038e-015, 7.84450215949348, 0.762, !- X,Y,Z Vertex 2 {m}
+  2.66453525910038e-015, 0.025399999999995, 0.762, !- X,Y,Z Vertex 3 {m}
+  2.66453525910038e-015, 0.025399999999995, 1.22217038707594; !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  Surface 3,                              !- Name
+  Wall,                                   !- Surface Type
+  Typical Insulated Exterior Mass Wall R-8.13, !- Construction Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  11.8048532392402, 7.86990215949348, 3.048, !- X,Y,Z Vertex 1 {m}
+  11.8048532392402, 7.86990215949348, 0,  !- X,Y,Z Vertex 2 {m}
+  2.66453525910038e-015, 7.86990215949348, 0, !- X,Y,Z Vertex 3 {m}
+  2.66453525910038e-015, 7.86990215949348, 3.048; !- X,Y,Z Vertex 4 {m}
+
+FenestrationSurface:Detailed,
+  Sub Surface 4,                          !- Name
+  Window,                                 !- Surface Type
+  U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air,  !- Construction Name
+  Surface 3,                              !- Building Surface Name
+  ,                                       !- Outside Boundary Condition Object
+  ,                                       !- View Factor to Ground
+  ,                                       !- Frame and Divider Name
+  ,                                       !- Multiplier
+  ,                                       !- Number of Vertices
+  11.7794532392402, 7.86990215949348, 1.22117597879874, !- X,Y,Z Vertex 1 {m}
+  11.7794532392402, 7.86990215949348, 0.762, !- X,Y,Z Vertex 2 {m}
+  0.0254000000000048, 7.86990215949348, 0.762, !- X,Y,Z Vertex 3 {m}
+  0.0254000000000048, 7.86990215949348, 1.22117597879874; !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  Surface 4,                              !- Name
+  Wall,                                   !- Surface Type
+  Typical Insulated Exterior Mass Wall R-8.13, !- Construction Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  11.8048532392402, -4.44089209850063e-015, 3.048, !- X,Y,Z Vertex 1 {m}
+  11.8048532392402, -4.44089209850063e-015, 0, !- X,Y,Z Vertex 2 {m}
+  11.8048532392402, 7.86990215949348, 0,  !- X,Y,Z Vertex 3 {m}
+  11.8048532392402, 7.86990215949348, 3.048; !- X,Y,Z Vertex 4 {m}
+
+FenestrationSurface:Detailed,
+  Sub Surface 2,                          !- Name
+  Window,                                 !- Surface Type
+  U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air,  !- Construction Name
+  Surface 4,                              !- Building Surface Name
+  ,                                       !- Outside Boundary Condition Object
+  ,                                       !- View Factor to Ground
+  ,                                       !- Frame and Divider Name
+  ,                                       !- Multiplier
+  ,                                       !- Number of Vertices
+  11.8048532392402, 0.0253999999999956, 1.22217038707594, !- X,Y,Z Vertex 1 {m}
+  11.8048532392402, 0.0253999999999956, 0.762, !- X,Y,Z Vertex 2 {m}
+  11.8048532392402, 7.84450215949348, 0.762, !- X,Y,Z Vertex 3 {m}
+  11.8048532392402, 7.84450215949348, 1.22217038707594; !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  Surface 5,                              !- Name
+  Wall,                                   !- Surface Type
+  Typical Insulated Exterior Mass Wall R-8.13, !- Construction Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.66453525910038e-015, -4.44089209850063e-015, 3.048, !- X,Y,Z Vertex 1 {m}
+  2.66453525910038e-015, -4.44089209850063e-015, 0, !- X,Y,Z Vertex 2 {m}
+  11.8048532392402, -4.44089209850063e-015, 0, !- X,Y,Z Vertex 3 {m}
+  11.8048532392402, -4.44089209850063e-015, 3.048; !- X,Y,Z Vertex 4 {m}
+
+FenestrationSurface:Detailed,
+  Sub Surface 1,                          !- Name
+  Window,                                 !- Surface Type
+  U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air,  !- Construction Name
+  Surface 5,                              !- Building Surface Name
+  ,                                       !- Outside Boundary Condition Object
+  ,                                       !- View Factor to Ground
+  ,                                       !- Frame and Divider Name
+  ,                                       !- Multiplier
+  ,                                       !- Number of Vertices
+  0.0254000000000027, -4.44089209850063e-015, 1.22117597879874, !- X,Y,Z Vertex 1 {m}
+  0.0254000000000027, -4.44089209850063e-015, 0.762, !- X,Y,Z Vertex 2 {m}
+  11.7794532392402, -4.44089209850063e-015, 0.762, !- X,Y,Z Vertex 3 {m}
+  11.7794532392402, -4.44089209850063e-015, 1.22117597879874; !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  Surface 6,                              !- Name
+  Roof,                                   !- Surface Type
+  Typical IEAD Roof R-15.87,              !- Construction Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  11.8048532392402, -4.44089209850063e-015, 3.048, !- X,Y,Z Vertex 1 {m}
+  11.8048532392402, 7.86990215949348, 3.048, !- X,Y,Z Vertex 2 {m}
+  2.66453525910038e-015, 7.86990215949348, 3.048, !- X,Y,Z Vertex 3 {m}
+  2.66453525910038e-015, -4.44089209850063e-015, 3.048; !- X,Y,Z Vertex 4 {m}
+
+ZoneInfiltration:DesignFlowRate,
+  Office WholeBuilding - Sm Office  - Story Ground Infiltration, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone or ZoneList Name
+  Always On Discrete,                     !- Schedule Name
+  Flow/ExteriorArea,                      !- Design Flow Rate Calculation Method
+  ,                                       !- Design Flow Rate {m3/s}
+  ,                                       !- Flow per Zone Floor Area {m3/s-m2}
+  0.0005777268261,                        !- Flow per Exterior Surface Area {m3/s-m2}
+  ,                                       !- Air Changes per Hour {1/hr}
+  0,                                      !- Constant Term Coefficient
+  0,                                      !- Temperature Term Coefficient
+  0.224,                                  !- Velocity Term Coefficient
+  0;                                      !- Velocity Squared Term Coefficient
+
+ZoneControl:Thermostat,
+  Zone Office WholeBuilding - Sm Office  - Story Ground Thermostat, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone or ZoneList Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground Thermostat Schedule, !- Control Type Schedule Name
+  ThermostatSetpoint:DualSetpoint,        !- Control Object Type 1
+  Office WholeBuilding - Sm Office - 90.1-2004 Thermostat; !- Control Name 1
+
+Schedule:Compact,
+  Zone Office WholeBuilding - Sm Office  - Story Ground Thermostat Schedule, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground Thermostat Schedule Type Limits, !- Schedule Type Limits Name
+  Through: 12/31,                         !- Field 1
+  For: AllDays,                           !- Field 2
+  Until: 24:00,                           !- Field 3
+  4;                                      !- Field 4
+
+ScheduleTypeLimits,
+  Zone Office WholeBuilding - Sm Office  - Story Ground Thermostat Schedule Type Limits, !- Name
+  0,                                      !- Lower Limit Value {BasedOnField A3}
+  4,                                      !- Upper Limit Value {BasedOnField A3}
+  DISCRETE;                               !- Numeric Type
+
+ThermostatSetpoint:DualSetpoint,
+  Office WholeBuilding - Sm Office - 90.1-2004 Thermostat, !- Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM,     !- Heating Setpoint Temperature Schedule Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM;     !- Cooling Setpoint Temperature Schedule Name
+
+ScheduleTypeLimits,
+  Temperature,                            !- Name
+  0,                                      !- Lower Limit Value {BasedOnField A3}
+  100,                                    !- Upper Limit Value {BasedOnField A3}
+  Continuous,                             !- Numeric Type
+  temperature;                            !- Unit Type
+
+Schedule:Day:Interval,
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Default, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  15.56;                                  !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  06:00,                                  !- Time 1 {hh:mm}
+  15.56,                                  !- Value Until Time 1
+  19:00,                                  !- Time 2 {hh:mm}
+  21.11,                                  !- Value Until Time 2
+  24:00,                                  !- Time 3 {hh:mm}
+  15.56;                                  !- Value Until Time 3
+
+Schedule:Week:Daily,
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Week Rule - Jan1-Dec31, !- Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Default, !- Sunday Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Monday Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Tuesday Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Wednesday Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Thursday Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Friday Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Default, !- Saturday Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Default, !- Holiday Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Summer Design Day, !- SummerDesignDay Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Winter Design Day, !- WinterDesignDay Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Default, !- CustomDay1 Schedule:Day Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Default; !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM,     !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Day:Interval,
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Summer Design Day, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  15.56;                                  !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall HTGSETP_SCH_NO_OPTIMUM Winter Design Day, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  21.11;                                  !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Default, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  29.44;                                  !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  06:00,                                  !- Time 1 {hh:mm}
+  29.44,                                  !- Value Until Time 1
+  18:00,                                  !- Time 2 {hh:mm}
+  23.89,                                  !- Value Until Time 2
+  24:00,                                  !- Time 3 {hh:mm}
+  29.44;                                  !- Value Until Time 3
+
+Schedule:Week:Daily,
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Week Rule - Jan1-Dec31, !- Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Default, !- Sunday Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Monday Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Tuesday Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Wednesday Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Thursday Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Wkdy Day, !- Friday Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Default, !- Saturday Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Default, !- Holiday Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Summer Design Day, !- SummerDesignDay Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Winter Design Day, !- WinterDesignDay Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Default, !- CustomDay1 Schedule:Day Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Default; !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM,     !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Day:Interval,
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Summer Design Day, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  23.89;                                  !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall CLGSETP_SCH_NO_OPTIMUM Winter Design Day, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  29.44;                                  !- Value Until Time 1
+
+ZoneHVAC:EquipmentConnections,
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground Equipment List, !- Zone Conditioning Equipment List Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground Inlet Node List, !- Zone Air Inlet Node or NodeList Name
+  ,                                       !- Zone Air Exhaust Node or NodeList Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground Zone Air Node, !- Zone Air Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground Return Node List; !- Zone Return Air Node or NodeList Name
+
+NodeList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground Inlet Node List, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser Outlet Air Node; !- Node Name 1
+
+NodeList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground Return Node List, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground Return Air Node; !- Node Name 1
+
+AirTerminal:SingleDuct:ConstantVolume:NoReheat,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser, !- Name
+  Always On Discrete,                     !- Availability Schedule Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser Inlet Air Node, !- Air Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser Outlet Air Node, !- Air Outlet Node Name
+  AutoSize;                               !- Maximum Air Flow Rate {m3/s}
+
+ZoneHVAC:AirDistributionUnit,
+  ADU Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser Outlet Air Node, !- Air Distribution Unit Outlet Node Name
+  AirTerminal:SingleDuct:ConstantVolume:NoReheat, !- Air Terminal Object Type
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser; !- Air Terminal Name
+
+ZoneHVAC:EquipmentList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground Equipment List, !- Name
+  SequentialLoad,                         !- Load Distribution Scheme
+  ZoneHVAC:AirDistributionUnit,           !- Zone Equipment Object Type 1
+  ADU Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser, !- Zone Equipment Name 1
+  1,                                      !- Zone Equipment Cooling Sequence 1
+  1,                                      !- Zone Equipment Heating or No-Load Sequence 1
+  1,                                      !- Zone Equipment Sequential Cooling Fraction 1
+  1;                                      !- Zone Equipment Sequential Heating Fraction 1
+
+Sizing:Zone,
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone or ZoneList Name
+  SupplyAirTemperature,                   !- Zone Cooling Design Supply Air Temperature Input Method
+  12.7777777777778,                       !- Zone Cooling Design Supply Air Temperature {C}
+  11.11,                                  !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+  SupplyAirTemperature,                   !- Zone Heating Design Supply Air Temperature Input Method
+  50.0000000000001,                       !- Zone Heating Design Supply Air Temperature {C}
+  11.11,                                  !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+  0.0085,                                 !- Zone Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+  0.008,                                  !- Zone Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+  Office WholeBuilding - Sm Office Ventilation, !- Design Specification Outdoor Air Object Name
+  ,                                       !- Zone Heating Sizing Factor
+  ,                                       !- Zone Cooling Sizing Factor
+  DesignDay,                              !- Cooling Design Air Flow Method
+  0,                                      !- Cooling Design Air Flow Rate {m3/s}
+  0.000762,                               !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+  0,                                      !- Cooling Minimum Air Flow {m3/s}
+  0,                                      !- Cooling Minimum Air Flow Fraction
+  DesignDay,                              !- Heating Design Air Flow Method
+  0,                                      !- Heating Design Air Flow Rate {m3/s}
+  0.002032,                               !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+  0.1415762,                              !- Heating Maximum Air Flow {m3/s}
+  0.3,                                    !- Heating Maximum Air Flow Fraction
+  Zone Office WholeBuilding - Sm Office  - Story Ground Design Spec Zone Air Dist, !- Design Specification Zone Air Distribution Object Name
+  No;                                     !- Account for Dedicated Outdoor Air System
+
+DesignSpecification:ZoneAirDistribution,
+  Zone Office WholeBuilding - Sm Office  - Story Ground Design Spec Zone Air Dist, !- Name
+  1,                                      !- Zone Air Distribution Effectiveness in Cooling Mode {dimensionless}
+  1;                                      !- Zone Air Distribution Effectiveness in Heating Mode {dimensionless}
+
+Schedule:Constant,
+  Always On Discrete,                     !- Name
+  OnOff,                                  !- Schedule Type Limits Name
+  1;                                      !- Hourly Value
+
+Controller:MechanicalVentilation,
+  Controller Mechanical Ventilation 1,    !- Name
+  Always On Discrete,                     !- Availability Schedule Name
+  No,                                     !- Demand Controlled Ventilation
+  ZoneSum,                                !- System Outdoor Air Method
+  ,                                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone Name 1
+  Office WholeBuilding - Sm Office Ventilation, !- Design Specification Outdoor Air Object Name 1
+  Zone Office WholeBuilding - Sm Office  - Story Ground Design Spec Zone Air Dist; !- Design Specification Zone Air Distribution Object Name 1
+
+DesignSpecification:OutdoorAir,
+  Office WholeBuilding - Sm Office Ventilation, !- Name
+  Sum,                                    !- Outdoor Air Method
+  0,                                      !- Outdoor Air Flow per Person {m3/s-person}
+  0.000508,                               !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+  0,                                      !- Outdoor Air Flow per Zone {m3/s}
+  0;                                      !- Outdoor Air Flow Air Changes per Hour {1/hr}
+
+SimulationControl,
+  Yes,                                    !- Do Zone Sizing Calculation
+  Yes,                                    !- Do System Sizing Calculation
+  Yes,                                    !- Do Plant Sizing Calculation
+  Yes,                                    !- Run Simulation for Sizing Periods
+  No;                                     !- Run Simulation for Weather File Run Periods
+
+HeatBalanceAlgorithm,
+  ConductionTransferFunction,             !- Algorithm
+  200;                                    !- Surface Temperature Upper Limit {C}
+
+RunPeriod,
+  Run Period 1,                           !- Name
+  6,                                      !- Begin Month
+  1,                                      !- Begin Day of Month
+  2012,                                   !- Begin Year
+  6,                                      !- End Month
+  1,                                      !- End Day of Month
+  2012,                                   !- End Year
+  Friday,                                 !- Day of Week for Start Day
+  No,                                     !- Use Weather File Holidays and Special Days
+  No,                                     !- Use Weather File Daylight Saving Period
+  No,                                     !- Apply Weekend Holiday Rule
+  Yes,                                    !- Use Weather File Rain Indicators
+  Yes;                                    !- Use Weather File Snow Indicators
+
+ShadowCalculation,
+  AverageOverDaysInFrequency,             !- Calculation Method
+  20,                                     !- Calculation Frequency
+  15000;                                  !- Maximum Figures in Shadow Overlap Calculations
+
+Sizing:Parameters,
+  1.25,                                   !- Heating Sizing Factor
+  1.15;                                   !- Cooling Sizing Factor
+
+GlobalGeometryRules,
+  UpperLeftCorner,                        !- Starting Vertex Position
+  Counterclockwise,                       !- Vertex Entry Direction
+  Relative,                               !- Coordinate System
+  Relative,                               !- Daylighting Reference Point Coordinate System
+  Relative;                               !- Rectangular Surface Coordinate System
+
+Material,
+  1/2IN Gypsum,                           !- Name
+  Smooth,                                 !- Roughness
+  0.0127,                                 !- Thickness {m}
+  0.16,                                   !- Conductivity {W/m-K}
+  784.9,                                  !- Density {kg/m3}
+  830.000000000001,                       !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.4,                                    !- Solar Absorptance
+  0.4;                                    !- Visible Absorptance
+
+Material,
+  100mm Normalweight concrete floor,      !- Name
+  MediumRough,                            !- Roughness
+  0.1016,                                 !- Thickness {m}
+  2.31044676686054,                       !- Conductivity {W/m-K}
+  2322.00146636525,                       !- Density {kg/m3}
+  832.5567858096,                         !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0,                                      !- Solar Absorptance
+  0;                                      !- Visible Absorptance
+
+Material,
+  1IN Stucco,                             !- Name
+  Smooth,                                 !- Roughness
+  0.0253,                                 !- Thickness {m}
+  0.691799999999999,                      !- Conductivity {W/m-K}
+  1858,                                   !- Density {kg/m3}
+  836.999999999999,                       !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.92;                                   !- Visible Absorptance
+
+Material,
+  4 in. Normalweight Concrete Floor,      !- Name
+  MediumRough,                            !- Roughness
+  0.1016,                                 !- Thickness {m}
+  2.31,                                   !- Conductivity {W/m-K}
+  2321.99999999999,                       !- Density {kg/m3}
+  831.999999999997,                       !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  6 in. Normalweight Concrete Floor,      !- Name
+  MediumRough,                            !- Roughness
+  0.1524,                                 !- Thickness {m}
+  2.31,                                   !- Conductivity {W/m-K}
+  2321.99999999999,                       !- Density {kg/m3}
+  831.999999999997,                       !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  8 in. Concrete Block Basement Wall,     !- Name
+  MediumRough,                            !- Roughness
+  0.2032,                                 !- Thickness {m}
+  1.326,                                  !- Conductivity {W/m-K}
+  1841.99999999999,                       !- Density {kg/m3}
+  911.999999999999,                       !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  8IN CONCRETE HW RefBldg,                !- Name
+  Rough,                                  !- Roughness
+  0.2032,                                 !- Thickness {m}
+  1.311,                                  !- Conductivity {W/m-K}
+  2240,                                   !- Density {kg/m3}
+  836.800000000001,                       !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  Copper pipe 0.75in type L,              !- Name
+  Smooth,                                 !- Roughness
+  0.001143,                               !- Thickness {m}
+  386,                                    !- Conductivity {W/m-K}
+  8906.26563592184,                       !- Density {kg/m3}
+  385.1856,                               !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  F08 Metal surface,                      !- Name
+  Smooth,                                 !- Roughness
+  0.0008,                                 !- Thickness {m}
+  45.2800000000001,                       !- Conductivity {W/m-K}
+  7823.99999999999,                       !- Density {kg/m3}
+  500,                                    !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  Fiberglass batt 0.5in,                  !- Name
+  Smooth,                                 !- Roughness
+  0.0127,                                 !- Thickness {m}
+  0.06634482887757,                       !- Conductivity {W/m-K}
+  11.2129243617721,                       !- Density {kg/m3}
+  837.36,                                 !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  G01 13mm gypsum board,                  !- Name
+  Smooth,                                 !- Roughness
+  0.0127,                                 !- Thickness {m}
+  0.160030944416258,                      !- Conductivity {W/m-K}
+  800.000505207667,                       !- Density {kg/m3}
+  1090.7294438736,                        !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.5;                                    !- Visible Absorptance
+
+Material,
+  G05 25mm wood,                          !- Name
+  MediumSmooth,                           !- Roughness
+  0.0254,                                 !- Thickness {m}
+  0.15,                                   !- Conductivity {W/m-K}
+  608,                                    !- Density {kg/m3}
+  1630,                                   !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.5,                                    !- Solar Absorptance
+  0.5;                                    !- Visible Absorptance
+
+Material,
+  Metal Roof Surface,                     !- Name
+  Smooth,                                 !- Roughness
+  0.000799999999999998,                   !- Thickness {m}
+  45.2799999999999,                       !- Conductivity {W/m-K}
+  7823.99999999999,                       !- Density {kg/m3}
+  499.999999999996,                       !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  Roof Membrane,                          !- Name
+  VeryRough,                              !- Roughness
+  0.0095,                                 !- Thickness {m}
+  0.16,                                   !- Conductivity {W/m-K}
+  1121.29,                                !- Density {kg/m3}
+  1460,                                   !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  Std Wood 6inch,                         !- Name
+  MediumSmooth,                           !- Roughness
+  0.15,                                   !- Thickness {m}
+  0.12,                                   !- Conductivity {W/m-K}
+  540,                                    !- Density {kg/m3}
+  1210,                                   !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material:NoMass,
+  CP02 CARPET PAD,                        !- Name
+  Smooth,                                 !- Roughness
+  0.216479986995276,                      !- Thermal Resistance {m2-K/W}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.8;                                    !- Visible Absorptance
+
+Material:NoMass,
+  Typical Carpet Pad,                     !- Name
+  Smooth,                                 !- Roughness
+  0.216479986995276,                      !- Thermal Resistance {m2-K/W}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.8;                                    !- Visible Absorptance
+
+Material:NoMass,
+  Typical Insulation,                     !- Name
+  Smooth,                                 !- Roughness
+  0.0282222222222221,                     !- Thermal Resistance {m2-K/W}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material:NoMass,
+  Typical Insulation R-0.58,              !- Name
+  Smooth,                                 !- Roughness
+  0.101874652714525,                      !- Thermal Resistance {m2-K/W}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material:NoMass,
+  Typical Insulation R-14.76,             !- Name
+  Smooth,                                 !- Roughness
+  2.59864112987226,                       !- Thermal Resistance {m2-K/W}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material:NoMass,
+  Typical Insulation R-5.74,              !- Name
+  Smooth,                                 !- Roughness
+  1.01115400561992,                       !- Thermal Resistance {m2-K/W}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material:NoMass,
+  Typical Insulation R-8.93,              !- Name
+  Smooth,                                 !- Roughness
+  1.57183221366242,                       !- Thermal Resistance {m2-K/W}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+WindowMaterial:Gas,
+  AIR 6MM,                                !- Name
+  Air,                                    !- Gas Type
+  0.0063;                                 !- Thickness {m}
+
+WindowMaterial:Glazing,
+  BLUE 6MM,                               !- Name
+  SpectralAverage,                        !- Optical Data Type
+  ,                                       !- Window Glass Spectral Data Set Name
+  0.00599999999999998,                    !- Thickness {m}
+  0.48,                                   !- Solar Transmittance at Normal Incidence
+  0.05,                                   !- Front Side Solar Reflectance at Normal Incidence
+  0.05,                                   !- Back Side Solar Reflectance at Normal Incidence
+  0.57,                                   !- Visible Transmittance at Normal Incidence
+  0.06,                                   !- Front Side Visible Reflectance at Normal Incidence
+  0.06,                                   !- Back Side Visible Reflectance at Normal Incidence
+  0,                                      !- Infrared Transmittance at Normal Incidence
+  0.84,                                   !- Front Side Infrared Hemispherical Emissivity
+  0.84,                                   !- Back Side Infrared Hemispherical Emissivity
+  0.9,                                    !- Conductivity {W/m-K}
+  1,                                      !- Dirt Correction Factor for Solar and Visible Transmittance
+  No;                                     !- Solar Diffusing
+
+WindowMaterial:Glazing,
+  Clear 3mm,                              !- Name
+  SpectralAverage,                        !- Optical Data Type
+  ,                                       !- Window Glass Spectral Data Set Name
+  0.00299999999999999,                    !- Thickness {m}
+  0.837,                                  !- Solar Transmittance at Normal Incidence
+  0.075,                                  !- Front Side Solar Reflectance at Normal Incidence
+  0.075,                                  !- Back Side Solar Reflectance at Normal Incidence
+  0.898,                                  !- Visible Transmittance at Normal Incidence
+  0.081,                                  !- Front Side Visible Reflectance at Normal Incidence
+  0.081,                                  !- Back Side Visible Reflectance at Normal Incidence
+  0,                                      !- Infrared Transmittance at Normal Incidence
+  0.84,                                   !- Front Side Infrared Hemispherical Emissivity
+  0.84,                                   !- Back Side Infrared Hemispherical Emissivity
+  0.9,                                    !- Conductivity {W/m-K}
+  1,                                      !- Dirt Correction Factor for Solar and Visible Transmittance
+  No;                                     !- Solar Diffusing
+
+WindowMaterial:Glazing,
+  CLEAR 6MM,                              !- Name
+  SpectralAverage,                        !- Optical Data Type
+  ,                                       !- Window Glass Spectral Data Set Name
+  0.00599999999999998,                    !- Thickness {m}
+  0.775,                                  !- Solar Transmittance at Normal Incidence
+  0.071,                                  !- Front Side Solar Reflectance at Normal Incidence
+  0.071,                                  !- Back Side Solar Reflectance at Normal Incidence
+  0.881,                                  !- Visible Transmittance at Normal Incidence
+  0.08,                                   !- Front Side Visible Reflectance at Normal Incidence
+  0.08,                                   !- Back Side Visible Reflectance at Normal Incidence
+  0,                                      !- Infrared Transmittance at Normal Incidence
+  0.84,                                   !- Front Side Infrared Hemispherical Emissivity
+  0.84,                                   !- Back Side Infrared Hemispherical Emissivity
+  0.9,                                    !- Conductivity {W/m-K}
+  1,                                      !- Dirt Correction Factor for Solar and Visible Transmittance
+  No;                                     !- Solar Diffusing
+
+WindowMaterial:SimpleGlazingSystem,
+  U 1.17 SHGC 0.49 Simple Glazing U-1.17 SHGC 0.0, !- Name
+  6.64356810910278,                       !- U-Factor {W/m2-K}
+  0.49,                                   !- Solar Heat Gain Coefficient
+  0.38;                                   !- Visible Transmittance
+
+Construction,
+  Copper pipe 0.75in type L with 0.5in fiberglass batt, !- Name
+  Fiberglass batt 0.5in,                  !- Layer 1
+  Copper pipe 0.75in type L;              !- Layer 2
+
+Construction,
+  InteriorFurnishings,                    !- Name
+  Std Wood 6inch;                         !- Layer 1
+
+Construction,
+  Typical IEAD Roof R-15.87,              !- Name
+  Roof Membrane,                          !- Layer 1
+  Typical Insulation R-14.76,             !- Layer 2
+  Metal Roof Surface;                     !- Layer 3
+
+Construction,
+  Typical Insulated Basement Mass Wall,   !- Name
+  8 in. Concrete Block Basement Wall;     !- Layer 1
+
+Construction,
+  Typical Insulated Carpeted 6in Slab Floor, !- Name
+  6 in. Normalweight Concrete Floor,      !- Layer 1
+  Typical Carpet Pad;                     !- Layer 2
+
+Construction,
+  Typical Insulated Exterior Mass Floor R-11.49, !- Name
+  Typical Insulation R-8.93,              !- Layer 1
+  4 in. Normalweight Concrete Floor,      !- Layer 2
+  Typical Carpet Pad;                     !- Layer 3
+
+Construction,
+  Typical Insulated Exterior Mass Wall R-8.13, !- Name
+  1IN Stucco,                             !- Layer 1
+  8IN CONCRETE HW RefBldg,                !- Layer 2
+  Typical Insulation R-5.74,              !- Layer 3
+  1/2IN Gypsum;                           !- Layer 4
+
+Construction,
+  Typical Insulated Metal Door R-1.43,    !- Name
+  F08 Metal surface,                      !- Layer 1
+  Typical Insulation R-0.58;              !- Layer 2
+
+Construction,
+  Typical Interior Ceiling,               !- Name
+  CP02 CARPET PAD,                        !- Layer 1
+  100mm Normalweight concrete floor;      !- Layer 2
+
+Construction,
+  Typical Interior Door,                  !- Name
+  G05 25mm wood;                          !- Layer 1
+
+Construction,
+  Typical Interior Floor,                 !- Name
+  100mm Normalweight concrete floor,      !- Layer 1
+  CP02 CARPET PAD;                        !- Layer 2
+
+Construction,
+  Typical Interior Partition,             !- Name
+  G05 25mm wood;                          !- Layer 1
+
+Construction,
+  Typical Interior Wall,                  !- Name
+  G01 13mm gypsum board,                  !- Layer 1
+  G01 13mm gypsum board;                  !- Layer 2
+
+Construction,
+  Typical Interior Window,                !- Name
+  Clear 3mm;                              !- Layer 1
+
+Construction,
+  Typical Overhead Door,                  !- Name
+  Typical Insulation;                     !- Layer 1
+
+Construction,
+  U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air,  !- Name
+  BLUE 6MM,                               !- Layer 1
+  AIR 6MM,                                !- Layer 2
+  CLEAR 6MM;                              !- Layer 3
+
+Construction,
+  U 1.17 SHGC 0.49 Simple Glazing Skylight U-1.17 SHGC 0.0, !- Name
+  U 1.17 SHGC 0.49 Simple Glazing U-1.17 SHGC 0.0; !- Layer 1
+
+ScheduleTypeLimits,
+  ActivityLevel,                          !- Name
+  0,                                      !- Lower Limit Value {BasedOnField A3}
+  ,                                       !- Upper Limit Value {BasedOnField A3}
+  Continuous,                             !- Numeric Type
+  activitylevel;                          !- Unit Type
+
+ScheduleTypeLimits,
+  Any Number;                             !- Name
+
+ScheduleTypeLimits,
+  Fractional,                             !- Name
+  0,                                      !- Lower Limit Value {BasedOnField A3}
+  1,                                      !- Upper Limit Value {BasedOnField A3}
+  Continuous;                             !- Numeric Type
+
+ScheduleTypeLimits,
+  OnOff,                                  !- Name
+  0,                                      !- Lower Limit Value {BasedOnField A3}
+  1,                                      !- Upper Limit Value {BasedOnField A3}
+  Discrete,                               !- Numeric Type
+  availability;                           !- Unit Type
+
+ScheduleTypeLimits,
+  Temperature Schedule Type Limits,       !- Name
+  0,                                      !- Lower Limit Value {BasedOnField A3}
+  100,                                    !- Upper Limit Value {BasedOnField A3}
+  Continuous,                             !- Numeric Type
+  temperature;                            !- Unit Type
+
+ScheduleTypeLimits,
+  Temperature Schedule Type Limits 1,     !- Name
+  0,                                      !- Lower Limit Value {BasedOnField A3}
+  100,                                    !- Upper Limit Value {BasedOnField A3}
+  Continuous,                             !- Numeric Type
+  temperature;                            !- Unit Type
+
+ScheduleTypeLimits,
+  Velocity,                               !- Name
+  0,                                      !- Lower Limit Value {BasedOnField A3}
+  ,                                       !- Upper Limit Value {BasedOnField A3}
+  Continuous,                             !- Numeric Type
+  velocity;                               !- Unit Type
+
+Schedule:Day:Interval,
+  Air Velocity Schedule Default,          !- Name
+  Velocity,                               !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0.2;                                    !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Clothing Schedule Default Winter Clothes, !- Name
+  Any Number,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  1;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Clothing Schedule Summer Clothes,       !- Name
+  Any Number,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0.5;                                    !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Fraction Latent - 0.05 Default,         !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0.05;                                   !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Fraction Sensible - 0.2 Default,        !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0.2;                                    !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Hot Water Loop Temp - 180F Default,     !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  82.2222222222223;                       !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Mixed Water At Faucet Temp - 140F Default, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  60.0000000000001;                       !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  21.1111;                                !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0.3;                                    !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall ACTIVITY_SCH Default,       !- Name
+  ActivityLevel,                          !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  120;                                    !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall ACTIVITY_SCH Summer Design Day, !- Name
+  ActivityLevel,                          !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  120;                                    !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall ACTIVITY_SCH Winter Design Day, !- Name
+  ActivityLevel,                          !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  120;                                    !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_EQUIP_SCH Default,     !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  08:00,                                  !- Time 1 {hh:mm}
+  0.5,                                    !- Value Until Time 1
+  12:00,                                  !- Time 2 {hh:mm}
+  1,                                      !- Value Until Time 2
+  13:00,                                  !- Time 3 {hh:mm}
+  0.94,                                   !- Value Until Time 3
+  17:00,                                  !- Time 4 {hh:mm}
+  1,                                      !- Value Until Time 4
+  18:00,                                  !- Time 5 {hh:mm}
+  0.5,                                    !- Value Until Time 5
+  24:00,                                  !- Time 6 {hh:mm}
+  0.2;                                    !- Value Until Time 6
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_EQUIP_SCH Default|Wkdy Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  08:00,                                  !- Time 1 {hh:mm}
+  0.5,                                    !- Value Until Time 1
+  12:00,                                  !- Time 2 {hh:mm}
+  1,                                      !- Value Until Time 2
+  13:00,                                  !- Time 3 {hh:mm}
+  0.94,                                   !- Value Until Time 3
+  17:00,                                  !- Time 4 {hh:mm}
+  1,                                      !- Value Until Time 4
+  18:00,                                  !- Time 5 {hh:mm}
+  0.5,                                    !- Value Until Time 5
+  24:00,                                  !- Time 6 {hh:mm}
+  0.2;                                    !- Value Until Time 6
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_EQUIP_SCH Summer Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  1;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_EQUIP_SCH Winter Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_EQUIP_SCH Wknd Day,    !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0.2;                                    !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_LIGHT_SCH Default,     !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  05:00,                                  !- Time 1 {hh:mm}
+  0.18,                                   !- Value Until Time 1
+  07:00,                                  !- Time 2 {hh:mm}
+  0.23,                                   !- Value Until Time 2
+  08:00,                                  !- Time 3 {hh:mm}
+  0.42,                                   !- Value Until Time 3
+  12:00,                                  !- Time 4 {hh:mm}
+  0.9,                                    !- Value Until Time 4
+  13:00,                                  !- Time 5 {hh:mm}
+  0.8,                                    !- Value Until Time 5
+  17:00,                                  !- Time 6 {hh:mm}
+  0.9,                                    !- Value Until Time 6
+  18:00,                                  !- Time 7 {hh:mm}
+  0.61,                                   !- Value Until Time 7
+  20:00,                                  !- Time 8 {hh:mm}
+  0.42,                                   !- Value Until Time 8
+  22:00,                                  !- Time 9 {hh:mm}
+  0.32,                                   !- Value Until Time 9
+  23:00,                                  !- Time 10 {hh:mm}
+  0.23,                                   !- Value Until Time 10
+  24:00,                                  !- Time 11 {hh:mm}
+  0.18;                                   !- Value Until Time 11
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_LIGHT_SCH Default|Wkdy Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  05:00,                                  !- Time 1 {hh:mm}
+  0.18,                                   !- Value Until Time 1
+  07:00,                                  !- Time 2 {hh:mm}
+  0.23,                                   !- Value Until Time 2
+  08:00,                                  !- Time 3 {hh:mm}
+  0.42,                                   !- Value Until Time 3
+  12:00,                                  !- Time 4 {hh:mm}
+  0.9,                                    !- Value Until Time 4
+  13:00,                                  !- Time 5 {hh:mm}
+  0.8,                                    !- Value Until Time 5
+  17:00,                                  !- Time 6 {hh:mm}
+  0.9,                                    !- Value Until Time 6
+  18:00,                                  !- Time 7 {hh:mm}
+  0.61,                                   !- Value Until Time 7
+  20:00,                                  !- Time 8 {hh:mm}
+  0.42,                                   !- Value Until Time 8
+  22:00,                                  !- Time 9 {hh:mm}
+  0.32,                                   !- Value Until Time 9
+  23:00,                                  !- Time 10 {hh:mm}
+  0.23,                                   !- Value Until Time 10
+  24:00,                                  !- Time 11 {hh:mm}
+  0.18;                                   !- Value Until Time 11
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_LIGHT_SCH Summer Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  1;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_LIGHT_SCH Winter Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_LIGHT_SCH Wknd Day,    !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0.18;                                   !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_OCC_SCH Default,       !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_OCC_SCH Summer Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  1;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_OCC_SCH Winter Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_OCC_SCH Wkdy Day,      !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  06:00,                                  !- Time 1 {hh:mm}
+  0,                                      !- Value Until Time 1
+  07:00,                                  !- Time 2 {hh:mm}
+  0.11,                                   !- Value Until Time 2
+  08:00,                                  !- Time 3 {hh:mm}
+  0.21,                                   !- Value Until Time 3
+  12:00,                                  !- Time 4 {hh:mm}
+  1,                                      !- Value Until Time 4
+  13:00,                                  !- Time 5 {hh:mm}
+  0.53,                                   !- Value Until Time 5
+  17:00,                                  !- Time 6 {hh:mm}
+  1,                                      !- Value Until Time 6
+  18:00,                                  !- Time 7 {hh:mm}
+  0.32,                                   !- Value Until Time 7
+  22:00,                                  !- Time 8 {hh:mm}
+  0.11,                                   !- Value Until Time 8
+  23:00,                                  !- Time 9 {hh:mm}
+  0.05,                                   !- Value Until Time 9
+  24:00,                                  !- Time 10 {hh:mm}
+  0;                                      !- Value Until Time 10
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_SWH_SCH Default,       !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_SWH_SCH Summer Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  07:00,                                  !- Time 1 {hh:mm}
+  0,                                      !- Value Until Time 1
+  08:00,                                  !- Time 2 {hh:mm}
+  0.27,                                   !- Value Until Time 2
+  09:00,                                  !- Time 3 {hh:mm}
+  0.55,                                   !- Value Until Time 3
+  11:00,                                  !- Time 4 {hh:mm}
+  0.64,                                   !- Value Until Time 4
+  12:00,                                  !- Time 5 {hh:mm}
+  0.82,                                   !- Value Until Time 5
+  13:00,                                  !- Time 6 {hh:mm}
+  1,                                      !- Value Until Time 6
+  14:00,                                  !- Time 7 {hh:mm}
+  0.91,                                   !- Value Until Time 7
+  16:00,                                  !- Time 8 {hh:mm}
+  0.55,                                   !- Value Until Time 8
+  17:00,                                  !- Time 9 {hh:mm}
+  0.73,                                   !- Value Until Time 9
+  19:00,                                  !- Time 10 {hh:mm}
+  0.37,                                   !- Value Until Time 10
+  20:00,                                  !- Time 11 {hh:mm}
+  0.18,                                   !- Value Until Time 11
+  21:00,                                  !- Time 12 {hh:mm}
+  0.27,                                   !- Value Until Time 12
+  22:00,                                  !- Time 13 {hh:mm}
+  0.09,                                   !- Value Until Time 13
+  24:00,                                  !- Time 14 {hh:mm}
+  0;                                      !- Value Until Time 14
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_SWH_SCH Winter Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  07:00,                                  !- Time 1 {hh:mm}
+  0,                                      !- Value Until Time 1
+  08:00,                                  !- Time 2 {hh:mm}
+  0.27,                                   !- Value Until Time 2
+  09:00,                                  !- Time 3 {hh:mm}
+  0.55,                                   !- Value Until Time 3
+  11:00,                                  !- Time 4 {hh:mm}
+  0.64,                                   !- Value Until Time 4
+  12:00,                                  !- Time 5 {hh:mm}
+  0.82,                                   !- Value Until Time 5
+  13:00,                                  !- Time 6 {hh:mm}
+  1,                                      !- Value Until Time 6
+  14:00,                                  !- Time 7 {hh:mm}
+  0.91,                                   !- Value Until Time 7
+  16:00,                                  !- Time 8 {hh:mm}
+  0.55,                                   !- Value Until Time 8
+  17:00,                                  !- Time 9 {hh:mm}
+  0.73,                                   !- Value Until Time 9
+  19:00,                                  !- Time 10 {hh:mm}
+  0.37,                                   !- Value Until Time 10
+  20:00,                                  !- Time 11 {hh:mm}
+  0.18,                                   !- Value Until Time 11
+  21:00,                                  !- Time 12 {hh:mm}
+  0.27,                                   !- Value Until Time 12
+  22:00,                                  !- Time 13 {hh:mm}
+  0.09,                                   !- Value Until Time 13
+  24:00,                                  !- Time 14 {hh:mm}
+  0;                                      !- Value Until Time 14
+
+Schedule:Day:Interval,
+  OfficeSmall BLDG_SWH_SCH WntrDsn|SmrDsn|Wkdy Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  07:00,                                  !- Time 1 {hh:mm}
+  0,                                      !- Value Until Time 1
+  08:00,                                  !- Time 2 {hh:mm}
+  0.27,                                   !- Value Until Time 2
+  09:00,                                  !- Time 3 {hh:mm}
+  0.55,                                   !- Value Until Time 3
+  11:00,                                  !- Time 4 {hh:mm}
+  0.64,                                   !- Value Until Time 4
+  12:00,                                  !- Time 5 {hh:mm}
+  0.82,                                   !- Value Until Time 5
+  13:00,                                  !- Time 6 {hh:mm}
+  1,                                      !- Value Until Time 6
+  14:00,                                  !- Time 7 {hh:mm}
+  0.91,                                   !- Value Until Time 7
+  16:00,                                  !- Time 8 {hh:mm}
+  0.55,                                   !- Value Until Time 8
+  17:00,                                  !- Time 9 {hh:mm}
+  0.73,                                   !- Value Until Time 9
+  19:00,                                  !- Time 10 {hh:mm}
+  0.37,                                   !- Value Until Time 10
+  20:00,                                  !- Time 11 {hh:mm}
+  0.18,                                   !- Value Until Time 11
+  21:00,                                  !- Time 12 {hh:mm}
+  0.27,                                   !- Value Until Time 12
+  22:00,                                  !- Time 13 {hh:mm}
+  0.09,                                   !- Value Until Time 13
+  24:00,                                  !- Time 14 {hh:mm}
+  0;                                      !- Value Until Time 14
+
+Schedule:Day:Interval,
+  OfficeSmall INFIL_QUARTER_ON_SCH Default, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  1;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  OfficeSmall INFIL_QUARTER_ON_SCH SmrDsn|Wkdy Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  07:00,                                  !- Time 1 {hh:mm}
+  1,                                      !- Value Until Time 1
+  19:00,                                  !- Time 2 {hh:mm}
+  0.25,                                   !- Value Until Time 2
+  24:00,                                  !- Time 3 {hh:mm}
+  1;                                      !- Value Until Time 3
+
+Schedule:Day:Interval,
+  OfficeSmall INFIL_QUARTER_ON_SCH Summer Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  07:00,                                  !- Time 1 {hh:mm}
+  1,                                      !- Value Until Time 1
+  19:00,                                  !- Time 2 {hh:mm}
+  0.25,                                   !- Value Until Time 2
+  24:00,                                  !- Time 3 {hh:mm}
+  1;                                      !- Value Until Time 3
+
+Schedule:Day:Interval,
+  OfficeSmall INFIL_QUARTER_ON_SCH Winter Design Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  07:00,                                  !- Time 1 {hh:mm}
+  1,                                      !- Value Until Time 1
+  18:00,                                  !- Time 2 {hh:mm}
+  0.25,                                   !- Value Until Time 2
+  24:00,                                  !- Time 3 {hh:mm}
+  1;                                      !- Value Until Time 3
+
+Schedule:Day:Interval,
+  OfficeSmall INFIL_QUARTER_ON_SCH WntrDsn|Sat Day, !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  07:00,                                  !- Time 1 {hh:mm}
+  1,                                      !- Value Until Time 1
+  18:00,                                  !- Time 2 {hh:mm}
+  0.25,                                   !- Value Until Time 2
+  24:00,                                  !- Time 3 {hh:mm}
+  1;                                      !- Value Until Time 3
+
+Schedule:Day:Interval,
+  Schedule Day 1,                         !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 10,                        !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 11,                        !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  06:00,                                  !- Time 1 {hh:mm}
+  0,                                      !- Value Until Time 1
+  24:00,                                  !- Time 2 {hh:mm}
+  1;                                      !- Value Until Time 2
+
+Schedule:Day:Interval,
+  Schedule Day 12,                        !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 13,                        !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 14,                        !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  22;                                     !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 15,                        !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  60;                                     !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 16,                        !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 17,                        !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 18,                        !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 19,                        !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 2,                         !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 3,                         !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 4,                         !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 5,                         !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 6,                         !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 7,                         !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 8,                         !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Schedule Day 9,                         !- Name
+  ,                                       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Service Water Loop Temp - 140F Default, !- Name
+  Temperature Schedule Type Limits,       !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  60.0000000000001;                       !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- Name
+  Temperature Schedule Type Limits 1,     !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  22.0000000000001;                       !- Value Until Time 1
+
+Schedule:Day:Interval,
+  Work Efficiency Schedule Default,       !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  24:00,                                  !- Time 1 {hh:mm}
+  0;                                      !- Value Until Time 1
+
+Schedule:Week:Daily,
+  Air Velocity Schedule Week Rule - Jan1-Dec31, !- Name
+  Air Velocity Schedule Default,          !- Sunday Schedule:Day Name
+  Air Velocity Schedule Default,          !- Monday Schedule:Day Name
+  Air Velocity Schedule Default,          !- Tuesday Schedule:Day Name
+  Air Velocity Schedule Default,          !- Wednesday Schedule:Day Name
+  Air Velocity Schedule Default,          !- Thursday Schedule:Day Name
+  Air Velocity Schedule Default,          !- Friday Schedule:Day Name
+  Air Velocity Schedule Default,          !- Saturday Schedule:Day Name
+  Air Velocity Schedule Default,          !- Holiday Schedule:Day Name
+  Air Velocity Schedule Default,          !- SummerDesignDay Schedule:Day Name
+  Air Velocity Schedule Default,          !- WinterDesignDay Schedule:Day Name
+  Air Velocity Schedule Default,          !- CustomDay1 Schedule:Day Name
+  Air Velocity Schedule Default;          !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Air Velocity Schedule,                  !- Name
+  Velocity,                               !- Schedule Type Limits Name
+  Air Velocity Schedule Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Clothing Schedule Week Rule - Jan1-Dec31, !- Name
+  Clothing Schedule Default Winter Clothes, !- Sunday Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- Monday Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- Tuesday Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- Wednesday Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- Thursday Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- Friday Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- Saturday Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- Holiday Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- SummerDesignDay Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- WinterDesignDay Schedule:Day Name
+  Clothing Schedule Default Winter Clothes, !- CustomDay1 Schedule:Day Name
+  Clothing Schedule Default Winter Clothes; !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Clothing Schedule,                      !- Name
+  Any Number,                             !- Schedule Type Limits Name
+  Clothing Schedule Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Fraction Latent - 0.05 Week Rule - Jan1-Dec31, !- Name
+  Fraction Latent - 0.05 Default,         !- Sunday Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- Monday Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- Tuesday Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- Wednesday Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- Thursday Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- Friday Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- Saturday Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- Holiday Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- SummerDesignDay Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- WinterDesignDay Schedule:Day Name
+  Fraction Latent - 0.05 Default,         !- CustomDay1 Schedule:Day Name
+  Fraction Latent - 0.05 Default;         !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Fraction Latent - 0.05,                 !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  Fraction Latent - 0.05 Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Fraction Sensible - 0.2 Week Rule - Jan1-Dec31, !- Name
+  Fraction Sensible - 0.2 Default,        !- Sunday Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- Monday Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- Tuesday Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- Wednesday Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- Thursday Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- Friday Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- Saturday Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- Holiday Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- SummerDesignDay Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- WinterDesignDay Schedule:Day Name
+  Fraction Sensible - 0.2 Default,        !- CustomDay1 Schedule:Day Name
+  Fraction Sensible - 0.2 Default;        !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Fraction Sensible - 0.2,                !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  Fraction Sensible - 0.2 Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Hot Water Loop Temp - 180F Week Rule - Jan1-Dec31, !- Name
+  Hot Water Loop Temp - 180F Default,     !- Sunday Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- Monday Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- Tuesday Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- Wednesday Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- Thursday Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- Friday Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- Saturday Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- Holiday Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- SummerDesignDay Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- WinterDesignDay Schedule:Day Name
+  Hot Water Loop Temp - 180F Default,     !- CustomDay1 Schedule:Day Name
+  Hot Water Loop Temp - 180F Default;     !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Hot Water Loop Temp - 180F,             !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  Hot Water Loop Temp - 180F Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Mixed Water At Faucet Temp - 140F Week Rule - Jan1-Dec31, !- Name
+  Mixed Water At Faucet Temp - 140F Default, !- Sunday Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- Monday Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- Tuesday Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- Wednesday Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- Thursday Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- Friday Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- Saturday Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- Holiday Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- SummerDesignDay Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- WinterDesignDay Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default, !- CustomDay1 Schedule:Day Name
+  Mixed Water At Faucet Temp - 140F Default; !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Mixed Water At Faucet Temp - 140F,      !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  Mixed Water At Faucet Temp - 140F Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Office Shared Service Water Loop Piping Air Temp - 70F Week Rule - Jan1-Dec31, !- Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- Sunday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- Monday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- Tuesday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- Wednesday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- Thursday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- Friday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- Saturday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- Holiday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- SummerDesignDay Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- WinterDesignDay Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default, !- CustomDay1 Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Default; !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Office Shared Service Water Loop Piping Air Temp - 70F, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  Office Shared Service Water Loop Piping Air Temp - 70F Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Week Rule - Jan1-Dec31, !- Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- Sunday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- Monday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- Tuesday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- Wednesday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- Thursday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- Friday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- Saturday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- Holiday Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- SummerDesignDay Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- WinterDesignDay Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default, !- CustomDay1 Schedule:Day Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Default; !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph, !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  OfficeSmall ACTIVITY_SCH Week Rule - Jan1-Dec31, !- Name
+  OfficeSmall ACTIVITY_SCH Default,       !- Sunday Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Default,       !- Monday Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Default,       !- Tuesday Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Default,       !- Wednesday Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Default,       !- Thursday Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Default,       !- Friday Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Default,       !- Saturday Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Default,       !- Holiday Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Summer Design Day, !- SummerDesignDay Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Winter Design Day, !- WinterDesignDay Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Default,       !- CustomDay1 Schedule:Day Name
+  OfficeSmall ACTIVITY_SCH Default;       !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  OfficeSmall ACTIVITY_SCH,               !- Name
+  ActivityLevel,                          !- Schedule Type Limits Name
+  OfficeSmall ACTIVITY_SCH Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  OfficeSmall BLDG_EQUIP_SCH Week Rule - Jan1-Dec31, !- Name
+  OfficeSmall BLDG_EQUIP_SCH Wknd Day,    !- Sunday Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Default|Wkdy Day, !- Monday Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Default|Wkdy Day, !- Tuesday Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Default|Wkdy Day, !- Wednesday Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Default|Wkdy Day, !- Thursday Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Default|Wkdy Day, !- Friday Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Wknd Day,    !- Saturday Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Default,     !- Holiday Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Summer Design Day, !- SummerDesignDay Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Winter Design Day, !- WinterDesignDay Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Default,     !- CustomDay1 Schedule:Day Name
+  OfficeSmall BLDG_EQUIP_SCH Default;     !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  OfficeSmall BLDG_EQUIP_SCH,             !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  OfficeSmall BLDG_EQUIP_SCH Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  OfficeSmall BLDG_LIGHT_SCH Week Rule - Jan1-Dec31, !- Name
+  OfficeSmall BLDG_LIGHT_SCH Wknd Day,    !- Sunday Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Default|Wkdy Day, !- Monday Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Default|Wkdy Day, !- Tuesday Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Default|Wkdy Day, !- Wednesday Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Default|Wkdy Day, !- Thursday Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Default|Wkdy Day, !- Friday Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Wknd Day,    !- Saturday Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Default,     !- Holiday Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Summer Design Day, !- SummerDesignDay Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Winter Design Day, !- WinterDesignDay Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Default,     !- CustomDay1 Schedule:Day Name
+  OfficeSmall BLDG_LIGHT_SCH Default;     !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  OfficeSmall BLDG_LIGHT_SCH,             !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  OfficeSmall BLDG_LIGHT_SCH Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  OfficeSmall BLDG_OCC_SCH Week Rule - Jan1-Dec31, !- Name
+  OfficeSmall BLDG_OCC_SCH Default,       !- Sunday Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Wkdy Day,      !- Monday Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Wkdy Day,      !- Tuesday Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Wkdy Day,      !- Wednesday Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Wkdy Day,      !- Thursday Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Wkdy Day,      !- Friday Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Default,       !- Saturday Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Default,       !- Holiday Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Summer Design Day, !- SummerDesignDay Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Winter Design Day, !- WinterDesignDay Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Default,       !- CustomDay1 Schedule:Day Name
+  OfficeSmall BLDG_OCC_SCH Default;       !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  OfficeSmall BLDG_OCC_SCH,               !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  OfficeSmall BLDG_OCC_SCH Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  OfficeSmall BLDG_SWH_SCH Week Rule - Jan1-Dec31, !- Name
+  OfficeSmall BLDG_SWH_SCH Default,       !- Sunday Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH WntrDsn|SmrDsn|Wkdy Day, !- Monday Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH WntrDsn|SmrDsn|Wkdy Day, !- Tuesday Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH WntrDsn|SmrDsn|Wkdy Day, !- Wednesday Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH WntrDsn|SmrDsn|Wkdy Day, !- Thursday Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH WntrDsn|SmrDsn|Wkdy Day, !- Friday Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH Default,       !- Saturday Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH Default,       !- Holiday Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH Summer Design Day, !- SummerDesignDay Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH Winter Design Day, !- WinterDesignDay Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH Default,       !- CustomDay1 Schedule:Day Name
+  OfficeSmall BLDG_SWH_SCH Default;       !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  OfficeSmall BLDG_SWH_SCH,               !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  OfficeSmall BLDG_SWH_SCH Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  OfficeSmall INFIL_QUARTER_ON_SCH Week Rule - Jan1-Dec31, !- Name
+  OfficeSmall INFIL_QUARTER_ON_SCH Default, !- Sunday Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH SmrDsn|Wkdy Day, !- Monday Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH SmrDsn|Wkdy Day, !- Tuesday Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH SmrDsn|Wkdy Day, !- Wednesday Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH SmrDsn|Wkdy Day, !- Thursday Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH SmrDsn|Wkdy Day, !- Friday Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH WntrDsn|Sat Day, !- Saturday Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH Default, !- Holiday Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH Summer Design Day, !- SummerDesignDay Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH Winter Design Day, !- WinterDesignDay Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH Default, !- CustomDay1 Schedule:Day Name
+  OfficeSmall INFIL_QUARTER_ON_SCH Default; !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  OfficeSmall INFIL_QUARTER_ON_SCH,       !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  OfficeSmall INFIL_QUARTER_ON_SCH Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Schedule Ruleset 1 Week Rule - Jan1-Dec31, !- Name
+  Schedule Day 11,                        !- Sunday Schedule:Day Name
+  Schedule Day 11,                        !- Monday Schedule:Day Name
+  Schedule Day 11,                        !- Tuesday Schedule:Day Name
+  Schedule Day 11,                        !- Wednesday Schedule:Day Name
+  Schedule Day 11,                        !- Thursday Schedule:Day Name
+  Schedule Day 11,                        !- Friday Schedule:Day Name
+  Schedule Day 11,                        !- Saturday Schedule:Day Name
+  Schedule Day 11,                        !- Holiday Schedule:Day Name
+  Schedule Day 11,                        !- SummerDesignDay Schedule:Day Name
+  Schedule Day 11,                        !- WinterDesignDay Schedule:Day Name
+  Schedule Day 11,                        !- CustomDay1 Schedule:Day Name
+  Schedule Day 11;                        !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Schedule Ruleset 1,                     !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  Schedule Ruleset 1 Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Schedule Ruleset 2 Week Rule - Jan1-Dec31, !- Name
+  Schedule Day 14,                        !- Sunday Schedule:Day Name
+  Schedule Day 14,                        !- Monday Schedule:Day Name
+  Schedule Day 14,                        !- Tuesday Schedule:Day Name
+  Schedule Day 14,                        !- Wednesday Schedule:Day Name
+  Schedule Day 14,                        !- Thursday Schedule:Day Name
+  Schedule Day 14,                        !- Friday Schedule:Day Name
+  Schedule Day 14,                        !- Saturday Schedule:Day Name
+  Schedule Day 14,                        !- Holiday Schedule:Day Name
+  Schedule Day 14,                        !- SummerDesignDay Schedule:Day Name
+  Schedule Day 14,                        !- WinterDesignDay Schedule:Day Name
+  Schedule Day 14,                        !- CustomDay1 Schedule:Day Name
+  Schedule Day 14;                        !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Schedule Ruleset 2,                     !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  Schedule Ruleset 2 Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Schedule Ruleset 3 Week Rule - Jan1-Dec31, !- Name
+  Schedule Day 15,                        !- Sunday Schedule:Day Name
+  Schedule Day 15,                        !- Monday Schedule:Day Name
+  Schedule Day 15,                        !- Tuesday Schedule:Day Name
+  Schedule Day 15,                        !- Wednesday Schedule:Day Name
+  Schedule Day 15,                        !- Thursday Schedule:Day Name
+  Schedule Day 15,                        !- Friday Schedule:Day Name
+  Schedule Day 15,                        !- Saturday Schedule:Day Name
+  Schedule Day 15,                        !- Holiday Schedule:Day Name
+  Schedule Day 15,                        !- SummerDesignDay Schedule:Day Name
+  Schedule Day 15,                        !- WinterDesignDay Schedule:Day Name
+  Schedule Day 15,                        !- CustomDay1 Schedule:Day Name
+  Schedule Day 15;                        !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Schedule Ruleset 3,                     !- Name
+  Temperature,                            !- Schedule Type Limits Name
+  Schedule Ruleset 3 Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Service Water Loop Temp - 140F Week Rule - Jan1-Dec31, !- Name
+  Service Water Loop Temp - 140F Default, !- Sunday Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- Monday Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- Tuesday Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- Wednesday Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- Thursday Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- Friday Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- Saturday Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- Holiday Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- SummerDesignDay Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- WinterDesignDay Schedule:Day Name
+  Service Water Loop Temp - 140F Default, !- CustomDay1 Schedule:Day Name
+  Service Water Loop Temp - 140F Default; !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Service Water Loop Temp - 140F,         !- Name
+  Temperature Schedule Type Limits,       !- Schedule Type Limits Name
+  Service Water Loop Temp - 140F Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Water Heater Ambient Temp Schedule - 71.6f Week Rule - Jan1-Dec31, !- Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- Sunday Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- Monday Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- Tuesday Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- Wednesday Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- Thursday Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- Friday Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- Saturday Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- Holiday Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- SummerDesignDay Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- WinterDesignDay Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default, !- CustomDay1 Schedule:Day Name
+  Water Heater Ambient Temp Schedule - 71.6f Default; !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Water Heater Ambient Temp Schedule - 71.6f, !- Name
+  Temperature Schedule Type Limits 1,     !- Schedule Type Limits Name
+  Water Heater Ambient Temp Schedule - 71.6f Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Week:Daily,
+  Work Efficiency Schedule Week Rule - Jan1-Dec31, !- Name
+  Work Efficiency Schedule Default,       !- Sunday Schedule:Day Name
+  Work Efficiency Schedule Default,       !- Monday Schedule:Day Name
+  Work Efficiency Schedule Default,       !- Tuesday Schedule:Day Name
+  Work Efficiency Schedule Default,       !- Wednesday Schedule:Day Name
+  Work Efficiency Schedule Default,       !- Thursday Schedule:Day Name
+  Work Efficiency Schedule Default,       !- Friday Schedule:Day Name
+  Work Efficiency Schedule Default,       !- Saturday Schedule:Day Name
+  Work Efficiency Schedule Default,       !- Holiday Schedule:Day Name
+  Work Efficiency Schedule Default,       !- SummerDesignDay Schedule:Day Name
+  Work Efficiency Schedule Default,       !- WinterDesignDay Schedule:Day Name
+  Work Efficiency Schedule Default,       !- CustomDay1 Schedule:Day Name
+  Work Efficiency Schedule Default;       !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Work Efficiency Schedule,               !- Name
+  Fractional,                             !- Schedule Type Limits Name
+  Work Efficiency Schedule Week Rule - Jan1-Dec31, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Constant,
+  Always Off Discrete,                    !- Name
+  ,                                       !- Schedule Type Limits Name
+  0;                                      !- Hourly Value
+
+Schedule:Constant,
+  Always On Continuous,                   !- Name
+  ,                                       !- Schedule Type Limits Name
+  1;                                      !- Hourly Value
+
+OutdoorAir:Node,
+  Model Outdoor Air Node;                 !- Name
+
+AirLoopHVAC,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC, !- Name
+  ,                                       !- Controller List Name
+  Air Loop HVAC 1 AvailabilityManagerAssignmentList, !- Availability Manager List Name
+  AutoSize,                               !- Design Supply Air Flow Rate {m3/s}
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Branches, !- Branch List Name
+  ,                                       !- Connector List Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Inlet Node, !- Supply Side Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Demand Outlet Node, !- Demand Side Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Demand Inlet Nodes, !- Demand Side Inlet Node Names
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Nodes; !- Supply Side Outlet Node Names
+
+NodeList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Nodes, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node; !- Node Name 1
+
+NodeList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Demand Inlet Nodes, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Demand Inlet Node; !- Node Name 1
+
+Sizing:System,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC, !- AirLoop Name
+  Sensible,                               !- Type of Load to Size On
+  Autosize,                               !- Design Outdoor Air Flow Rate {m3/s}
+  1,                                      !- Central Heating Maximum System Air Flow Ratio
+  7.22222222222229,                       !- Preheat Design Temperature {C}
+  0.008,                                  !- Preheat Design Humidity Ratio {kgWater/kgDryAir}
+  12.7777777777778,                       !- Precool Design Temperature {C}
+  0.008,                                  !- Precool Design Humidity Ratio {kgWater/kgDryAir}
+  12.7777777777778,                       !- Central Cooling Design Supply Air Temperature {C}
+  50.0000000000001,                       !- Central Heating Design Supply Air Temperature {C}
+  Coincident,                             !- Type of Zone Sum to Use
+  No,                                     !- 100% Outdoor Air in Cooling
+  No,                                     !- 100% Outdoor Air in Heating
+  0.0085,                                 !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+  0.008,                                  !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
+  DesignDay,                              !- Cooling Supply Air Flow Rate Method
+  0,                                      !- Cooling Supply Air Flow Rate {m3/s}
+  0.0099676501,                           !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
+  1,                                      !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
+  3.9475456e-005,                         !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
+  DesignDay,                              !- Heating Supply Air Flow Rate Method
+  0,                                      !- Heating Supply Air Flow Rate {m3/s}
+  0.0099676501,                           !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
+  1,                                      !- Heating Fraction of Autosized Heating Supply Air Flow Rate
+  1,                                      !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
+  3.1588213e-005,                         !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
+  ZoneSum,                                !- System Outdoor Air Method
+  1,                                      !- Zone Maximum Outdoor Air Fraction {dimensionless}
+  CoolingDesignCapacity,                  !- Cooling Design Capacity Method
+  Autosize,                               !- Cooling Design Capacity {W}
+  234.7,                                  !- Cooling Design Capacity Per Floor Area {W/m2}
+  1,                                      !- Fraction of Autosized Cooling Design Capacity
+  HeatingDesignCapacity,                  !- Heating Design Capacity Method
+  Autosize,                               !- Heating Design Capacity {W}
+  157,                                    !- Heating Design Capacity Per Floor Area {W/m2}
+  1,                                      !- Fraction of Autosized Heating Design Capacity
+  OnOff;                                  !- Central Cooling Capacity Control Method
+
+AvailabilityManagerAssignmentList,
+  Air Loop HVAC 1 AvailabilityManagerAssignmentList, !- Name
+  AvailabilityManager:NightCycle,         !- Availability Manager Object Type 1
+  Availability Manager Night Cycle 1;     !- Availability Manager Name 1
+
+AvailabilityManager:NightCycle,
+  Availability Manager Night Cycle 1,     !- Name
+  Always On Discrete,                     !- Applicability Schedule Name
+  Always On Discrete,                     !- Fan Schedule Name
+  CycleOnAny,                             !- Control Type
+  1,                                      !- Thermostat Tolerance {deltaC}
+  FixedRunTime,                           !- Cycling Run Time Control Type
+  1800;                                   !- Cycling Run Time {s}
+
+BranchList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Branches, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Main Branch; !- Branch Name 1
+
+Branch,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Main Branch, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  AirLoopHVAC:OutdoorAirSystem,           !- Component Object Type 1
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System, !- Component Name 1
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Inlet Node, !- Component Inlet Node Name 1
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Mixed Air Node, !- Component Outlet Node Name 1
+  CoilSystem:Cooling:DX,                  !- Component Object Type 2
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil CoilSystem, !- Component Name 2
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Mixed Air Node, !- Component Inlet Node Name 2
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil Outlet Air Node, !- Component Outlet Node Name 2
+  Coil:Heating:Fuel,                      !- Component Object Type 3
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Gas Htg Coil, !- Component Name 3
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil Outlet Air Node, !- Component Inlet Node Name 3
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Gas Htg Coil Outlet Air Node, !- Component Outlet Node Name 3
+  Coil:Heating:Electric,                  !- Component Object Type 4
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil, !- Component Name 4
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Gas Htg Coil Outlet Air Node, !- Component Inlet Node Name 4
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node, !- Component Outlet Node Name 4
+  Fan:ConstantVolume,                     !- Component Object Type 5
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Fan, !- Component Name 5
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node, !- Component Inlet Node Name 5
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node; !- Component Outlet Node Name 5
+
+AirLoopHVAC:OutdoorAirSystem,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Controller List, !- Controller List Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Equipment List, !- Outdoor Air Equipment List Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Availability Manager List; !- Availability Manager List Name
+
+AirLoopHVAC:ControllerList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Controller List, !- Name
+  Controller:OutdoorAir,                  !- Controller Object Type 1
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Controller; !- Controller Name 1
+
+Controller:OutdoorAir,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Controller, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Relief Air Node, !- Relief Air Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Inlet Node, !- Return Air Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Mixed Air Node, !- Mixed Air Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Outdoor Air Node, !- Actuator Node Name
+  Autosize,                               !- Minimum Outdoor Air Flow Rate {m3/s}
+  Autosize,                               !- Maximum Outdoor Air Flow Rate {m3/s}
+  NoEconomizer,                           !- Economizer Control Type
+  ModulateFlow,                           !- Economizer Control Action Type
+  28,                                     !- Economizer Maximum Limit Dry-Bulb Temperature {C}
+  64000,                                  !- Economizer Maximum Limit Enthalpy {J/kg}
+  ,                                       !- Economizer Maximum Limit Dewpoint Temperature {C}
+  ,                                       !- Electronic Enthalpy Limit Curve Name
+  ,                                       !- Economizer Minimum Limit Dry-Bulb Temperature {C}
+  NoLockout,                              !- Lockout Type
+  FixedMinimum,                           !- Minimum Limit Type
+  Always On Discrete,                     !- Minimum Outdoor Air Schedule Name
+  ,                                       !- Minimum Fraction of Outdoor Air Schedule Name
+  ,                                       !- Maximum Fraction of Outdoor Air Schedule Name
+  Controller Mechanical Ventilation 1,    !- Mechanical Ventilation Controller Name
+  ,                                       !- Time of Day Economizer Control Schedule Name
+  No,                                     !- High Humidity Control
+  ,                                       !- Humidistat Control Zone Name
+  ,                                       !- High Humidity Outdoor Air Flow Ratio
+  Yes,                                    !- Control High Indoor Humidity Based on Outdoor Humidity Ratio
+  BypassWhenWithinEconomizerLimits;       !- Heat Recovery Bypass Control Type
+
+AvailabilityManagerAssignmentList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Availability Manager List, !- Name
+  AvailabilityManager:Scheduled,          !- Availability Manager Object Type 1
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Availability Manager; !- Availability Manager Name 1
+
+AvailabilityManager:Scheduled,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Availability Manager, !- Name
+  Always On Discrete;                     !- Schedule Name
+
+OutdoorAir:NodeList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Outdoor Air Node; !- Node or NodeList Name 1
+
+AirLoopHVAC:OutdoorAirSystem:EquipmentList,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Equipment List, !- Name
+  OutdoorAir:Mixer,                       !- Component Object Type 1
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Outdoor Air Mixer; !- Component Name 1
+
+OutdoorAir:Mixer,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC OA System Outdoor Air Mixer, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Mixed Air Node, !- Mixed Air Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Outdoor Air Node, !- Outdoor Air Stream Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Relief Air Node, !- Relief Air Stream Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Inlet Node; !- Return Air Stream Node Name
+
+SetpointManager:MixedAir,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Mixed Air Node OS Default SPM, !- Name
+  Temperature,                            !- Control Variable
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node, !- Reference Setpoint Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node, !- Fan Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node, !- Fan Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Mixed Air Node; !- Setpoint Node or NodeList Name
+
+CoilSystem:Cooling:DX,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil CoilSystem, !- Name
+  Always On Discrete,                     !- Availability Schedule Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Mixed Air Node, !- DX Cooling Coil System Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil Outlet Air Node, !- DX Cooling Coil System Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil Outlet Air Node, !- DX Cooling Coil System Sensor Node Name
+  Coil:Cooling:DX:SingleSpeed,            !- Cooling Coil Object Type
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil; !- Cooling Coil Name
+
+Curve:Biquadratic,
+  Curve Biquadratic 3,                    !- Name
+  0.9712123,                              !- Coefficient1 Constant
+  -0.015275502,                           !- Coefficient2 x
+  0.0014434524,                           !- Coefficient3 x**2
+  -0.00039321,                            !- Coefficient4 y
+  -6.8364e-006,                           !- Coefficient5 y**2
+  -0.0002905956,                          !- Coefficient6 x*y
+  -100,                                   !- Minimum Value of x {BasedOnField A2}
+  100,                                    !- Maximum Value of x {BasedOnField A2}
+  -100,                                   !- Minimum Value of y {BasedOnField A3}
+  100;                                    !- Maximum Value of y {BasedOnField A3}
+
+Curve:Quadratic,
+  Curve Quadratic 4,                      !- Name
+  1,                                      !- Coefficient1 Constant
+  0,                                      !- Coefficient2 x
+  0,                                      !- Coefficient3 x**2
+  -100,                                   !- Minimum Value of x {BasedOnField A2}
+  100;                                    !- Maximum Value of x {BasedOnField A2}
+
+Curve:Biquadratic,
+  Curve Biquadratic 4,                    !- Name
+  0.28687133,                             !- Coefficient1 Constant
+  0.023902164,                            !- Coefficient2 x
+  -0.000810648,                           !- Coefficient3 x**2
+  0.013458546,                            !- Coefficient4 y
+  0.0003389364,                           !- Coefficient5 y**2
+  -0.0004870044,                          !- Coefficient6 x*y
+  -100,                                   !- Minimum Value of x {BasedOnField A2}
+  100,                                    !- Maximum Value of x {BasedOnField A2}
+  -100,                                   !- Minimum Value of y {BasedOnField A3}
+  100;                                    !- Maximum Value of y {BasedOnField A3}
+
+Curve:Quadratic,
+  Curve Quadratic 5,                      !- Name
+  1,                                      !- Coefficient1 Constant
+  0,                                      !- Coefficient2 x
+  0,                                      !- Coefficient3 x**2
+  -100,                                   !- Minimum Value of x {BasedOnField A2}
+  100;                                    !- Maximum Value of x {BasedOnField A2}
+
+Curve:Quadratic,
+  Curve Quadratic 6,                      !- Name
+  0.90949556,                             !- Coefficient1 Constant
+  0.09864773,                             !- Coefficient2 x
+  -0.00819488,                            !- Coefficient3 x**2
+  0,                                      !- Minimum Value of x {BasedOnField A2}
+  1,                                      !- Maximum Value of x {BasedOnField A2}
+  0.7,                                    !- Minimum Curve Output {BasedOnField A3}
+  1;                                      !- Maximum Curve Output {BasedOnField A3}
+
+SetpointManager:MixedAir,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil Outlet Air Node OS Default SPM, !- Name
+  Temperature,                            !- Control Variable
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node, !- Reference Setpoint Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node, !- Fan Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node, !- Fan Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil Outlet Air Node; !- Setpoint Node or NodeList Name
+
+Coil:Cooling:DX:SingleSpeed,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil, !- Name
+  Always On Discrete,                     !- Availability Schedule Name
+  Autosize,                               !- Gross Rated Total Cooling Capacity {W}
+  Autosize,                               !- Gross Rated Sensible Heat Ratio
+  3,                                      !- Gross Rated Cooling COP {W/W}
+  Autosize,                               !- Rated Air Flow Rate {m3/s}
+  773.3,                                  !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Mixed Air Node, !- Air Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil Outlet Air Node, !- Air Outlet Node Name
+  Curve Biquadratic 3,                    !- Total Cooling Capacity Function of Temperature Curve Name
+  Curve Quadratic 4,                      !- Total Cooling Capacity Function of Flow Fraction Curve Name
+  Curve Biquadratic 4,                    !- Energy Input Ratio Function of Temperature Curve Name
+  Curve Quadratic 5,                      !- Energy Input Ratio Function of Flow Fraction Curve Name
+  Curve Quadratic 6,                      !- Part Load Fraction Correlation Curve Name
+  ,                                       !- Minimum Outdoor Dry-Bulb Temperature for Compressor Operation {C}
+  ,                                       !- Nominal Time for Condensate Removal to Begin {s}
+  ,                                       !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
+  ,                                       !- Maximum Cycling Rate {cycles/hr}
+  ,                                       !- Latent Capacity Time Constant {s}
+  ,                                       !- Condenser Air Inlet Node Name
+  AirCooled,                              !- Condenser Type
+  0,                                      !- Evaporative Condenser Effectiveness {dimensionless}
+  Autosize,                               !- Evaporative Condenser Air Flow Rate {m3/s}
+  Autosize,                               !- Evaporative Condenser Pump Rated Power Consumption {W}
+  0,                                      !- Crankcase Heater Capacity {W}
+  0,                                      !- Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater Operation {C}
+  ,                                       !- Supply Water Storage Tank Name
+  ,                                       !- Condensate Collection Water Storage Tank Name
+  0,                                      !- Basin Heater Capacity {W/K}
+  10;                                     !- Basin Heater Setpoint Temperature {C}
+
+Coil:Heating:Fuel,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Gas Htg Coil, !- Name
+  Always On Discrete,                     !- Availability Schedule Name
+  NaturalGas,                             !- Fuel Type
+  0.8,                                    !- Burner Efficiency
+  AutoSize,                               !- Nominal Capacity {W}
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil Outlet Air Node, !- Air Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Gas Htg Coil Outlet Air Node, !- Air Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Gas Htg Coil Outlet Air Node, !- Temperature Setpoint Node Name
+  0,                                      !- Parasitic Electric Load {W}
+  ,                                       !- Part Load Fraction Correlation Curve Name
+  0;                                      !- Parasitic Fuel Load {W}
+
+SetpointManager:MixedAir,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Gas Htg Coil Outlet Air Node OS Default SPM, !- Name
+  Temperature,                            !- Control Variable
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node, !- Reference Setpoint Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node, !- Fan Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node, !- Fan Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Gas Htg Coil Outlet Air Node; !- Setpoint Node or NodeList Name
+
+Coil:Heating:Electric,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil, !- Name
+  Always On Discrete,                     !- Availability Schedule Name
+  1,                                      !- Efficiency
+  Autosize,                               !- Nominal Capacity {W}
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Gas Htg Coil Outlet Air Node, !- Air Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node, !- Air Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node; !- Temperature Setpoint Node Name
+
+SetpointManager:MixedAir,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node OS Default SPM, !- Name
+  Temperature,                            !- Control Variable
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node, !- Reference Setpoint Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node, !- Fan Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node, !- Fan Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node; !- Setpoint Node or NodeList Name
+
+Fan:ConstantVolume,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Fan, !- Name
+  Always On Discrete,                     !- Availability Schedule Name
+  0.54,                                   !- Fan Total Efficiency
+  622.722275,                             !- Pressure Rise {Pa}
+  AutoSize,                               !- Maximum Flow Rate {m3/s}
+  0.9,                                    !- Motor Efficiency
+  1,                                      !- Motor In Airstream Fraction
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node, !- Air Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node; !- Air Outlet Node Name
+
+SetpointManager:SingleZone:Reheat,
+  Zone Office WholeBuilding - Sm Office  - Story Ground Setpoint Manager SZ Reheat, !- Name
+  Temperature,                            !- Control Variable
+  12.7777777777778,                       !- Minimum Supply Air Temperature {C}
+  50.0000000000001,                       !- Maximum Supply Air Temperature {C}
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Control Zone Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground Zone Air Node, !- Zone Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser Outlet Air Node, !- Zone Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node; !- Setpoint Node or NodeList Name
+
+AirLoopHVAC:SupplyPath,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Demand Inlet Node Supply Path, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Demand Inlet Node, !- Supply Air Path Inlet Node Name
+  AirLoopHVAC:ZoneSplitter,               !- Component Object Type 1
+  Air Loop HVAC Zone Splitter 1;          !- Component Name 1
+
+AirLoopHVAC:ZoneSplitter,
+  Air Loop HVAC Zone Splitter 1,          !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Demand Inlet Node, !- Inlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser Inlet Air Node; !- Outlet Node Name 1
+
+AirLoopHVAC:ReturnPath,
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Return Path, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Demand Outlet Node, !- Return Air Path Outlet Node Name
+  AirLoopHVAC:ZoneMixer,                  !- Component Object Type 1
+  Air Loop HVAC Zone Mixer 1;             !- Component Name 1
+
+AirLoopHVAC:ZoneMixer,
+  Air Loop HVAC Zone Mixer 1,             !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Demand Outlet Node, !- Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground Return Air Node; !- Inlet Node Name 1
+
+PlantLoop,
+  Hot Water Loop,                         !- Name
+  Water,                                  !- Fluid Type
+  ,                                       !- User Defined Fluid Type
+  Hot Water Loop Operation Schemes,       !- Plant Equipment Operation Scheme Name
+  Hot Water Loop Supply Outlet Node,      !- Loop Temperature Setpoint Node Name
+  100,                                    !- Maximum Loop Temperature {C}
+  10,                                     !- Minimum Loop Temperature {C}
+  Autosize,                               !- Maximum Loop Flow Rate {m3/s}
+  0,                                      !- Minimum Loop Flow Rate {m3/s}
+  Autocalculate,                          !- Plant Loop Volume {m3}
+  Hot Water Loop Supply Inlet Node,       !- Plant Side Inlet Node Name
+  Hot Water Loop Supply Outlet Node,      !- Plant Side Outlet Node Name
+  Hot Water Loop Supply Branches,         !- Plant Side Branch List Name
+  Hot Water Loop Supply Connector List,   !- Plant Side Connector List Name
+  Hot Water Loop Demand Inlet Node,       !- Demand Side Inlet Node Name
+  Hot Water Loop Demand Outlet Node,      !- Demand Side Outlet Node Name
+  Hot Water Loop Demand Branches,         !- Demand Side Branch List Name
+  Hot Water Loop Demand Connector List,   !- Demand Side Connector List Name
+  Optimal,                                !- Load Distribution Scheme
+  ,                                       !- Availability Manager List Name
+  SingleSetpoint,                         !- Plant Loop Demand Calculation Scheme
+  ;                                       !- Common Pipe Simulation
+
+Sizing:Plant,
+  Hot Water Loop,                         !- Plant or Condenser Loop Name
+  Heating,                                !- Loop Type
+  82.2222222222223,                       !- Design Loop Exit Temperature {C}
+  11.1111111111111,                       !- Loop Design Temperature Difference {deltaC}
+  NonCoincident,                          !- Sizing Option
+  1,                                      !- Zone Timesteps in Averaging Window
+  None;                                   !- Coincident Sizing Factor Mode
+
+BranchList,
+  Hot Water Loop Supply Branches,         !- Name
+  Hot Water Loop Supply Inlet Branch,     !- Branch Name 1
+  Hot Water Loop Supply Branch 1,         !- Branch Name 2
+  Hot Water Loop Supply Branch 2,         !- Branch Name 3
+  Hot Water Loop Supply Outlet Branch;    !- Branch Name 4
+
+ConnectorList,
+  Hot Water Loop Supply Connector List,   !- Name
+  Connector:Splitter,                     !- Connector Object Type 1
+  Hot Water Loop Supply Splitter,         !- Connector Name 1
+  Connector:Mixer,                        !- Connector Object Type 2
+  Hot Water Loop Supply Mixer;            !- Connector Name 2
+
+Connector:Splitter,
+  Hot Water Loop Supply Splitter,         !- Name
+  Hot Water Loop Supply Inlet Branch,     !- Inlet Branch Name
+  Hot Water Loop Supply Branch 1,         !- Outlet Branch Name 1
+  Hot Water Loop Supply Branch 2;         !- Outlet Branch Name 2
+
+Connector:Mixer,
+  Hot Water Loop Supply Mixer,            !- Name
+  Hot Water Loop Supply Outlet Branch,    !- Outlet Branch Name
+  Hot Water Loop Supply Branch 1,         !- Inlet Branch Name 1
+  Hot Water Loop Supply Branch 2;         !- Inlet Branch Name 2
+
+Branch,
+  Hot Water Loop Supply Inlet Branch,     !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pump:VariableSpeed,                     !- Component Object Type 1
+  Hot Water Loop Pump,                    !- Component Name 1
+  Hot Water Loop Supply Inlet Node,       !- Component Inlet Node Name 1
+  Hot Water Loop Pump Outlet Water Node;  !- Component Outlet Node Name 1
+
+Pump:VariableSpeed,
+  Hot Water Loop Pump,                    !- Name
+  Hot Water Loop Supply Inlet Node,       !- Inlet Node Name
+  Hot Water Loop Pump Outlet Water Node,  !- Outlet Node Name
+  Autosize,                               !- Design Maximum Flow Rate {m3/s}
+  179344.0152,                            !- Design Pump Head {Pa}
+  Autosize,                               !- Design Power Consumption {W}
+  0.9,                                    !- Motor Efficiency
+  0,                                      !- Fraction of Motor Inefficiencies to Fluid Stream
+  0,                                      !- Coefficient 1 of the Part Load Performance Curve
+  1,                                      !- Coefficient 2 of the Part Load Performance Curve
+  0,                                      !- Coefficient 3 of the Part Load Performance Curve
+  0,                                      !- Coefficient 4 of the Part Load Performance Curve
+  0,                                      !- Design Minimum Flow Rate {m3/s}
+  Intermittent,                           !- Pump Control Type
+  ,                                       !- Pump Flow Rate Schedule Name
+  ,                                       !- Pump Curve Name
+  ,                                       !- Impeller Diameter {m}
+  ,                                       !- VFD Control Type
+  ,                                       !- Pump rpm Schedule Name
+  ,                                       !- Minimum Pressure Schedule {Pa}
+  ,                                       !- Maximum Pressure Schedule {Pa}
+  ,                                       !- Minimum RPM Schedule {Rotations Per Minute}
+  ,                                       !- Maximum RPM Schedule {Rotations Per Minute}
+  ,                                       !- Zone Name
+  0.5,                                    !- Skin Loss Radiative Fraction
+  PowerPerFlowPerPressure,                !- Design Power Sizing Method
+  348701.1,                               !- Design Electric Power per Unit Flow Rate {W/(m3/s)}
+  1.282051282,                            !- Design Shaft Power per Unit Flow Rate per Unit Head
+  0,                                      !- Design Minimum Flow Rate Fraction
+  General;                                !- End-Use Subcategory
+
+Branch,
+  Hot Water Loop Supply Branch 1,         !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Boiler:HotWater,                        !- Component Object Type 1
+  Boiler,                                 !- Component Name 1
+  Boiler Inlet Water Node,                !- Component Inlet Node Name 1
+  Boiler Outlet Water Node;               !- Component Outlet Node Name 1
+
+Boiler:HotWater,
+  Boiler,                                 !- Name
+  NaturalGas,                             !- Fuel Type
+  Autosize,                               !- Nominal Capacity {W}
+  0.78,                                   !- Nominal Thermal Efficiency
+  LeavingBoiler,                          !- Efficiency Curve Temperature Evaluation Variable
+  ,                                       !- Normalized Boiler Efficiency Curve Name
+  Autosize,                               !- Design Water Flow Rate {m3/s}
+  0,                                      !- Minimum Part Load Ratio
+  1.2,                                    !- Maximum Part Load Ratio
+  1,                                      !- Optimum Part Load Ratio
+  Boiler Inlet Water Node,                !- Boiler Water Inlet Node Name
+  Boiler Outlet Water Node,               !- Boiler Water Outlet Node Name
+  95.0000000000001,                       !- Water Outlet Upper Temperature Limit {C}
+  LeavingSetpointModulated,               !- Boiler Flow Mode
+  0,                                      !- Parasitic Electric Load {W}
+  1,                                      !- Sizing Factor
+  General;                                !- End-Use Subcategory
+
+Branch,
+  Hot Water Loop Supply Branch 2,         !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Hot Water Loop Supply Equipment Bypass, !- Component Name 1
+  Hot Water Loop Supply Equipment Bypass Inlet Water Node, !- Component Inlet Node Name 1
+  Hot Water Loop Supply Equipment Bypass Outlet Water Node; !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Hot Water Loop Supply Equipment Bypass, !- Name
+  Hot Water Loop Supply Equipment Bypass Inlet Water Node, !- Inlet Node Name
+  Hot Water Loop Supply Equipment Bypass Outlet Water Node; !- Outlet Node Name
+
+Branch,
+  Hot Water Loop Supply Outlet Branch,    !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Hot Water Loop Supply Outlet,           !- Component Name 1
+  Hot Water Loop Supply Outlet Inlet Water Node, !- Component Inlet Node Name 1
+  Hot Water Loop Supply Outlet Node;      !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Hot Water Loop Supply Outlet,           !- Name
+  Hot Water Loop Supply Outlet Inlet Water Node, !- Inlet Node Name
+  Hot Water Loop Supply Outlet Node;      !- Outlet Node Name
+
+SetpointManager:Scheduled,
+  Hot Water Loop Setpoint Manager,        !- Name
+  Temperature,                            !- Control Variable
+  Hot Water Loop Temp - 180F,             !- Schedule Name
+  Hot Water Loop Supply Outlet Node;      !- Setpoint Node or NodeList Name
+
+BranchList,
+  Hot Water Loop Demand Branches,         !- Name
+  Hot Water Loop Demand Inlet Branch,     !- Branch Name 1
+  Hot Water Loop Demand Branch 1,         !- Branch Name 2
+  Hot Water Loop Demand Bypass Branch,    !- Branch Name 3
+  Hot Water Loop Demand Outlet Branch;    !- Branch Name 4
+
+ConnectorList,
+  Hot Water Loop Demand Connector List,   !- Name
+  Connector:Splitter,                     !- Connector Object Type 1
+  Hot Water Loop Demand Splitter,         !- Connector Name 1
+  Connector:Mixer,                        !- Connector Object Type 2
+  Hot Water Loop Demand Mixer;            !- Connector Name 2
+
+Connector:Splitter,
+  Hot Water Loop Demand Splitter,         !- Name
+  Hot Water Loop Demand Inlet Branch,     !- Inlet Branch Name
+  Hot Water Loop Demand Branch 1,         !- Outlet Branch Name 1
+  Hot Water Loop Demand Bypass Branch;    !- Outlet Branch Name 2
+
+Connector:Mixer,
+  Hot Water Loop Demand Mixer,            !- Name
+  Hot Water Loop Demand Outlet Branch,    !- Outlet Branch Name
+  Hot Water Loop Demand Branch 1,         !- Inlet Branch Name 1
+  Hot Water Loop Demand Bypass Branch;    !- Inlet Branch Name 2
+
+Branch,
+  Hot Water Loop Demand Inlet Branch,     !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Hot Water Loop Demand Inlet,            !- Component Name 1
+  Hot Water Loop Demand Inlet Node,       !- Component Inlet Node Name 1
+  Hot Water Loop Demand Inlet Outlet Water Node; !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Hot Water Loop Demand Inlet,            !- Name
+  Hot Water Loop Demand Inlet Node,       !- Inlet Node Name
+  Hot Water Loop Demand Inlet Outlet Water Node; !- Outlet Node Name
+
+Branch,
+  Hot Water Loop Demand Branch 1,         !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Hot Water Loop Coil Bypass,             !- Component Name 1
+  Hot Water Loop Coil Bypass Inlet Water Node, !- Component Inlet Node Name 1
+  Hot Water Loop Coil Bypass Outlet Water Node; !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Hot Water Loop Coil Bypass,             !- Name
+  Hot Water Loop Coil Bypass Inlet Water Node, !- Inlet Node Name
+  Hot Water Loop Coil Bypass Outlet Water Node; !- Outlet Node Name
+
+Branch,
+  Hot Water Loop Demand Bypass Branch,    !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Hot Water Loop Demand Bypass Pipe,      !- Component Name 1
+  Hot Water Loop Demand Bypass Pipe Inlet Node, !- Component Inlet Node Name 1
+  Hot Water Loop Demand Bypass Pipe Outlet Node; !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Hot Water Loop Demand Bypass Pipe,      !- Name
+  Hot Water Loop Demand Bypass Pipe Inlet Node, !- Inlet Node Name
+  Hot Water Loop Demand Bypass Pipe Outlet Node; !- Outlet Node Name
+
+Branch,
+  Hot Water Loop Demand Outlet Branch,    !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Hot Water Loop Demand Outlet,           !- Component Name 1
+  Hot Water Loop Demand Outlet Inlet Water Node, !- Component Inlet Node Name 1
+  Hot Water Loop Demand Outlet Node;      !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Hot Water Loop Demand Outlet,           !- Name
+  Hot Water Loop Demand Outlet Inlet Water Node, !- Inlet Node Name
+  Hot Water Loop Demand Outlet Node;      !- Outlet Node Name
+
+PlantEquipmentOperationSchemes,
+  Hot Water Loop Operation Schemes,       !- Name
+  PlantEquipmentOperation:HeatingLoad,    !- Control Scheme Object Type 1
+  Hot Water Loop Heating Operation Scheme, !- Control Scheme Name 1
+  Always On Discrete;                     !- Control Scheme Schedule Name 1
+
+PlantEquipmentOperation:HeatingLoad,
+  Hot Water Loop Heating Operation Scheme, !- Name
+  0,                                      !- Load Range Lower Limit 1 {W}
+  1000000000,                             !- Load Range Upper Limit 1 {W}
+  Hot Water Loop Heating Equipment List;  !- Range Equipment List Name 1
+
+PlantEquipmentList,
+  Hot Water Loop Heating Equipment List,  !- Name
+  Boiler:HotWater,                        !- Equipment Object Type 1
+  Boiler;                                 !- Equipment Name 1
+
+PlantLoop,
+  Office Shared Service Water Loop,       !- Name
+  Water,                                  !- Fluid Type
+  ,                                       !- User Defined Fluid Type
+  Office Shared Service Water Loop Operation Schemes, !- Plant Equipment Operation Scheme Name
+  Office Shared Service Water Loop Supply Outlet Node, !- Loop Temperature Setpoint Node Name
+  60,                                     !- Maximum Loop Temperature {C}
+  10,                                     !- Minimum Loop Temperature {C}
+  Autosize,                               !- Maximum Loop Flow Rate {m3/s}
+  0,                                      !- Minimum Loop Flow Rate {m3/s}
+  Autocalculate,                          !- Plant Loop Volume {m3}
+  Office Shared Service Water Loop Supply Inlet Node, !- Plant Side Inlet Node Name
+  Office Shared Service Water Loop Supply Outlet Node, !- Plant Side Outlet Node Name
+  Office Shared Service Water Loop Supply Branches, !- Plant Side Branch List Name
+  Office Shared Service Water Loop Supply Connector List, !- Plant Side Connector List Name
+  Office Shared Service Water Loop Demand Inlet Node, !- Demand Side Inlet Node Name
+  Office Shared Service Water Loop Demand Outlet Node, !- Demand Side Outlet Node Name
+  Office Shared Service Water Loop Demand Branches, !- Demand Side Branch List Name
+  Office Shared Service Water Loop Demand Connector List, !- Demand Side Connector List Name
+  Optimal,                                !- Load Distribution Scheme
+  ,                                       !- Availability Manager List Name
+  SingleSetpoint,                         !- Plant Loop Demand Calculation Scheme
+  ;                                       !- Common Pipe Simulation
+
+Sizing:Plant,
+  Office Shared Service Water Loop,       !- Plant or Condenser Loop Name
+  Heating,                                !- Loop Type
+  60.0000000000001,                       !- Design Loop Exit Temperature {C}
+  5,                                      !- Loop Design Temperature Difference {deltaC}
+  NonCoincident,                          !- Sizing Option
+  1,                                      !- Zone Timesteps in Averaging Window
+  None;                                   !- Coincident Sizing Factor Mode
+
+BranchList,
+  Office Shared Service Water Loop Supply Branches, !- Name
+  Office Shared Service Water Loop Supply Inlet Branch, !- Branch Name 1
+  Office Shared Service Water Loop Supply Branch 1, !- Branch Name 2
+  Office Shared Service Water Loop Supply Branch 2, !- Branch Name 3
+  Office Shared Service Water Loop Supply Outlet Branch; !- Branch Name 4
+
+ConnectorList,
+  Office Shared Service Water Loop Supply Connector List, !- Name
+  Connector:Splitter,                     !- Connector Object Type 1
+  Office Shared Service Water Loop Supply Splitter, !- Connector Name 1
+  Connector:Mixer,                        !- Connector Object Type 2
+  Office Shared Service Water Loop Supply Mixer; !- Connector Name 2
+
+Connector:Splitter,
+  Office Shared Service Water Loop Supply Splitter, !- Name
+  Office Shared Service Water Loop Supply Inlet Branch, !- Inlet Branch Name
+  Office Shared Service Water Loop Supply Branch 1, !- Outlet Branch Name 1
+  Office Shared Service Water Loop Supply Branch 2; !- Outlet Branch Name 2
+
+Connector:Mixer,
+  Office Shared Service Water Loop Supply Mixer, !- Name
+  Office Shared Service Water Loop Supply Outlet Branch, !- Outlet Branch Name
+  Office Shared Service Water Loop Supply Branch 1, !- Inlet Branch Name 1
+  Office Shared Service Water Loop Supply Branch 2; !- Inlet Branch Name 2
+
+Branch,
+  Office Shared Service Water Loop Supply Inlet Branch, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pump:ConstantSpeed,                     !- Component Object Type 1
+  Office Shared Service Water Loop Circulator Pump, !- Component Name 1
+  Office Shared Service Water Loop Supply Inlet Node, !- Component Inlet Node Name 1
+  Office Shared Service Water Loop Circulator Pump Outlet Water Node; !- Component Outlet Node Name 1
+
+Pump:ConstantSpeed,
+  Office Shared Service Water Loop Circulator Pump, !- Name
+  Office Shared Service Water Loop Supply Inlet Node, !- Inlet Node Name
+  Office Shared Service Water Loop Circulator Pump Outlet Water Node, !- Outlet Node Name
+  Autosize,                               !- Design Flow Rate {m3/s}
+  29890.6692,                             !- Design Pump Head {Pa}
+  Autosize,                               !- Design Power Consumption {W}
+  0.3,                                    !- Motor Efficiency
+  0,                                      !- Fraction of Motor Inefficiencies to Fluid Stream
+  Intermittent,                           !- Pump Control Type
+  ,                                       !- Pump Flow Rate Schedule Name
+  ,                                       !- Pump Curve Name
+  ,                                       !- Impeller Diameter {m}
+  ,                                       !- Rotational Speed {rev/min}
+  ,                                       !- Zone Name
+  ,                                       !- Skin Loss Radiative Fraction
+  PowerPerFlowPerPressure,                !- Design Power Sizing Method
+  348701.1,                               !- Design Electric Power per Unit Flow Rate {W/(m3/s)}
+  1.282051282,                            !- Design Shaft Power per Unit Flow Rate per Unit Head
+  General;                                !- End-Use Subcategory
+
+Branch,
+  Office Shared Service Water Loop Supply Branch 1, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  WaterHeater:Mixed,                      !- Component Object Type 1
+  40gal NaturalGas Water Heater - 1kBtu/hr, !- Component Name 1
+  40gal NaturalGas Water Heater - 1kBtu/hr Supply Inlet Water Node, !- Component Inlet Node Name 1
+  40gal NaturalGas Water Heater - 1kBtu/hr Supply Outlet Water Node; !- Component Outlet Node Name 1
+
+WaterHeater:Mixed,
+  40gal NaturalGas Water Heater - 1kBtu/hr, !- Name
+  0.151416471358794,                      !- Tank Volume {m3}
+  Service Water Loop Temp - 140F,         !- Setpoint Temperature Schedule Name
+  2,                                      !- Deadband Temperature Difference {deltaC}
+  60.0000000000001,                       !- Maximum Temperature Limit {C}
+  Cycle,                                  !- Heater Control Type
+  167.788780618455,                       !- Heater Maximum Capacity {W}
+  ,                                       !- Heater Minimum Capacity {W}
+  0,                                      !- Heater Ignition Minimum Flow Rate {m3/s}
+  0,                                      !- Heater Ignition Delay {s}
+  NaturalGas,                             !- Heater Fuel Type
+  0.78,                                   !- Heater Thermal Efficiency
+  ,                                       !- Part Load Factor Curve Name
+  0,                                      !- Off Cycle Parasitic Fuel Consumption Rate {W}
+  NaturalGas,                             !- Off Cycle Parasitic Fuel Type
+  0.8,                                    !- Off Cycle Parasitic Heat Fraction to Tank
+  0,                                      !- On Cycle Parasitic Fuel Consumption Rate {W}
+  NaturalGas,                             !- On Cycle Parasitic Fuel Type
+  0,                                      !- On Cycle Parasitic Heat Fraction to Tank
+  Schedule,                               !- Ambient Temperature Indicator
+  Water Heater Ambient Temp Schedule - 71.6f, !- Ambient Temperature Schedule Name
+  ,                                       !- Ambient Temperature Zone Name
+  ,                                       !- Ambient Temperature Outdoor Air Node Name
+  6,                                      !- Off Cycle Loss Coefficient to Ambient Temperature {W/K}
+  1,                                      !- Off Cycle Loss Fraction to Zone
+  6,                                      !- On Cycle Loss Coefficient to Ambient Temperature {W/K}
+  1,                                      !- On Cycle Loss Fraction to Zone
+  ,                                       !- Peak Use Flow Rate {m3/s}
+  ,                                       !- Use Flow Rate Fraction Schedule Name
+  ,                                       !- Cold Water Supply Temperature Schedule Name
+  40gal NaturalGas Water Heater - 1kBtu/hr Supply Inlet Water Node, !- Use Side Inlet Node Name
+  40gal NaturalGas Water Heater - 1kBtu/hr Supply Outlet Water Node, !- Use Side Outlet Node Name
+  1,                                      !- Use Side Effectiveness
+  ,                                       !- Source Side Inlet Node Name
+  ,                                       !- Source Side Outlet Node Name
+  1,                                      !- Source Side Effectiveness
+  Autosize,                               !- Use Side Design Flow Rate {m3/s}
+  Autosize,                               !- Source Side Design Flow Rate {m3/s}
+  1.5,                                    !- Indirect Water Heating Recovery Time {hr}
+  IndirectHeatPrimarySetpoint,            !- Source Side Flow Control Mode
+  ,                                       !- Indirect Alternate Setpoint Temperature Schedule Name
+  General;                                !- End-Use Subcategory
+
+Branch,
+  Office Shared Service Water Loop Supply Branch 2, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Pipe Adiabatic 1,                       !- Component Name 1
+  Pipe Adiabatic 1 Inlet Water Node,      !- Component Inlet Node Name 1
+  Pipe Adiabatic 1 Outlet Water Node;     !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Pipe Adiabatic 1,                       !- Name
+  Pipe Adiabatic 1 Inlet Water Node,      !- Inlet Node Name
+  Pipe Adiabatic 1 Outlet Water Node;     !- Outlet Node Name
+
+Branch,
+  Office Shared Service Water Loop Supply Outlet Branch, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Pipe Adiabatic 3,                       !- Component Name 1
+  Pipe Adiabatic 3 Inlet Water Node,      !- Component Inlet Node Name 1
+  Office Shared Service Water Loop Supply Outlet Node; !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Pipe Adiabatic 3,                       !- Name
+  Pipe Adiabatic 3 Inlet Water Node,      !- Inlet Node Name
+  Office Shared Service Water Loop Supply Outlet Node; !- Outlet Node Name
+
+SetpointManager:Scheduled,
+  Service hot water setpoint manager,     !- Name
+  Temperature,                            !- Control Variable
+  Service Water Loop Temp - 140F,         !- Schedule Name
+  Office Shared Service Water Loop Supply Outlet Node; !- Setpoint Node or NodeList Name
+
+BranchList,
+  Office Shared Service Water Loop Demand Branches, !- Name
+  Office Shared Service Water Loop Demand Inlet Branch, !- Branch Name 1
+  Office Shared Service Water Loop Demand Branch 1, !- Branch Name 2
+  Office Shared Service Water Loop Demand Branch 2, !- Branch Name 3
+  Office Shared Service Water Loop Demand Bypass Branch, !- Branch Name 4
+  Office Shared Service Water Loop Demand Outlet Branch; !- Branch Name 5
+
+ConnectorList,
+  Office Shared Service Water Loop Demand Connector List, !- Name
+  Connector:Splitter,                     !- Connector Object Type 1
+  Office Shared Service Water Loop Demand Splitter, !- Connector Name 1
+  Connector:Mixer,                        !- Connector Object Type 2
+  Office Shared Service Water Loop Demand Mixer; !- Connector Name 2
+
+Connector:Splitter,
+  Office Shared Service Water Loop Demand Splitter, !- Name
+  Office Shared Service Water Loop Demand Inlet Branch, !- Inlet Branch Name
+  Office Shared Service Water Loop Demand Branch 1, !- Outlet Branch Name 1
+  Office Shared Service Water Loop Demand Branch 2, !- Outlet Branch Name 2
+  Office Shared Service Water Loop Demand Bypass Branch; !- Outlet Branch Name 3
+
+Connector:Mixer,
+  Office Shared Service Water Loop Demand Mixer, !- Name
+  Office Shared Service Water Loop Demand Outlet Branch, !- Outlet Branch Name
+  Office Shared Service Water Loop Demand Branch 1, !- Inlet Branch Name 1
+  Office Shared Service Water Loop Demand Branch 2, !- Inlet Branch Name 2
+  Office Shared Service Water Loop Demand Bypass Branch; !- Inlet Branch Name 3
+
+Branch,
+  Office Shared Service Water Loop Demand Inlet Branch, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Indoor,                            !- Component Object Type 1
+  Office Shared Service Water Loop Pipe 63.24555320336761ft, !- Component Name 1
+  Office Shared Service Water Loop Demand Inlet Node, !- Component Inlet Node Name 1
+  Office Shared Service Water Loop Pipe 63.24555320336761ft Outlet Water Node; !- Component Outlet Node Name 1
+
+Pipe:Indoor,
+  Office Shared Service Water Loop Pipe 63.24555320336761ft, !- Name
+  Copper pipe 0.75in type L with 0.5in fiberglass batt, !- Construction Name
+  Office Shared Service Water Loop Demand Inlet Node, !- Fluid Inlet Node Name
+  Office Shared Service Water Loop Pipe 63.24555320336761ft Outlet Water Node, !- Fluid Outlet Node Name
+  Schedule,                               !- Environment Type
+  ,                                       !- Ambient Temperature Zone Name
+  Office Shared Service Water Loop Piping Air Temp - 70F, !- Ambient Temperature Schedule Name
+  Office Shared Service Water Loop Piping Air Velocity - 0.67mph, !- Ambient Air Velocity Schedule Name
+  0.019939,                               !- Pipe Inside Diameter {m}
+  19.2772446163865;                       !- Pipe Length {m}
+
+Branch,
+  Office Shared Service Water Loop Demand Branch 1, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Pipe Adiabatic 2,                       !- Component Name 1
+  Pipe Adiabatic 2 Inlet Water Node,      !- Component Inlet Node Name 1
+  Pipe Adiabatic 2 Outlet Water Node;     !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Pipe Adiabatic 2,                       !- Name
+  Pipe Adiabatic 2 Inlet Water Node,      !- Inlet Node Name
+  Pipe Adiabatic 2 Outlet Water Node;     !- Outlet Node Name
+
+Branch,
+  Office Shared Service Water Loop Demand Branch 2, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  WaterUse:Connections,                   !- Component Object Type 1
+  Office WholeBuilding - Sm Office - 90.1-2004 WUC 0.01gpm at 140F, !- Component Name 1
+  Office WholeBuilding - Sm Office - 90.1-2004 WUC 0.01gpm at 140F Inlet Water Node, !- Component Inlet Node Name 1
+  Office WholeBuilding - Sm Office - 90.1-2004 WUC 0.01gpm at 140F Outlet Water Node; !- Component Outlet Node Name 1
+
+WaterUse:Connections,
+  Office WholeBuilding - Sm Office - 90.1-2004 WUC 0.01gpm at 140F, !- Name
+  Office WholeBuilding - Sm Office - 90.1-2004 WUC 0.01gpm at 140F Inlet Water Node, !- Inlet Node Name
+  Office WholeBuilding - Sm Office - 90.1-2004 WUC 0.01gpm at 140F Outlet Water Node, !- Outlet Node Name
+  ,                                       !- Supply Water Storage Tank Name
+  ,                                       !- Reclamation Water Storage Tank Name
+  ,                                       !- Hot Water Supply Temperature Schedule Name
+  ,                                       !- Cold Water Supply Temperature Schedule Name
+  ,                                       !- Drain Water Heat Exchanger Type
+  ,                                       !- Drain Water Heat Exchanger Destination
+  ,                                       !- Drain Water Heat Exchanger U-Factor Times Area {W/K}
+  Office WholeBuilding - Sm Office - 90.1-2004 Service Water Use 0.01gpm at 140F; !- Water Use Equipment Name 1
+
+WaterUse:Equipment,
+  Office WholeBuilding - Sm Office - 90.1-2004 Service Water Use 0.01gpm at 140F, !- Name
+  General,                                !- End-Use Subcategory
+  5.73338753126559e-007,                  !- Peak Flow Rate {m3/s}
+  OfficeSmall BLDG_SWH_SCH,               !- Flow Rate Fraction Schedule Name
+  Mixed Water At Faucet Temp - 140F,      !- Target Temperature Schedule Name
+  ,                                       !- Hot Water Supply Temperature Schedule Name
+  ,                                       !- Cold Water Supply Temperature Schedule Name
+  ,                                       !- Zone Name
+  Fraction Sensible - 0.2,                !- Sensible Fraction Schedule Name
+  Fraction Latent - 0.05;                 !- Latent Fraction Schedule Name
+
+Branch,
+  Office Shared Service Water Loop Demand Bypass Branch, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Office Shared Service Water Loop Demand Bypass Pipe, !- Component Name 1
+  Office Shared Service Water Loop Demand Bypass Pipe Inlet Node, !- Component Inlet Node Name 1
+  Office Shared Service Water Loop Demand Bypass Pipe Outlet Node; !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Office Shared Service Water Loop Demand Bypass Pipe, !- Name
+  Office Shared Service Water Loop Demand Bypass Pipe Inlet Node, !- Inlet Node Name
+  Office Shared Service Water Loop Demand Bypass Pipe Outlet Node; !- Outlet Node Name
+
+Branch,
+  Office Shared Service Water Loop Demand Outlet Branch, !- Name
+  ,                                       !- Pressure Drop Curve Name
+  Pipe:Adiabatic,                         !- Component Object Type 1
+  Pipe Adiabatic 4,                       !- Component Name 1
+  Pipe Adiabatic 4 Inlet Water Node,      !- Component Inlet Node Name 1
+  Office Shared Service Water Loop Demand Outlet Node; !- Component Outlet Node Name 1
+
+Pipe:Adiabatic,
+  Pipe Adiabatic 4,                       !- Name
+  Pipe Adiabatic 4 Inlet Water Node,      !- Inlet Node Name
+  Office Shared Service Water Loop Demand Outlet Node; !- Outlet Node Name
+
+PlantEquipmentOperationSchemes,
+  Office Shared Service Water Loop Operation Schemes, !- Name
+  PlantEquipmentOperation:HeatingLoad,    !- Control Scheme Object Type 1
+  Office Shared Service Water Loop Heating Operation Scheme, !- Control Scheme Name 1
+  Always On Discrete;                     !- Control Scheme Schedule Name 1
+
+PlantEquipmentOperation:HeatingLoad,
+  Office Shared Service Water Loop Heating Operation Scheme, !- Name
+  0,                                      !- Load Range Lower Limit 1 {W}
+  1000000000,                             !- Load Range Upper Limit 1 {W}
+  Office Shared Service Water Loop Heating Equipment List; !- Range Equipment List Name 1
+
+PlantEquipmentList,
+  Office Shared Service Water Loop Heating Equipment List, !- Name
+  WaterHeater:Mixed,                      !- Equipment Object Type 1
+  40gal NaturalGas Water Heater - 1kBtu/hr; !- Equipment Name 1
+
+RunPeriodControl:DaylightSavingTime,
+  2nd Sunday in March,                    !- Start Date
+  1st Sunday in November;                 !- End Date
+
+Site:Location,
+  Denver Centennial  Golden   Nr_CO_USA,  !- Name
+  39.74,                                  !- Latitude {deg}
+  -105.18,                                !- Longitude {deg}
+  -7,                                     !- Time Zone {hr}
+  1829;                                   !- Elevation {m}
+
+Site:GroundTemperature:BuildingSurface,
+  19.527,                                 !- January Ground Temperature {C}
+  19.502,                                 !- February Ground Temperature {C}
+  19.536,                                 !- March Ground Temperature {C}
+  19.598,                                 !- April Ground Temperature {C}
+  20.002,                                 !- May Ground Temperature {C}
+  21.64,                                  !- June Ground Temperature {C}
+  22.225,                                 !- July Ground Temperature {C}
+  22.375,                                 !- August Ground Temperature {C}
+  21.449,                                 !- September Ground Temperature {C}
+  20.121,                                 !- October Ground Temperature {C}
+  19.802,                                 !- November Ground Temperature {C}
+  19.633;                                 !- December Ground Temperature {C}
+
+Site:WaterMainsTemperature,
+  Correlation,                            !- Calculation Method
+  ,                                       !- Temperature Schedule Name
+  9.7,                                    !- Annual Average Outdoor Air Temperature {C}
+  22.8;                                   !- Maximum Difference In Monthly Average Outdoor Air Temperatures {deltaC}
+
+SizingPeriod:DesignDay,
+  Denver Centennial  Golden   N Ann Clg .4% Condns DB=>MWB 1, !- Name
+  7,                                      !- Month
+  21,                                     !- Day of Month
+  SummerDesignDay,                        !- Day Type
+  33,                                     !- Maximum Dry-Bulb Temperature {C}
+  15.2,                                   !- Daily Dry-Bulb Temperature Range {deltaC}
+  DefaultMultipliers,                     !- Dry-Bulb Temperature Range Modifier Type
+  ,                                       !- Dry-Bulb Temperature Range Modifier Day Schedule Name
+  Wetbulb,                                !- Humidity Condition Type
+  15.7,                                   !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
+  ,                                       !- Humidity Condition Day Schedule Name
+  ,                                       !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+  ,                                       !- Enthalpy at Maximum Dry-Bulb {J/kg}
+  ,                                       !- Daily Wet-Bulb Temperature Range {deltaC}
+  81198,                                  !- Barometric Pressure {Pa}
+  4.9,                                    !- Wind Speed {m/s}
+  0,                                      !- Wind Direction {deg}
+  No,                                     !- Rain Indicator
+  No,                                     !- Snow Indicator
+  No,                                     !- Daylight Saving Time Indicator
+  ASHRAETau,                              !- Solar Model Indicator
+  ,                                       !- Beam Solar Day Schedule Name
+  ,                                       !- Diffuse Solar Day Schedule Name
+  0.424,                                  !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+  2.025;                                  !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+
+SizingPeriod:DesignDay,
+  Denver Centennial  Golden   N Ann Clg .4% Condns WB=>MDB 1, !- Name
+  7,                                      !- Month
+  21,                                     !- Day of Month
+  SummerDesignDay,                        !- Day Type
+  27.3,                                   !- Maximum Dry-Bulb Temperature {C}
+  15.2,                                   !- Daily Dry-Bulb Temperature Range {deltaC}
+  DefaultMultipliers,                     !- Dry-Bulb Temperature Range Modifier Type
+  ,                                       !- Dry-Bulb Temperature Range Modifier Day Schedule Name
+  Wetbulb,                                !- Humidity Condition Type
+  18.4,                                   !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
+  ,                                       !- Humidity Condition Day Schedule Name
+  ,                                       !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+  ,                                       !- Enthalpy at Maximum Dry-Bulb {J/kg}
+  ,                                       !- Daily Wet-Bulb Temperature Range {deltaC}
+  81198,                                  !- Barometric Pressure {Pa}
+  4.9,                                    !- Wind Speed {m/s}
+  0,                                      !- Wind Direction {deg}
+  No,                                     !- Rain Indicator
+  No,                                     !- Snow Indicator
+  No,                                     !- Daylight Saving Time Indicator
+  ASHRAETau,                              !- Solar Model Indicator
+  ,                                       !- Beam Solar Day Schedule Name
+  ,                                       !- Diffuse Solar Day Schedule Name
+  0.424,                                  !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+  2.025;                                  !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+
+SizingPeriod:DesignDay,
+  Denver Centennial  Golden   N Ann Htg 99.6% Condns DB 1, !- Name
+  12,                                     !- Month
+  21,                                     !- Day of Month
+  WinterDesignDay,                        !- Day Type
+  -18.8,                                  !- Maximum Dry-Bulb Temperature {C}
+  0,                                      !- Daily Dry-Bulb Temperature Range {deltaC}
+  DefaultMultipliers,                     !- Dry-Bulb Temperature Range Modifier Type
+  ,                                       !- Dry-Bulb Temperature Range Modifier Day Schedule Name
+  Wetbulb,                                !- Humidity Condition Type
+  -18.8,                                  !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
+  ,                                       !- Humidity Condition Day Schedule Name
+  ,                                       !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+  ,                                       !- Enthalpy at Maximum Dry-Bulb {J/kg}
+  ,                                       !- Daily Wet-Bulb Temperature Range {deltaC}
+  81198,                                  !- Barometric Pressure {Pa}
+  3,                                      !- Wind Speed {m/s}
+  340,                                    !- Wind Direction {deg}
+  No,                                     !- Rain Indicator
+  No,                                     !- Snow Indicator
+  No,                                     !- Daylight Saving Time Indicator
+  ASHRAEClearSky,                         !- Solar Model Indicator
+  ,                                       !- Beam Solar Day Schedule Name
+  ,                                       !- Diffuse Solar Day Schedule Name
+  ,                                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+  ,                                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+  0;                                      !- Sky Clearness
+
+ZoneList,
+  Office WholeBuilding - Sm Office - 90.1-2004, !- Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground; !- Zone Name 1
+
+Lights,
+  Office WholeBuilding - Sm Office Lights, !- Name
+  Office WholeBuilding - Sm Office - 90.1-2004, !- Zone or ZoneList Name
+  OfficeSmall BLDG_LIGHT_SCH,             !- Schedule Name
+  Watts/Area,                             !- Design Level Calculation Method
+  ,                                       !- Lighting Level {W}
+  10.7639104167097,                       !- Watts per Zone Floor Area {W/m2}
+  ,                                       !- Watts per Person {W/person}
+  ,                                       !- Return Air Fraction
+  0.7,                                    !- Fraction Radiant
+  0.2,                                    !- Fraction Visible
+  1,                                      !- Fraction Replaceable
+  General;                                !- End-Use Subcategory
+
+People,
+  Office WholeBuilding - Sm Office People, !- Name
+  Office WholeBuilding - Sm Office - 90.1-2004, !- Zone or ZoneList Name
+  OfficeSmall BLDG_OCC_SCH,               !- Number of People Schedule Name
+  People/Area,                            !- Number of People Calculation Method
+  ,                                       !- Number of People
+  0.0602778983335744,                     !- People per Zone Floor Area {person/m2}
+  ,                                       !- Zone Floor Area per Person {m2/person}
+  0.3,                                    !- Fraction Radiant
+  ,                                       !- Sensible Heat Fraction
+  OfficeSmall ACTIVITY_SCH,               !- Activity Level Schedule Name
+  ,                                       !- Carbon Dioxide Generation Rate {m3/s-W}
+  ,                                       !- Enable ASHRAE 55 Comfort Warnings
+  ,                                       !- Mean Radiant Temperature Calculation Type
+  ,                                       !- Surface Name/Angle Factor List Name
+  Work Efficiency Schedule,               !- Work Efficiency Schedule Name
+  ,                                       !- Clothing Insulation Calculation Method
+  ,                                       !- Clothing Insulation Calculation Method Schedule Name
+  Clothing Schedule,                      !- Clothing Insulation Schedule Name
+  Air Velocity Schedule;                  !- Air Velocity Schedule Name
+
+ElectricEquipment,
+  Office WholeBuilding - Sm Office Elec Equip, !- Name
+  Office WholeBuilding - Sm Office - 90.1-2004, !- Zone or ZoneList Name
+  OfficeSmall BLDG_EQUIP_SCH,             !- Schedule Name
+  Watts/Area,                             !- Design Level Calculation Method
+  ,                                       !- Design Level {W}
+  6.78126356252712,                       !- Watts per Zone Floor Area {W/m2}
+  ,                                       !- Watts per Person {W/person}
+  ,                                       !- Fraction Latent
+  0.5,                                    !- Fraction Radiant
+  ,                                       !- Fraction Lost
+  General;                                !- End-Use Subcategory
+
+Exterior:Lights,
+  Building Facades,                       !- Name
+  Schedule Ruleset 1,                     !- Schedule Name
+  258.198889747162,                       !- Design Level {W}
+  AstronomicalClock,                      !- Control Option
+  Building Facades;                       !- End-Use Subcategory
+
+Exterior:Lights,
+  Main Entries,                           !- Name
+  Always On Discrete,                     !- Schedule Name
+  240,                                    !- Design Level {W}
+  AstronomicalClock,                      !- Control Option
+  Main Entries;                           !- End-Use Subcategory
+
+Exterior:Lights,
+  Other Doors,                            !- Name
+  Always On Discrete,                     !- Schedule Name
+  16,                                     !- Design Level {W}
+  AstronomicalClock,                      !- Control Option
+  Other Doors;                            !- End-Use Subcategory
+
+Exterior:Lights,
+  Parking Areas and Drives,               !- Name
+  Always On Discrete,                     !- Schedule Name
+  243,                                    !- Design Level {W}
+  AstronomicalClock,                      !- Control Option
+  Parking Areas and Drives;               !- End-Use Subcategory
+
+Curve:Biquadratic,
+  Curve Biquadratic 1,                    !- Name
+  0.942587793,                            !- Coefficient1 Constant
+  0.009543347,                            !- Coefficient2 x
+  0.00068377,                             !- Coefficient3 x**2
+  -0.011042676,                           !- Coefficient4 y
+  5.249e-006,                             !- Coefficient5 y**2
+  -9.72e-006,                             !- Coefficient6 x*y
+  17,                                     !- Minimum Value of x {BasedOnField A2}
+  22,                                     !- Maximum Value of x {BasedOnField A2}
+  13,                                     !- Minimum Value of y {BasedOnField A3}
+  46;                                     !- Maximum Value of y {BasedOnField A3}
+
+Curve:Biquadratic,
+  Curve Biquadratic 2,                    !- Name
+  0.342414409,                            !- Coefficient1 Constant
+  0.034885008,                            !- Coefficient2 x
+  -0.0006237,                             !- Coefficient3 x**2
+  0.004977216,                            !- Coefficient4 y
+  0.000437951,                            !- Coefficient5 y**2
+  -0.000728028,                           !- Coefficient6 x*y
+  17,                                     !- Minimum Value of x {BasedOnField A2}
+  22,                                     !- Maximum Value of x {BasedOnField A2}
+  13,                                     !- Minimum Value of y {BasedOnField A3}
+  46;                                     !- Maximum Value of y {BasedOnField A3}
+
+Curve:Quadratic,
+  Curve Quadratic 1,                      !- Name
+  0.8,                                    !- Coefficient1 Constant
+  0.2,                                    !- Coefficient2 x
+  0,                                      !- Coefficient3 x**2
+  0.5,                                    !- Minimum Value of x {BasedOnField A2}
+  1.5;                                    !- Maximum Value of x {BasedOnField A2}
+
+Curve:Quadratic,
+  Curve Quadratic 2,                      !- Name
+  1.1552,                                 !- Coefficient1 Constant
+  -0.1808,                                !- Coefficient2 x
+  0.0256,                                 !- Coefficient3 x**2
+  0.5,                                    !- Minimum Value of x {BasedOnField A2}
+  1.5;                                    !- Maximum Value of x {BasedOnField A2}
+
+Curve:Quadratic,
+  Curve Quadratic 3,                      !- Name
+  0.85,                                   !- Coefficient1 Constant
+  0.15,                                   !- Coefficient2 x
+  0,                                      !- Coefficient3 x**2
+  0,                                      !- Minimum Value of x {BasedOnField A2}
+  1;                                      !- Maximum Value of x {BasedOnField A2}
+
+OutputControl:Table:Style,
+  HTML;                                   !- Column Separator
+
+Output:Table:SummaryReports,
+  AllSummary;                             !- Report Name 1
+
+Output:VariableDictionary,
+  IDF,                                    !- Key Field
+  Unsorted;                               !- Sort Option
+
+Output:SQLite,
+  SimpleAndTabular;                       !- Option Type
+
+LifeCycleCost:NonrecurringCost,
+  Default Cost,                           !- Name
+  Construction,                           !- Category
+  0,                                      !- Cost
+  ServicePeriod;                          !- Start of Costs
+
