@@ -196,7 +196,15 @@ module URBANopt # :nodoc:
         while status == 'Optimizing...'
           response = make_request(http, request)
           data = JSON.parse(response.body)
-          sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
+          if data['outputs']['Scenario']['Site']['PV'].kind_of?(Array)
+            pv_sizes = 0
+            data['outputs']['Scenario']['Site']['PV'].each do |x|
+              pv_sizes = pv_sizes + x['size_kw'].to_f
+            end 
+          else
+            pv_sizes = data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0
+          end
+          sizes = pv_sizes + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
           status = data['outputs']['Scenario']['status']
 
           sleep 5
@@ -209,7 +217,15 @@ module URBANopt # :nodoc:
           sleep 1
           response = make_request(http, request)
           data = JSON.parse(response.body)
-          sizes = (data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
+          if data['outputs']['Scenario']['Site']['PV'].kind_of?(Array)
+            pv_sizes = 0
+            data['outputs']['Scenario']['Site']['PV'].each do |x|
+              pv_sizes = pv_sizes + x['size_kw'].to_f
+            end 
+          else
+            pv_sizes = data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0
+          end
+          sizes = pv_sizes + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
           (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
           _tries += 1
         end
