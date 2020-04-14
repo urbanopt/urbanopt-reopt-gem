@@ -37,7 +37,6 @@ require 'securerandom'
 require 'certified'
 require_relative '../../../developer_nrel_key'
 require 'urbanopt/reopt/reopt_logger'
-require 'pry'
 
 module URBANopt # :nodoc:
   module REopt  # :nodoc:
