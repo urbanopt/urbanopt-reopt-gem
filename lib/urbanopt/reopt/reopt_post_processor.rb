@@ -223,7 +223,7 @@ module URBANopt # :nodoc:
               else
                 warn "Could not save feature reports - the number of save names provided did not match the number of feature reports"
               end
-          end
+            end
           rescue StandardError
             @@logger.info("Could not optimize Feature Report #{feature_report.name} #{feature_report.id}")
           end

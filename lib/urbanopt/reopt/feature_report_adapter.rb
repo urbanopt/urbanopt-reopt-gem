@@ -200,7 +200,7 @@ module URBANopt # :nodoc:
           feature_report.distributed_generation.add_tech 'storage',  URBANopt::Scenario::DefaultReports::Storage.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
         
-        generation_timeseries_kwh = Matrix[[0] * 8760]
+        generation_timeseries_kwh = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
 
         unless reopt_output['outputs']['Scenario']['Site']['PV'].nil?
           reopt_output['outputs']['Scenario']['Site']['PV'].each do |pv| 
@@ -236,7 +236,7 @@ module URBANopt # :nodoc:
           end
         end
 
-        $generation_timeseries_kwh = generation_timeseries_kwh.to_a[0] || [0] * 8760
+        $generation_timeseries_kwh = generation_timeseries_kwh.to_a[0] || [0] * (8760 * feature_report.timesteps_per_hour)
         $generation_timeseries_kwh_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Total(kw)')
         if $generation_timeseries_kwh_col.nil?
           $generation_timeseries_kwh_col = feature_report.timeseries_csv.column_names.length
