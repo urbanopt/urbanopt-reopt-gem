@@ -115,6 +115,10 @@ module URBANopt # :nodoc:
           reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area * 1.0 / 43560 # acres/sqft
         end
 
+        unless scenario_report.timesteps_per_hour.nil?
+          reopt_inputs[:Scenario][:time_steps_per_hour] = scenario_report.timesteps_per_hour
+        end
+
         # Update load profile info
         begin
           col_num = scenario_report.timeseries_csv.column_names.index('Electricity:Facility(kWh)')
