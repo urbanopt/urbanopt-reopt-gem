@@ -104,17 +104,17 @@ module URBANopt # :nodoc:
         begin
           col_num = feature_report.timeseries_csv.column_names.index('Electricity:Facility(kWh)')
           t = CSV.read(feature_report.timeseries_csv.path, headers: true, converters: :numeric)
-          energy_timeseries_kwh = t.by_col[col_num].map { |e| ((e || 0) ) }
-          if energy_timeseries_kwh.length < (feature_report.timesteps_per_hour * 8760)
+          energy_timeseries_kw = t.by_col[col_num].map { |e| ((e * feature_report.timesteps_per_hour || 0) ) }
+          if energy_timeseries_kw.length < (feature_report.timesteps_per_hour * 8760)
             start_date = Time.parse(t.by_col["Datetime"][0])
             start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) /
                         (( 60 / feature_report.timesteps_per_hour ) * 60)).to_int
             end_date = Time.parse(t.by_col["Datetime"][-1])
             end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) /
                         (( 60 / feature_report.timesteps_per_hour ) * 60)).to_int
-            energy_timeseries_kwh = [0.0]*(start_ts-1) + energy_timeseries_kwh + [0.0]*((feature_report.timesteps_per_hour * 8760) - end_ts)
+            energy_timeseries_kw = [0.0]*(start_ts-1) + energy_timeseries_kw + [0.0]*((feature_report.timesteps_per_hour * 8760) - end_ts)
           end
-          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map { |e| e ? e : 0 }[0,(feature_report.timesteps_per_hour * 8760)]
+          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kw.map { |e| e ? e : 0 }[0,(feature_report.timesteps_per_hour * 8760)]
         rescue StandardError
           @@logger.error("Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}")
           raise "Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}"
