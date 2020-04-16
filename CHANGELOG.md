@@ -1,5 +1,10 @@
 # URBANopt REopt Gem
  
+## Version 0.2.1 
+* Corrects code checking PV size that fails on multi PV
+* Corrects parsing of site energy at timesteps other than 1 per hour
+
+
 ## Version 0.2.0 
 
 * Handles multiple PV systems in the REopt Lite assumptions
