@@ -115,21 +115,25 @@ module URBANopt # :nodoc:
           reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area * 1.0 / 43560 # acres/sqft
         end
 
+        unless scenario_report.timesteps_per_hour.nil?
+          reopt_inputs[:Scenario][:time_steps_per_hour] = scenario_report.timesteps_per_hour
+        end
+
         # Update load profile info
         begin
           col_num = scenario_report.timeseries_csv.column_names.index('Electricity:Facility(kWh)')
           t = CSV.read(scenario_report.timeseries_csv.path, headers: true, converters: :numeric)
-          energy_timeseries_kwh = t.by_col[col_num].map { |e| ((e || 0) ) }
-          if energy_timeseries_kwh.length < (scenario_report.timesteps_per_hour * 8760)
+          energy_timeseries_kw = t.by_col[col_num].map { |e| ((e * scenario_report.timesteps_per_hour || 0) ) }
+          if energy_timeseries_kw.length < (scenario_report.timesteps_per_hour * 8760)
             start_date = Time.parse(t.by_col["Datetime"][0])
             start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) /
                         (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
             end_date = Time.parse(t.by_col["Datetime"][-1])
             end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) /
                         (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
-            energy_timeseries_kwh = [0.0]*(start_ts-1) + energy_timeseries_kwh + [0.0]*((scenario_report.timesteps_per_hour * 8760) - end_ts)
+            energy_timeseries_kw = [0.0]*(start_ts-1) + energy_timeseries_kw + [0.0]*((scenario_report.timesteps_per_hour * 8760) - end_ts)
           end
-          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kwh.map { |e| e ? e : 0 }[0,(scenario_report.timesteps_per_hour * 8760)]
+          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kw.map { |e| e ? e : 0 }[0,(scenario_report.timesteps_per_hour * 8760)]
         rescue StandardError
           @@logger.error("Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}")
           raise "Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}"
@@ -237,7 +241,7 @@ module URBANopt # :nodoc:
           scenario_report.distributed_generation.add_tech 'storage',  URBANopt::Scenario::DefaultReports::Storage.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
         
-        generation_timeseries_kwh = Matrix[[0] * 8760]
+        generation_timeseries_kwh = Matrix[[0] * (8760 * scenario_report.timesteps_per_hour)]
 
         
         reopt_output['outputs']['Scenario']['Site']['PV'].each do |pv| 
@@ -272,7 +276,7 @@ module URBANopt # :nodoc:
           end
         end
 
-        $generation_timeseries_kwh = generation_timeseries_kwh.to_a[0]
+        $generation_timeseries_kwh = generation_timeseries_kwh.to_a[0] || [0] * (8760 * scenario_report.timesteps_per_hour)
         $generation_timeseries_kwh_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Total(kw)')
         if $generation_timeseries_kwh_col.nil?
           $generation_timeseries_kwh_col = scenario_report.timeseries_csv.column_names.length
