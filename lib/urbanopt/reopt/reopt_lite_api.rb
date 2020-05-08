@@ -88,6 +88,23 @@ module URBANopt # :nodoc:
         return URI.parse("https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
       end
 
+      ##
+      # URL of the resilience statistics end point for a specific optimization task
+      ##
+      #
+      # [*parameters:*]
+      #
+      # * +run_uuid+ - _String_ - Resilience statistics for a unique run_uuid obtained from the \REopt Lite job submittal URL for a specific optimization task.
+      #
+      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt Lite resilience statistics endpoint for a specifc optimization task.
+      ##
+      def uri_resilience(run_uuid) # :nodoc:
+        if @use_localhost
+          return URI.parse("http://127.0.0.1:8000/v1/job/#{run_uuid}/resilience_stats")
+        end
+        return URI.parse("https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/resilience_stats?api_key=#{@nrel_developer_key}")
+      end
+
       def make_request(http, r, max_tries = 3)
         result = nil
         tries = 0
@@ -145,6 +162,55 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
+      def resilience_request(run_uuid, filename)
+        
+        if File.directory? filename
+          if run_uuid.nil?
+            run_uuid = 'error'
+          end
+          if run_uuid.downcase.include? 'error'
+            run_uuid = "error#{SecureRandom.uuid}"
+          end
+          filename = File.join(filename, "#{run_uuid}_resilience.json")
+          @@logger.info("REopt results saved to #{filename}")
+        end
+        
+        @@logger.info("Getting Resilience Statistcs from REopt Lite API for #{run_uuid}")
+
+        uri = uri_resilience(run_uuid)
+        http = Net::HTTP.new(uri.host, uri.port)
+        if !@use_localhost
+          http.use_ssl = true
+        end
+
+        request = Net::HTTP::Get.new(uri.request_uri)
+        response = make_request(http, request)
+        data = JSON.parse(response.body)
+      
+        File.open(filename, 'w') do |f|
+          f.write(data.to_json)
+        end
+
+        if !data.keys.include?('Error')
+          return data
+        end
+
+        raise "Error from REopt API - #{data['Error']}"
+      end
+
+      ##
+      # Completes a \REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API.
+      # Results are polled at 5 second interval until they are ready or an error is returned from the API. Results
+      # are written to disk.
+      ##
+      #
+      # [*parameters:*]
+      #
+      # * +reopt_input+ - _Hash_ - \REopt Lite formatted post containing at least required parameters.
+      # * +filename+ - _String_ - Path to file that will be created containing the full \REopt Lite response.
+      #
+      # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
+      ##
       def reopt_request(reopt_input, filename)
         description = reopt_input[:Scenario][:description]
 
@@ -164,7 +230,7 @@ module URBANopt # :nodoc:
 
         # Get UUID
         run_uuid = JSON.parse(response.body)['run_uuid']
-
+        
         if File.directory? filename
           if run_uuid.nil?
             run_uuid = 'error'

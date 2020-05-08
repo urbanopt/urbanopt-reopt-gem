@@ -215,7 +215,13 @@ module URBANopt # :nodoc:
         scenario_report.distributed_generation.year_one_demand_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars'] || 0
         scenario_report.distributed_generation.year_one_bill_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars'] || 0
         scenario_report.distributed_generation.total_energy_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars'] || 0
-        
+        scenario_report.distributed_generation.total_demand_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_demand_cost_us_dollars'] || 0
+        scenario_report.distributed_generation.year_one_energy_cost_bau_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_bau_us_dollars'] || 0
+        scenario_report.distributed_generation.year_one_demand_cost_bau_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_bau_us_dollars'] || 0
+        scenario_report.distributed_generation.year_one_bill_bau_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_bau_us_dollars'] || 0
+        scenario_report.distributed_generation.total_demand_cost_bau_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_demand_cost_bau_us_dollars'] || 0
+        scenario_report.distributed_generation.total_energy_cost_bau_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_bau_us_dollars'] || 0
+
         if reopt_output['outputs']['Scenario']['Site']['PV'].class == Hash
           reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV']]
         elsif reopt_output['outputs']['Scenario']['Site']['PV'].nil?

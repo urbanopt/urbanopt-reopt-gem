@@ -94,11 +94,18 @@
       "total_construction_cost": 600000.0
     },
     "distributed_generation": {
-      "lcc_us_dollars": 7589.0,
-      "npv_us_dollars": -6104.0,
-      "year_one_energy_cost_us_dollars": 41.31,
+      "lcc_us_dollars": 7631.0,
+      "npv_us_dollars": -6098.0,
+      "year_one_energy_cost_us_dollars": 46.02,
       "year_one_demand_cost_us_dollars": 0.0,
-      "year_one_bill_us_dollars": 161.31,
+      "year_one_bill_us_dollars": 166.01,
+      "total_demand_cost_us_dollars": 0.0,
+      "total_energy_cost_us_dollars": 411.67,
+      "year_one_energy_cost_bau_us_dollars": 51.31,
+      "year_one_demand_cost_bau_us_dollars": 0.0,
+      "year_one_bill_bau_us_dollars": 171.31,
+      "total_energy_cost_bau_us_dollars": 459.01,
+      "total_demand_cost_bau_us_dollars": 0.0,
       "total_solar_pv_kw": 10.0,
       "solar_pv": [
         {

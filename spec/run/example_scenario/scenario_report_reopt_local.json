@@ -33,8 +33,6 @@
         "ElectricityProduced:Facility Apparent Power(kW)",
         "Net Power(kW)",
         "Net Apparent Power(kW)",
-        "Zone Thermal Comfort Fanger Model PMV()",
-        "Zone Thermal Comfort Fanger Model PPD()",
         "REopt:ElectricityProduced:Total(kw)",
         "REopt:Electricity:Load:Total(kw)",
         "REopt:Electricity:Grid:ToLoad(kw)",
@@ -96,11 +94,18 @@
       "total_construction_cost": 300000.0
     },
     "distributed_generation": {
-      "lcc_us_dollars": 2357.0,
+      "lcc_us_dollars": 2381.0,
       "npv_us_dollars": 0.0,
-      "year_one_energy_cost_us_dollars": 23.42,
+      "year_one_energy_cost_us_dollars": 26.07,
       "year_one_demand_cost_us_dollars": 0.0,
-      "year_one_bill_us_dollars": 263.42,
+      "year_one_bill_us_dollars": 266.07,
+      "total_demand_cost_us_dollars": 0.0,
+      "total_energy_cost_us_dollars": 233.29,
+      "year_one_energy_cost_bau_us_dollars": 26.07,
+      "year_one_demand_cost_bau_us_dollars": 0.0,
+      "year_one_bill_bau_us_dollars": 266.07,
+      "total_energy_cost_bau_us_dollars": 233.29,
+      "total_demand_cost_bau_us_dollars": 0.0,
       "total_solar_pv_kw": 0.0,
       "solar_pv": [
         {
@@ -503,11 +508,18 @@
         }
       ],
       "distributed_generation": {
-        "lcc_us_dollars": 1148.0,
+        "lcc_us_dollars": 1156.0,
         "npv_us_dollars": 0.0,
-        "year_one_energy_cost_us_dollars": 8.27,
+        "year_one_energy_cost_us_dollars": 9.18,
         "year_one_demand_cost_us_dollars": 0.0,
-        "year_one_bill_us_dollars": 128.27,
+        "year_one_bill_us_dollars": 129.18,
+        "total_demand_cost_us_dollars": 0.0,
+        "total_energy_cost_us_dollars": 82.15,
+        "year_one_energy_cost_bau_us_dollars": 9.18,
+        "year_one_demand_cost_bau_us_dollars": 0.0,
+        "year_one_bill_bau_us_dollars": 129.18,
+        "total_energy_cost_bau_us_dollars": 82.15,
+        "total_demand_cost_bau_us_dollars": 0.0,
         "total_solar_pv_kw": 0.0,
         "solar_pv": [
           {
@@ -766,11 +778,18 @@
         }
       ],
       "distributed_generation": {
-        "lcc_us_dollars": 1209.0,
+        "lcc_us_dollars": 1225.0,
         "npv_us_dollars": 0.0,
-        "year_one_energy_cost_us_dollars": 15.15,
+        "year_one_energy_cost_us_dollars": 16.89,
         "year_one_demand_cost_us_dollars": 0.0,
-        "year_one_bill_us_dollars": 135.15,
+        "year_one_bill_us_dollars": 136.89,
+        "total_demand_cost_us_dollars": 0.0,
+        "total_energy_cost_us_dollars": 151.14,
+        "year_one_energy_cost_bau_us_dollars": 16.89,
+        "year_one_demand_cost_bau_us_dollars": 0.0,
+        "year_one_bill_bau_us_dollars": 136.89,
+        "total_energy_cost_bau_us_dollars": 151.14,
+        "total_demand_cost_bau_us_dollars": 0.0,
         "total_solar_pv_kw": 0.0,
         "solar_pv": [
           {
