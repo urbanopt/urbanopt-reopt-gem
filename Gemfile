@@ -46,7 +46,7 @@ if allow_local && File.exist?('../urbanopt-scenario-gem')
 elsif allow_local
   gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'develop'
 else
-  gem 'urbanopt-scenario', '0.2.0'
+  gem 'urbanopt-scenario', '~> 0.2.0'
 end
 
 if allow_local && File.exists?('../urbanopt-geojson-gem')
@@ -54,11 +54,8 @@ if allow_local && File.exists?('../urbanopt-geojson-gem')
 elsif allow_local
   gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'develop'
 else
-  gem 'urbanopt-geojson', '0.2.0'
+  gem 'urbanopt-geojson', '~> 0.2.0'
 end
-
-# simplecov has an unnecessary dependency on native json gem, use fork that does not require this
-gem 'simplecov', github: 'NREL/simplecov'
 
 # Support requests in windows
 gem 'certified'
