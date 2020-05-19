@@ -10,7 +10,7 @@ RuboCop::RakeTask.new
 require 'openstudio/extension/rake_task'
 require 'urbanopt/reopt/extension'
 os_extension = OpenStudio::Extension::RakeTask.new
-os_extension.set_extension_class(URBANopt::REopt::Extension)
+os_extension.set_extension_class(URBANopt::REopt::Extension, 'urbanopt/urbanopt-reopt-gem')
 
 desc 'CLI OpenSSL test'
 task :cli_openssl_test do
