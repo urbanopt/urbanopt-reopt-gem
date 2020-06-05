@@ -30,6 +30,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'certified'
   spec.add_dependency 'json_pure'
-  spec.add_dependency 'urbanopt-scenario', '~> 0.3.0.pre1'
+  spec.add_dependency 'urbanopt-scenario', '~> 0.3.0'
 
 end

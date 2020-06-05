@@ -1,10 +1,8 @@
 # URBANopt REopt Gem
  
-## Version 0.3.0.pre1
+## Version 0.3.0
 
-05/18/20
-
-Updating to support OpenStudio 3.0 and Ruby 2.5
+* Updating to support OpenStudio 3.0 and Ruby 2.5
 
 ## Version 0.2.1 
 * Corrects code checking PV size that fails on multi PV
