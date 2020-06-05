@@ -30,6 +30,6 @@
 
 module URBANopt # :nodoc:
   module REopt # :nodoc:
-    VERSION = '0.3.0.pre1'.freeze
+    VERSION = '0.3.0'.freeze
   end
 end
