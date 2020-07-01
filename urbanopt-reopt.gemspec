@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['']
   spec.email         = ['']
 
-  spec.summary       = 'Classes and measures for utilizing the REopt Lite API within OpenStudio workflows.'
+  spec.summary       = 'Classes & measures for utilizing the REopt Lite API within OpenStudio workflows.'
   spec.description   = 'Classes and measures for utilizing the REopt Lite API within OpenStudio workflows.'
   spec.homepage      = 'https://github.com/urbanopt/urbanopt-reopt-gem'
 
@@ -21,13 +21,15 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
-
-  spec.add_development_dependency 'bundler', '~> 1.14'
-  spec.add_development_dependency 'rake', '12.3.1'
-  spec.add_development_dependency 'rspec', '3.7.0'
+  spec.required_ruby_version = '~> 2.5.0'
+  
+  spec.add_development_dependency 'bundler', '~> 2.1'
+  spec.add_development_dependency 'rake', '~> 13.0'
+  spec.add_development_dependency 'rspec', '~> 3.7'
   spec.add_development_dependency 'rubocop', '~> 0.54.0'
 
+  spec.add_runtime_dependency 'json_pure'
+
   spec.add_dependency 'certified'
-  spec.add_dependency 'json_pure'
   #spec.add_dependency 'urbanopt-scenario', '0.1.1'
 end

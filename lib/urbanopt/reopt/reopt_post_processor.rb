@@ -71,7 +71,7 @@ module URBANopt # :nodoc:
         if !scenario_report.nil?
           @scenario_report = scenario_report
 
-          if  !Dir.exist?(File.join(@scenario_report.directory_name, "reopt"))
+          if !Dir.exist?(File.join(@scenario_report.directory_name, "reopt"))
             Dir.mkdir(File.join(@scenario_report.directory_name, "reopt"))
           end
 
@@ -125,7 +125,7 @@ module URBANopt # :nodoc:
 
         reopt_input = adapter.reopt_json_from_feature_report(feature_report, reopt_assumptions_hash)
         if reopt_output_file.nil?
-          reopt_output_file = feature_report.directory_name
+          reopt_output_file = File.join(feature_report.directory_name, 'reopt')
         end
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
         if run_resilience
@@ -135,8 +135,10 @@ module URBANopt # :nodoc:
           else
             resilience_stats = api.resilience_request(run_uuid, reopt_output_file.sub!('.json','_resilience.json'))
           end
+        else
+          resilience_stats = nil
         end
-        result = adapter.update_feature_report(feature_report, reopt_output, timeseries_csv_path)
+        result = adapter.update_feature_report(feature_report, reopt_output, timeseries_csv_path, resilience_stats)
         if !save_name.nil?
           result.save_feature_report save_name
         end
@@ -179,9 +181,11 @@ module URBANopt # :nodoc:
           else
             resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file.sub!('.json','_resilience.json'))
           end
+        else
+          resilience_stats = nil
         end
 
-        result = adapter.update_scenario_report(scenario_report, reopt_output, @scenario_timeseries_default_output_file)
+        result = adapter.update_scenario_report(scenario_report, reopt_output, @scenario_timeseries_default_output_file, resilience_stats)
         if !save_name.nil?
           result.save save_name
         end
@@ -239,8 +243,10 @@ module URBANopt # :nodoc:
               else
                 resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx].sub!('.json','_resilience.json'))
               end
+            else
+              resilience_stats = nil
             end
-            new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, @feature_reports_timeseries_default_output_files[idx])
+            new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, @feature_reports_timeseries_default_output_files[idx], resilience_stats)
             new_feature_reports.push(new_feature_report)
             if !save_names.nil?
               if save_names.length == feature_reports.length
