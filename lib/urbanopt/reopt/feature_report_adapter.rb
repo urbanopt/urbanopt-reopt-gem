@@ -38,7 +38,7 @@ module URBANopt # :nodoc:
   module REopt # :nodoc:
     class FeatureReportAdapter
       ##
-      # FeatureReportAdapter can convert a URBANopt::Scenario::DefaultReports::FeatureReport into a \REopt Lite posts or update a URBANopt::Scenario::DefaultReports::FeatureReport from a \REopt Lite response.
+      # FeatureReportAdapter can convert a URBANopt::Reporting::DefaultReports::FeatureReport into a \REopt Lite posts or update a URBANopt::Reporting::DefaultReports::FeatureReport from a \REopt Lite response.
       ##
       # [*parameters:*]
       ##
@@ -52,7 +52,7 @@ module URBANopt # :nodoc:
       #
       # [*parameters:*]
       #
-      # * +feature_report+ - _URBANopt::Scenario::DefaultReports::FeatureReport_ - FeatureReport to use in converting the optional +reopt_assumptions_hash+ to a \REopt Lite post. If a +reopt_assumptions_hash+ is not provided, a default post will be updated from this FeatureReport and submitted to the \REopt Lite API.
+      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ - FeatureReport to use in converting the optional +reopt_assumptions_hash+ to a \REopt Lite post. If a +reopt_assumptions_hash+ is not provided, a default post will be updated from this FeatureReport and submitted to the \REopt Lite API.
       # *  +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the FeatureReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.
       #
       # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
@@ -127,11 +127,11 @@ module URBANopt # :nodoc:
       #
       # [*parameters:*]
       #
-      # * +feature_report+ - _URBANopt::Scenario::DefaultReports::FeatureReport_ - FeatureReport to update from a \REopt Lite reponse hash.
+      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ - FeatureReport to update from a \REopt Lite reponse hash.
       # * +reopt_output+ - _Hash_ - A reponse hash from the \REopt Lite API to use in overwriting FeatureReport technology sizes, costs and dispatch strategies.
       # * +timeseries_csv_path+ - _String_ - Optional. The path to a file at which a new timeseries CSV will be written. If not provided a file is created based on the run_uuid of the \REopt Lite optimization task.
       #
-      # [*return:*] _URBANopt::Scenario::DefaultReports::FeatureReport_ - Returns an updated FeatureReport.
+      # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport.
       ##
       def update_feature_report(feature_report, reopt_output, timeseries_csv_path = nil)
         # Check if the \REopt Lite response is valid
@@ -139,7 +139,7 @@ module URBANopt # :nodoc:
           @@logger.info("Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal")
           return feature_report
         end
-        
+
         $ts_per_hour = feature_report.timesteps_per_hour
         def scale_timeseries(input, ts_per_hr=$ts_per_hour)
           if input.nil?
@@ -152,7 +152,7 @@ module URBANopt # :nodoc:
             return input
           end
           result = []
-          input.each do |val| 
+          input.each do |val|
             (1..ts_per_hr).each do |x|
               result.push(val/ts_per_hr.to_f)
             end
@@ -174,36 +174,36 @@ module URBANopt # :nodoc:
         feature_report.distributed_generation.year_one_demand_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars'] || 0
         feature_report.distributed_generation.year_one_bill_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars'] || 0
         feature_report.distributed_generation.total_energy_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars'] || 0
-        
+
         if reopt_output['outputs']['Scenario']['Site']['PV'].class == Hash
           reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV']]
         elsif reopt_output['outputs']['Scenario']['Site']['PV'].nil?
           reopt_output['outputs']['Scenario']['Site']['PV'] = []
         end
-        
-        reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i| 
-          feature_report.distributed_generation.add_tech 'solar_pv',  URBANopt::Scenario::DefaultReports::SolarPV.new( {size_kw: (pv['size_kw'] || 0), id: i })
+
+        reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
+          feature_report.distributed_generation.add_tech 'solar_pv',  URBANopt::Reporting::DefaultReports::SolarPV.new( {size_kw: (pv['size_kw'] || 0), id: i })
         end
 
         wind = reopt_output['outputs']['Scenario']['Site']['Wind']
         if !wind['size_kw'].nil? and wind['size_kw'] != 0
-          feature_report.distributed_generation.add_tech 'wind',  URBANopt::Scenario::DefaultReports::Wind.new( {size_kw: (wind['size_kw'] || 0) })
+          feature_report.distributed_generation.add_tech 'wind',  URBANopt::Reporting::DefaultReports::Wind.new( {size_kw: (wind['size_kw'] || 0) })
         end
 
         generator = reopt_output['outputs']['Scenario']['Site']['Generator']
         if !generator['size_kw'].nil? and generator['size_kw'] != 0
-          feature_report.distributed_generation.add_tech 'generator',  URBANopt::Scenario::DefaultReports::Generator.new( {size_kw: (generator['size_kw'] || 0) })
+          feature_report.distributed_generation.add_tech 'generator',  URBANopt::Reporting::DefaultReports::Generator.new( {size_kw: (generator['size_kw'] || 0) })
         end
 
         storage = reopt_output['outputs']['Scenario']['Site']['Storage']
         if !storage['size_kw'].nil?  and storage['size_kw'] != 0
-          feature_report.distributed_generation.add_tech 'storage',  URBANopt::Scenario::DefaultReports::Storage.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
+          feature_report.distributed_generation.add_tech 'storage',  URBANopt::Reporting::DefaultReports::Storage.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
-        
+
         generation_timeseries_kwh = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
 
         unless reopt_output['outputs']['Scenario']['Site']['PV'].nil?
-          reopt_output['outputs']['Scenario']['Site']['PV'].each do |pv| 
+          reopt_output['outputs']['Scenario']['Site']['PV'].each do |pv|
             if (pv['size_kw'] || 0) > 0
               if !pv['year_one_power_production_series_kw'].nil?
                 generation_timeseries_kwh += Matrix[pv['year_one_power_production_series_kw']]
