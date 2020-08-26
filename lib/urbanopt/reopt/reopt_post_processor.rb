@@ -252,7 +252,7 @@ module URBANopt # :nodoc:
         new_scenario_report.directory_name = scenario_report.directory_name
 
         timeseries_hash = { column_names: scenario_report.timeseries_csv.column_names }
-        new_scenario_report.timeseries_csv = URBANopt::SceReportingnario::DefaultReports::TimeseriesCSV.new(timeseries_hash)
+        new_scenario_report.timeseries_csv = URBANopt::Reporting::DefaultReports::TimeseriesCSV.new(timeseries_hash)
 
         new_feature_reports.each do |feature_report|
           new_scenario_report.add_feature_report(feature_report)
