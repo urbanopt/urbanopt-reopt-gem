@@ -28,7 +28,7 @@
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 # *********************************************************************************
 
-require 'urbanopt/scenario/default_reports'
+require 'urbanopt/reporting/default_reports'
 require 'urbanopt/reopt/reopt_logger'
 require 'csv'
 require 'matrix'
