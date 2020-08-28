@@ -58,4 +58,4 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 
 gem 'rdoc', '4.3.0'
 
-gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'master'
+gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'develop'
