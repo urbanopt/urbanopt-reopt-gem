@@ -180,6 +180,7 @@ module URBANopt # :nodoc:
           File.open(filename, 'w') do |f|
             f.write(response.body)
           end
+          puts(response.body)
           raise "Error in REopt optimization post - see #{filename}"
         end
 
