@@ -1,5 +1,5 @@
 # *********************************************************************************
-# URBANopt, Copyright (c) 2019-2020, Alliance for Sustainable Energy, LLC, and other
+# URBANopt™, Copyright (c) 2019-2020, Alliance for Sustainable Energy, LLC, and other
 # contributors. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification,
@@ -120,7 +120,7 @@ module URBANopt # :nodoc:
     end
 
         request = Net::HTTP::Post.new(@uri_submit, header)
-        request.body = data.to_json
+        request.body = ::JSON.generate(data, allow_nan: true)
 
         # Send the request
         response = make_request(http, request)
@@ -157,13 +157,13 @@ module URBANopt # :nodoc:
           http.use_ssl = true
         end
         request = Net::HTTP::Post.new(@uri_submit, header)
-        request.body = reopt_input.to_json
+        request.body = ::JSON.generate(reopt_input, allow_nan: true)
 
         # Send the request
         response = make_request(http, request)
 
         # Get UUID
-        run_uuid = JSON.parse(response.body)['run_uuid']
+        run_uuid = JSON.parse(response.body, allow_nan:true)['run_uuid']
 
         if File.directory? filename
           if run_uuid.nil?
@@ -180,6 +180,7 @@ module URBANopt # :nodoc:
           File.open(filename, 'w') do |f|
             f.write(response.body)
           end
+          puts(response.body)
           raise "Error in REopt optimization post - see #{filename}"
         end
 
@@ -195,7 +196,9 @@ module URBANopt # :nodoc:
 
         while status == 'Optimizing...'
           response = make_request(http, request)
-          data = JSON.parse(response.body)
+          
+          data = JSON.parse(response.body, allow_nan:true)
+
           if data['outputs']['Scenario']['Site']['PV'].kind_of?(Array)
             pv_sizes = 0
             data['outputs']['Scenario']['Site']['PV'].each do |x|
@@ -216,7 +219,7 @@ module URBANopt # :nodoc:
         while (_tries < _max_retry) && check_complete
           sleep 1
           response = make_request(http, request)
-          data = JSON.parse(response.body)
+          data = JSON.parse(response.body, allow_nan:true)
           if data['outputs']['Scenario']['Site']['PV'].kind_of?(Array)
             pv_sizes = 0
             data['outputs']['Scenario']['Site']['PV'].each do |x|
@@ -231,7 +234,7 @@ module URBANopt # :nodoc:
         end
 
         File.open(filename, 'w') do |f|
-          f.write(data.to_json)
+          ::JSON.generate(data, allow_nan: true)
         end
 
         if status == 'optimal'
