@@ -72,7 +72,7 @@ module URBANopt # :nodoc:
 
           if !Dir.exist?(File.join(@scenario_report.directory_name, "reopt"))
             Dir.mkdir(File.join(@scenario_report.directory_name, "reopt"))
-            @@logger("Created directory: " + File.join(@scenario_report.directory_name, "reopt"))
+            @@logger.info("Created directory: " + File.join(@scenario_report.directory_name, "reopt"))
           end
 
           @scenario_reopt_default_output_file = File.join(@scenario_report.directory_name, "reopt/scenario_report_#{@scenario_report.id}_reopt_run.json")
@@ -81,7 +81,7 @@ module URBANopt # :nodoc:
           @scenario_report.feature_reports.each do |fr|
             if !Dir.exist?(File.join(fr.directory_name, "reopt"))
               Dir.mkdir(File.join(fr.directory_name, "reopt"))
-              @@logger("Created directory: " + File.join(fr.directory_name, "reopt"))
+              @@logger.info("Created directory: " + File.join(fr.directory_name, "reopt"))
             end
             @feature_reports_reopt_default_output_files << File.join(fr.directory_name, "reopt/feature_report_#{fr.id}_reopt_run.json")
           end
