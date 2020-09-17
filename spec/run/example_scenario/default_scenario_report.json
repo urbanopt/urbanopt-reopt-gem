@@ -466,6 +466,8 @@
         ]
       },
       "power_distribution": {
+      },
+      "thermal_storage": {
       }
     },
     {
@@ -702,6 +704,8 @@
         ]
       },
       "power_distribution": {
+      },
+      "thermal_storage": {
       }
     }
   ]

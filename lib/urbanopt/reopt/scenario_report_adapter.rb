@@ -174,7 +174,7 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _URBANopt::Reporting::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
       ##
-      def update_scenario_report(scenario_report, reopt_output, timeseries_csv_path = nil)
+      def update_scenario_report(scenario_report, reopt_output, timeseries_csv_path=nil, resilience_stats=nil)
         if reopt_output['outputs']['Scenario']['status'] != 'optimal'
           @@logger.info("Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal")
           return scenario_report
@@ -215,6 +215,20 @@ module URBANopt # :nodoc:
         scenario_report.distributed_generation.year_one_demand_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars'] || 0
         scenario_report.distributed_generation.year_one_bill_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars'] || 0
         scenario_report.distributed_generation.total_energy_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars'] || 0
+        scenario_report.distributed_generation.total_demand_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_demand_cost_us_dollars'] || 0
+        scenario_report.distributed_generation.year_one_energy_cost_bau_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_bau_us_dollars'] || 0
+        scenario_report.distributed_generation.year_one_demand_cost_bau_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_bau_us_dollars'] || 0
+        scenario_report.distributed_generation.year_one_bill_bau_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_bau_us_dollars'] || 0
+        scenario_report.distributed_generation.total_demand_cost_bau_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_demand_cost_bau_us_dollars'] || 0
+        scenario_report.distributed_generation.total_energy_cost_bau_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_bau_us_dollars'] || 0
+        if !resilience_stats.nil?
+          scenario_report.distributed_generation.resilience_hours_min = resilience_stats['resilience_hours_min']
+          scenario_report.distributed_generation.resilience_hours_max = resilience_stats['resilience_hours_max']
+          scenario_report.distributed_generation.resilience_hours_avg = resilience_stats['resilience_hours_avg']
+          scenario_report.distributed_generation.probs_of_surviving = resilience_stats['probs_of_surviving']
+          scenario_report.distributed_generation.probs_of_surviving_by_month = resilience_stats['probs_of_surviving_by_month']
+          scenario_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']  
+        end
 
         if reopt_output['outputs']['Scenario']['Site']['PV'].class == Hash
           reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV']]
