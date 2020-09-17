@@ -1,5 +1,5 @@
 # *********************************************************************************
-# URBANopt, Copyright (c) 2019-2020, Alliance for Sustainable Energy, LLC, and other
+# URBANopt™, Copyright (c) 2019-2020, Alliance for Sustainable Energy, LLC, and other
 # contributors. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification,
@@ -30,6 +30,6 @@
 
 module URBANopt # :nodoc:
   module REopt # :nodoc:
-    VERSION = '0.2.1'.freeze
+    VERSION = '0.3.0'.freeze
   end
 end

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-# Specify your gem's dependencies in urbanopt-scenario-gem.gemspec
+# Specify your gem's dependencies in urbanopt-reopt-gem.gemspec
 gemspec
 
 # Local gems are useful when developing and integrating the various dependencies.
@@ -40,7 +40,7 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # else
 #   gem 'openstudio-model-articulation', '0.1.0'
 # end
-gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
+
 # if allow_local && File.exist?('../urbanopt-scenario-gem')
 #   gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
 # elsif allow_local
@@ -49,15 +49,32 @@ gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
 #   gem 'urbanopt-scenario', '0.2.0'
 # end
 
-if allow_local && File.exist?('../urbanopt-core-gem')
-  gem 'urbanopt-core', path: '../urbanopt-core-gem'
-elsif allow_local
-  gem 'urbanopt-core', github: 'URBANopt/urbanopt-core-gem', branch: 'develop'
-end
+
+# if allow_local && File.exist?('../urbanopt-core-gem')
+#   gem 'urbanopt-core', path: '../urbanopt-core-gem'
+# elsif allow_local
+#   gem 'urbanopt-core', github: 'URBANopt/urbanopt-core-gem', branch: 'develop'
+# end
+
+
+# if allow_local && File.exist?('../urbanopt-scenario-gem')
+#   gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
+# elsif allow_local
+#   gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'develop'
+# end
+
+# if allow_local && File.exists?('../urbanopt-geojson-gem')
+#   gem 'urbanopt-geojson', path: '../urbanopt-geojson-gem'
+# elsif allow_local
+#   gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'develop'
+# end
+
 
 # Support requests in windows
-gem 'certified'
+# gem 'certified'
 
 gem 'rdoc', '4.3.0'
+
+gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'new_reopt_results'
 
 gem 'pry'
