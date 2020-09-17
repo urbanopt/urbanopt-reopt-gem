@@ -37,7 +37,6 @@ require 'securerandom'
 require 'certified'
 require_relative '../../../developer_nrel_key'
 require 'urbanopt/reopt/reopt_logger'
-require 'pry'
 
 module URBANopt # :nodoc:
   module REopt  # :nodoc:
@@ -198,7 +197,7 @@ module URBANopt # :nodoc:
         end
 
         elapsed_time = 0
-        max_elapsed_time = 30
+        max_elapsed_time = 60
         
         request = Net::HTTP::Get.new(uri.request_uri)
         response = make_request(http, request)
