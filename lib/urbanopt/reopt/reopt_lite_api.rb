@@ -324,7 +324,7 @@ module URBANopt # :nodoc:
         end
 
         File.open(filename, 'w') do |f|
-          ::JSON.generate(data, allow_nan: true)
+          f.write(::JSON.generate(data, allow_nan: true))
         end
 
         if status == 'optimal'
