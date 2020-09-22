@@ -1,12 +1,12 @@
 {
   "id": "2",
   "name": "Building 2",
-  "directory_name": "/Users/tkwasnik/github/urbanopt-reopt-gem/spec/tests/../run/example_scenario/2",
+  "directory_name": "/Users/kflemin/repos/urbanopt-reopt-gem/spec/tests/../run/example_scenario/2",
   "feature_type": "Building",
   "timesteps_per_hour": 1,
   "simulation_status": "Complete",
   "timeseries_csv": {
-    "path": "/Users/tkwasnik/github/urbanopt-reopt-gem/spec/tests/../run/example_scenario/2/feature_reports/feature_report_reopt.csv",
+    "path": "/Users/kflemin/repos/urbanopt-reopt-gem/spec/tests/../run/example_scenario/2/feature_reports/feature_report_reopt.csv",
     "first_report_datetime": "0",
     "column_names": [
       "Datetime",

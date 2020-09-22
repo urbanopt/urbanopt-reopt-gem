@@ -1,5 +1,14 @@
 # URBANopt REopt Gem
  
+## Version 0.4.0
+
+Date range: 6/5/20 - 9/22/20
+
+- Fixed [#27]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/27 ), Test jenkins for 3.0.0
+- Fixed [#31]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/31 ), Use reporting gem
+- Fixed [#34]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/34 ), adding tm symbol to files
+- Fixed [#35]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/35 ), New reopt results
+
 ## Version 0.3.0
 
 * Updating to support OpenStudio 3.0 and Ruby 2.5
