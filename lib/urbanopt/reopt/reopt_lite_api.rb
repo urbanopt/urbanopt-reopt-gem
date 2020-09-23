@@ -206,14 +206,22 @@ module URBANopt # :nodoc:
           response = make_request(http, request)
           elapsed_time += 5 
           sleep 5
-
         end
         
         data = JSON.parse(response.body)
-      
-        File.open(filename, 'w+') do |f|
-          f.write(::JSON.generate(data, allow_nan: true))
+        begin
+          File.open(filename, 'w+') do |f|
+            f.write(::JSON.generate(data, allow_nan: true))
+          end
+        rescue
+          filename = '/Users/tkwasnik/a/b/c'
+          while File.dirname(filename) != '/'
+            @@logger.info(filename + '  '+ File.exists?(File.dirname(filename)).to_s)
+            filename = File.dirname(filename)
+          end
         end
+
+        
 
         if response.code == "200"
           return data
