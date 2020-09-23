@@ -1,5 +1,23 @@
 # URBANopt REopt Gem
  
+## Version 0.3.1
+* Parsing addtional results from the REopt Lite API: 
+  - lcc_bau_us_dollars
+  - year_one_energy_cost_bau_us_dollars
+  - year_one_demand_cost_bau_us_dollars
+  - year_one_bill_bau_us_dollars
+  - total_energy_cost_bau_us_dollars
+  - total_demand_cost_us_dollars
+  - total_demand_cost_bau_us_dollars
+* Makes separate calls to the REopt Lite API for new resilience statistics:
+  - resilience_hours_min
+  - resilience_hours_max
+  - resilience_hours_avg
+  - probs_of_surviving
+  - probs_of_surviving_by_month
+  - probs_of_surviving_by_hour_of_the_day
+
+
 ## Version 0.3.0
 
 * Updating to support OpenStudio 3.0 and Ruby 2.5
