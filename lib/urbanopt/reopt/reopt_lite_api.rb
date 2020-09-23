@@ -323,8 +323,13 @@ module URBANopt # :nodoc:
           _tries += 1
         end
 
-        File.open(filename, 'w') do |f|
-          f.write(::JSON.generate(data, allow_nan: true))
+        begin
+          File.open(filename, 'w') do |f|
+            f.write(::JSON.generate(data, allow_nan: true))
+          end
+        rescue
+          puts(data)
+          puts(::JSON.generate(data, allow_nan: true))
         end
 
         if status == 'optimal'
