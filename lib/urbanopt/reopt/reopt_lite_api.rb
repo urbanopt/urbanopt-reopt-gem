@@ -338,7 +338,6 @@ module URBANopt # :nodoc:
           puts(data['messages'])
           puts("!@#%^&*((*&^%$#@!))}")
           puts(data['messages']['error'])
-          puts("!@#%^&*((*&^%$#@!))}")
         end
 
         if status == 'optimal'
