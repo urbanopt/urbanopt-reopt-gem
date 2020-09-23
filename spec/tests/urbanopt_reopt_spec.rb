@@ -82,7 +82,7 @@ RSpec.describe URBANopt::REopt do
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
     scenario_report.directory_name = scenario_report_dir
 
-    (1..3).each do |i|
+    (1..2).each do |i|
       feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
 
       expect(File.exist?(feature_reports_path)).to be true
@@ -115,7 +115,7 @@ RSpec.describe URBANopt::REopt do
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
     scenario_report.directory_name = scenario_report_dir
 
-    (1..3).each do |i|
+    (1..2).each do |i|
       feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
 
       expect(File.exist?(feature_reports_path)).to be true
