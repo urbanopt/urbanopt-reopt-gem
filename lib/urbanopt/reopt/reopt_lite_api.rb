@@ -328,8 +328,17 @@ module URBANopt # :nodoc:
             f.write(::JSON.generate(data, allow_nan: true))
           end
         rescue
+          puts("!@#%^&*((*&^%$#@!))}")
           puts(data)
+          puts("!@#%^&*((*&^%$#@!))}")
           puts(::JSON.generate(data, allow_nan: true))
+          puts("!@#%^&*((*&^%$#@!))}")
+          puts(status)
+          puts("!@#%^&*((*&^%$#@!))}")
+          puts(data['messages'])
+          puts("!@#%^&*((*&^%$#@!))}")
+          puts(data['messages']['error'])
+          puts("!@#%^&*((*&^%$#@!))}")
         end
 
         if status == 'optimal'
