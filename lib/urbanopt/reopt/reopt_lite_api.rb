@@ -214,7 +214,6 @@ module URBANopt # :nodoc:
             f.write(::JSON.generate(data, allow_nan: true))
           end
         rescue
-          filename = '/Users/tkwasnik/a/b/c'
           while File.dirname(filename) != '/'
             @@logger.info(filename + '  '+ File.exists?(File.dirname(filename)).to_s)
             filename = File.dirname(filename)
@@ -331,12 +330,16 @@ module URBANopt # :nodoc:
           _tries += 1
         end
 
+        data = JSON.parse(response.body)
         begin
           File.open(filename, 'w+') do |f|
             f.write(::JSON.generate(data, allow_nan: true))
           end
         rescue
-          puts("Error saving results to #{filename}")
+          while File.dirname(filename) != '/'
+            @@logger.info(filename + '  '+ File.exists?(File.dirname(filename)).to_s)
+            filename = File.dirname(filename)
+          end
         end
 
         if status == 'optimal'
