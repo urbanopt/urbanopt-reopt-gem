@@ -211,8 +211,8 @@ module URBANopt # :nodoc:
         
         data = JSON.parse(response.body)
       
-        File.open(filename, 'w') do |f|
-          f.write(data.to_json)
+        File.open(filename, 'w+') do |f|
+          f.write(::JSON.generate(data, allow_nan: true))
         end
 
         if response.code == "200"
@@ -267,8 +267,8 @@ module URBANopt # :nodoc:
         end
 
         if response.code != '201'
-          File.open(filename, 'w') do |f|
-            f.write(response.body)
+          File.open(filename, 'w+') do |f|
+            f.write(::JSON.generate(response.body, allow_nan: true))
           end
           puts(response.body)
           raise "Error in REopt optimization post - see #{filename}"
@@ -324,7 +324,7 @@ module URBANopt # :nodoc:
         end
 
         begin
-          File.open(filename, 'w') do |f|
+          File.open(filename, 'w+') do |f|
             f.write(::JSON.generate(data, allow_nan: true))
           end
         rescue
