@@ -16,7 +16,7 @@
 /lib/measures/test_results
 /lib/measures/.rubocop*
 # test files
-spec/run/*
+spec/run/
 
 developer_nrel_key.rb
 # rspec failure tracking
