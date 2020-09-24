@@ -209,9 +209,10 @@ module URBANopt # :nodoc:
         end
         
         data = JSON.parse(response.body)
+        text = ::JSON.generate(data, allow_nan: true)
         begin
           File.open(filename, 'w+') do |f|
-            f.write(::JSON.generate(data, allow_nan: true))
+            f.puts(text)
           end
         rescue
           filename_ = filename
@@ -272,9 +273,10 @@ module URBANopt # :nodoc:
           @@logger.info("REopt results saved to #{filename}")
         end
 
+        text = ::JSON.generate(response.body, allow_nan: true)
         if response.code != '201'
           File.open(filename, 'w+') do |f|
-            f.write(::JSON.generate(response.body, allow_nan: true))
+            f.puts(text)
           end
           puts(response.body)
           raise "Error in REopt optimization post - see #{filename}"
@@ -330,9 +332,10 @@ module URBANopt # :nodoc:
         end
 
         data = JSON.parse(response.body)
+        text = ::JSON.generate(data, allow_nan: true)
         begin
           File.open(filename, 'w+') do |f|
-            f.write(::JSON.generate(data, allow_nan: true))
+            f.puts(text)
           end
         rescue
           filename_ = filename
