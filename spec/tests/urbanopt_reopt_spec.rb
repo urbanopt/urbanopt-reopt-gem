@@ -47,10 +47,10 @@ RSpec.describe URBANopt::REopt do
 
   it 'can process a scenario report' do
     begin
-      FileUtils.rm('spec/run/example_scenario/can_process_a_scenario_report.json')
-      FileUtils.rm('spec/run/example_scenario/can_process_a_scenario_report.csv')
-      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.csv')
-      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.json')
+      File.delete('spec/run/example_scenario/can_process_a_scenario_report.json')
+      File.delete('spec/run/example_scenario/can_process_a_scenario_report.csv')
+      File.delete('spec/run/example_scenario/scenario_report_reopt_global.csv')
+      File.delete('spec/run/example_scenario/scenario_report_reopt_global.json')
     rescue
     end
     begin 
@@ -88,25 +88,25 @@ RSpec.describe URBANopt::REopt do
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, save_name: 'scenario_report_reopt_global')
 
-    FileUtils.rm('spec/run/example_scenario/can_process_a_scenario_report.json')
-    FileUtils.rm('spec/run/example_scenario/can_process_a_scenario_report.csv')
-    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.csv')
-    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.json')
+    File.delete('spec/run/example_scenario/can_process_a_scenario_report.json')
+    File.delete('spec/run/example_scenario/can_process_a_scenario_report.csv')
+    File.delete('spec/run/example_scenario/scenario_report_reopt_global.csv')
+    File.delete('spec/run/example_scenario/scenario_report_reopt_global.json')
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
   end
 
   it 'can process a feature report' do
     begin
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.csv')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.json')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.csv')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.json')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.csv')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.json')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.csv')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.json')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.csv')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.json')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.csv')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.json')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.csv')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.json')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.csv')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.json')
     rescue
     end
     begin 
@@ -144,25 +144,25 @@ RSpec.describe URBANopt::REopt do
     feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file,save_name:'feature_report_reopt3')
     feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report,save_name:'feature_report_reopt4')
     FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.csv')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.json')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.csv')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.json')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.csv')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.json')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.csv')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.json')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.csv')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.json')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.csv')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.json')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.csv')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.json')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.csv')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.json')
   end
 
   it 'can process multiple PV\'s ' do
 
     begin
-      FileUtils.rm('spec/run/example_scenario/can_process_multiple_PV.csv')
-      FileUtils.rm('spec/run/example_scenario/can_process_multiple_PV.json')
-      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.csv')
-      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.json')
+      File.delete('spec/run/example_scenario/can_process_multiple_PV.csv')
+      File.delete('spec/run/example_scenario/can_process_multiple_PV.json')
+      File.delete('spec/run/example_scenario/scenario_report_reopt_mulitPV.csv')
+      File.delete('spec/run/example_scenario/scenario_report_reopt_mulitPV.json')
     rescue
     end
     begin 
@@ -213,19 +213,19 @@ RSpec.describe URBANopt::REopt do
 
     scenario_report = adapter.update_scenario_report(scenario_report, reopt_output, timeseries_output_file)
     scenario_report.save 'scenario_report_reopt_mulitPV'
-    FileUtils.rm('spec/run/example_scenario/can_process_multiple_PV.csv')
-    FileUtils.rm('spec/run/example_scenario/can_process_multiple_PV.json')
-    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.csv')
-    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.json')
+    File.delete('spec/run/example_scenario/can_process_multiple_PV.csv')
+    File.delete('spec/run/example_scenario/can_process_multiple_PV.json')
+    File.delete('spec/run/example_scenario/scenario_report_reopt_mulitPV.csv')
+    File.delete('spec/run/example_scenario/scenario_report_reopt_mulitPV.json')
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
   end
 
   it 'can process a set of feature reports' do
     begin
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
-      FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.csv')
-      FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.json')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
+      File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt.csv')
+      File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt.json')
     rescue
     end
     begin 
@@ -269,23 +269,23 @@ RSpec.describe URBANopt::REopt do
     processed_feature_reports = reopt_post_processor.run_feature_reports(feature_reports:feature_reports, save_names:feature_report_save_names)
     FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
-    FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.csv')
-    FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.json')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
+    File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt.csv')
+    File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt.json')
   
   end
 
   it 'can process all feature reports in a scenario report individually' do
     begin
-      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_local.csv')
-      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_local.json')
-      FileUtils.rm('spec/run/example_scenario/can_process_all_feature_reports.csv')
-      FileUtils.rm('spec/run/example_scenario/can_process_all_feature_reports.json')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.csv')
-      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.json')
-      FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.csv')
-      FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.json')
+      File.delete('spec/run/example_scenario/scenario_report_reopt_local.csv')
+      File.delete('spec/run/example_scenario/scenario_report_reopt_local.json')
+      File.delete('spec/run/example_scenario/can_process_all_feature_reports.csv')
+      File.delete('spec/run/example_scenario/can_process_all_feature_reports.json')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.csv')
+      File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.json')
+      File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.csv')
+      File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.json')
     rescue
     end
     begin 
@@ -344,14 +344,14 @@ RSpec.describe URBANopt::REopt do
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
-    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_local.csv')
-    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_local.json')
-    FileUtils.rm('spec/run/example_scenario/can_process_all_feature_reports.csv')
-    FileUtils.rm('spec/run/example_scenario/can_process_all_feature_reports.json')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.csv')
-    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.json')
-    FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.csv')
-    FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.json')
+    File.delete('spec/run/example_scenario/scenario_report_reopt_local.csv')
+    File.delete('spec/run/example_scenario/scenario_report_reopt_local.json')
+    File.delete('spec/run/example_scenario/can_process_all_feature_reports.csv')
+    File.delete('spec/run/example_scenario/can_process_all_feature_reports.json')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.csv')
+    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.json')
+    File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.csv')
+    File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.json')
   end
 
   
