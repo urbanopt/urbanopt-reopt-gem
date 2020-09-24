@@ -51,6 +51,9 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm('spec/run/example_scenario/can_process_a_scenario_report.csv')
       FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.csv')
       FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.json')
+    rescue
+    end
+    begin 
       FileUtils.rm_rf('spec/run/example_scenario/reopt')
     rescue
     end
@@ -104,6 +107,9 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.json')
       FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.csv')
       FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.json')
+    rescue
+    end
+    begin 
       FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
     rescue
     end
@@ -157,6 +163,9 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm('spec/run/example_scenario/can_process_multiple_PV.json')
       FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.csv')
       FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.json')
+    rescue
+    end
+    begin 
       FileUtils.rm_rf('spec/run/example_scenario/reopt')
     rescue
     end
@@ -217,6 +226,9 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
       FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.csv')
       FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.json')
+    rescue
+    end
+    begin 
       FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
       FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
     rescue
@@ -274,6 +286,9 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.json')
       FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.csv')
       FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.json')
+    rescue
+    end
+    begin 
       FileUtils.rm_rf('spec/run/example_scenario/reopt')
       FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
       FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
