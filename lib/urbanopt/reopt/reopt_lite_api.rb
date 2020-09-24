@@ -214,13 +214,12 @@ module URBANopt # :nodoc:
             f.write(::JSON.generate(data, allow_nan: true))
           end
         rescue
-          while File.dirname(filename) != '/'
-            @@logger.info(filename + '  '+ File.exists?(File.dirname(filename)).to_s)
-            filename = File.dirname(filename)
+          filename_ = filename
+          while File.dirname(filename_) != '/'
+            @@logger.info(filename + '  '+ File.exists?(File.dirname(filename_)).to_s)
+            filename_ = File.dirname(filename_)
           end
         end
-
-        
 
         if response.code == "200"
           return data
@@ -336,9 +335,10 @@ module URBANopt # :nodoc:
             f.write(::JSON.generate(data, allow_nan: true))
           end
         rescue
-          while File.dirname(filename) != '/'
-            @@logger.info(filename + '  '+ File.exists?(File.dirname(filename)).to_s)
-            filename = File.dirname(filename)
+          filename_ = filename
+          while File.dirname(filename_) != '/'
+            @@logger.info(filename + '  '+ File.exists?(File.dirname(filename_)).to_s)
+            filename_ = File.dirname(filename_)
           end
         end
 
