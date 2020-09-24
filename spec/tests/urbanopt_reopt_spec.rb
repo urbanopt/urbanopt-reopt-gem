@@ -31,6 +31,7 @@
 require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
 require 'certified'
+require 'fileutils'
 
 RSpec.describe URBANopt::REopt do
   it 'has a version number' do
@@ -240,5 +241,18 @@ RSpec.describe URBANopt::REopt do
 
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
     scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report:scenario_report, reopt_output_files: reopt_output_files, save_names_feature_reports:feature_report_save_names, save_name_scenario_report:'scenario_report_reopt_local')
+    
+    FileUtils.rm_rf('../run/example_scenario/reopt')
+    FileUtils.rm_rf('../run/example_scenario/1/reopt')
+    FileUtils.rm_rf('../run/example_scenario/2/reopt')
+    FileUtils.rm('../run/example_scenario/can_process_a_scenario_report.json')
+    FileUtils.rm('../run/example_scenario/can_process_a_scenario_report.csv')
+    FileUtils.rm('../run/example_scenario/can_process_multiple_PV.csv')
+    FileUtils.rm('../run/example_scenario/can_process_multiple_PV.json')
+    FileUtils.rm('../run/example_scenario/scenario_report_reopt_global.csv')
+    FileUtils.rm('../run/example_scenario/scenario_report_reopt_global.json')
   end
+
+  
+
 end
