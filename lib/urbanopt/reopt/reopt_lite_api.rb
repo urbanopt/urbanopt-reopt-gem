@@ -215,11 +215,7 @@ module URBANopt # :nodoc:
             f.puts(text)
           end
         rescue
-          filename_ = filename
-          while File.dirname(filename_) != '/'
-            @@logger.info(filename + '  '+ File.exists?(File.dirname(filename_)).to_s)
-            filename_ = File.dirname(filename_)
-          end
+          @@logger.info("Cannot write - #{filename}")
         end
 
         if response.code == "200"
@@ -278,7 +274,7 @@ module URBANopt # :nodoc:
           File.open(filename, 'w+') do |f|
             f.puts(text)
           end
-          puts(response.body)
+          @@logger.info("Cannot write - #{filename}")
           raise "Error in REopt optimization post - see #{filename}"
         end
 
@@ -338,11 +334,7 @@ module URBANopt # :nodoc:
             f.puts(text)
           end
         rescue
-          filename_ = filename
-          while File.dirname(filename_) != '/'
-            @@logger.info(filename + '  '+ File.exists?(File.dirname(filename_)).to_s)
-            filename_ = File.dirname(filename_)
-          end
+          @@logger.info("Cannot write - #{filename}")
         end
 
         if status == 'optimal'
