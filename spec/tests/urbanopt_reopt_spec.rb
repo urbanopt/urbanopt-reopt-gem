@@ -46,6 +46,14 @@ RSpec.describe URBANopt::REopt do
   end
 
   it 'can process a scenario report' do
+    begin
+      FileUtils.rm('spec/run/example_scenario/can_process_a_scenario_report.json')
+      FileUtils.rm('spec/run/example_scenario/can_process_a_scenario_report.csv')
+      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.csv')
+      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.json')
+      FileUtils.rm_rf('spec/run/example_scenario/reopt')
+    rescue
+    end
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
@@ -76,9 +84,29 @@ RSpec.describe URBANopt::REopt do
 
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, save_name: 'scenario_report_reopt_global')
+
+    FileUtils.rm('spec/run/example_scenario/can_process_a_scenario_report.json')
+    FileUtils.rm('spec/run/example_scenario/can_process_a_scenario_report.csv')
+    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.csv')
+    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_global.json')
+    FileUtils.rm_rf('spec/run/example_scenario/reopt')
   end
 
   it 'can process a feature report' do
+    begin
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.csv')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.json')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.csv')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.json')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.csv')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.json')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.csv')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.json')
+      FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
+    rescue
+    end
     feature_reports_path = File.join(File.dirname(__FILE__), '../run/example_scenario/1/007_default_feature_reports/default_feature_reports.json')
 
     expect(File.exist?(feature_reports_path)).to be true
@@ -91,6 +119,7 @@ RSpec.describe URBANopt::REopt do
     feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
 
     feature_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario/1')
+    Dir.mkdir('spec/run/example_scenario/1/reopt')
     feature_report.directory_name = feature_report_dir
     feature_report.timeseries_csv.path = 'spec/run/example_scenario/1/007_default_feature_reports/default_feature_reports.csv'
 
@@ -108,9 +137,29 @@ RSpec.describe URBANopt::REopt do
     feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, timeseries_csv_path:timeseries_output_file,save_name:'feature_report_reopt2')
     feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file,save_name:'feature_report_reopt3')
     feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report,save_name:'feature_report_reopt4')
+    FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.csv')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt1.json')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.csv')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt2.json')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.csv')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt3.json')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.csv')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt4.json')
   end
 
   it 'can process multiple PV\'s ' do
+
+    begin
+      FileUtils.rm('spec/run/example_scenario/can_process_multiple_PV.csv')
+      FileUtils.rm('spec/run/example_scenario/can_process_multiple_PV.json')
+      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.csv')
+      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.json')
+      FileUtils.rm_rf('spec/run/example_scenario/reopt')
+    rescue
+    end
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
@@ -155,9 +204,23 @@ RSpec.describe URBANopt::REopt do
 
     scenario_report = adapter.update_scenario_report(scenario_report, reopt_output, timeseries_output_file)
     scenario_report.save 'scenario_report_reopt_mulitPV'
+    FileUtils.rm('spec/run/example_scenario/can_process_multiple_PV.csv')
+    FileUtils.rm('spec/run/example_scenario/can_process_multiple_PV.json')
+    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.csv')
+    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_mulitPV.json')
+    FileUtils.rm_rf('spec/run/example_scenario/reopt')
   end
 
   it 'can process a set of feature reports' do
+    begin
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
+      FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.csv')
+      FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.json')
+      FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
+      FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
+    rescue
+    end
     reopt_assumption_files = []
     reopt_assumption_jsons = []
     reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
@@ -168,6 +231,7 @@ RSpec.describe URBANopt::REopt do
     feature_report_save_names = []
     (1..2).each do |i|
       feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
+      Dir.mkdir("spec/run/example_scenario/#{i}/reopt")
 
       expect(File.exist?(feature_reports_path)).to be true
 
@@ -191,9 +255,30 @@ RSpec.describe URBANopt::REopt do
 
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, reopt_assumption_files, DEVELOPER_NREL_KEY)
     processed_feature_reports = reopt_post_processor.run_feature_reports(feature_reports:feature_reports, save_names:feature_report_save_names)
+    FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
+    FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
+    FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.csv')
+    FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt.json')
+  
   end
 
   it 'can process all feature reports in a scenario report individually' do
+    begin
+      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_local.csv')
+      FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_local.json')
+      FileUtils.rm('spec/run/example_scenario/can_process_all_feature_reports.csv')
+      FileUtils.rm('spec/run/example_scenario/can_process_all_feature_reports.json')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.csv')
+      FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.json')
+      FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.csv')
+      FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.json')
+      FileUtils.rm_rf('spec/run/example_scenario/reopt')
+      FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
+      FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
+    rescue
+    end
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
@@ -213,7 +298,6 @@ RSpec.describe URBANopt::REopt do
 
     (1..2).each do |i|
       feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
-
       expect(File.exist?(feature_reports_path)).to be true
 
       feature_reports_json = nil
@@ -242,15 +326,17 @@ RSpec.describe URBANopt::REopt do
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
     scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report:scenario_report, reopt_output_files: reopt_output_files, save_names_feature_reports:feature_report_save_names, save_name_scenario_report:'scenario_report_reopt_local')
     
-    FileUtils.rm_rf('../run/example_scenario/reopt')
-    FileUtils.rm_rf('../run/example_scenario/1/reopt')
-    FileUtils.rm_rf('../run/example_scenario/2/reopt')
-    FileUtils.rm('../run/example_scenario/can_process_a_scenario_report.json')
-    FileUtils.rm('../run/example_scenario/can_process_a_scenario_report.csv')
-    FileUtils.rm('../run/example_scenario/can_process_multiple_PV.csv')
-    FileUtils.rm('../run/example_scenario/can_process_multiple_PV.json')
-    FileUtils.rm('../run/example_scenario/scenario_report_reopt_global.csv')
-    FileUtils.rm('../run/example_scenario/scenario_report_reopt_global.json')
+    FileUtils.rm_rf('spec/run/example_scenario/reopt')
+    FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
+    FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
+    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_local.csv')
+    FileUtils.rm('spec/run/example_scenario/scenario_report_reopt_local.json')
+    FileUtils.rm('spec/run/example_scenario/can_process_all_feature_reports.csv')
+    FileUtils.rm('spec/run/example_scenario/can_process_all_feature_reports.json')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.csv')
+    FileUtils.rm('spec/run/example_scenario/1/feature_reports/feature_report_reopt_local.json')
+    FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.csv')
+    FileUtils.rm('spec/run/example_scenario/2/feature_reports/feature_report_reopt_local.json')
   end
 
   
