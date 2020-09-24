@@ -44,38 +44,6 @@ RSpec.describe URBANopt::REopt do
     expect(ok).to be true
   end
 
-  it 'can process a feature report' do
-    feature_reports_path = File.join(File.dirname(__FILE__), '../run/example_scenario/1/007_default_feature_reports/default_feature_reports.json')
-
-    expect(File.exist?(feature_reports_path)).to be true
-
-    feature_reports_json = nil
-    File.open(feature_reports_path, 'r') do |file|
-      feature_reports_json = JSON.parse(file.read, symbolize_names: true)
-    end
-
-    feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
-
-    feature_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario/1')
-    feature_report.directory_name = feature_report_dir
-    feature_report.timeseries_csv.path = 'spec/run/example_scenario/1/007_default_feature_reports/default_feature_reports.csv'
-
-    reopt_output_file = File.join(feature_report.directory_name, 'reopt/feature_report_reopt_run1.json')
-    timeseries_output_file = File.join(feature_report.directory_name, 'feature_report_timeseries1.csv')
-    reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
-    reopt_assumptions = nil
-    File.open(reopt_assumptions_file, 'r') do |file|
-      reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
-    end
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, nil, DEVELOPER_NREL_KEY)
-
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file, timeseries_csv_path:timeseries_output_file,save_name:'feature_report_reopt')
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_output_file:reopt_output_file, timeseries_csv_path:timeseries_output_file,save_name:'feature_report_reopt1')
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, timeseries_csv_path:timeseries_output_file,save_name:'feature_report_reopt2')
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file,save_name:'feature_report_reopt3')
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report,save_name:'feature_report_reopt4')
-  end
-
   it 'can process a scenario report' do
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
@@ -109,136 +77,168 @@ RSpec.describe URBANopt::REopt do
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, save_name: 'scenario_report_reopt_global')
   end
 
-  it 'can process multiple PV\'s ' do
-    scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
+  # it 'can process a feature report' do
+  #   feature_reports_path = File.join(File.dirname(__FILE__), '../run/example_scenario/1/007_default_feature_reports/default_feature_reports.json')
 
-    scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
-    scenario_report.directory_name = scenario_report_dir
+  #   expect(File.exist?(feature_reports_path)).to be true
 
-    (1..2).each do |i|
-      feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
+  #   feature_reports_json = nil
+  #   File.open(feature_reports_path, 'r') do |file|
+  #     feature_reports_json = JSON.parse(file.read, symbolize_names: true)
+  #   end
 
-      expect(File.exist?(feature_reports_path)).to be true
+  #   feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
 
-      feature_reports_json = nil
-      File.open(feature_reports_path, 'r') do |file|
-        feature_reports_json = JSON.parse(file.read, symbolize_names: true)
-      end
+  #   feature_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario/1')
+  #   feature_report.directory_name = feature_report_dir
+  #   feature_report.timeseries_csv.path = 'spec/run/example_scenario/1/007_default_feature_reports/default_feature_reports.csv'
 
-      feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
+  #   reopt_output_file = File.join(feature_report.directory_name, 'reopt/feature_report_reopt_run1.json')
+  #   timeseries_output_file = File.join(feature_report.directory_name, 'feature_report_timeseries1.csv')
+  #   reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
+  #   reopt_assumptions = nil
+  #   File.open(reopt_assumptions_file, 'r') do |file|
+  #     reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
+  #   end
+  #   reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, nil, DEVELOPER_NREL_KEY)
 
-      feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
-      feature_report.directory_name = feature_report_dir
-      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.csv"
-      scenario_report.add_feature_report(feature_report)
-    end
+  #   feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file, timeseries_csv_path:timeseries_output_file,save_name:'feature_report_reopt')
+  #   feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_output_file:reopt_output_file, timeseries_csv_path:timeseries_output_file,save_name:'feature_report_reopt1')
+  #   feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, timeseries_csv_path:timeseries_output_file,save_name:'feature_report_reopt2')
+  #   feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file,save_name:'feature_report_reopt3')
+  #   feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report,save_name:'feature_report_reopt4')
+  # end
 
-    scenario_report.save 'can_process_multiple_PV'
+  # it 'can process multiple PV\'s ' do
+  #   scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
-    reopt_output_file = File.join(scenario_report.directory_name, 'reopt/scenario_report_multiPV_reopt_run.json')
-    timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
-    reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
+  #   scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
+  #   scenario_report.directory_name = scenario_report_dir
 
-    File.open(reopt_assumptions_file, 'r') do |file|
-      @scenario_reopt_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
-    end
+  #   (1..2).each do |i|
+  #     feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
 
-    api = URBANopt::REopt::REoptLiteAPI.new(DEVELOPER_NREL_KEY, @localhost)
-    adapter = URBANopt::REopt::ScenarioReportAdapter.new
+  #     expect(File.exist?(feature_reports_path)).to be true
 
-    reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash)
-    reopt_input[:Scenario][:Site][:PV][:min_kw] = 5
-    reopt_output = api.reopt_request(reopt_input, reopt_output_file)
+  #     feature_reports_json = nil
+  #     File.open(feature_reports_path, 'r') do |file|
+  #       feature_reports_json = JSON.parse(file.read, symbolize_names: true)
+  #     end
 
-    reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV'],reopt_output['outputs']['Scenario']['Site']['PV']]
+  #     feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
 
-    scenario_report = adapter.update_scenario_report(scenario_report, reopt_output, timeseries_output_file)
-    scenario_report.save 'scenario_report_reopt_mulitPV'
-  end
+  #     feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
+  #     feature_report.directory_name = feature_report_dir
+  #     feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.csv"
+  #     scenario_report.add_feature_report(feature_report)
+  #   end
 
-  it 'can process a set of feature reports' do
-    reopt_assumption_files = []
-    reopt_assumption_jsons = []
-    reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
-    reopt_assumptions = nil
-    feature_reports = []
-    reopt_output_files = []
-    timeseries_output_files = []
-    feature_report_save_names = []
-    (1..2).each do |i|
-      feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
+  #   scenario_report.save 'can_process_multiple_PV'
 
-      expect(File.exist?(feature_reports_path)).to be true
+  #   reopt_output_file = File.join(scenario_report.directory_name, 'reopt/scenario_report_multiPV_reopt_run.json')
+  #   timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
+  #   reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
 
-      feature_reports_json = nil
-      File.open(feature_reports_path, 'r') do |file|
-        feature_reports_json = JSON.parse(file.read, symbolize_names: true)
-      end
+  #   File.open(reopt_assumptions_file, 'r') do |file|
+  #     @scenario_reopt_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
+  #   end
 
-      feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
+  #   api = URBANopt::REopt::REoptLiteAPI.new(DEVELOPER_NREL_KEY, @localhost)
+  #   adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
-      feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
-      feature_report.directory_name = feature_report_dir
-      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.csv"
+  #   reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash)
+  #   reopt_input[:Scenario][:Site][:PV][:min_kw] = 5
+  #   reopt_output = api.reopt_request(reopt_input, reopt_output_file)
 
-      reopt_assumption_files << reopt_assumptions_file
-      # reopt_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_reopt_run.json")
-      # timeseries_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_timeseries.csv")
-      feature_reports << feature_report
-      feature_report_save_names << 'feature_report_reopt'
-    end
+  #   reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV'],reopt_output['outputs']['Scenario']['Site']['PV']]
 
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, reopt_assumption_files, DEVELOPER_NREL_KEY)
-    processed_feature_reports = reopt_post_processor.run_feature_reports(feature_reports:feature_reports, save_names:feature_report_save_names)
-  end
+  #   scenario_report = adapter.update_scenario_report(scenario_report, reopt_output, timeseries_output_file)
+  #   scenario_report.save 'scenario_report_reopt_mulitPV'
+  # end
 
-  it 'can process all feature reports in a scenario report individually' do
-    scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
+  # it 'can process a set of feature reports' do
+  #   reopt_assumption_files = []
+  #   reopt_assumption_jsons = []
+  #   reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
+  #   reopt_assumptions = nil
+  #   feature_reports = []
+  #   reopt_output_files = []
+  #   timeseries_output_files = []
+  #   feature_report_save_names = []
+  #   (1..2).each do |i|
+  #     feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
 
-    scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
-    scenario_report.directory_name = scenario_report_dir
+  #     expect(File.exist?(feature_reports_path)).to be true
 
-    reopt_assumption_jsons = []
-    reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
-    reopt_assumptions = nil
-    File.open(reopt_assumptions_file, 'r') do |file|
-      reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
-    end
-    reopt_assumption_files = []
-    reopt_output_files = []
-    scenario_report_timeseries_output_file = File.join(scenario_report.directory_name, "scenario_report#{scenario_report.id}_timeseries.csv")
-    feature_report_timeseries_output_files = []
-    feature_report_save_names = []
+  #     feature_reports_json = nil
+  #     File.open(feature_reports_path, 'r') do |file|
+  #       feature_reports_json = JSON.parse(file.read, symbolize_names: true)
+  #     end
 
-    (1..2).each do |i|
-      feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
+  #     feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
 
-      expect(File.exist?(feature_reports_path)).to be true
+  #     feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
+  #     feature_report.directory_name = feature_report_dir
+  #     feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.csv"
 
-      feature_reports_json = nil
-      File.open(feature_reports_path, 'r') do |file|
-        feature_reports_json = JSON.parse(file.read, symbolize_names: true)
-      end
+  #     reopt_assumption_files << reopt_assumptions_file
+  #     # reopt_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_reopt_run.json")
+  #     # timeseries_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_timeseries.csv")
+  #     feature_reports << feature_report
+  #     feature_report_save_names << 'feature_report_reopt'
+  #   end
 
-      feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
-      feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
-      feature_report.directory_name = feature_report_dir
-      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.csv"
+  #   reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, reopt_assumption_files, DEVELOPER_NREL_KEY)
+  #   processed_feature_reports = reopt_post_processor.run_feature_reports(feature_reports:feature_reports, save_names:feature_report_save_names)
+  # end
 
-      reopt_assumption_files << reopt_assumptions_file
-      reopt_assumption_jsons << Marshal.load(Marshal.dump(reopt_assumptions))
-      reopt_output_files << File.join(feature_report.directory_name, "reopt/feature_report#{feature_report.id}_reopt_run_local.json")
-      feature_report_timeseries_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_timeseries.csv")
+  # it 'can process all feature reports in a scenario report individually' do
+  #   scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
-      scenario_report.add_feature_report(feature_report)
-      feature_report_save_names << 'feature_report_reopt_local'
-    end
-    scenario_report.save 'can_process_all_feature_reports'
-    reopt_output_file = File.join(scenario_report.directory_name, 'reopt/scenario_report_reopt_run.json')
-    timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
-    reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
+  #   scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
+  #   scenario_report.directory_name = scenario_report_dir
 
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
-    scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report:scenario_report, reopt_output_files: reopt_output_files, save_names_feature_reports:feature_report_save_names, save_name_scenario_report:'scenario_report_reopt_local')
-  end
+  #   reopt_assumption_jsons = []
+  #   reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
+  #   reopt_assumptions = nil
+  #   File.open(reopt_assumptions_file, 'r') do |file|
+  #     reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
+  #   end
+  #   reopt_assumption_files = []
+  #   reopt_output_files = []
+  #   scenario_report_timeseries_output_file = File.join(scenario_report.directory_name, "scenario_report#{scenario_report.id}_timeseries.csv")
+  #   feature_report_timeseries_output_files = []
+  #   feature_report_save_names = []
+
+  #   (1..2).each do |i|
+  #     feature_reports_path = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.json")
+
+  #     expect(File.exist?(feature_reports_path)).to be true
+
+  #     feature_reports_json = nil
+  #     File.open(feature_reports_path, 'r') do |file|
+  #       feature_reports_json = JSON.parse(file.read, symbolize_names: true)
+  #     end
+
+  #     feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
+  #     feature_report_dir = File.join(File.dirname(__FILE__), "../run/example_scenario/#{i}")
+  #     feature_report.directory_name = feature_report_dir
+  #     feature_report.timeseries_csv.path = "spec/run/example_scenario/#{i}/007_default_feature_reports/default_feature_reports.csv"
+
+  #     reopt_assumption_files << reopt_assumptions_file
+  #     reopt_assumption_jsons << Marshal.load(Marshal.dump(reopt_assumptions))
+  #     reopt_output_files << File.join(feature_report.directory_name, "reopt/feature_report#{feature_report.id}_reopt_run_local.json")
+  #     feature_report_timeseries_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_timeseries.csv")
+
+  #     scenario_report.add_feature_report(feature_report)
+  #     feature_report_save_names << 'feature_report_reopt_local'
+  #   end
+  #   scenario_report.save 'can_process_all_feature_reports'
+  #   reopt_output_file = File.join(scenario_report.directory_name, 'reopt/scenario_report_reopt_run.json')
+  #   timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
+  #   reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
+
+  #   reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
+  #   scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report:scenario_report, reopt_output_files: reopt_output_files, save_names_feature_reports:feature_report_save_names, save_name_scenario_report:'scenario_report_reopt_local')
+  # end
 end
