@@ -147,11 +147,11 @@ RSpec.describe URBANopt::REopt do
     end
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, nil, DEVELOPER_NREL_KEY)
 
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file, timeseries_csv_path:timeseries_output_file,save_name:'feature_reports/test__/feature_report_reopt')
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_output_file:reopt_output_file, timeseries_csv_path:timeseries_output_file,save_name:'feature_reports/test__/feature_report_reopt1')
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, timeseries_csv_path:timeseries_output_file,save_name:'feature_reports/test__/feature_report_reopt2')
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file,save_name:'feature_reports/test__/feature_report_reopt3')
-    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report,save_name:'feature_reports/test__/feature_report_reopt4')
+    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file, timeseries_csv_path:timeseries_output_file,save_name:'test__/feature_report_reopt')
+    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_output_file:reopt_output_file, timeseries_csv_path:timeseries_output_file,save_name:'test__/feature_report_reopt1')
+    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, timeseries_csv_path:timeseries_output_file,save_name:'test__/feature_report_reopt2')
+    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report, reopt_assumptions_hash:reopt_assumptions, reopt_output_file:reopt_output_file,save_name:'test__/feature_report_reopt3')
+    feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report,save_name:'test__/feature_report_reopt4')
     FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/1/test__')
     
@@ -346,7 +346,7 @@ RSpec.describe URBANopt::REopt do
     reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
 
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
-    scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report:scenario_report, reopt_output_files: reopt_output_files, save_names_feature_reports:feature_report_save_names, save_name_scenario_report:'scenario_report_reopt_local')
+    scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report:scenario_report, reopt_output_files: reopt_output_files, save_names_feature_reports:feature_report_save_names, save_name_scenario_report:'test__/scenario_report_reopt_local')
     
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
