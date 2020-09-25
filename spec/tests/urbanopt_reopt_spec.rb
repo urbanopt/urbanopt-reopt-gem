@@ -62,7 +62,7 @@ RSpec.describe URBANopt::REopt do
     rescue
     end
     Dir.mkdir("spec/run/example_scenario/test__")
-    
+
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
@@ -134,6 +134,7 @@ RSpec.describe URBANopt::REopt do
 
     feature_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario/1')
     Dir.mkdir('spec/run/example_scenario/1/reopt')
+    Dir.mkdir('spec/run/example_scenario/1/feature_reports/test__')
     feature_report.directory_name = feature_report_dir
     feature_report.timeseries_csv.path = 'spec/run/example_scenario/1/007_default_feature_reports/default_feature_reports.csv'
 
@@ -273,11 +274,8 @@ RSpec.describe URBANopt::REopt do
     processed_feature_reports = reopt_post_processor.run_feature_reports(feature_reports:feature_reports, save_names:feature_report_save_names)
     FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
-    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.csv')
-    File.delete('spec/run/example_scenario/1/feature_reports/feature_report_reopt.json')
-    File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt.csv')
-    File.delete('spec/run/example_scenario/2/feature_reports/feature_report_reopt.json')
-  
+    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports/test__')
+    FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports/test__')
   end
 
   it 'can process all feature reports in a scenario report individually' do
