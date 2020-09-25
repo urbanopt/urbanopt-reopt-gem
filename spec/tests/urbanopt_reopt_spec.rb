@@ -54,7 +54,9 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm_rf('spec/run/example_scenario/reopt')
     rescue
     end
-    Dir.mkdir("spec/run/example_scenario/test__")
+    if !File.directory?  "spec/run/example_scenario/test__"
+      Dir.mkdir("spec/run/example_scenario/test__")
+    end
 
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
@@ -100,7 +102,9 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
     rescue
     end
-    Dir.mkdir("spec/run/example_scenario/test__")
+    if !File.directory?  "spec/run/example_scenario/test__"
+      Dir.mkdir("spec/run/example_scenario/test__")
+    end
     feature_reports_path = File.join(File.dirname(__FILE__), '../run/example_scenario/1/007_default_feature_reports/default_feature_reports.json')
 
     expect(File.exist?(feature_reports_path)).to be true
@@ -142,7 +146,9 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm_rf('spec/run/example_scenario/test__')
     rescue
     end
-    Dir.mkdir("spec/run/example_scenario/test__")
+    if !File.directory?  "spec/run/example_scenario/test__"
+      Dir.mkdir("spec/run/example_scenario/test__")
+    end
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
@@ -251,7 +257,9 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
     rescue
     end
-    Dir.mkdir("spec/run/example_scenario/test__")
+    if !File.directory?  "spec/run/example_scenario/test__"
+      Dir.mkdir("spec/run/example_scenario/test__")
+    end
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
