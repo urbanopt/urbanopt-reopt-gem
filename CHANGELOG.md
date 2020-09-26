@@ -4,10 +4,22 @@
 
 Date range: 6/5/20 - 9/22/20
 
-- Fixed [#27]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/27 ), Test jenkins for 3.0.0
-- Fixed [#31]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/31 ), Use reporting gem
-- Fixed [#34]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/34 ), adding tm symbol to files
-- Fixed [#35]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/35 ), New reopt results
+* Changes to support the new reporting gem
+* Parsing additional results from the REopt Lite API: 
+  - lcc_bau_us_dollars
+  - year_one_energy_cost_bau_us_dollars
+  - year_one_demand_cost_bau_us_dollars
+  - year_one_bill_bau_us_dollars
+  - total_energy_cost_bau_us_dollars
+  - total_demand_cost_us_dollars
+  - total_demand_cost_bau_us_dollars
+* Makes separate calls to the REopt Lite API for new resilience statistics:
+  - resilience_hours_min
+  - resilience_hours_max
+  - resilience_hours_avg
+  - probs_of_surviving
+  - probs_of_surviving_by_month
+  - probs_of_surviving_by_hour_of_the_day
 
 
 ## Version 0.3.0
