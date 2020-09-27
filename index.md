@@ -1,6 +1,6 @@
 # **URBANopt REopt Gem**
 
-The **URBANopt™ REopt Gem** extends **URBANopt::Reporting::DefaultReports::ScenarioReport** and **URBANopt::Reporting::DefaultReports::FeatureReport** with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the [REopt Lite](https://reopt.nrel.gov/tool) decision support platform.
+The **URBANopt<sup>&trade;</sup> REopt Gem** extends **URBANopt::Reporting::DefaultReports::ScenarioReport** and **URBANopt::Reporting::DefaultReports::FeatureReport** with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the [REopt Lite](https://reopt.nrel.gov/tool) decision support platform.
 REopt Lite is a technoeconomic model which leverages mixed integer linear programming to identify the cost-optimal sizing of solar PV, Wind, Storage and/or diesel generation given an electric load profile, a utility rate tariff and other technoeconomic parameters. See [https://developer.nrel.gov/docs/energy-optimization/reopt-v1/](https://developer.nrel.gov/docs/energy-optimization/reopt-v1/) for more detailed information on input parameters and default assumptions.
 
 See the [example project](https://github.com/urbanopt/urbanopt-example-reopt-project.git) for more infomation about usage of this gem.
