@@ -31,7 +31,6 @@
 require 'bundler/setup'
 require 'urbanopt/reporting/default_reports'
 require 'urbanopt/reopt/reopt_logger'
-require 'urbanopt/reopt'
 require 'csv'
 
 module URBANopt # :nodoc:
