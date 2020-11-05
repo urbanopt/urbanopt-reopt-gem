@@ -35,8 +35,8 @@
     ]
   },
   "location": {
-    "latitude": 39.74,
-    "longitude": -105.18,
+    "latitude_deg": 39.74,
+    "longitude_deg": -105.18,
     "surface_elevation": 1829.0
   },
   "program": {
