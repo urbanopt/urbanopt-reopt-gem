@@ -70,7 +70,7 @@ module URBANopt # :nodoc:
         end
 
         # Update required info
-        if scenario_report.location.latitude.nil? || scenario_report.location.longitude.nil? || (scenario_report.location.latitude == 0) || (scenario_report.location.longitude == 0)
+        if scenario_report.location.latitude_deg.nil? || scenario_report.location.longitude_deg.nil? || (scenario_report.location.latitude_deg == 0) || (scenario_report.location.longitude_deg == 0)
           if !scenario_report.feature_reports.nil? && (scenario_report.feature_reports != [])
             lats = []
             longs = []
@@ -82,15 +82,15 @@ module URBANopt # :nodoc:
             end
 
             if !lats.empty? && !longs.empty?
-              scenario_report.location.latitude = lats.reduce(:+) / lats.size.to_f
-              scenario_report.location.longitude = longs.reduce(:+) / longs.size.to_f
+              scenario_report.location.latitude_deg = lats.reduce(:+) / lats.size.to_f
+              scenario_report.location.longitude_deg = longs.reduce(:+) / longs.size.to_f
             end
           end
         end
 
         # Update required info
         requireds_names = ['latitude', 'longitude']
-        requireds = [scenario_report.location.latitude, scenario_report.location.longitude]
+        requireds = [scenario_report.location.latitude_deg, scenario_report.location.longitude_deg]
 
         if requireds.include?(nil) || requireds.include?(0)
           requireds.each_with_index do |i, x|
@@ -103,16 +103,16 @@ module URBANopt # :nodoc:
 
         reopt_inputs[:Scenario][:description] = description
 
-        reopt_inputs[:Scenario][:Site][:latitude] = scenario_report.location.latitude
-        reopt_inputs[:Scenario][:Site][:longitude] = scenario_report.location.longitude
+        reopt_inputs[:Scenario][:Site][:latitude] = scenario_report.location.latitude_deg
+        reopt_inputs[:Scenario][:Site][:longitude] = scenario_report.location.longitude_deg
 
         # Update optional info
-        if !scenario_report.program.roof_area.nil?
-          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area[:available_roof_area]
+        if !scenario_report.program.roof_area_sqft.nil?
+          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area]
         end
 
-        if !scenario_report.program.site_area.nil?
-          reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area * 1.0 / 43560 # acres/sqft
+        if !scenario_report.program.site_area_sqft.nil?
+          reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
         end
 
         unless scenario_report.timesteps_per_hour.nil?
@@ -126,11 +126,25 @@ module URBANopt # :nodoc:
           energy_timeseries_kw = t.by_col[col_num].map { |e| ((e * scenario_report.timesteps_per_hour || 0) ) }
           if energy_timeseries_kw.length < (scenario_report.timesteps_per_hour * 8760)
             start_date = Time.parse(t.by_col["Datetime"][0])
-            start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) / \
-                        (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
+            start_ts = (
+              (
+                (start_date.yday * 60.0 * 60.0 * 24) +
+                (start_date.hour * 60.0 * 60.0) +
+                (start_date.min * 60.0) +
+                start_date.sec
+                ) / (
+                  ( 60 / scenario_report.timesteps_per_hour ) * 60)
+                  ).to_int
             end_date = Time.parse(t.by_col["Datetime"][-1])
-            end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) / \
-                        (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
+            end_ts = (
+              (
+                (end_date.yday * 60.0 * 60.0 * 24) +
+                (end_date.hour * 60.0 * 60.0) +
+                (end_date.min * 60.0) +
+                end_date.sec
+                ) / (
+                  ( 60 / scenario_report.timesteps_per_hour ) * 60)
+                  ).to_int
             energy_timeseries_kw = [0.0]*(start_ts-1) + energy_timeseries_kw + [0.0]*((scenario_report.timesteps_per_hour * 8760) - end_ts)
           end
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kw.map { |e| e ? e : 0 }[0,(scenario_report.timesteps_per_hour * 8760)]
@@ -201,8 +215,8 @@ module URBANopt # :nodoc:
         end
 
         # Update location
-        scenario_report.location.latitude = reopt_output['inputs']['Scenario']['Site']['latitude']
-        scenario_report.location.longitude = reopt_output['inputs']['Scenario']['Site']['longitude']
+        scenario_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
+        scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
 
         # Update timeseries csv from \REopt Lite dispatch data
         scenario_report.timesteps_per_hour = reopt_output['inputs']['Scenario']['time_steps_per_hour']
@@ -227,7 +241,7 @@ module URBANopt # :nodoc:
           scenario_report.distributed_generation.resilience_hours_avg = resilience_stats['resilience_hours_avg']
           scenario_report.distributed_generation.probs_of_surviving = resilience_stats['probs_of_surviving']
           scenario_report.distributed_generation.probs_of_surviving_by_month = resilience_stats['probs_of_surviving_by_month']
-          scenario_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']  
+          scenario_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']
         end
 
         if reopt_output['outputs']['Scenario']['Site']['PV'].class == Hash
