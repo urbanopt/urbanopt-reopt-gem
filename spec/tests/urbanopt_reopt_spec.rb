@@ -98,7 +98,7 @@ RSpec.describe URBANopt::REopt do
       FileUtils.rm_rf('spec/run/example_scenario/test__')
     rescue
     end
-    begin 
+    begin
       FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
     rescue
     end
@@ -137,11 +137,11 @@ RSpec.describe URBANopt::REopt do
     feature_report = reopt_post_processor.run_feature_report(feature_report:feature_report,save_name:'feature_report_reopt4')
     FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
-    
+
   end
 
   it 'can process multiple PV\'s ' do
-    begin 
+    begin
       FileUtils.rm_rf('spec/run/example_scenario/reopt')
       FileUtils.rm_rf('spec/run/example_scenario/test__')
     rescue
@@ -193,14 +193,14 @@ RSpec.describe URBANopt::REopt do
 
     scenario_report = adapter.update_scenario_report(scenario_report, reopt_output, timeseries_output_file)
     scenario_report.save 'test__/scenario_report_reopt_mulitPV'
-    
+
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/test__')
-    
+
   end
 
   it 'can process a set of feature reports' do
-    begin 
+    begin
       FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
       FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
       FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports/test__')
@@ -248,7 +248,7 @@ RSpec.describe URBANopt::REopt do
   end
 
   it 'can process all feature reports in a scenario report individually' do
-    begin 
+    begin
       FileUtils.rm_rf('spec/run/example_scenario/reopt')
       FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
       FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
@@ -306,16 +306,16 @@ RSpec.describe URBANopt::REopt do
 
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
     scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report:scenario_report, reopt_output_files: reopt_output_files, save_names_feature_reports:feature_report_save_names, save_name_scenario_report:'test__/scenario_report_reopt_local')
-    
+
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/test__')
     FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
     FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
-    
+
   end
 
-  
+
 
 end

@@ -38,14 +38,14 @@
 					"Site": {
 						"type": "object",
 						"properties": {
-							"latitude": {
+							"latitude_deg": {
 								"max": 90,
 								"required": true,
 								"type": "float",
 								"description": "The approximate latitude of the site in decimal degrees",
 								"min": -90
 							},
-							"longitude": {
+							"longitude_deg": {
 								"max": 180,
 								"required": true,
 								"type": "float",
@@ -572,7 +572,7 @@
 									}
 								}
 							},
-							
+
 							"Storage": {
 								"type": "object",
 								"properties": {

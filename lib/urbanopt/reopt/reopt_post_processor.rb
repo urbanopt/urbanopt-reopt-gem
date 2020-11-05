@@ -158,7 +158,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _String_ - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
-      def run_scenario_report(scenario_report:, reopt_assumptions_hash:nil, reopt_output_file:nil, timeseries_csv_path:nil, save_name:nil, run_resilience:true)
+      def run_scenario_report(scenario_report:nil, reopt_assumptions_hash:nil, reopt_output_file:nil, timeseries_csv_path:nil, save_name:nil, run_resilience:true)
         if !reopt_assumptions_hash.nil?
           @scenario_reopt_default_assumptions_hash = reopt_assumptions_hash
         end

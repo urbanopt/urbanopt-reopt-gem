@@ -52,7 +52,7 @@ module URBANopt # :nodoc:
       # [*parameters:*]
       #
       # * +scenario_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ - ScenarioReport to use in converting the +reopt_assumptions_hash+, if provided, to a \REopt Lite post. Otherwise, if the +reopt_assumptions_hash+ is nil a default post will be updated from this ScenarioReport and submitted to the \REopt Lite API.
-      # * +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.
+      # * +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude_deg, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.
       #
       # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
       ##
@@ -75,9 +75,9 @@ module URBANopt # :nodoc:
             lats = []
             longs = []
             scenario_report.feature_reports.each do |x|
-              if ![nil, 0].include?(x[:location][:latitude]) && ![nil, 0].include?(x[:location][:longitude])
-                lats.push(x[:location][:latitude])
-                longs.push(x[:location][:longitude])
+              if ![nil, 0].include?(x[:location][:latitude_deg]) && ![nil, 0].include?(x[:location][:longitude_deg])
+                lats.push(x[:location][:latitude_deg])
+                longs.push(x[:location][:longitude_deg])
               end
             end
 
@@ -89,7 +89,7 @@ module URBANopt # :nodoc:
         end
 
         # Update required info
-        requireds_names = ['latitude', 'longitude']
+        requireds_names = ['latitude_deg', 'longitude_deg']
         requireds = [scenario_report.location.latitude_deg, scenario_report.location.longitude_deg]
 
         if requireds.include?(nil) || requireds.include?(0)
@@ -103,8 +103,8 @@ module URBANopt # :nodoc:
 
         reopt_inputs[:Scenario][:description] = description
 
-        reopt_inputs[:Scenario][:Site][:latitude] = scenario_report.location.latitude_deg
-        reopt_inputs[:Scenario][:Site][:longitude] = scenario_report.location.longitude_deg
+        reopt_inputs[:Scenario][:Site][:latitude_deg] = scenario_report.location.latitude_deg
+        reopt_inputs[:Scenario][:Site][:longitude_deg] = scenario_report.location.longitude_deg
 
         # Update optional info
         if !scenario_report.program.roof_area_sqft.nil?
@@ -161,7 +161,7 @@ module URBANopt # :nodoc:
       # [*parameters:*]
       #
       # * +scenario_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ - ScenarioReport to use in converting FeatureReports and respecitive +reopt_assumptions_hashes+, if provided, to a \REopt Lite post. If no +reopt_assumptions_hashes+ are provided default posts will be updated from these FeatureReports and submitted to the \REopt Lite API.
-      # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of hashes formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.
+      # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of hashes formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude_deg, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.
       #
       # [*return:*] _Array_ - Returns an array of hashes formatted for submittal to the \REopt Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.
       ##
@@ -215,8 +215,8 @@ module URBANopt # :nodoc:
         end
 
         # Update location
-        scenario_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
-        scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
+        scenario_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude_deg']
+        scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude_deg']
 
         # Update timeseries csv from \REopt Lite dispatch data
         scenario_report.timesteps_per_hour = reopt_output['inputs']['Scenario']['time_steps_per_hour']

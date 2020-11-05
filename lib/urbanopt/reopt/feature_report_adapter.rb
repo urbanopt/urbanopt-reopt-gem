@@ -53,7 +53,7 @@ module URBANopt # :nodoc:
       # [*parameters:*]
       #
       # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ - FeatureReport to use in converting the optional +reopt_assumptions_hash+ to a \REopt Lite post. If a +reopt_assumptions_hash+ is not provided, a default post will be updated from this FeatureReport and submitted to the \REopt Lite API.
-      # *  +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the FeatureReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.
+      # *  +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the FeatureReport where available (i.e. latitude_deg, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.
       #
       # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
       ##
@@ -68,7 +68,7 @@ module URBANopt # :nodoc:
         end
 
         # Check FeatureReport has required data
-        requireds_names = ['latitude', 'longitude']
+        requireds_names = ['latitude_deg', 'longitude_deg']
         requireds = [feature_report.location.latitude_deg, feature_report.location.longitude_deg]
 
         if requireds.include?(nil) || requireds.include?(0)
@@ -84,8 +84,8 @@ module URBANopt # :nodoc:
         reopt_inputs[:Scenario][:description] = description
 
         # Parse Location
-        reopt_inputs[:Scenario][:Site][:latitude] = feature_report.location.latitude_deg
-        reopt_inputs[:Scenario][:Site][:longitude] = feature_report.location.longitude_deg
+        reopt_inputs[:Scenario][:Site][:latitude_deg] = feature_report.location.latitude_deg
+        reopt_inputs[:Scenario][:Site][:longitude_deg] = feature_report.location.longitude_deg
 
         # Parse Optional FeatureReport metrics
         unless feature_report.program.roof_area_sqft.nil?
@@ -175,8 +175,8 @@ module URBANopt # :nodoc:
         end
 
         # Update location
-        feature_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
-        feature_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
+        feature_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude_deg']
+        feature_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude_deg']
 
         # Update timeseries csv from \REopt Lite dispatch data
         feature_report.timesteps_per_hour = reopt_output['inputs']['Scenario']['time_steps_per_hour']
