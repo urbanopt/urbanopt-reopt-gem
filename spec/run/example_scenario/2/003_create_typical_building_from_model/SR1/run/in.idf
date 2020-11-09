@@ -1,6 +1,6 @@
 
 Version,
-  9.1;                                    !- Version Identifier
+  9.3;                                    !- Version Identifier
 
 Timestep,
   1;                                      !- Number of Timesteps per Hour
@@ -21,7 +21,7 @@ LifeCycleCost:Parameters,
   None;                                   !- Depreciation Method
 
 LifeCycleCost:UsePriceEscalation,
-  U.S. Avg  Commercial-Electricity,       !- LCC Price Escalation Name
+  U.S. Avg  Commercial-Electricity,       !- Name
   Electricity,                            !- Resource
   2011,                                   !- Escalation Start Year
   January,                                !- Escalation Start Month
@@ -57,8 +57,8 @@ LifeCycleCost:UsePriceEscalation,
   0.9773;                                 !- Year Escalation 30
 
 LifeCycleCost:UsePriceEscalation,
-  U.S. Avg  Commercial-Distillate Oil,    !- LCC Price Escalation Name
-  FuelOil#1,                              !- Resource
+  U.S. Avg  Commercial-Distillate Oil,    !- Name
+  FuelOilNo1,                             !- Resource
   2011,                                   !- Escalation Start Year
   January,                                !- Escalation Start Month
   0.9714,                                 !- Year Escalation 1
@@ -93,8 +93,8 @@ LifeCycleCost:UsePriceEscalation,
   1.3743;                                 !- Year Escalation 30
 
 LifeCycleCost:UsePriceEscalation,
-  U.S. Avg  Commercial-Residual Oil,      !- LCC Price Escalation Name
-  FuelOil#2,                              !- Resource
+  U.S. Avg  Commercial-Residual Oil,      !- Name
+  FuelOilNo2,                             !- Resource
   2011,                                   !- Escalation Start Year
   January,                                !- Escalation Start Month
   0.8469,                                 !- Year Escalation 1
@@ -129,7 +129,7 @@ LifeCycleCost:UsePriceEscalation,
   1.2638;                                 !- Year Escalation 30
 
 LifeCycleCost:UsePriceEscalation,
-  U.S. Avg  Commercial-Natural gas,       !- LCC Price Escalation Name
+  U.S. Avg  Commercial-Natural gas,       !- Name
   NaturalGas,                             !- Resource
   2011,                                   !- Escalation Start Year
   January,                                !- Escalation Start Month
@@ -165,7 +165,7 @@ LifeCycleCost:UsePriceEscalation,
   1.3115;                                 !- Year Escalation 30
 
 LifeCycleCost:UsePriceEscalation,
-  U.S. Avg  Commercial-Coal,              !- LCC Price Escalation Name
+  U.S. Avg  Commercial-Coal,              !- Name
   Coal,                                   !- Resource
   2011,                                   !- Escalation Start Year
   January,                                !- Escalation Start Month
@@ -204,7 +204,7 @@ Building,
   90.1-2004|SmallOffice,                  !- Name
   ,                                       !- North Axis {deg}
   City,                                   !- Terrain
-  ,                                       !- Loads Convergence Tolerance Value
+  ,                                       !- Loads Convergence Tolerance Value {W}
   ,                                       !- Temperature Convergence Tolerance Value {deltaC}
   ,                                       !- Solar Distribution
   ,                                       !- Maximum Number of Warmup Days
@@ -235,10 +235,10 @@ BuildingSurface:Detailed,
   NoWind,                                 !- Wind Exposure
   ,                                       !- View Factor to Ground
   ,                                       !- Number of Vertices
-  1.77635683940025e-015, -2.66453525910038e-015, 0, !- X,Y,Z Vertex 1 {m}
-  1.77635683940025e-015, 11.129722368505, 0, !- X,Y,Z Vertex 2 {m}
+  1.77635683940025e-15, -2.66453525910038e-15, 0, !- X,Y,Z Vertex 1 {m}
+  1.77635683940025e-15, 11.129722368505, 0, !- X,Y,Z Vertex 2 {m}
   16.6945835527575, 11.129722368505, 0,   !- X,Y,Z Vertex 3 {m}
-  16.6945835527575, -2.66453525910038e-015, 0; !- X,Y,Z Vertex 4 {m}
+  16.6945835527575, -2.66453525910038e-15, 0; !- X,Y,Z Vertex 4 {m}
 
 BuildingSurface:Detailed,
   Surface 2,                              !- Name
@@ -251,13 +251,13 @@ BuildingSurface:Detailed,
   WindExposed,                            !- Wind Exposure
   ,                                       !- View Factor to Ground
   ,                                       !- Number of Vertices
-  1.77635683940025e-015, 11.129722368505, 3.048, !- X,Y,Z Vertex 1 {m}
-  1.77635683940025e-015, 11.129722368505, 0, !- X,Y,Z Vertex 2 {m}
-  1.77635683940025e-015, -2.66453525910038e-015, 0, !- X,Y,Z Vertex 3 {m}
-  1.77635683940025e-015, -2.66453525910038e-015, 3.048; !- X,Y,Z Vertex 4 {m}
+  1.77635683940025e-15, 11.129722368505, 3.048, !- X,Y,Z Vertex 1 {m}
+  1.77635683940025e-15, 11.129722368505, 0, !- X,Y,Z Vertex 2 {m}
+  1.77635683940025e-15, -2.66453525910038e-15, 0, !- X,Y,Z Vertex 3 {m}
+  1.77635683940025e-15, -2.66453525910038e-15, 3.048; !- X,Y,Z Vertex 4 {m}
 
 FenestrationSurface:Detailed,
-  Sub Surface 2,                          !- Name
+  Sub Surface 1,                          !- Name
   Window,                                 !- Surface Type
   U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air,  !- Construction Name
   Surface 2,                              !- Building Surface Name
@@ -266,10 +266,10 @@ FenestrationSurface:Detailed,
   ,                                       !- Frame and Divider Name
   ,                                       !- Multiplier
   ,                                       !- Number of Vertices
-  1.77635683940025e-015, 11.104322368505, 1.22129639161892, !- X,Y,Z Vertex 1 {m}
-  1.77635683940025e-015, 11.104322368505, 0.762, !- X,Y,Z Vertex 2 {m}
-  1.77635683940025e-015, 0.0253999999999976, 0.762, !- X,Y,Z Vertex 3 {m}
-  1.77635683940025e-015, 0.0253999999999976, 1.22129639161892; !- X,Y,Z Vertex 4 {m}
+  1.77635683940025e-15, 11.104322368505, 1.22129639161892, !- X,Y,Z Vertex 1 {m}
+  1.77635683940025e-15, 11.104322368505, 0.762, !- X,Y,Z Vertex 2 {m}
+  1.77635683940025e-15, 0.0253999999999976, 0.762, !- X,Y,Z Vertex 3 {m}
+  1.77635683940025e-15, 0.0253999999999976, 1.22129639161892; !- X,Y,Z Vertex 4 {m}
 
 BuildingSurface:Detailed,
   Surface 3,                              !- Name
@@ -284,11 +284,11 @@ BuildingSurface:Detailed,
   ,                                       !- Number of Vertices
   16.6945835527575, 11.129722368505, 3.048, !- X,Y,Z Vertex 1 {m}
   16.6945835527575, 11.129722368505, 0,   !- X,Y,Z Vertex 2 {m}
-  1.77635683940025e-015, 11.129722368505, 0, !- X,Y,Z Vertex 3 {m}
-  1.77635683940025e-015, 11.129722368505, 3.048; !- X,Y,Z Vertex 4 {m}
+  1.77635683940025e-15, 11.129722368505, 0, !- X,Y,Z Vertex 3 {m}
+  1.77635683940025e-15, 11.129722368505, 3.048; !- X,Y,Z Vertex 4 {m}
 
 FenestrationSurface:Detailed,
-  Sub Surface 1,                          !- Name
+  Sub Surface 3,                          !- Name
   Window,                                 !- Surface Type
   U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air,  !- Construction Name
   Surface 3,                              !- Building Surface Name
@@ -313,13 +313,13 @@ BuildingSurface:Detailed,
   WindExposed,                            !- Wind Exposure
   ,                                       !- View Factor to Ground
   ,                                       !- Number of Vertices
-  16.6945835527575, -2.66453525910038e-015, 3.048, !- X,Y,Z Vertex 1 {m}
-  16.6945835527575, -2.66453525910038e-015, 0, !- X,Y,Z Vertex 2 {m}
+  16.6945835527575, -2.66453525910038e-15, 3.048, !- X,Y,Z Vertex 1 {m}
+  16.6945835527575, -2.66453525910038e-15, 0, !- X,Y,Z Vertex 2 {m}
   16.6945835527575, 11.129722368505, 0,   !- X,Y,Z Vertex 3 {m}
   16.6945835527575, 11.129722368505, 3.048; !- X,Y,Z Vertex 4 {m}
 
 FenestrationSurface:Detailed,
-  Sub Surface 3,                          !- Name
+  Sub Surface 2,                          !- Name
   Window,                                 !- Surface Type
   U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air,  !- Construction Name
   Surface 4,                              !- Building Surface Name
@@ -344,10 +344,10 @@ BuildingSurface:Detailed,
   WindExposed,                            !- Wind Exposure
   ,                                       !- View Factor to Ground
   ,                                       !- Number of Vertices
-  1.77635683940025e-015, -2.66453525910038e-015, 3.048, !- X,Y,Z Vertex 1 {m}
-  1.77635683940025e-015, -2.66453525910038e-015, 0, !- X,Y,Z Vertex 2 {m}
-  16.6945835527575, -2.66453525910038e-015, 0, !- X,Y,Z Vertex 3 {m}
-  16.6945835527575, -2.66453525910038e-015, 3.048; !- X,Y,Z Vertex 4 {m}
+  1.77635683940025e-15, -2.66453525910038e-15, 3.048, !- X,Y,Z Vertex 1 {m}
+  1.77635683940025e-15, -2.66453525910038e-15, 0, !- X,Y,Z Vertex 2 {m}
+  16.6945835527575, -2.66453525910038e-15, 0, !- X,Y,Z Vertex 3 {m}
+  16.6945835527575, -2.66453525910038e-15, 3.048; !- X,Y,Z Vertex 4 {m}
 
 FenestrationSurface:Detailed,
   Sub Surface 4,                          !- Name
@@ -359,10 +359,10 @@ FenestrationSurface:Detailed,
   ,                                       !- Frame and Divider Name
   ,                                       !- Multiplier
   ,                                       !- Number of Vertices
-  0.0254000000000018, -2.66453525910038e-015, 1.22059546155034, !- X,Y,Z Vertex 1 {m}
-  0.0254000000000018, -2.66453525910038e-015, 0.762, !- X,Y,Z Vertex 2 {m}
-  16.6691835527575, -2.66453525910038e-015, 0.762, !- X,Y,Z Vertex 3 {m}
-  16.6691835527575, -2.66453525910038e-015, 1.22059546155034; !- X,Y,Z Vertex 4 {m}
+  0.0254000000000018, -2.66453525910038e-15, 1.22059546155034, !- X,Y,Z Vertex 1 {m}
+  0.0254000000000018, -2.66453525910038e-15, 0.762, !- X,Y,Z Vertex 2 {m}
+  16.6691835527575, -2.66453525910038e-15, 0.762, !- X,Y,Z Vertex 3 {m}
+  16.6691835527575, -2.66453525910038e-15, 1.22059546155034; !- X,Y,Z Vertex 4 {m}
 
 BuildingSurface:Detailed,
   Surface 6,                              !- Name
@@ -375,10 +375,10 @@ BuildingSurface:Detailed,
   WindExposed,                            !- Wind Exposure
   ,                                       !- View Factor to Ground
   ,                                       !- Number of Vertices
-  16.6945835527575, -2.66453525910038e-015, 3.048, !- X,Y,Z Vertex 1 {m}
+  16.6945835527575, -2.66453525910038e-15, 3.048, !- X,Y,Z Vertex 1 {m}
   16.6945835527575, 11.129722368505, 3.048, !- X,Y,Z Vertex 2 {m}
-  1.77635683940025e-015, 11.129722368505, 3.048, !- X,Y,Z Vertex 3 {m}
-  1.77635683940025e-015, -2.66453525910038e-015, 3.048; !- X,Y,Z Vertex 4 {m}
+  1.77635683940025e-15, 11.129722368505, 3.048, !- X,Y,Z Vertex 3 {m}
+  1.77635683940025e-15, -2.66453525910038e-15, 3.048; !- X,Y,Z Vertex 4 {m}
 
 ZoneInfiltration:DesignFlowRate,
   Office WholeBuilding - Sm Office  - Story Ground Infiltration, !- Name
@@ -398,8 +398,8 @@ ZoneControl:Thermostat,
   Zone Office WholeBuilding - Sm Office  - Story Ground Thermostat, !- Name
   Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone or ZoneList Name
   Zone Office WholeBuilding - Sm Office  - Story Ground Thermostat Schedule, !- Control Type Schedule Name
-  ThermostatSetpoint:DualSetpoint,        !- Control Object Type 1
-  Office WholeBuilding - Sm Office - 90.1-2004 Thermostat; !- Control Name 1
+  ThermostatSetpoint:DualSetpoint,        !- Control 1 Object Type
+  Office WholeBuilding - Sm Office - 90.1-2004 Thermostat; !- Control 1 Name
 
 Schedule:Compact,
   Zone Office WholeBuilding - Sm Office  - Story Ground Thermostat Schedule, !- Name
@@ -422,8 +422,8 @@ ThermostatSetpoint:DualSetpoint,
 
 ScheduleTypeLimits,
   Temperature,                            !- Name
-  0,                                      !- Lower Limit Value {BasedOnField A3}
-  100,                                    !- Upper Limit Value {BasedOnField A3}
+  ,                                       !- Lower Limit Value {BasedOnField A3}
+  ,                                       !- Upper Limit Value {BasedOnField A3}
   Continuous,                             !- Numeric Type
   temperature;                            !- Unit Type
 
@@ -575,8 +575,8 @@ ZoneHVAC:EquipmentList,
   ADU Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Diffuser, !- Zone Equipment Name 1
   1,                                      !- Zone Equipment Cooling Sequence 1
   1,                                      !- Zone Equipment Heating or No-Load Sequence 1
-  1,                                      !- Zone Equipment Sequential Cooling Fraction 1
-  1;                                      !- Zone Equipment Sequential Heating Fraction 1
+  ,                                       !- Zone Equipment Sequential Cooling Fraction Schedule Name 1
+  ;                                       !- Zone Equipment Sequential Heating Fraction Schedule Name 1
 
 Sizing:Zone,
   Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone or ZoneList Name
@@ -601,13 +601,8 @@ Sizing:Zone,
   0.002032,                               !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
   0.1415762,                              !- Heating Maximum Air Flow {m3/s}
   0.3,                                    !- Heating Maximum Air Flow Fraction
-  Zone Office WholeBuilding - Sm Office  - Story Ground Design Spec Zone Air Dist, !- Design Specification Zone Air Distribution Object Name
+  ,                                       !- Design Specification Zone Air Distribution Object Name
   No;                                     !- Account for Dedicated Outdoor Air System
-
-DesignSpecification:ZoneAirDistribution,
-  Zone Office WholeBuilding - Sm Office  - Story Ground Design Spec Zone Air Dist, !- Name
-  1,                                      !- Zone Air Distribution Effectiveness in Cooling Mode {dimensionless}
-  1;                                      !- Zone Air Distribution Effectiveness in Heating Mode {dimensionless}
 
 Schedule:Constant,
   Always On Discrete,                     !- Name
@@ -620,9 +615,9 @@ Controller:MechanicalVentilation,
   No,                                     !- Demand Controlled Ventilation
   ZoneSum,                                !- System Outdoor Air Method
   ,                                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone Name 1
+  Zone Office WholeBuilding - Sm Office  - Story Ground, !- Zone or ZoneList Name 1
   Office WholeBuilding - Sm Office Ventilation, !- Design Specification Outdoor Air Object Name 1
-  Zone Office WholeBuilding - Sm Office  - Story Ground Design Spec Zone Air Dist; !- Design Specification Zone Air Distribution Object Name 1
+  ;                                       !- Design Specification Zone Air Distribution Object Name 1
 
 DesignSpecification:OutdoorAir,
   Office WholeBuilding - Sm Office Ventilation, !- Name
@@ -637,7 +632,9 @@ SimulationControl,
   Yes,                                    !- Do System Sizing Calculation
   Yes,                                    !- Do Plant Sizing Calculation
   Yes,                                    !- Run Simulation for Sizing Periods
-  No;                                     !- Run Simulation for Weather File Run Periods
+  No,                                     !- Run Simulation for Weather File Run Periods
+  Yes,                                    !- Do HVAC Sizing Simulation for Sizing Periods
+  1;                                      !- Maximum Number of HVAC Sizing Simulation Passes
 
 HeatBalanceAlgorithm,
   ConductionTransferFunction,             !- Algorithm
@@ -659,13 +656,23 @@ RunPeriod,
   Yes;                                    !- Use Weather File Snow Indicators
 
 ShadowCalculation,
-  AverageOverDaysInFrequency,             !- Calculation Method
-  20,                                     !- Calculation Frequency
-  15000;                                  !- Maximum Figures in Shadow Overlap Calculations
+  PolygonClipping,                        !- Shading Calculation Method
+  Periodic,                               !- Shading Calculation Update Frequency Method
+  20,                                     !- Shading Calculation Update Frequency
+  15000,                                  !- Maximum Figures in Shadow Overlap Calculations
+  SutherlandHodgman,                      !- Polygon Clipping Algorithm
+  512,                                    !- Pixel Counting Resolution
+  SimpleSkyDiffuseModeling,               !- Sky Diffuse Modeling Algorithm
+  No,                                     !- Output External Shading Calculation Results
+  No,                                     !- Disable Self-Shading Within Shading Zone Groups
+  No;                                     !- Disable Self-Shading From Shading Zone Groups to Other Zones
 
 Sizing:Parameters,
   1.25,                                   !- Heating Sizing Factor
   1.15;                                   !- Cooling Sizing Factor
+
+Output:Table:SummaryReports,
+  AllSummary;                             !- Report Name 1
 
 GlobalGeometryRules,
   UpperLeftCorner,                        !- Starting Vertex Position
@@ -693,8 +700,8 @@ Material,
   2322.00146636525,                       !- Density {kg/m3}
   832.5567858096,                         !- Specific Heat {J/kg-K}
   0.9,                                    !- Thermal Absorptance
-  0,                                      !- Solar Absorptance
-  0;                                      !- Visible Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
 
 Material,
   1IN Stucco,                             !- Name
@@ -856,9 +863,9 @@ Material:NoMass,
   0.8;                                    !- Visible Absorptance
 
 Material:NoMass,
-  Typical Insulation,                     !- Name
+  Typical Insulation R-0.01,              !- Name
   Smooth,                                 !- Roughness
-  0.0282222222222221,                     !- Thermal Resistance {m2-K/W}
+  0.001,                                  !- Thermal Resistance {m2-K/W}
   0.9,                                    !- Thermal Absorptance
   0.7,                                    !- Solar Absorptance
   0.7;                                    !- Visible Absorptance
@@ -1030,8 +1037,8 @@ Construction,
   Clear 3mm;                              !- Layer 1
 
 Construction,
-  Typical Overhead Door,                  !- Name
-  Typical Insulation;                     !- Layer 1
+  Typical Overhead Door R-0.86,           !- Name
+  Typical Insulation R-0.01;              !- Layer 1
 
 Construction,
   U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air,  !- Name
@@ -2193,13 +2200,13 @@ Sizing:System,
   0,                                      !- Cooling Supply Air Flow Rate {m3/s}
   0.0099676501,                           !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
   1,                                      !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
-  3.9475456e-005,                         !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
+  3.9475456e-05,                          !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
   DesignDay,                              !- Heating Supply Air Flow Rate Method
   0,                                      !- Heating Supply Air Flow Rate {m3/s}
   0.0099676501,                           !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
   1,                                      !- Heating Fraction of Autosized Heating Supply Air Flow Rate
   1,                                      !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
-  3.1588213e-005,                         !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
+  3.1588213e-05,                          !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
   ZoneSum,                                !- System Outdoor Air Method
   1,                                      !- Zone Maximum Outdoor Air Fraction {dimensionless}
   CoolingDesignCapacity,                  !- Cooling Design Capacity Method
@@ -2340,7 +2347,7 @@ Curve:Biquadratic,
   -0.015275502,                           !- Coefficient2 x
   0.0014434524,                           !- Coefficient3 x**2
   -0.00039321,                            !- Coefficient4 y
-  -6.8364e-006,                           !- Coefficient5 y**2
+  -6.8364e-06,                            !- Coefficient5 y**2
   -0.0002905956,                          !- Coefficient6 x*y
   -100,                                   !- Minimum Value of x {BasedOnField A2}
   100,                                    !- Maximum Value of x {BasedOnField A2}
@@ -2409,7 +2416,7 @@ Coil:Cooling:DX:SingleSpeed,
   Curve Biquadratic 4,                    !- Energy Input Ratio Function of Temperature Curve Name
   Curve Quadratic 5,                      !- Energy Input Ratio Function of Flow Fraction Curve Name
   Curve Quadratic 6,                      !- Part Load Fraction Correlation Curve Name
-  ,                                       !- Minimum Outdoor Dry-Bulb Temperature for Compressor Operation {C}
+  -25,                                    !- Minimum Outdoor Dry-Bulb Temperature for Compressor Operation {C}
   ,                                       !- Nominal Time for Condensate Removal to Begin {s}
   ,                                       !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
   ,                                       !- Maximum Cycling Rate {cycles/hr}
@@ -2473,7 +2480,8 @@ Fan:ConstantVolume,
   0.9,                                    !- Motor Efficiency
   1,                                      !- Motor In Airstream Fraction
   Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Electric Backup Htg Coil Outlet Air Node, !- Air Inlet Node Name
-  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node; !- Air Outlet Node Name
+  Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Supply Outlet Node, !- Air Outlet Node Name
+  ;                                       !- End-Use Subcategory
 
 SetpointManager:SingleZone:Reheat,
   Zone Office WholeBuilding - Sm Office  - Story Ground Setpoint Manager SZ Reheat, !- Name
@@ -2593,16 +2601,16 @@ Pump:VariableSpeed,
   ,                                       !- Pump Curve Name
   ,                                       !- Impeller Diameter {m}
   ,                                       !- VFD Control Type
-  ,                                       !- Pump rpm Schedule Name
+  ,                                       !- Pump RPM Schedule Name
   ,                                       !- Minimum Pressure Schedule {Pa}
   ,                                       !- Maximum Pressure Schedule {Pa}
-  ,                                       !- Minimum RPM Schedule {Rotations Per Minute}
-  ,                                       !- Maximum RPM Schedule {Rotations Per Minute}
+  ,                                       !- Minimum RPM Schedule {rev/min}
+  ,                                       !- Maximum RPM Schedule {rev/min}
   ,                                       !- Zone Name
   0.5,                                    !- Skin Loss Radiative Fraction
   PowerPerFlowPerPressure,                !- Design Power Sizing Method
   348701.1,                               !- Design Electric Power per Unit Flow Rate {W/(m3/s)}
-  1.282051282,                            !- Design Shaft Power per Unit Flow Rate per Unit Head
+  1.282051282,                            !- Design Shaft Power per Unit Flow Rate per Unit Head {W/((m3/s)-Pa)}
   0,                                      !- Design Minimum Flow Rate Fraction
   General;                                !- End-Use Subcategory
 
@@ -2845,7 +2853,7 @@ Pump:ConstantSpeed,
   ,                                       !- Skin Loss Radiative Fraction
   PowerPerFlowPerPressure,                !- Design Power Sizing Method
   348701.1,                               !- Design Electric Power per Unit Flow Rate {W/(m3/s)}
-  1.282051282,                            !- Design Shaft Power per Unit Flow Rate per Unit Head
+  1.282051282,                            !- Design Shaft Power per Unit Flow Rate per Unit Head {W-s/m3-Pa}
   General;                                !- End-Use Subcategory
 
 Branch,
@@ -3018,7 +3026,7 @@ WaterUse:Connections,
 WaterUse:Equipment,
   Office WholeBuilding - Sm Office - 90.1-2004 Service Water Use 0.02gpm at 140F, !- Name
   General,                                !- End-Use Subcategory
-  1.14667750625312e-006,                  !- Peak Flow Rate {m3/s}
+  1.14667750625312e-06,                   !- Peak Flow Rate {m3/s}
   OfficeSmall BLDG_SWH_SCH,               !- Flow Rate Fraction Schedule Name
   Mixed Water At Faucet Temp - 140F,      !- Target Temperature Schedule Name
   ,                                       !- Hot Water Supply Temperature Schedule Name
@@ -3081,19 +3089,19 @@ Site:Location,
   -7,                                     !- Time Zone {hr}
   1829;                                   !- Elevation {m}
 
-Site:GroundTemperature:BuildingSurface,
-  19.527,                                 !- January Ground Temperature {C}
-  19.502,                                 !- February Ground Temperature {C}
-  19.536,                                 !- March Ground Temperature {C}
-  19.598,                                 !- April Ground Temperature {C}
-  20.002,                                 !- May Ground Temperature {C}
-  21.64,                                  !- June Ground Temperature {C}
-  22.225,                                 !- July Ground Temperature {C}
-  22.375,                                 !- August Ground Temperature {C}
-  21.449,                                 !- September Ground Temperature {C}
-  20.121,                                 !- October Ground Temperature {C}
-  19.802,                                 !- November Ground Temperature {C}
-  19.633;                                 !- December Ground Temperature {C}
+Site:GroundTemperature:FCfactorMethod,
+  7.1,                                    !- January Ground Temperature {C}
+  3,                                      !- February Ground Temperature {C}
+  -1,                                     !- March Ground Temperature {C}
+  0.8,                                    !- April Ground Temperature {C}
+  -0.2,                                   !- May Ground Temperature {C}
+  4.8,                                    !- June Ground Temperature {C}
+  6.1,                                    !- July Ground Temperature {C}
+  13.7,                                   !- August Ground Temperature {C}
+  22.2,                                   !- September Ground Temperature {C}
+  22.7,                                   !- October Ground Temperature {C}
+  21.7,                                   !- November Ground Temperature {C}
+  18.5;                                   !- December Ground Temperature {C}
 
 Site:WaterMainsTemperature,
   Correlation,                            !- Calculation Method
@@ -3195,7 +3203,7 @@ Lights,
   ,                                       !- Lighting Level {W}
   10.7639104167097,                       !- Watts per Zone Floor Area {W/m2}
   ,                                       !- Watts per Person {W/person}
-  ,                                       !- Return Air Fraction
+  0,                                      !- Return Air Fraction
   0.7,                                    !- Fraction Radiant
   0.2,                                    !- Fraction Visible
   1,                                      !- Fraction Replaceable
@@ -3230,9 +3238,9 @@ ElectricEquipment,
   ,                                       !- Design Level {W}
   6.78126356252712,                       !- Watts per Zone Floor Area {W/m2}
   ,                                       !- Watts per Person {W/person}
-  ,                                       !- Fraction Latent
+  0,                                      !- Fraction Latent
   0.5,                                    !- Fraction Radiant
-  ,                                       !- Fraction Lost
+  0,                                      !- Fraction Lost
   General;                                !- End-Use Subcategory
 
 Exterior:Lights,
@@ -3269,8 +3277,8 @@ Curve:Biquadratic,
   0.009543347,                            !- Coefficient2 x
   0.00068377,                             !- Coefficient3 x**2
   -0.011042676,                           !- Coefficient4 y
-  5.249e-006,                             !- Coefficient5 y**2
-  -9.72e-006,                             !- Coefficient6 x*y
+  5.249e-06,                              !- Coefficient5 y**2
+  -9.72e-06,                              !- Coefficient6 x*y
   17,                                     !- Minimum Value of x {BasedOnField A2}
   22,                                     !- Maximum Value of x {BasedOnField A2}
   13,                                     !- Minimum Value of y {BasedOnField A3}
@@ -3315,9 +3323,6 @@ Curve:Quadratic,
 
 OutputControl:Table:Style,
   HTML;                                   !- Column Separator
-
-Output:Table:SummaryReports,
-  AllSummary;                             !- Report Name 1
 
 Output:VariableDictionary,
   IDF,                                    !- Key Field
@@ -3581,24 +3586,4 @@ Output:Meter,
 Output:Meter,
   DistrictHeating:Facility,               !- Key Name
   Timestep;                               !- Reporting Frequency
-
-Output:Variable,
-  *,                                      !- Key Value
-  Zone Air Temperature,                   !- Variable Name
-  Hourly;                                 !- Reporting Frequency
-
-Output:Variable,
-  *,                                      !- Key Value
-  Site Outdoor Air Wetbulb Temperature,   !- Variable Name
-  Timestep;                               !- Reporting Frequency
-
-Output:Variable,
-  *,                                      !- Key Value
-  Zone Air Relative Humidity,             !- Variable Name
-  Daily;                                  !- Reporting Frequency
-
-Output:Variable,
-  *,                                      !- Key Value
-  Site Outdoor Air Drybulb Temperature,   !- Variable Name
-  Monthly;                                !- Reporting Frequency
 

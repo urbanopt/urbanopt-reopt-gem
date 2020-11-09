@@ -46,7 +46,7 @@
     "bottom_story_ground_exposed_floor": true,
     "top_story_exterior_exposed_roof": true,
     "story_multiplier": "Basements Ground Mid Top",
-    "make_mid_story_surfaces_adiabatic": false,
+    "make_mid_story_surfaces_adiabatic": true,
     "bar_division_method": "Multiple Space Types - Individual Stories Sliced",
     "double_loaded_corridor": "Primary Space Type",
     "space_type_sort_logic": "Building Type > Size",
@@ -95,9 +95,9 @@
   "predicted_mean_vote": {
     "comfortWarnings": true,
     "meanRadiantCalcType": "ZoneAveraged",
-    "workEfficiencySchedule": "{9468dced-5424-40a6-a5db-7e7568243ef3}",
-    "clothingSchedule": "{2c7da783-4f08-48d0-82e4-e5d270359bae}",
-    "airVelocitySchedule": "{636d3749-3d9a-4e73-843b-5a7bb5993ff4}",
+    "workEfficiencySchedule": "{a4acfbde-b780-4eee-9b54-34ba79832e1b}",
+    "clothingSchedule": "{9631ab35-dd1c-431a-a1d1-c2b7efa0011d}",
+    "airVelocitySchedule": "{f9ea3847-ac61-4a8c-a1cc-49ef7cb074e0}",
     "reporting_frequency": "Timestep",
     "applicable": true
   },
@@ -125,10 +125,26 @@
     "distclg_rate": 0.2,
     "applicable": true
   },
+  "AddPackagedIceStorage": {
+    "delimiter": "-----------------------------------------------------------------",
+    "Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil 21kBtu_hr 9_7SEER": true,
+    "ice_cap": "AutoSize",
+    "size_mult": "1.0",
+    "ctl": "EMSControlled",
+    "sched": "Simple User Sched",
+    "wknd": true,
+    "season": "01/01-12/31",
+    "charge_start": "22:00",
+    "charge_end": "07:00",
+    "discharge_start": "12:00",
+    "discharge_end": "18:00",
+    "applicable": true
+  },
   "DefaultFeatureReports": {
     "feature_id": "1",
     "feature_name": "Building 1",
     "feature_type": "Building",
+    "feature_location": "[10, 0]",
     "reporting_frequency": "Timestep",
     "applicable": true
   }

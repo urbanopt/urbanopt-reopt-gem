@@ -69,11 +69,11 @@ module URBANopt # :nodoc:
 
         # Check FeatureReport has required data
         requireds_names = ['latitude', 'longitude']
-        requireds = [feature_report.location.latitude, feature_report.location.longitude]
+        requireds = [feature_report.location.latitude_deg, feature_report.location.longitude_deg]
 
         if requireds.include?(nil) || requireds.include?(0)
           requireds.each_with_index do |i, x|
-            if [nil, 0].include? x
+            if [nil].include? x
               n = requireds_names[i]
               # @@logger.error("Missing value for #{n} - this is a required input")
               raise "Missing value for #{n} - this is a required input"
@@ -84,16 +84,16 @@ module URBANopt # :nodoc:
         reopt_inputs[:Scenario][:description] = description
 
         # Parse Location
-        reopt_inputs[:Scenario][:Site][:latitude] = feature_report.location.latitude
-        reopt_inputs[:Scenario][:Site][:longitude] = feature_report.location.longitude
+        reopt_inputs[:Scenario][:Site][:latitude] = feature_report.location.latitude_deg
+        reopt_inputs[:Scenario][:Site][:longitude] = feature_report.location.longitude_deg
 
         # Parse Optional FeatureReport metrics
-        unless feature_report.program.roof_area.nil?
-          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area[:available_roof_area]
+        unless feature_report.program.roof_area_sqft.nil?
+          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area_sqft[:available_roof_area]
         end
 
-        unless feature_report.program.site_area.nil?
-          reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area * 1.0 / 43560 # acres/sqft
+        unless feature_report.program.site_area_sqft.nil?
+          reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
         end
 
         unless feature_report.timesteps_per_hour.nil?
@@ -161,8 +161,8 @@ module URBANopt # :nodoc:
         end
 
         # Update location
-        feature_report.location.latitude = reopt_output['inputs']['Scenario']['Site']['latitude']
-        feature_report.location.longitude = reopt_output['inputs']['Scenario']['Site']['longitude']
+        feature_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
+        feature_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
 
         # Update timeseries csv from \REopt Lite dispatch data
         feature_report.timesteps_per_hour = reopt_output['inputs']['Scenario']['time_steps_per_hour']
