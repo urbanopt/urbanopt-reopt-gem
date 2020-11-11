@@ -70,31 +70,33 @@ module URBANopt # :nodoc:
         end
 
         # Update required info
-        if scenario_report.location.latitude.nil? || scenario_report.location.longitude.nil? || (scenario_report.location.latitude == 0) || (scenario_report.location.longitude == 0)
+        if scenario_report.location.latitude_deg.nil? || scenario_report.location.longitude_deg.nil? || (scenario_report.location.latitude_deg == 0) || (scenario_report.location.longitude_deg == 0)
           if !scenario_report.feature_reports.nil? && (scenario_report.feature_reports != [])
             lats = []
             longs = []
             scenario_report.feature_reports.each do |x|
-              if ![nil, 0].include?(x[:location][:latitude]) && ![nil, 0].include?(x[:location][:longitude])
-                lats.push(x[:location][:latitude])
-                longs.push(x[:location][:longitude])
+              puts " ERROR: #{x.location.latitude_deg}"
+              if ![nil].include?(x.location.latitude_deg) && ![nil].include?(x.location.longitude_deg)
+                lats.push(x.location.latitude_deg)
+                longs.push(x.location.longitude_deg)
               end
             end
 
             if !lats.empty? && !longs.empty?
-              scenario_report.location.latitude = lats.reduce(:+) / lats.size.to_f
-              scenario_report.location.longitude = longs.reduce(:+) / longs.size.to_f
+              scenario_report.location.latitude_deg = lats.reduce(:+) / lats.size.to_f
+              scenario_report.location.longitude_deg = longs.reduce(:+) / longs.size.to_f
             end
           end
         end
 
         # Update required info
         requireds_names = ['latitude', 'longitude']
-        requireds = [scenario_report.location.latitude, scenario_report.location.longitude]
+        requireds = [scenario_report.location.latitude_deg, scenario_report.location.longitude_deg]
+
 
         if requireds.include?(nil) || requireds.include?(0)
-          requireds.each_with_index do |i, x|
-            if [nil, 0].include? x
+          requireds.each_with_index do |x, i|
+            if [nil].include? x
               n = requireds_names[i]
               raise "Missing value for #{n} - this is a required input"
             end
@@ -103,16 +105,17 @@ module URBANopt # :nodoc:
 
         reopt_inputs[:Scenario][:description] = description
 
-        reopt_inputs[:Scenario][:Site][:latitude] = scenario_report.location.latitude
-        reopt_inputs[:Scenario][:Site][:longitude] = scenario_report.location.longitude
+        reopt_inputs[:Scenario][:Site][:latitude] = scenario_report.location.latitude_deg
+        reopt_inputs[:Scenario][:Site][:longitude] = scenario_report.location.longitude_deg
 
         # Update optional info
-        if !scenario_report.program.roof_area.nil?
-          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area[:available_roof_area]
+        # REK: attribute names should be updated
+        if !scenario_report.program.roof_area_sqft.nil?
+          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area]
         end
 
-        if !scenario_report.program.site_area.nil?
-          reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area * 1.0 / 43560 # acres/sqft
+        if !scenario_report.program.site_area_sqft.nil?
+          reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
         end
 
         unless scenario_report.timesteps_per_hour.nil?
@@ -201,8 +204,8 @@ module URBANopt # :nodoc:
         end
 
         # Update location
-        scenario_report.location.latitude = reopt_output['inputs']['Scenario']['Site']['latitude']
-        scenario_report.location.longitude = reopt_output['inputs']['Scenario']['Site']['longitude']
+        scenario_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
+        scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
 
         # Update timeseries csv from \REopt Lite dispatch data
         scenario_report.timesteps_per_hour = reopt_output['inputs']['Scenario']['time_steps_per_hour']

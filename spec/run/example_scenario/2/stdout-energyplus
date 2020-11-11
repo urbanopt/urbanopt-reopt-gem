@@ -1,14 +1,13 @@
 EnergyPlus Starting
-EnergyPlus, Version 9.1.0-fafb9d5652, YMD=2020.03.22 22:57
+EnergyPlus, Version 9.3.0-baff08990c, YMD=2020.11.01 22:46
 Initializing Response Factors
-Calculating CTFs for "INTERIORFURNISHINGS 1", Construction # 2
-Calculating CTFs for "TYPICAL IEAD ROOF R-15.87", Construction # 3
-Calculating CTFs for "TYPICAL INSULATED CARPETED 6IN SLAB FLOOR", Construction # 5
-Calculating CTFs for "TYPICAL INSULATED EXTERIOR MASS WALL R-8.13", Construction # 7
+Calculating CTFs for "TYPICAL IEAD ROOF R-15.87", Construction # 2
+Calculating CTFs for "TYPICAL INSULATED CARPETED 6IN SLAB FLOOR", Construction # 4
+Calculating CTFs for "TYPICAL INSULATED EXTERIOR MASS WALL R-8.13", Construction # 6
 Initializing Window Optical Properties
 Initializing Solar Calculations
 Allocate Solar Module Arrays
-Initializing Zone Report Variables
+Initializing Zone and Enclosure Report Variables
 Initializing Surface (Shading) Report Variables
 Computing Interior Solar Absorption Factors
 Determining Shadowing Combinations
@@ -35,23 +34,13 @@ Initializing HVAC
 Warming up
 Warming up
 Warming up
-Warming up
-Warming up
-Warming up
 Performing Zone Sizing Simulation
 ...for Sizing Period: #1 DENVER CENTENNIAL  GOLDEN   N ANN CLG .4% CONDNS DB=>MWB 1
 Warming up
 Warming up
 Warming up
-Warming up
-Warming up
-Warming up
 Performing Zone Sizing Simulation
 ...for Sizing Period: #2 DENVER CENTENNIAL  GOLDEN   N ANN CLG .4% CONDNS WB=>MDB 1
-Warming up
-Warming up
-Warming up
-Warming up
 Warming up
 Warming up
 Performing Zone Sizing Simulation
@@ -66,18 +55,32 @@ Adjusting Air System Sizing
 Adjusting Standard 62.1 Ventilation Sizing
 Initializing Simulation
 Reporting Surfaces
+Beginning HVAC Sizing Simulation
+Initializing New Environment Parameters, HVAC Sizing Simulation
+Warming up {1}
+Warming up {2}
+Warming up {3}
+Warming up {4}
+Starting HVAC Sizing Simulation at 07/21 for DENVER CENTENNIAL  GOLDEN   N ANN CLG .4% CONDNS DB=>MWB 1 HVAC Sizing Pass 1
+Initializing New Environment Parameters, HVAC Sizing Simulation
+Warming up {1}
+Warming up {2}
+Warming up {3}
+Starting HVAC Sizing Simulation at 07/21 for DENVER CENTENNIAL  GOLDEN   N ANN CLG .4% CONDNS WB=>MDB 1 HVAC Sizing Pass 1
+Initializing New Environment Parameters, HVAC Sizing Simulation
+Warming up {1}
+Warming up {2}
+Warming up {3}
+Starting HVAC Sizing Simulation at 12/21 for DENVER CENTENNIAL  GOLDEN   N ANN HTG 99.6% CONDNS DB 1 HVAC Sizing Pass 1
 Beginning Primary Simulation
 Initializing New Environment Parameters
 Warming up {1}
 Warming up {2}
 Warming up {3}
-Warming up {4}
-Warming up {5}
-Warming up {6}
 Starting Simulation at 06/01/2012 for RUN PERIOD 1
 Writing tabular output file results using HTML format.
 Writing Tariff Reports
 Computing Life Cycle Costs and Reporting
 Writing final SQL reports
-EnergyPlus Run Time=00hr 00min  2.19sec
+EnergyPlus Run Time=00hr 00min  2.80sec
 EnergyPlus Completed Successfully.
