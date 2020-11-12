@@ -1,67 +1,77 @@
 {
-   "completed_at" : "20200323T045739Z",
+   "completed_at" : "20201102T054652Z",
    "completed_status" : "Success",
-   "current_step" : 8,
+   "current_step" : 9,
    "description" : "Building 1",
-   "eplusout_err" : "Program Version,EnergyPlus, Version 9.1.0-fafb9d5652, YMD=2020.03.22 22:57,\n   ** Warning ** Timestep: Requested number (1) is less than the suggested minimum of 4.\n   **   ~~~   ** Please see entry for Timestep in Input/Output Reference for discussion of considerations.\n   ************* Beginning Zone Sizing Calculations\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH DEFAULT\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH FRIDAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH SUMMER DESIGN DAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH SUNDAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH WINTER DESIGN DAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Year=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Constant=\"ALWAYS OFF DISCRETE\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Constant=\"ALWAYS ON CONTINUOUS\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** CheckUsedConstructions: There are 11 nominally unused constructions in input.\n   **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;\n   ************* Beginning System Sizing Calculations\n   ************* Beginning Plant Sizing Calculations\n   ** Warning ** GetDXCoils: Coil:Cooling:DX:SingleSpeed=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC 1SPD DX AC CLG COIL 26KBTU/HR 9.7SEER\", invalid\n   **   ~~~   ** ...Part Load Fraction Correlation Curve Name = COILCLGDXEIRRATIO_FQFRAC has out of range value.\n   **   ~~~   ** ...Curve maximum must be <= 1.0, curve max at PLR = 0.99 is 1.018\n   **   ~~~   ** ...Setting curve maximum to 1.0 and simulation continues.\n   ** Warning ** The Standard Ratings is calculated for Coil:Cooling:DX:SingleSpeed = ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC 1SPD DX AC CLG COIL 26KBTU/HR 9.7SEER but not at the AHRI test condition due to curve out of bound.\n   **   ~~~   **  Review the Standard Ratings calculations in the Engineering Reference for this coil type. Also, use Output:Diagnostics, DisplayExtraWarnings for further guidance.\n   ** Warning ** Water heater = 40GAL NATURALGAS WATER HEATER - 1KBTU/HR 0.82 THERM EFF:  Recovery Efficiency and Energy Factor could not be calculated during the test for standard ratings\n   **   ~~~   ** Setpoint was never recovered and/or heater never turned on\n   ** Warning ** SizePlantLoop: Calculated Plant Sizing Design Volume Flow Rate=[0.00] is too small. Set to 0.0\n   **   ~~~   ** ..occurs for PlantLoop=HOT WATER LOOP\n   ** Warning ** SizePump: Calculated Pump Nominal Volume Flow Rate=[0.00] is too small. Set to 0.0\n   **   ~~~   ** ..occurs for Pump=HOT WATER LOOP PUMP\n   ** Warning ** Check input. Pump nominal power or motor efficiency is set to 0, for pump=HOT WATER LOOP PUMP\n   ** Warning ** Check input. Pump nominal flow rate is set or calculated = 0, for pump=HOT WATER LOOP PUMP\n   ** Warning ** Missing temperature setpoint for LeavingSetpointModulated mode Boiler named BOILER\n   **   ~~~   **   A temperature setpoint is needed at the outlet node of a boiler in variable flow mode, use a SetpointManager\n   **   ~~~   **   The overall loop setpoint will be assumed for Boiler. The simulation continues ... \n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"ADDITIONALFUEL:FACILITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"DISTRICTCOOLING:FACILITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"DISTRICTHEATING:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly requested for \"Electricity:Facility\" (TimeStep), already on \"Output:Meter\". Will report to both eplusout.eso and eplusout.mtr\n   ** Warning ** Output:Meter:MeterFileOnly: invalid Key Name=\"ELECTRICITYPRODUCED:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly requested for \"Gas:Facility\" (TimeStep), already on \"Output:Meter\". Will report to both eplusout.eso and eplusout.mtr\n   ** Warning ** Output:Meter:MeterFileOnly: invalid Key Name=\"DISTRICTCOOLING:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly: invalid Key Name=\"DISTRICTHEATING:FACILITY\" - not found.\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ************* Beginning Simulation\n   ** Warning ** Processing Monthly Tabular Reports: Variable names not valid for this simulation\n   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual variables.\n   ** Warning ** GetInputEconomicsTariff: UtilityCost:Tariff=\"DISTRICTHEATING TARIFF\" missing meter\n   **   ~~~   ** Meter referenced is not present due to a lack of equipment that uses that energy source/meter:\"DISTRICTHEATING:FACILITY\".\n   ** Warning ** GetInputEconomicsTariff: UtilityCost:Tariff=\"DISTRICTCOOLING TARIFF\" missing meter\n   **   ~~~   ** Meter referenced is not present due to a lack of equipment that uses that energy source/meter:\"DISTRICTCOOLING:FACILITY\".\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-ELECTRICITY\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-DISTILLATE OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-RESIDUAL OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-COAL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ************* Simulation Error Summary *************\n   ** Warning ** The following Report Variables were requested but not generated -- check.rdd file\n   **   ~~~   ** Either the IDF did not contain these elements, the variable name is misspelled,\n   **   ~~~   ** or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;\n   ************* Key=*, VarName=FANGERPMV, Frequency=TimeStep\n   ************* Key=*, VarName=FANGERPPD, Frequency=TimeStep\n   ************* Key=*, VarName=TIME NOT COMFORTABLE SUMMER CLOTHES, Frequency=TimeStep\n   ************* Key=*, VarName=TIME NOT COMFORTABLE WINTER CLOTHES, Frequency=TimeStep\n   ************* Key=*, VarName=TIME NOT COMFORTABLE SUMMER OR WINTER CLOTHES, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT COOLING CHILLED WATER RATE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT COOLING MASS FLOW RATE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT COOLING INLET TEMPERATURE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT COOLING OUTLET TEMPERATURE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT HEATING HOT WATER RATE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT HEATING MASS FLOW RATE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT HEATING INLET TEMPERATURE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT HEATING OUTLET TEMPERATURE, Frequency=TimeStep\n   ************* There are 3 unused schedules in input.\n   ************* There are 3 unused week schedules in input.\n   ************* There are 8 unused day schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   *************\n   ************* ===== Final Error Summary =====\n   ************* The following error categories occurred.  Consider correcting or noting.\n   ************* Nominally Unused Constructions\n   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause\n   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm\n   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).\n   *************\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 9 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 108 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  2.19sec\n",
-   "file_paths" : [
-      "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1/generated_files",
-      "C:/gitrepos/urbanopt-scenario-gem/spec/files/mappers/../weather/",
-      "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.2/lib/files",
-      "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.1/lib/files",
-      "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.6/lib/files",
+   "eplusout_err" : "Program Version,EnergyPlus, Version 9.3.0-baff08990c, YMD=2020.11.01 22:46,\n   ** Warning ** Timestep: Requested number (1) is less than the suggested minimum of 4.\n   **   ~~~   ** Please see entry for Timestep in Input/Output Reference for discussion of considerations.\n   ************* Beginning Zone Sizing Calculations\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH DEFAULT\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH FRIDAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH SUMMER DESIGN DAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH SUNDAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Day:Interval=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH WINTER DESIGN DAY\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Year=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC OCC SCH\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Constant=\"ALWAYS OFF DISCRETE\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** ProcessScheduleInput: Schedule:Constant=\"ALWAYS ON CONTINUOUS\", Blank Schedule Type Limits Name input -- will not be validated.\n   ** Warning ** GetHTSurfaceData: Surfaces with interface to Ground found but no \"Ground Temperatures\" were input.\n   **   ~~~   ** Found first in surface=SURFACE 1\n   **   ~~~   ** Defaults, constant throughout the year of (18.0) will be used.\n   ** Warning ** CheckUsedConstructions: There are 11 nominally unused constructions in input.\n   **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;\n   ************* Beginning System Sizing Calculations\n   ************* Beginning Plant Sizing Calculations\n   ** Warning ** GetOAControllerInputs: Controller:MechanicalVentilation=\"CONTROLLER MECHANICAL VENTILATION 1\n   **   ~~~   ** Cannot locate a matching DesignSpecification:ZoneAirDistribution object for Zone=\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND\".\n   **   ~~~   ** Using default zone air distribution effectiveness of 1.0 for heating and cooling.\n   ** Warning ** Water heater = 40GAL NATURALGAS WATER HEATER - 1KBTU/HR 0.82 THERM EFF:  Recovery Efficiency and Energy Factor could not be calculated during the test for standard ratings\n   **   ~~~   ** Setpoint was never recovered and/or heater never turned on\n   ** Warning ** Check input. Pump nominal power or motor efficiency is set to 0, for pump=HOT WATER LOOP PUMP\n   ** Warning ** Check input. Pump nominal flow rate is set or calculated = 0, for pump=HOT WATER LOOP PUMP\n   ** Warning ** Missing temperature setpoint for LeavingSetpointModulated mode Boiler named BOILER\n   **   ~~~   **   A temperature setpoint is needed at the outlet node of a boiler in variable flow mode\n   **   ~~~   **   use a Setpoint Manager to establish a setpoint at the boiler outlet node \n   **   ~~~   **   or use an EMS actuator to establish a setpoint at the boiler outlet node \n   **   ~~~   **   The overall loop setpoint will be assumed for Boiler. The simulation continues ... \n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATING:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"COOLING:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIORLIGHTS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIORLIGHTS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"INTERIOREQUIPMENT:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"EXTERIOREQUIPMENT:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"FANS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"PUMPS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATREJECTION:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HUMIDIFIER:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"HEATRECOVERY:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"WATERSYSTEMS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"REFRIGERATION:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:ELECTRICITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:GAS\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:ADDITIONALFUEL\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:DISTRICTCOOLING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:DISTRICTHEATING\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"GENERATORS:WATER\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"ADDITIONALFUEL:FACILITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"DISTRICTCOOLING:FACILITY\" - not found.\n   ** Warning ** Output:Meter: invalid Key Name=\"DISTRICTHEATING:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly requested for \"Electricity:Facility\" (TimeStep), already on \"Output:Meter\". Will report to both eplusout.eso and eplusout.mtr\n   ** Warning ** Output:Meter:MeterFileOnly: invalid Key Name=\"ELECTRICITYPRODUCED:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly requested for \"Gas:Facility\" (TimeStep), already on \"Output:Meter\". Will report to both eplusout.eso and eplusout.mtr\n   ** Warning ** Output:Meter:MeterFileOnly: invalid Key Name=\"DISTRICTCOOLING:FACILITY\" - not found.\n   ** Warning ** Output:Meter:MeterFileOnly: invalid Key Name=\"DISTRICTHEATING:FACILITY\" - not found.\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ** Warning ** GetInputEconomicsTariff: UtilityCost:Tariff=\"DISTRICTHEATING TARIFF\" missing meter\n   **   ~~~   ** Meter referenced is not present due to a lack of equipment that uses that energy source/meter:\"DISTRICTHEATING:FACILITY\".\n   ** Warning ** GetInputEconomicsTariff: UtilityCost:Tariff=\"DISTRICTCOOLING TARIFF\" missing meter\n   **   ~~~   ** Meter referenced is not present due to a lack of equipment that uses that energy source/meter:\"DISTRICTCOOLING:FACILITY\".\n   ** Warning ** More than 4% of time (1.0 hours) uncomfortable in one or more zones \n   **   ~~~   ** Based on ASHRAE 55-2004 graph (Section 5.2.1.1)\n   **   ~~~   ** During SizingPeriod Environment [12/21 - 12/21]: DENVER CENTENNIAL  GOLDEN   N ANN HTG 99.6% CONDNS DB 1 HVAC Sizing Pass 1\n   **   ~~~   ** 12.0 hours were uncomfortable in zone: ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND\n   ** Warning ** SizePlantLoop: Calculated Plant Sizing Design Volume Flow Rate=[0.00] is too small. Set to 0.0\n   **   ~~~   ** ..occurs for PlantLoop=HOT WATER LOOP\n   ** Warning ** SizePump: Calculated Pump Nominal Volume Flow Rate=[0.00] is too small. Set to 0.0\n   **   ~~~   ** ..occurs for Pump=HOT WATER LOOP PUMP\n   ************* Beginning Simulation\n   ** Warning ** More than 4% of time (1.0 hours) uncomfortable in one or more zones \n   **   ~~~   ** Based on ASHRAE 55-2004 graph (Section 5.2.1.1)\n   **   ~~~   ** During Environment [06/01/2012 - 06/01/2012]: RUN PERIOD 1\n   **   ~~~   ** 5.0 hours were uncomfortable in zone: ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-ELECTRICITY\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-DISTILLATE OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-RESIDUAL OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-COAL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ************* Simulation Error Summary *************\n   ** Warning ** The following Report Variables were requested but not generated -- check.rdd file\n   **   ~~~   ** Either the IDF did not contain these elements, the variable name is misspelled,\n   **   ~~~   ** or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;\n   ************* Key=*, VarName=FANGERPMV, Frequency=TimeStep\n   ************* Key=*, VarName=FANGERPPD, Frequency=TimeStep\n   ************* Key=*, VarName=TIME NOT COMFORTABLE SUMMER CLOTHES, Frequency=TimeStep\n   ************* Key=*, VarName=TIME NOT COMFORTABLE WINTER CLOTHES, Frequency=TimeStep\n   ************* Key=*, VarName=TIME NOT COMFORTABLE SUMMER OR WINTER CLOTHES, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT COOLING CHILLED WATER RATE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT COOLING MASS FLOW RATE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT COOLING INLET TEMPERATURE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT COOLING OUTLET TEMPERATURE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT HEATING HOT WATER RATE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT HEATING MASS FLOW RATE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT HEATING INLET TEMPERATURE, Frequency=TimeStep\n   ************* Key=*, VarName=DISTRICT HEATING OUTLET TEMPERATURE, Frequency=TimeStep\n   ************* Key=*, VarName=ICE THERMAL STORAGE END FRACTION, Frequency=TimeStep\n   ************* There are 8 unused schedules in input.\n   ************* There are 4 unused week schedules in input.\n   ************* There are 9 unused day schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   *************\n   ************* ===== Final Error Summary =====\n   ************* The following error categories occurred.  Consider correcting or noting.\n   ************* Nominally Unused Constructions\n   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause\n   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm\n   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).\n   *************\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 10 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 109 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  2.81sec\n",
+   "file_paths" : 
+   [
+      "C:/urbanopt-scenario-gem/spec/test/example_scenario/1/generated_files",
+      "C:/urbanopt-scenario-gem/spec/test/mappers/../weather/",
+      "C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/openstudio-extension-0.2.5/lib/files",
+      "C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/openstudio-model-articulation-0.2.0/lib/files",
+      "C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/openstudio-common-measures-0.2.0/lib/files",
+      "C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/openstudio-load-flexibility-measures-0.1.3/lib/files",
       "./files",
       "./weather",
       "../../files",
       "../../weather",
       "./"
    ],
-   "hash" : "DF0A2C8B",
-   "measure_paths" : [
-      "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-common-measures-0.1.2/lib/measures",
-      "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-model-articulation-0.1.1/lib/measures",
-      "C:/gitrepos/urbanopt-scenario-gem/lib/measures",
-      "C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-extension-0.1.6/lib/measures"
+   "hash" : "BB4F6581",
+   "measure_paths" : 
+   [
+      "C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/openstudio-extension-0.2.5/lib/measures",
+      "C:/urbanopt-scenario-gem/lib/measures",
+      "C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/openstudio-model-articulation-0.2.0/lib/measures",
+      "C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/openstudio-common-measures-0.2.0/lib/measures",
+      "C:/urbanopt-reporting-gem/lib/measures",
+      "C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/openstudio-load-flexibility-measures-0.1.3/lib/measures"
    ],
    "name" : "Building 1",
-   "run_directory" : "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1",
+   "run_directory" : "C:/urbanopt-scenario-gem/spec/test/example_scenario/1",
    "seed_file" : null,
-   "started_at" : "20200323T045645Z",
-   "steps" : [
+   "started_at" : "20201102T054619Z",
+   "steps" : 
+   [
       {
-         "arguments" : {
+         "arguments" : 
+         {
             "climate_zone" : "ASHRAE 169-2013-5B",
             "weather_file_name" : "urbanopt_scenario_tests.epw"
          },
          "measure_dir_name" : "ChangeBuildingLocation",
-         "result" : {
-            "completed_at" : "20200323T045647Z",
+         "result" : 
+         {
+            "completed_at" : "20201102T054622Z",
             "measure_class_name" : "ChangeBuildingLocation",
             "measure_display_name" : "ChangeBuildingLocation",
             "measure_name" : "change_building_location",
             "measure_taxonomy" : "Whole Building.Space Types",
             "measure_type" : "ModelMeasure",
             "measure_uid" : "d4db4971-f5ba-11e3-a3ac-0800200c9a66",
-            "measure_version_id" : "ee75726e-6dad-4da9-9f64-a40f4e79bd92",
-            "measure_version_modified" : "20200229T024319Z",
+            "measure_version_id" : "ff1497c6-f1bd-40b3-b972-f4424a902b8f",
+            "measure_version_modified" : "20200509T041913Z",
             "measure_xml_checksum" : "057E8D9D",
-            "started_at" : "20200323T045646Z",
+            "started_at" : "20201102T054621Z",
             "stderr" : "",
             "stdout" : "[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription\n[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription\n",
             "step_errors" : [],
             "step_files" : [],
             "step_final_condition" : "The final weather file is Denver Centennial  Golden   Nr and the model has 3 design day objects.",
-            "step_info" : [
+            "step_info" : 
+            [
                "city is Denver Centennial  Golden   Nr. State is CO",
                "mean dry bulb is 9.7",
                "Adding object Denver Centennial  Golden   N Ann Clg .4% Condns DB=>MWB",
                "Adding object Denver Centennial  Golden   N Ann Clg .4% Condns WB=>MDB",
                "Adding object Denver Centennial  Golden   N Ann Htg 99.6% Condns DB",
-               "Setting Climate Zone to 5B"
+               "Setting ASHRAE Climate Zone to 5B"
             ],
             "step_initial_condition" : "No weather file is set. The model has 0 design day objects",
             "step_result" : "Success",
-            "step_values" : [
+            "step_values" : 
+            [
                {
                   "name" : "weather_file_name",
                   "value" : "urbanopt_scenario_tests.epw"
@@ -91,31 +101,34 @@
          }
       },
       {
-         "arguments" : {
+         "arguments" : 
+         {
             "begin_date" : "2012-06-01",
             "end_date" : "2012-06-01",
             "timesteps_per_hour" : 1
          },
          "measure_dir_name" : "set_run_period",
-         "result" : {
-            "completed_at" : "20200323T045647Z",
+         "result" : 
+         {
+            "completed_at" : "20201102T054622Z",
             "measure_class_name" : "SetRunPeriod",
             "measure_display_name" : "SetRunPeriod",
             "measure_name" : "set_run_period",
             "measure_taxonomy" : "Envelope.Form",
             "measure_type" : "ModelMeasure",
             "measure_uid" : "7a84292a-3975-4ab3-9284-6edabcbe750b",
-            "measure_version_id" : "c3a54143-dcda-4280-850b-c26cd7260211",
-            "measure_version_modified" : "20200229T024314Z",
+            "measure_version_id" : "6e57d097-cd9e-4b3e-a5cf-2d86834e6e6c",
+            "measure_version_modified" : "20200509T041912Z",
             "measure_xml_checksum" : "2AF3A68E",
-            "started_at" : "20200323T045647Z",
+            "started_at" : "20201102T054622Z",
             "stderr" : "",
             "stdout" : "",
             "step_errors" : [],
             "step_files" : [],
             "step_info" : [],
             "step_result" : "Success",
-            "step_values" : [
+            "step_values" : 
+            [
                {
                   "name" : "timesteps_per_hour",
                   "value" : 1
@@ -133,31 +146,34 @@
          }
       },
       {
-         "arguments" : {
+         "arguments" : 
+         {
             "floor_height" : 0,
             "ns_to_ew_ratio" : 0,
             "total_bldg_floor_area" : 1000,
             "wwr" : 0
          },
          "measure_dir_name" : "create_bar_from_building_type_ratios",
-         "result" : {
-            "completed_at" : "20200323T045710Z",
+         "result" : 
+         {
+            "completed_at" : "20201102T054633Z",
             "measure_class_name" : "CreateBarFromBuildingTypeRatios",
             "measure_display_name" : "Create Bar From Building Type Ratios",
             "measure_name" : "create_bar_from_building_type_ratios",
             "measure_taxonomy" : "Envelope.Form",
             "measure_type" : "ModelMeasure",
             "measure_uid" : "6e3a14f8-c3c7-4e03-bc51-bef8a52e1a05",
-            "measure_version_id" : "98068f42-8546-42bc-b4a5-6bfcd0e332d4",
-            "measure_version_modified" : "20200229T024044Z",
+            "measure_version_id" : "c569be27-f463-4721-8bfb-72bd6775d70e",
+            "measure_version_modified" : "20200512T025555Z",
             "measure_xml_checksum" : "2AF3A68E",
-            "started_at" : "20200323T045700Z",
+            "started_at" : "20201102T054629Z",
             "stderr" : "",
             "stdout" : "",
             "step_errors" : [],
             "step_files" : [],
             "step_final_condition" : "The building finished with 1 spaces.",
-            "step_info" : [
+            "step_info" : 
+            [
                "Replacing argument named climate_zone from current measure with a value of ASHRAE 169-2013-5B from ChangeBuildingLocation.",
                "0.0 value for aspect ratio will be replaced with smart default for SmallOffice of 1.5.",
                "0.0 value for minimum perimeter multiplier will be replaced with smart default for SmallOffice of 1.0.",
@@ -165,12 +181,13 @@
                "0.0 value for window to wall ratio will be replaced with smart default for SmallOffice of 0.15.",
                "Creating Space Types for SmallOffice.",
                "Making bar with length of 39 ft and width of 26 ft",
-               "Intersecting and matching surfaces in model, this will create additional geometry.",
+               "Intersecting and matching surfaces in story Story Ground, this will create additional geometry.",
                "Created bar envelope with floor area of 1,000 ft^2."
             ],
             "step_initial_condition" : "The building started with 0 spaces.",
             "step_result" : "Success",
-            "step_values" : [
+            "step_values" : 
+            [
                {
                   "name" : "bldg_type_a",
                   "value" : "SmallOffice"
@@ -185,7 +202,7 @@
                },
                {
                   "name" : "bldg_type_b_fract_bldg_area",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "bldg_type_b_num_units",
@@ -197,7 +214,7 @@
                },
                {
                   "name" : "bldg_type_c_fract_bldg_area",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "bldg_type_c_num_units",
@@ -209,7 +226,7 @@
                },
                {
                   "name" : "bldg_type_d_fract_bldg_area",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "bldg_type_d_num_units",
@@ -217,15 +234,15 @@
                },
                {
                   "name" : "total_bldg_floor_area",
-                  "value" : 1000
+                  "value" : 1000.0
                },
                {
                   "name" : "single_floor_area",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "floor_height",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "custom_height_bar",
@@ -233,7 +250,7 @@
                },
                {
                   "name" : "num_stories_above_grade",
-                  "value" : 1
+                  "value" : 1.0
                },
                {
                   "name" : "num_stories_below_grade",
@@ -241,7 +258,7 @@
                },
                {
                   "name" : "building_rotation",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "template",
@@ -249,23 +266,23 @@
                },
                {
                   "name" : "ns_to_ew_ratio",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "perim_mult",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "bar_sep_dist_mult",
-                  "value" : 10
+                  "value" : 10.0
                },
                {
                   "name" : "wwr",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "party_wall_fraction",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "party_wall_stories_north",
@@ -297,7 +314,7 @@
                },
                {
                   "name" : "make_mid_story_surfaces_adiabatic",
-                  "value" : false
+                  "value" : true
                },
                {
                   "name" : "bar_division_method",
@@ -344,7 +361,8 @@
                   "value" : 25.819888974716111
                }
             ],
-            "step_warnings" : [
+            "step_warnings" : 
+            [
                "Not modeling core and perimeter zones for some portion of the model."
             ]
          }
@@ -352,28 +370,30 @@
       {
          "arguments" : {},
          "measure_dir_name" : "create_typical_building_from_model",
-         "result" : {
-            "completed_at" : "20200323T045732Z",
+         "result" : 
+         {
+            "completed_at" : "20201102T054644Z",
             "measure_class_name" : "CreateTypicalBuildingFromModel",
             "measure_display_name" : "Create Typical Building from Model",
             "measure_name" : "create_typical_building_from_model",
             "measure_taxonomy" : "Whole Building.Space Types",
             "measure_type" : "ModelMeasure",
             "measure_uid" : "339a2e3a-273c-4494-bb50-bfe586a0647c",
-            "measure_version_id" : "41239158-445a-414c-a6f0-2fba3a7c696c",
-            "measure_version_modified" : "20200229T024052Z",
+            "measure_version_id" : "c1192b2d-7cab-4477-a756-42652cf57b39",
+            "measure_version_modified" : "20200509T155937Z",
             "measure_xml_checksum" : "EE13F09F",
-            "started_at" : "20200323T045710Z",
+            "started_at" : "20201102T054633Z",
             "stderr" : "",
             "stdout" : "[utilities.geometry.join] <1> Union has inner loops\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n[utilities.geometry.join] <1> Union has inner loops\n[utilities.geometry.joinAll] <1> Expected polygons to join together\n",
             "step_errors" : [],
             "step_files" : [],
-            "step_final_condition" : "The building finished with 419 objects.",
-            "step_info" : [
+            "step_final_condition" : "The building finished with 406 objects.",
+            "step_info" : 
+            [
                "Replacing argument named climate_zone from current measure with a value of ASHRAE 169-2013-5B from ChangeBuildingLocation.",
                "Replacing argument named template from current measure with a value of 90.1-2004 from create_bar_from_building_type_ratios.",
-               "Adding loads to space type named Office WholeBuilding - Sm Office - 90.1-2004",
                "Using climate zone ASHRAE 169-2013-5B from user arguments",
+               "Adding loads to space type named Office WholeBuilding - Sm Office - 90.1-2004",
                "Adding default construction set named Res 90.1-2004 - Office - ASHRAE 169-2013-5B",
                "No elevators added to the building.",
                "Adding Exterior Lights named Parking Areas and Drives Def (W/ft^2) with design level of 0.15 * 1,620.",
@@ -382,7 +402,7 @@
                "Adding Exterior Lights named Other Doors Def (W/ft) with design level of 20.0 * 1.",
                "Adding Office Shared Service Water Loop to the building. It has 1 water use connections.",
                "Assigning Office WholeBuilding - Sm Office - 90.1-2004 Thermostat to thermal zones with Office WholeBuilding - Sm Office - 90.1-2004 assigned.",
-               "Using OpenStudio Standards version 0.2.10 with template 90.1-2004.",
+               "Using OpenStudio Standards version 0.2.12 with template 90.1-2004.",
                "Loading OpenStudio Standards data for 90.1-2004",
                "Office WholeBuilding - Sm Office had no people, one has been created.",
                "Office WholeBuilding - Sm Office set occupancy to 5.6 people/1000 ft^2.",
@@ -408,7 +428,7 @@
                "Adding construction Typical Insulated Basement Mass Wall.",
                "Adding construction U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air.",
                "Adding construction Typical Insulated Metal Door R-1.43.",
-               "Adding construction Typical Overhead Door.",
+               "Adding construction Typical Overhead Door R-0.86.",
                "Adding construction U 1.17 SHGC 0.49 Simple Glazing Skylight U-1.17 SHGC 0.0.",
                "Adding construction Typical Interior Window.",
                "Adding construction Typical Interior Door.",
@@ -445,44 +465,42 @@
                "--- NaturalGas for main heating",
                "--- Electricity for cooling",
                "Determining which zones are served by the primary vs. secondary HVAC system.",
-               "For zone Zone Office WholeBuilding - Sm Office  - Story Ground, the weekly operating hrs 70.36 hrs - average weekly operating hrs 70.36 hrs = 0.0 hrs < tolerance of 40 hrs, stopping elimination process.",
-               "For zone Zone Office WholeBuilding - Sm Office  - Story Ground, the internal load 5.56 Btu/hr*ft^2 - average internal load 5.56 Btu/hr*ft^2 = 0.0 Btu/hr*ft^2 < tolerance of 10 Btu/hr*ft^2, stopping elimination process.",
+               "For zone Zone Office WholeBuilding - Sm Office  - Story Ground, the weekly operating hrs 70.36 hrs - average weekly operating hrs 70.36 hrs = 0.0 hrs less than the tolerance of 40 hrs, stopping elimination process.",
+               "For zone Zone Office WholeBuilding - Sm Office  - Story Ground, the internal load 5.56 Btu/hr*ft^2 - average internal load 5.56 Btu/hr*ft^2 = 0.0 Btu/hr*ft^2 less than the tolerance of 10 Btu/hr*ft^2, stopping elimination process.",
                "Primary system zones = Zone Office WholeBuilding - Sm Office  - Story Ground.",
                "Adding hot water loop.",
                "New high temperature hot water loop created.",
                "Adding PSZ-AC for Zone Office WholeBuilding - Sm Office  - Story Ground.",
                "Set sizing factors to 1.25 for heating and 1.15 for cooling.",
-               "Running simulation C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1/003_create_typical_building_from_model/SR1.",
+               "Running simulation C:/urbanopt-scenario-gem/spec/test/example_scenario/1/003_create_typical_building_from_model/SR1.",
                "Finished run.",
                "Started applying multizone vav OA sizing.",
                "Finished applying multizone vav OA sizing.",
                "Started applying prototype HVAC assumptions.",
-               "For Prototype: Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Fan: 976cfm; Pressure Rise = 2.5in w.c.",
-               "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Fan: allowed_hp = 1.01HP; motor eff = 84.0%; total fan eff = 55% based on 976 cfm.",
-               "Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC does not require an economizer because the total cooling capacity of 26008 Btu/hr is less than the minimum capacity of 65000 Btu/hr.",
+               "For Prototype: Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Fan: 804cfm; Pressure Rise = 2.5in w.c.",
+               "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Fan: allowed_hp = 1.01HP; motor eff = 84.0%; total fan eff = 55% based on 804 cfm.",
+               "Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC does not require an economizer because the total cooling capacity of 21433 Btu/hr is less than the minimum capacity of 65000 Btu/hr.",
                "Finished applying prototype HVAC assumptions.",
-               "Started applying HVAC efficiency standards.",
-               "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC, ERV not required based on 10% OA flow, design supply air flow of 976cfm, and climate zone ASHRAE 169-2013-5B.",
+               "Started applying HVAC efficiency standards for 90.1-2004 template.",
+               "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC, ERV not required based on 12% OA flow, design supply air flow of 804cfm, and climate zone ASHRAE 169-2013-5B.",
                "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC: non-integrated economizer per 6.5.1.3 exception b, DX system less than 65000Btu/hr.",
-               "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC: electric heating coil was found, cannot apply DX fan/economizer control.",
                "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC: DCV is not required since the system min oa flow is 100 cfm, less than the minimum of 3000 cfm.",
                "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC: DCV is not required since the system does not have an economizer.",
                "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC: Annual occupied hours = 2871 hr/yr, assuming a 0.15 occupancy threshold.  This schedule will be used as the HVAC operation schedule.",
                "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC: Motorized OA damper not required because the building has 1 stories, less than the minimum of 3 stories for climate zone ASHRAE 169-2013-5B.",
-               "For Zone Office WholeBuilding - Sm Office  - Story Ground: DCV is not required since the occupant density is 6 people/1000 ft2, but the minimum occupant density is 100 people/1000 ft2.",
-               "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC: Optimum start is not required since design flow rate of 976 cfm is below the limit of 10000 cfm.",
+               "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC: Optimum start is not required since design flow rate of 804 cfm is below the limit of 10000 cfm.",
+               "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC: electric heating coil was found, cannot apply DX fan/economizer control.",
                "For Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC Fan: motor nameplate = 1.0HP, motor eff = 82.5%.",
                "For Office Shared Service Water Loop Circulator Pump: brake hp = 0.0HP, motor nameplate = 1.0HP, motor eff = 82.5%.",
-               "For Hot Water Loop Pump: brake hp = 0.0HP, motor nameplate = 0.0HP, motor eff = 100.0%.",
-               "For 90.1-2004: Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil: AirCooled All Other Single Package Capacity = 26kBtu/hr; SEER = 9.7",
+               "For Hot Water Loop Pump: brake hp = 0.0HP, motor nameplate = 0HP, motor eff = 100.0%.",
+               "For 90.1-2004: Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil: AirCooled All Other Single Package Capacity = 21kBtu/hr; SEER = 9.7",
                "For 90.1-2004: 40gal NaturalGas Water Heater - 1kBtu/hr 0.82 Therm Eff; thermal efficiency = 0.82, skin-loss UA = 0Btu/hr",
-               "Finished applying HVAC efficiency standards.",
-               "Added internal mass 'Office WholeBuilding - Sm Office  - Story Ground Mass' to space 'Office WholeBuilding - Sm Office  - Story Ground'.",
-               "Finished adding internal mass"
+               "Finished applying HVAC efficiency standards for 90.1-2004 template."
             ],
-            "step_initial_condition" : "The building started with 38 objects.",
+            "step_initial_condition" : "The building started with 39 objects.",
             "step_result" : "Success",
-            "step_values" : [
+            "step_values" : 
+            [
                {
                   "name" : "template",
                   "value" : "90.1-2004"
@@ -537,7 +555,7 @@
                },
                {
                   "name" : "onsite_parking_fraction",
-                  "value" : 1
+                  "value" : 1.0
                },
                {
                   "name" : "add_exhaust",
@@ -565,11 +583,11 @@
                },
                {
                   "name" : "wkdy_op_hrs_start_time",
-                  "value" : 8
+                  "value" : 8.0
                },
                {
                   "name" : "wkdy_op_hrs_duration",
-                  "value" : 8
+                  "value" : 8.0
                },
                {
                   "name" : "modify_wknd_op_hrs",
@@ -577,15 +595,15 @@
                },
                {
                   "name" : "wknd_op_hrs_start_time",
-                  "value" : 8
+                  "value" : 8.0
                },
                {
                   "name" : "wknd_op_hrs_duration",
-                  "value" : 8
+                  "value" : 8.0
                },
                {
                   "name" : "unmet_hours_tolerance",
-                  "value" : 1
+                  "value" : 1.0
                },
                {
                   "name" : "remove_objects",
@@ -604,19 +622,22 @@
                   "value" : "Lookup From Model"
                }
             ],
-            "step_warnings" : [
-               "[openstudio.standards.Model] Find object search criteria returned 5 results, the first one will be returned. Called from C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-standards-0.2.10/lib/openstudio-standards/standards/Standards.Model.rb:2431:in `model_find_and_add_construction'. \n Search criteria: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\"}, capacity =  \n  All results: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>1.0, \"maximum_percent_of_surface\"=>10.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.49, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>10.001, \"maximum_percent_of_surface\"=>20.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>20.001, \"maximum_percent_of_surface\"=>30.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>30.001, \"maximum_percent_of_surface\"=>40.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.44 SHGC 0.20 Dbl Ref-B-H Tint 6mm/13mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>40.001, \"maximum_percent_of_surface\"=>100.0, \"assembly_maximum_u_value\"=>0.46, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.26, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}",
-               "[openstudio.standards.ConstructionBase] Can only set the u-value of opaque constructions or simple glazing. U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air is not opaque or simple glazing.",
-               "[openstudio.standards.Model] Find object search criteria returned 5 results, the first one will be returned. Called from C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-standards-0.2.10/lib/openstudio-standards/standards/Standards.Model.rb:2431:in `model_find_and_add_construction'. \n Search criteria: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\"}, capacity =  \n  All results: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>1.0, \"maximum_percent_of_surface\"=>10.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.49, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>10.001, \"maximum_percent_of_surface\"=>20.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>20.001, \"maximum_percent_of_surface\"=>30.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>30.001, \"maximum_percent_of_surface\"=>40.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.44 SHGC 0.20 Dbl Ref-B-H Tint 6mm/13mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>40.001, \"maximum_percent_of_surface\"=>100.0, \"assembly_maximum_u_value\"=>0.46, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.26, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}",
-               "[openstudio.standards.Model] Find object search criteria returned 5 results, the first one will be returned. Called from C:/gitrepos/urbanopt-scenario-gem/.bundle/install/ruby/2.2.0/gems/openstudio-standards-0.2.10/lib/openstudio-standards/standards/Standards.Model.rb:2431:in `model_find_and_add_construction'. \n Search criteria: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\"}, capacity =  \n  All results: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>1.0, \"maximum_percent_of_surface\"=>10.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.49, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>10.001, \"maximum_percent_of_surface\"=>20.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>20.001, \"maximum_percent_of_surface\"=>30.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>30.001, \"maximum_percent_of_surface\"=>40.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.44 SHGC 0.20 Dbl Ref-B-H Tint 6mm/13mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>40.001, \"maximum_percent_of_surface\"=>100.0, \"assembly_maximum_u_value\"=>0.46, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.26, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}",
-               "[openstudio.standards.ConstructionBase] Requested U-value of 1.45 for Typical Overhead Door is too low given the other materials in the construction; insulation layer will not be modified.",
-               "[openstudio.weather.Model] Could not find ground temperatures; will use generic temperatures, which will skew results.",
+            "step_warnings" : 
+            [
+               "[openstudio.standards.Model] Find object search criteria returned 5 results, the first one will be returned. Called from C:/urbanopt-scenario-gem/spec/test/.bundle/install/ruby/2.5.0/gems/openstudio-standards-0.2.12/lib/openstudio-standards/standards/Standards.Model.rb:2438:in `model_find_and_add_construction'. \n Search criteria: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\"}, capacity =  \n  All results: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>1.0, \"maximum_percent_of_surface\"=>10.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.49, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>10.001, \"maximum_percent_of_surface\"=>20.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>20.001, \"maximum_percent_of_surface\"=>30.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>30.001, \"maximum_percent_of_surface\"=>40.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.44 SHGC 0.20 Dbl Ref-B-H Tint 6mm/13mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>40.001, \"maximum_percent_of_surface\"=>100.0, \"assembly_maximum_u_value\"=>0.46, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.26, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}",
+               "[openstudio.standards.Construction] Can only set the u-value of opaque constructions or simple glazing. U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air is not opaque or simple glazing.",
+               "[openstudio.standards.Model] Find object search criteria returned 5 results, the first one will be returned. Called from C:/urbanopt-scenario-gem/spec/test/.bundle/install/ruby/2.5.0/gems/openstudio-standards-0.2.12/lib/openstudio-standards/standards/Standards.Model.rb:2438:in `model_find_and_add_construction'. \n Search criteria: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\"}, capacity =  \n  All results: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>1.0, \"maximum_percent_of_surface\"=>10.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.49, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>10.001, \"maximum_percent_of_surface\"=>20.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>20.001, \"maximum_percent_of_surface\"=>30.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>30.001, \"maximum_percent_of_surface\"=>40.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"ExteriorWindow\", \"standards_construction_type\"=>\"Metal framing (all other)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.44 SHGC 0.20 Dbl Ref-B-H Tint 6mm/13mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>40.001, \"maximum_percent_of_surface\"=>100.0, \"assembly_maximum_u_value\"=>0.46, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.26, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}",
+               "[openstudio.standards.Model] Find object search criteria returned 5 results, the first one will be returned. Called from C:/urbanopt-scenario-gem/spec/test/.bundle/install/ruby/2.5.0/gems/openstudio-standards-0.2.12/lib/openstudio-standards/standards/Standards.Model.rb:2438:in `model_find_and_add_construction'. \n Search criteria: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\"}, capacity =  \n  All results: \n {\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.49 Dbl Blue 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>1.0, \"maximum_percent_of_surface\"=>10.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.49, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>10.001, \"maximum_percent_of_surface\"=>20.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>20.001, \"maximum_percent_of_surface\"=>30.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.57 SHGC 0.39 Dbl Ref-D Clr 6mm/6mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>30.001, \"maximum_percent_of_surface\"=>40.0, \"assembly_maximum_u_value\"=>0.57, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.39, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}\n{\"template\"=>\"90.1-2004\", \"climate_zone_set\"=>\"ClimateZone 5\", \"operation_type\"=>nil, \"intended_surface_type\"=>\"GlassDoor\", \"standards_construction_type\"=>\"Metal framing (entrance door)\", \"building_category\"=>\"Nonresidential\", \"construction\"=>\"U 0.44 SHGC 0.20 Dbl Ref-B-H Tint 6mm/13mm Air\", \"orientation\"=>nil, \"minimum_percent_of_surface\"=>40.001, \"maximum_percent_of_surface\"=>100.0, \"assembly_maximum_u_value\"=>0.46, \"u_value_includes_interior_film_coefficient\"=>true, \"u_value_includes_exterior_film_coefficient\"=>true, \"assembly_maximum_f_factor\"=>nil, \"assembly_maximum_c_factor\"=>nil, \"assembly_maximum_solar_heat_gain_coefficient\"=>0.26, \"assembly_minimum_vt_shgc\"=>nil, \"notes\"=>nil}",
+               "[openstudio.standards.Construction] Requested U-value of 1.1686635536297982 for Typical Overhead Door is greater than the sum of the inside and outside resistance, and the max U-value (6.636 SI) is used instead.",
+               "[openstudio.model.Model] No refrigeration system lineup found for {\"template\"=>\"90.1-2004\", \"building_type\"=>\"Office\", \"size_category\"=>\"Kitchen\", \"system_type\"=>\"Medium Temperature\"}, no system will be added.",
+               "[openstudio.model.Model] No refrigeration system lineup found for {\"template\"=>\"90.1-2004\", \"building_type\"=>\"Office\", \"size_category\"=>\"Kitchen\", \"system_type\"=>\"Low Temperature\"}, no system will be added.",
                "[openstudio.standards.BoilerHotWater] For Boiler, cannot find boiler properties with search criteria {\"template\"=>\"90.1-2004\", \"fuel_type\"=>\"Gas\", \"fluid_type\"=>\"Hot Water\"}, cannot apply efficiency standard."
             ]
          }
       },
       {
-         "arguments" : {
+         "arguments" : 
+         {
             "__SKIP__" : false,
             "airVelocitySchedule" : "Air Velocity Schedule",
             "clothingSchedule" : "Clothing Schedule",
@@ -625,8 +646,9 @@
          },
          "measure_dir_name" : "PredictedMeanVote",
          "name" : "predicted_mean_vote",
-         "result" : {
-            "completed_at" : "20200323T045732Z",
+         "result" : 
+         {
+            "completed_at" : "20201102T054644Z",
             "measure_class_name" : "PredictedMeanVote",
             "measure_display_name" : "Predicted Mean Vote",
             "measure_name" : "predicted_mean_vote",
@@ -636,20 +658,22 @@
             "measure_version_id" : "3351a0f8-9ffc-4dbd-a36b-873d8f45851b",
             "measure_version_modified" : "20200228T204851Z",
             "measure_xml_checksum" : "0CA4D54C",
-            "started_at" : "20200323T045732Z",
+            "started_at" : "20201102T054644Z",
             "stderr" : "",
             "stdout" : "",
             "step_errors" : [],
             "step_files" : [],
             "step_final_condition" : "1 people definitions and 1 people instances were altered.",
-            "step_info" : [
+            "step_info" : 
+            [
                "Editing 'Office WholeBuilding - Sm Office People Definition'",
                "Assigning Schedules for 'Office WholeBuilding - Sm Office People'",
                "Adding zone output variables for Fanger PMV, Fanger PPD, and ASHRAE 55"
             ],
             "step_initial_condition" : "The building started with 1 people definitions.",
             "step_result" : "Success",
-            "step_values" : [
+            "step_values" : 
+            [
                {
                   "name" : "comfortWarnings",
                   "value" : true
@@ -660,15 +684,15 @@
                },
                {
                   "name" : "workEfficiencySchedule",
-                  "value" : "{9468dced-5424-40a6-a5db-7e7568243ef3}"
+                  "value" : "{a4acfbde-b780-4eee-9b54-34ba79832e1b}"
                },
                {
                   "name" : "clothingSchedule",
-                  "value" : "{2c7da783-4f08-48d0-82e4-e5d270359bae}"
+                  "value" : "{9631ab35-dd1c-431a-a1d1-c2b7efa0011d}"
                },
                {
                   "name" : "airVelocitySchedule",
-                  "value" : "{636d3749-3d9a-4e73-843b-5a7bb5993ff4}"
+                  "value" : "{f9ea3847-ac61-4a8c-a1cc-49ef7cb074e0}"
                },
                {
                   "name" : "reporting_frequency",
@@ -679,13 +703,15 @@
          }
       },
       {
-         "arguments" : {
+         "arguments" : 
+         {
             "__SKIP__" : false,
             "material_cost_ip" : 100
          },
          "measure_dir_name" : "AddCostPerFloorAreaToBuilding",
-         "result" : {
-            "completed_at" : "20200323T045732Z",
+         "result" : 
+         {
+            "completed_at" : "20201102T054644Z",
             "measure_class_name" : "AddCostPerFloorAreaToBuilding",
             "measure_display_name" : "Add Cost per Floor Area to Building",
             "measure_name" : "add_cost_per_floor_area_to_building",
@@ -695,7 +721,7 @@
             "measure_version_id" : "dbb67154-b9ea-4410-870f-14e96e0966dd",
             "measure_version_modified" : "20200229T024317Z",
             "measure_xml_checksum" : "35DA4ED3",
-            "started_at" : "20200323T045732Z",
+            "started_at" : "20201102T054644Z",
             "stderr" : "",
             "stdout" : "",
             "step_errors" : [],
@@ -704,7 +730,8 @@
             "step_info" : [],
             "step_initial_condition" : "The Building has 0 lifecycle cost objects.",
             "step_result" : "Success",
-            "step_values" : [
+            "step_values" : 
+            [
                {
                   "name" : "remove_costs",
                   "value" : true
@@ -715,11 +742,11 @@
                },
                {
                   "name" : "material_cost_ip",
-                  "value" : 100
+                  "value" : 100.0
                },
                {
                   "name" : "demolition_cost_ip",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "years_until_costs_start",
@@ -735,7 +762,7 @@
                },
                {
                   "name" : "om_cost_ip",
-                  "value" : 0
+                  "value" : 0.0
                },
                {
                   "name" : "om_frequency",
@@ -746,7 +773,8 @@
          }
       },
       {
-         "arguments" : {
+         "arguments" : 
+         {
             "demand_window_length" : "FullHour",
             "distclg_rate" : 0.20000000000000001,
             "disthtg_rate" : 0.20000000000000001,
@@ -758,29 +786,32 @@
             "water_rate" : 0.0050000000000000001
          },
          "measure_dir_name" : "tariff_selection_flat",
-         "result" : {
-            "completed_at" : "20200323T045732Z",
+         "result" : 
+         {
+            "completed_at" : "20201102T054645Z",
             "measure_class_name" : "TariffSelectionFlat",
             "measure_display_name" : "Tariff Selection-Flat",
             "measure_name" : "tariff_selection_flat",
             "measure_taxonomy" : "Economics.Life Cycle Cost Analysis",
             "measure_type" : "EnergyPlusMeasure",
             "measure_uid" : "539c3e8e-6c41-4f50-ac61-6cbbf1ee1b55",
-            "measure_version_id" : "7301b532-f622-4b51-90e8-765d3de524cf",
-            "measure_version_modified" : "20200229T024321Z",
+            "measure_version_id" : "1d8b09b4-afbd-4729-ad9b-a7a09a1613e6",
+            "measure_version_modified" : "20200401T050100Z",
             "measure_xml_checksum" : "FBDC6D11",
-            "started_at" : "20200323T045732Z",
+            "started_at" : "20201102T054645Z",
             "stderr" : "",
             "stdout" : "",
             "step_errors" : [],
             "step_files" : [],
             "step_final_condition" : "The model finished with 5 tariff objects.",
-            "step_info" : [
+            "step_info" : 
+            [
                "The demand window length of a FullHour is compatible with the current setting of 1 timesteps per hour."
             ],
             "step_initial_condition" : "The model started with 0 tariff objects.",
             "step_result" : "Success",
-            "step_values" : [
+            "step_values" : 
+            [
                {
                   "name" : "demand_window_length",
                   "value" : "FullHour"
@@ -791,11 +822,11 @@
                },
                {
                   "name" : "elec_demand_rate",
-                  "value" : 12
+                  "value" : 12.0
                },
                {
                   "name" : "elec_monthly_rate",
-                  "value" : 120
+                  "value" : 120.0
                },
                {
                   "name" : "gas_rate",
@@ -803,7 +834,7 @@
                },
                {
                   "name" : "gas_monthly_rate",
-                  "value" : 50
+                  "value" : 50.0
                },
                {
                   "name" : "water_rate",
@@ -822,34 +853,125 @@
          }
       },
       {
-         "arguments" : {
+         "arguments" : 
+         {
+            "__SKIP__" : false
+         },
+         "measure_dir_name" : "add_packaged_ice_storage",
+         "result" : 
+         {
+            "completed_at" : "20201102T054645Z",
+            "measure_class_name" : "AddPackagedIceStorage",
+            "measure_display_name" : "Add Distributed Ice Storage to Air Loop for Load Flexibility",
+            "measure_name" : "add_packaged_ice_storage",
+            "measure_taxonomy" : "HVAC.Cooling",
+            "measure_type" : "EnergyPlusMeasure",
+            "measure_uid" : "2aa8c128-53b9-49fd-9aaf-9253a1f05936",
+            "measure_version_id" : "db67a99f-13f3-4084-ab3f-548cfb8c32a5",
+            "measure_version_modified" : "20200903T163041Z",
+            "measure_xml_checksum" : "2617824F",
+            "started_at" : "20201102T054645Z",
+            "stderr" : "",
+            "stdout" : "",
+            "step_errors" : [],
+            "step_files" : [],
+            "step_final_condition" : "A total of 1 cooling coils were replaced with thermal storage coil systems.",
+            "step_info" : 
+            [
+               "68 performance curves, schedule objects, and output variables were imported from 'TESCurves.idf'.\n\n",
+               "Coil 'Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil 21kBtu/hr 9.7SEER' was replaced with a unitary thermal storage system named'UTSS Coil 0' with a capacity of AutoSize GJ.\n",
+               "The user-selected schedule for the ice unit operation is:\n\nSchedule:Compact,\n  Simple User Sched,                      !- Name\n  TES Control Modes,                      !- Schedule Type Limits Name\n  Through: 12/31,                         !- Field 1\n  For: AllDays,                           !- Field 2\n  Until: 07:00,                           !- Field 3\n  4,                                      !- Field 4\n  Until: 12:00,                           !- Field 5\n  1,                                      !- Field 6\n  Until: 18:00,                           !- Field 7\n  5,                                      !- Field 8\n  Until: 22:00,                           !- Field 9\n  1,                                      !- Field 10\n  Until: 24:00,                           !- Field 11\n  4;                                      !- Field 12\n\n"
+            ],
+            "step_initial_condition" : "The building started with 1 cooling coils.",
+            "step_result" : "Success",
+            "step_values" : 
+            [
+               {
+                  "name" : "delimiter",
+                  "value" : "-----------------------------------------------------------------"
+               },
+               {
+                  "name" : "Zone Office WholeBuilding - Sm Office  - Story Ground PSZ-AC 1spd DX AC Clg Coil 21kBtu/hr 9.7SEER",
+                  "value" : true
+               },
+               {
+                  "name" : "ice_cap",
+                  "value" : "AutoSize"
+               },
+               {
+                  "name" : "size_mult",
+                  "value" : "1.0"
+               },
+               {
+                  "name" : "ctl",
+                  "value" : "EMSControlled"
+               },
+               {
+                  "name" : "sched",
+                  "value" : "Simple User Sched"
+               },
+               {
+                  "name" : "wknd",
+                  "value" : true
+               },
+               {
+                  "name" : "season",
+                  "value" : "01/01-12/31"
+               },
+               {
+                  "name" : "charge_start",
+                  "value" : "22:00"
+               },
+               {
+                  "name" : "charge_end",
+                  "value" : "07:00"
+               },
+               {
+                  "name" : "discharge_start",
+                  "value" : "12:00"
+               },
+               {
+                  "name" : "discharge_end",
+                  "value" : "18:00"
+               }
+            ],
+            "step_warnings" : []
+         }
+      },
+      {
+         "arguments" : 
+         {
             "feature_id" : "1",
+            "feature_location" : "[10, 0]",
             "feature_name" : "Building 1",
             "feature_type" : "Building"
          },
          "measure_dir_name" : "default_feature_reports",
-         "result" : {
-            "completed_at" : "20200323T045738Z",
+         "result" : 
+         {
+            "completed_at" : "20201102T054651Z",
             "measure_class_name" : "DefaultFeatureReports",
             "measure_display_name" : "DefaultFeatureReports",
             "measure_name" : "default_feature_reports",
             "measure_taxonomy" : "Reporting.QAQC",
             "measure_type" : "ReportingMeasure",
             "measure_uid" : "9ee3135a-8070-4408-bfa1-b75fecf9dd4f",
-            "measure_version_id" : "607df4a0-d1ff-4c14-8d2f-93cde078dc47",
-            "measure_version_modified" : "20200308T020104Z",
+            "measure_version_id" : "1f4eb28d-d586-4c10-8d23-f3495054ce1e",
+            "measure_version_modified" : "20200921T204602Z",
             "measure_xml_checksum" : "FB304155",
-            "started_at" : "20200323T045737Z",
+            "started_at" : "20201102T054650Z",
             "stderr" : "",
             "stdout" : "",
             "step_errors" : [],
-            "step_files" : [
-               "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1/007_default_feature_reports/default_feature_reports.csv",
-               "C:/gitrepos/urbanopt-scenario-gem/spec/test/example_scenario/1/007_default_feature_reports/default_feature_reports.json"
+            "step_files" : 
+            [
+               "C:/urbanopt-scenario-gem/spec/test/example_scenario/1/008_default_feature_reports/default_feature_reports.csv",
+               "C:/urbanopt-scenario-gem/spec/test/example_scenario/1/008_default_feature_reports/default_feature_reports.json"
             ],
             "step_final_condition" : "Default Feature Reports generated successfully.",
-            "step_info" : [
-               "All timeseries: [\"Electricity:Facility\", \"ElectricityProduced:Facility\", \"Gas:Facility\", \"DistrictCooling:Facility\", \"DistrictHeating:Facility\", \"District Cooling Chilled Water Rate\", \"District Cooling Mass Flow Rate\", \"District Cooling Inlet Temperature\", \"District Cooling Outlet Temperature\", \"District Heating Hot Water Rate\", \"District Heating Mass Flow Rate\", \"District Heating Inlet Temperature\", \"District Heating Outlet Temperature\", \"Zone Thermal Comfort Fanger Model PMV\", \"Zone Thermal Comfort Fanger Model PPD\", \"Net Electric Energy\", \"Electricity:Facility Power\", \"ElectricityProduced:Facility Power\", \"Electricity:Facility Apparent Power\", \"ElectricityProduced:Facility Apparent Power\", \"Net Power\", \"Net Apparent Power\"]",
+            "step_info" : 
+            [
+               "All timeseries: [\"Electricity:Facility\", \"ElectricityProduced:Facility\", \"Gas:Facility\", \"Cooling:Electricity\", \"Heating:Electricity\", \"InteriorLights:Electricity\", \"ExteriorLights:Electricity\", \"InteriorEquipment:Electricity\", \"Fans:Electricity\", \"Pumps:Electricity\", \"WaterSystems:Electricity\", \"HeatRejection:Electricity\", \"HeatRejection:Gas\", \"Heating:Gas\", \"WaterSystems:Gas\", \"InteriorEquipment:Gas\", \"DistrictCooling:Facility\", \"DistrictHeating:Facility\", \"District Cooling Chilled Water Rate\", \"District Cooling Mass Flow Rate\", \"District Cooling Inlet Temperature\", \"District Cooling Outlet Temperature\", \"District Heating Hot Water Rate\", \"District Heating Mass Flow Rate\", \"District Heating Inlet Temperature\", \"District Heating Outlet Temperature\", \"Cooling Coil Total Cooling Rate\", \"Heating Coil Heating Rate\", \"Zone Thermal Comfort Fanger Model PMV\", \"Zone Thermal Comfort Fanger Model PPD\", \"Net Electric Energy\", \"Electricity:Facility Power\", \"ElectricityProduced:Facility Power\", \"Electricity:Facility Apparent Power\", \"ElectricityProduced:Facility Apparent Power\", \"Net Power\", \"Net Apparent Power\", \"Ice Thermal Storage End Fraction\", \"Cooling Coil Ice Thermal Storage End Fraction\"]",
                "TIMESERIES: Electricity:Facility",
                "KEY VALUES: [\"\"]",
                "!! TIMESERIES NAME: Electricity:Facility AND key_value: ",
@@ -862,6 +984,58 @@
                "KEY VALUES: [\"\"]",
                "!! TIMESERIES NAME: Gas:Facility AND key_value: ",
                "Is Initialized",
+               "TIMESERIES: Cooling:Electricity",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: Cooling:Electricity AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: Heating:Electricity",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: Heating:Electricity AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: InteriorLights:Electricity",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: InteriorLights:Electricity AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: ExteriorLights:Electricity",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: ExteriorLights:Electricity AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: InteriorEquipment:Electricity",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: InteriorEquipment:Electricity AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: Fans:Electricity",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: Fans:Electricity AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: Pumps:Electricity",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: Pumps:Electricity AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: WaterSystems:Electricity",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: WaterSystems:Electricity AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: HeatRejection:Electricity",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: HeatRejection:Electricity AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: HeatRejection:Gas",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: HeatRejection:Gas AND key_value: ",
+               "Is NOT Initialized",
+               "TIMESERIES: Heating:Gas",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: Heating:Gas AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: WaterSystems:Gas",
+               "KEY VALUES: [\"\"]",
+               "!! TIMESERIES NAME: WaterSystems:Gas AND key_value: ",
+               "Is Initialized",
+               "TIMESERIES: InteriorEquipment:Gas",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: InteriorEquipment:Gas AND key_value: ",
+               "Is NOT Initialized",
                "TIMESERIES: DistrictCooling:Facility",
                "KEY VALUES: []",
                "!! TIMESERIES NAME: DistrictCooling:Facility AND key_value: ",
@@ -902,18 +1076,28 @@
                "KEY VALUES: []",
                "!! TIMESERIES NAME: District Heating Outlet Temperature AND key_value: ",
                "Is NOT Initialized",
+               "TIMESERIES: Cooling Coil Total Cooling Rate",
+               "KEY VALUES: [\"UTSS COIL 0\"]",
+               "!! TIMESERIES NAME: Cooling Coil Total Cooling Rate AND key_value: UTSS COIL 0",
+               "Is Initialized",
+               "TIMESERIES: Heating Coil Heating Rate",
+               "KEY VALUES: [\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC ELECTRIC BACKUP HTG COIL\", \"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC GAS HTG COIL\"]",
+               "!! TIMESERIES NAME: Heating Coil Heating Rate AND key_value: ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC ELECTRIC BACKUP HTG COIL",
+               "Is Initialized",
+               "!! TIMESERIES NAME: Heating Coil Heating Rate AND key_value: ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND PSZ-AC GAS HTG COIL",
+               "Is Initialized",
                "TIMESERIES: Zone Thermal Comfort Fanger Model PMV",
                "KEY VALUES: [\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND OFFICE WHOLEBUILDING - SM OFFICE PEOPLE\"]",
                "!! TIMESERIES NAME: Zone Thermal Comfort Fanger Model PMV AND key_value: ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND OFFICE WHOLEBUILDING - SM OFFICE PEOPLE",
                "Is Initialized",
                "SETTING UP NEW ARRAY FOR: Zone Thermal Comfort Fanger Model PMV",
-               "timeseries Zone Thermal Comfort Fanger Model PMV: hours out of bounds: 2.0",
+               "timeseries Zone Thermal Comfort Fanger Model PMV: hours out of bounds: 12.0",
                "TIMESERIES: Zone Thermal Comfort Fanger Model PPD",
                "KEY VALUES: [\"ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND OFFICE WHOLEBUILDING - SM OFFICE PEOPLE\"]",
                "!! TIMESERIES NAME: Zone Thermal Comfort Fanger Model PPD AND key_value: ZONE OFFICE WHOLEBUILDING - SM OFFICE  - STORY GROUND OFFICE WHOLEBUILDING - SM OFFICE PEOPLE",
                "Is Initialized",
                "SETTING UP NEW ARRAY FOR: Zone Thermal Comfort Fanger Model PPD",
-               "timeseries Zone Thermal Comfort Fanger Model PPD: hours out of bounds: 0.0",
+               "timeseries Zone Thermal Comfort Fanger Model PPD: hours out of bounds: 10.0",
                "TIMESERIES: Net Electric Energy",
                "KEY VALUES: []",
                "!! TIMESERIES NAME: Net Electric Energy AND key_value: ",
@@ -947,10 +1131,21 @@
                "KEY VALUES: []",
                "!! TIMESERIES NAME: Net Apparent Power AND key_value: ",
                "Is NOT Initialized",
-               "new final_timeseries_names size: 23"
+               "TIMESERIES: Ice Thermal Storage End Fraction",
+               "KEY VALUES: []",
+               "!! TIMESERIES NAME: Ice Thermal Storage End Fraction AND key_value: ",
+               "Is NOT Initialized",
+               "SETTING UP NEW ARRAY FOR: Ice Thermal Storage End Fraction",
+               "TIMESERIES: Cooling Coil Ice Thermal Storage End Fraction",
+               "KEY VALUES: [\"UTSS COIL 0\"]",
+               "!! TIMESERIES NAME: Cooling Coil Ice Thermal Storage End Fraction AND key_value: UTSS COIL 0",
+               "Is Initialized",
+               "SETTING UP NEW ARRAY FOR: Cooling Coil Ice Thermal Storage End Fraction",
+               "new final_timeseries_names size: 41"
             ],
             "step_result" : "Success",
-            "step_values" : [
+            "step_values" : 
+            [
                {
                   "name" : "feature_id",
                   "value" : "1"
@@ -964,14 +1159,21 @@
                   "value" : "Building"
                },
                {
+                  "name" : "feature_location",
+                  "value" : "[10, 0]"
+               },
+               {
                   "name" : "reporting_frequency",
                   "value" : "Timestep"
                }
             ],
-            "step_warnings" : []
+            "step_warnings" : 
+            [
+               "Query failed for Ice Thermal Storage Capacity"
+            ]
          }
       }
    ],
-   "updated_at" : "20200323T045739Z",
+   "updated_at" : "20201102T054652Z",
    "weather_file" : null
 }

@@ -31,7 +31,6 @@
 require 'bundler/setup'
 require 'urbanopt/reporting/default_reports'
 require 'urbanopt/reopt/reopt_logger'
-require 'urbanopt/reopt'
 require 'csv'
 
 module URBANopt # :nodoc:
@@ -141,7 +140,8 @@ module URBANopt # :nodoc:
         end
         result = adapter.update_feature_report(feature_report, reopt_output, timeseries_csv_path, resilience_stats)
         if !save_name.nil?
-          result.save_feature_report save_name
+          #result.save_feature_report save_name
+          result.save_json_report(save_name)
         end
         return result
       end
@@ -251,7 +251,8 @@ module URBANopt # :nodoc:
             new_feature_reports.push(new_feature_report)
             if !save_names.nil?
               if save_names.length == feature_reports.length
-                new_feature_report.save_feature_report save_names[idx]
+                #new_feature_report.save_feature_report save_names[idx]
+                new_feature_report.save_json_report save_names[idx]
               else
                 warn "Could not save feature reports - the number of save names provided did not match the number of feature reports"
               end
