@@ -1,5 +1,14 @@
 # URBANopt REopt Gem
  
+## Version 0.4.1
+
+Date range: 9/23/20 - 11/12/20
+
+* PR template now automatically closes issue on merge
+* Remove unnecessary require statement
+* Reporting bugfix
+* Working with reporting gem updates
+
 ## Version 0.4.0
 
 Date range: 6/5/20 - 9/22/20
