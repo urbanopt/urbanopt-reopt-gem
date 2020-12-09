@@ -10,11 +10,14 @@
   },
   "author": "NREL",
   "dependencies": {
+    "braces": "^3.0.2",
     "highlight.js": "^10.4.1",
     "json-schema-ref-parser": "^6.1.0",
     "json-schema-view-js": "git+https://git@github.com/bgschiller/json-schema-view-js.git",
-    "vuepress": "^0.14.10",
-    "webpack-dev-middleware": "^3.6.0"
+    "serialize-javascript": "^5.0.1",
+    "vuepress": "^1.6.0",
+    "webpack-dev-middleware": "^3.6.0",
+    "yargs-parser": "^18.1.1"
   },
   "devDependencies": {
     "gh-pages": "^2.0.1"
