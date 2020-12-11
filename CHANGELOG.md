@@ -1,4 +1,11 @@
 # URBANopt REopt Gem
+
+## Version 0.5.0
+
+Date range: 11/13/20 - 12/11/20
+
+* Updates to support OpenStudio 3.1  
+
  
 ## Version 0.4.1
 
@@ -8,6 +15,7 @@ Date range: 9/23/20 - 11/12/20
 * Remove unnecessary require statement
 * Reporting bugfix
 * Working with reporting gem updates
+
 
 ## Version 0.4.0
 
