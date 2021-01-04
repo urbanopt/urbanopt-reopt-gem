@@ -89,7 +89,7 @@ module URBANopt # :nodoc:
 
         # Parse Optional FeatureReport metrics
         unless feature_report.program.roof_area_sqft.nil?
-          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area_sqft[:available_roof_area]
+          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area_sqft[:available_roof_area_sqft]
         end
 
         unless feature_report.program.site_area_sqft.nil?
