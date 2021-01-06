@@ -221,8 +221,10 @@ module URBANopt # :nodoc:
         if response.code == "200"
           return data
         end
-
-        raise "Error from REopt API - #{data['Error']}"
+        
+        @@logger.info("Error from REopt API - #{data['Error']}")
+        return {}
+        
       end
 
       ##
