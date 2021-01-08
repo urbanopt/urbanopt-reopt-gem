@@ -197,7 +197,7 @@ module URBANopt # :nodoc:
         end
 
         elapsed_time = 0
-        max_elapsed_time = 60
+        max_elapsed_time = 60 * 5
         
         request = Net::HTTP::Get.new(uri.request_uri)
         response = make_request(http, request)
@@ -221,8 +221,10 @@ module URBANopt # :nodoc:
         if response.code == "200"
           return data
         end
-
-        raise "Error from REopt API - #{data['Error']}"
+        
+        @@logger.info("Error from REopt API - #{data['Error']}")
+        return {}
+        
       end
 
       ##
