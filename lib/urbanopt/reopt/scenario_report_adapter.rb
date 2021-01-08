@@ -111,7 +111,7 @@ module URBANopt # :nodoc:
         # Update optional info
         # REK: attribute names should be updated
         if !scenario_report.program.roof_area_sqft.nil?
-          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area]
+          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
         end
 
         if !scenario_report.program.site_area_sqft.nil?
