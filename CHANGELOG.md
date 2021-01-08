@@ -1,5 +1,13 @@
 # URBANopt REopt Gem
 
+## Version 0.5.1
+
+Date range: 12/11/20 - 1/08/20
+
+* Extend polling time for resilience results
+* Do not error out if there are no resilience results
+
+
 ## Version 0.5.0
 
 Date range: 11/13/20 - 12/11/20
