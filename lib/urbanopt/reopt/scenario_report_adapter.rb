@@ -110,16 +110,22 @@ module URBANopt # :nodoc:
 
         # Update optional info
         # REK: attribute names should be updated
-        if !scenario_report.program.roof_area_sqft.nil?
-          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
+        if reopt_inputs[:Scenario][:Site][:roof_squarefeet].nil?
+          if !scenario_report.program.roof_area_sqft.nil?
+            reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
+          end
         end
 
-        if !scenario_report.program.site_area_sqft.nil?
-          reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
+        if reopt_inputs[:Scenario][:Site][:land_acres].nil?
+          if !scenario_report.program.site_area_sqft.nil?
+            reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
+          end
         end
 
-        unless scenario_report.timesteps_per_hour.nil?
-          reopt_inputs[:Scenario][:time_steps_per_hour] = scenario_report.timesteps_per_hour
+        if reopt_inputs[:Scenario][:time_steps_per_hour].nil?
+          unless scenario_report.timesteps_per_hour.nil?
+            reopt_inputs[:Scenario][:time_steps_per_hour] = scenario_report.timesteps_per_hour
+          end
         end
 
         # Update load profile info
@@ -141,8 +147,16 @@ module URBANopt # :nodoc:
           @@logger.error("Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}")
           raise "Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}"
         end
+
+        if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps].nil?
+          n_top_values = 100
+          a = reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw]
+          reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps] = a.each_index.max_by(n_top_values*reopt_inputs[:Scenario][:time_steps_per_hour]){|i| a[i]} 
+        end
+
         return reopt_inputs
       end
+
 
       ##
       # Converts a FeatureReport list from a ScenarioReport into an array of \REopt Lite posts
