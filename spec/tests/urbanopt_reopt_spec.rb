@@ -32,7 +32,6 @@ require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
 require 'certified'
 require 'fileutils'
-require 'pry'
 
 RSpec.describe URBANopt::REopt do
   it 'has a version number' do
@@ -59,7 +58,6 @@ RSpec.describe URBANopt::REopt do
       Dir.mkdir("spec/run/example_scenario/test__")
     end
 
-    binding.pry
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
     scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')

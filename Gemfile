@@ -54,5 +54,3 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # end
 
 # gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'develop'
-
-gem 'pry'
