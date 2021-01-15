@@ -87,7 +87,7 @@ module URBANopt # :nodoc:
         reopt_inputs[:Scenario][:Site][:latitude] = feature_report.location.latitude_deg
         reopt_inputs[:Scenario][:Site][:longitude] = feature_report.location.longitude_deg
 
-        # Parse Optional FeatureReport metrics
+        # Parse Optional FeatureReport metrics - do not overwrite from assumptions file
         if reopt_inputs[:Scenario][:Site][:roof_squarefeet].nil?
           unless feature_report.program.roof_area_sqft.nil?
             reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area_sqft[:available_roof_area_sqft]
