@@ -128,8 +128,12 @@ module URBANopt # :nodoc:
         
         if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps].nil?
           n_top_values = 100
-          a = reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw]
-          reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps] = a.each_index.max_by(n_top_values*reopt_inputs[:Scenario][:time_steps_per_hour]){|i| a[i]} 
+          tmp1 = reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw]
+          tmp2 = tmp1.each_index.max_by(n_top_values*reopt_inputs[:Scenario][:time_steps_per_hour]){|i| tmp1[i]} 
+          for i in (0...tmp2.count)
+              tmp2[i] += 1
+          end
+          reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps] = tmp2
         end
         
         return reopt_inputs

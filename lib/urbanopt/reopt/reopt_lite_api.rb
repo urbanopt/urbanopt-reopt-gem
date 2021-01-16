@@ -253,7 +253,7 @@ module URBANopt # :nodoc:
         end
         request = Net::HTTP::Post.new(@uri_submit, header)
         request.body = ::JSON.generate(reopt_input, allow_nan: true)
-
+        
         # Send the request
         response = make_request(http, request)
 
