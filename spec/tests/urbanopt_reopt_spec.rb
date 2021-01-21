@@ -90,6 +90,8 @@ RSpec.describe URBANopt::REopt do
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, save_name: 'test__/scenario_report_reopt_global')
 
     FileUtils.rm_rf('spec/run/example_scenario/test__')
+    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
+    FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
   end
 
@@ -196,6 +198,8 @@ RSpec.describe URBANopt::REopt do
     
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/test__')
+    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
+    FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
     
   end
 
