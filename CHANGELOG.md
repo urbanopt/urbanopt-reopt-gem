@@ -1,8 +1,16 @@
 # URBANopt REopt Gem
 
+## Version 0.5.2
+
+Date range: 1/08/21 - 1/21/21
+* Adds default coincident peak load (top 100 hours) if not specified in assumptions file to a REopt Lite post
+* Specifies coincident peak price as 0 in test assumptions file to turn it off
+* Allows default roof area, land area and timesteps per hour to be overwritten by assumptions file when creating a REopt Lite post
+
+
 ## Version 0.5.1
 
-Date range: 12/11/20 - 1/08/20
+Date range: 12/11/20 - 1/08/21
 
 * Extend polling time for resilience results
 * Do not error out if there are no resilience results
