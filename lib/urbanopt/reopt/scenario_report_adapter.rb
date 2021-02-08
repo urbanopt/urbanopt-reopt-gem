@@ -158,6 +158,10 @@ module URBANopt # :nodoc:
           reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps] = tmp2
         end
 
+        if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_us_dollars_per_kw].nil?
+          reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_us_dollars_per_kw] = 0
+        end
+
         return reopt_inputs
       end
 
@@ -286,14 +290,6 @@ module URBANopt # :nodoc:
             end
           end
          end
-
-        unless reopt_output['outputs']['Scenario']['Site']['Storage'].nil?
-          if (reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'] or 0) > 0
-            if !reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw'].nil?
-              generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw']]
-            end
-          end
-        end
 
         unless reopt_output['outputs']['Scenario']['Site']['Wind'].nil?
           if (reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) > 0
