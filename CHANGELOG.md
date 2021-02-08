@@ -1,5 +1,11 @@
 # URBANopt REopt Gem
 
+## Version 0.5.3
+
+Date range: 1/21/21 - 2/8/21
+* **Storage** should not be considered in total production CSV series
+* **coincident_peak_load_charge_us_dollars_per_kw** should be defaulted to 0
+
 ## Version 0.5.2
 
 Date range: 1/08/21 - 1/21/21
