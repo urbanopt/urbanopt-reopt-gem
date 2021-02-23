@@ -1,7 +1,7 @@
 {
   "Scenario": {
     "timeout_seconds": 295,
-    "time_steps_per_hour": 1,
+    "time_steps_per_hour": 4,
     "Site": {
       "Wind": {"max_kw":0},
       "PV": {
