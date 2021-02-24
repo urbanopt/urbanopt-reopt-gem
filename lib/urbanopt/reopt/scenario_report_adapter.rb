@@ -123,9 +123,7 @@ module URBANopt # :nodoc:
         end
 
         if reopt_inputs[:Scenario][:time_steps_per_hour].nil?
-          unless scenario_report.timesteps_per_hour.nil?
-            reopt_inputs[:Scenario][:time_steps_per_hour] = scenario_report.timesteps_per_hour
-          end
+          reopt_inputs[:Scenario][:time_steps_per_hour] = 1
         end
 
         # Update load profile info
