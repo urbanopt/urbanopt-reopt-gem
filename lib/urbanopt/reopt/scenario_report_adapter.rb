@@ -33,6 +33,7 @@ require 'urbanopt/reopt/reopt_logger'
 require 'matrix'
 require 'csv'
 require 'time'
+require_relative 'utilities'
 
 module URBANopt # :nodoc:
   module REopt # :nodoc:
@@ -93,7 +94,6 @@ module URBANopt # :nodoc:
         requireds_names = ['latitude', 'longitude']
         requireds = [scenario_report.location.latitude_deg, scenario_report.location.longitude_deg]
 
-
         if requireds.include?(nil) || requireds.include?(0)
           requireds.each_with_index do |x, i|
             if [nil].include? x
@@ -110,16 +110,20 @@ module URBANopt # :nodoc:
 
         # Update optional info
         # REK: attribute names should be updated
-        if !scenario_report.program.roof_area_sqft.nil?
-          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area]
+        if reopt_inputs[:Scenario][:Site][:roof_squarefeet].nil?
+          if !scenario_report.program.roof_area_sqft.nil?
+            reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
+          end
         end
 
-        if !scenario_report.program.site_area_sqft.nil?
-          reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
+        if reopt_inputs[:Scenario][:Site][:land_acres].nil?
+          if !scenario_report.program.site_area_sqft.nil?
+            reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
+          end
         end
 
-        unless scenario_report.timesteps_per_hour.nil?
-          reopt_inputs[:Scenario][:time_steps_per_hour] = scenario_report.timesteps_per_hour
+        if reopt_inputs[:Scenario][:time_steps_per_hour].nil?
+          reopt_inputs[:Scenario][:time_steps_per_hour] = 1
         end
 
         # Update load profile info
@@ -136,13 +140,37 @@ module URBANopt # :nodoc:
                         (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
             energy_timeseries_kw = [0.0]*(start_ts-1) + energy_timeseries_kw + [0.0]*((scenario_report.timesteps_per_hour * 8760) - end_ts)
           end
-          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = energy_timeseries_kw.map { |e| e ? e : 0 }[0,(scenario_report.timesteps_per_hour * 8760)]
+          energy_timeseries_kw = energy_timeseries_kw.map { |e| e ? e : 0 }[0,(scenario_report.timesteps_per_hour * 8760)]
         rescue StandardError
           @@logger.error("Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}")
           raise "Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}"
         end
+
+        # Convert load to REopt Resolution
+        begin
+          reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = convert_powerflow_resolution(energy_timeseries_kw, scenario_report.timesteps_per_hour, reopt_inputs[:Scenario][:time_steps_per_hour])
+        rescue
+          @@logger.error("Could not convert the annual electric load from a resolution of #{scenario_report.timesteps_per_hour} to #{reopt_inputs[:Scenario][:time_steps_per_hour]}")
+          raise "Could not convert the annual electric load from a resolution of #{scenario_report.timesteps_per_hour} to #{reopt_inputs[:Scenario][:time_steps_per_hour]}"
+        end
+
+        if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps].nil?
+          n_top_values = 100
+          tmp1 = reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw]
+          tmp2 = tmp1.each_index.max_by(n_top_values*reopt_inputs[:Scenario][:time_steps_per_hour]){|i| tmp1[i]} 
+          for i in (0...tmp2.count)
+              tmp2[i] += 1
+          end
+          reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps] = tmp2
+        end
+
+        if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_us_dollars_per_kw].nil?
+          reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_us_dollars_per_kw] = 0
+        end
+
         return reopt_inputs
       end
+
 
       ##
       # Converts a FeatureReport list from a ScenarioReport into an array of \REopt Lite posts
@@ -207,9 +235,6 @@ module URBANopt # :nodoc:
         scenario_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
         scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
 
-        # Update timeseries csv from \REopt Lite dispatch data
-        scenario_report.timesteps_per_hour = reopt_output['inputs']['Scenario']['time_steps_per_hour']
-
         # Update distributed generation sizing and financials
 
         scenario_report.distributed_generation.lcc_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc_us_dollars'] || 0
@@ -257,30 +282,22 @@ module URBANopt # :nodoc:
         if !storage['size_kw'].nil?  and storage['size_kw'] != 0
           scenario_report.distributed_generation.add_tech 'storage',  URBANopt::Reporting::DefaultReports::Storage.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
-
+        
+        reopt_resolution = reopt_output['inputs']['Scenario']['time_steps_per_hour']
         generation_timeseries_kwh = Matrix[[0] * (8760 * scenario_report.timesteps_per_hour)]
-
-
+        
         reopt_output['outputs']['Scenario']['Site']['PV'].each do |pv|
           if (pv['size_kw'] || 0) > 0
             if !pv['year_one_power_production_series_kw'].nil?
-              generation_timeseries_kwh += Matrix[pv['year_one_power_production_series_kw']]
+              generation_timeseries_kwh += Matrix[convert_powerflow_resolution(pv['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
             end
           end
          end
 
-        unless reopt_output['outputs']['Scenario']['Site']['Storage'].nil?
-          if (reopt_output['outputs']['Scenario']['Site']['Storage']['size_kw'] or 0) > 0
-            if !reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw'].nil?
-              generation_timeseries_kwh = generation_timeseries_kwh + Matrix[reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw']]
-            end
-          end
-        end
-
         unless reopt_output['outputs']['Scenario']['Site']['Wind'].nil?
           if (reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) > 0
             if !reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'].nil?
-              generation_timeseries_kwh += Matrix[reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw']]
+              generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
             end
           end
         end
@@ -288,7 +305,7 @@ module URBANopt # :nodoc:
         unless reopt_output['outputs']['Scenario']['Site']['Generator'].nil?
           if (reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) > 0
             if !reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'].nil?
-              generation_timeseries_kwh += Matrix[reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw']]
+              generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
             end
           end
         end
@@ -300,70 +317,70 @@ module URBANopt # :nodoc:
           scenario_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Total(kw)')
         end
 
-        $load = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['LoadProfile']['year_one_electric_load_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $load = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['LoadProfile']['year_one_electric_load_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $load_col = scenario_report.timeseries_csv.column_names.index('REopt:Electricity:Load:Total(kw)')
         if $load_col.nil?
           $load_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:Electricity:Load:Total(kw)')
         end
 
-        $utility_to_load = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_to_load_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $utility_to_load = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_to_load_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $utility_to_load_col = scenario_report.timeseries_csv.column_names.index('REopt:Electricity:Grid:ToLoad(kw)')
         if $utility_to_load_col.nil?
           $utility_to_load_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:Electricity:Grid:ToLoad(kw)')
         end
 
-        $utility_to_battery = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_to_battery_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $utility_to_battery = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_to_battery_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $utility_to_battery_col = scenario_report.timeseries_csv.column_names.index('REopt:Electricity:Grid:ToBattery(kw)')
         if $utility_to_battery_col.nil?
           $utility_to_battery_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:Electricity:Grid:ToBattery(kw)')
         end
 
-        $storage_to_load = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_load_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $storage_to_load = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_load_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $storage_to_load_col = scenario_report.timeseries_csv.column_names.index('REopt:Electricity:Storage:ToLoad(kw)')
         if $storage_to_load_col.nil?
           $storage_to_load_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:Electricity:Storage:ToLoad(kw)')
         end
 
-        $storage_to_grid = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $storage_to_grid = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_to_grid_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $storage_to_grid_col = scenario_report.timeseries_csv.column_names.index('REopt:Electricity:Storage:ToGrid(kw)')
         if $storage_to_grid_col.nil?
           $storage_to_grid_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:Electricity:Storage:ToGrid(kw)')
         end
 
-        $storage_soc = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_soc_series_pct']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $storage_soc = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Storage']['year_one_soc_series_pct'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $storage_soc_col = scenario_report.timeseries_csv.column_names.index('REopt:Electricity:Storage:StateOfCharge(pct)')
         if $storage_soc_col.nil?
           $storage_soc_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:Electricity:Storage:StateOfCharge(pct)')
         end
 
-        $generator_total = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $generator_total = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $generator_total_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Generator:Total(kw)')
         if $generator_total_col.nil?
           $generator_total_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Generator:Total(kw)')
         end
 
-        $generator_to_battery = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_to_battery_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $generator_to_battery = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_to_battery_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $generator_to_battery_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Generator:ToBattery(kw)')
         if $generator_to_battery_col.nil?
           $generator_to_battery_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Generator:ToBattery(kw)')
         end
 
-        $generator_to_load = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_to_load_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $generator_to_load = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_to_load_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $generator_to_load_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Generator:ToLoad(kw)')
         if $generator_to_load_col.nil?
           $generator_to_load_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Generator:ToLoad(kw)')
         end
 
-        $generator_to_grid = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_to_grid_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $generator_to_grid = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_to_grid_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $generator_to_grid_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Generator:ToGrid(kw)')
         if $generator_to_grid_col.nil?
           $generator_to_grid_col = scenario_report.timeseries_csv.column_names.length
@@ -401,10 +418,10 @@ module URBANopt # :nodoc:
 
         reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
           if (pv['size_kw'] || 0) > 0
-            $pv_total += Matrix[scale_timeseries(pv['year_one_power_production_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)]
-            $pv_to_battery += Matrix[scale_timeseries(pv['year_one_to_battery_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)]
-            $pv_to_load += Matrix[scale_timeseries(pv['year_one_to_load_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)]
-            $pv_to_grid += Matrix[scale_timeseries(pv['year_one_to_grid_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)]
+            $pv_total += Matrix[scale_timeseries(convert_powerflow_resolution(pv['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)]
+            $pv_to_battery += Matrix[scale_timeseries(convert_powerflow_resolution(pv['year_one_to_battery_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)]
+            $pv_to_load += Matrix[scale_timeseries(convert_powerflow_resolution(pv['year_one_to_load_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)]
+            $pv_to_grid += Matrix[scale_timeseries(convert_powerflow_resolution(pv['year_one_to_grid_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)]
           end
         end
 
@@ -413,28 +430,28 @@ module URBANopt # :nodoc:
         $pv_to_load = $pv_to_load.to_a[0]
         $pv_to_grid = $pv_to_grid.to_a[0]
 
-        $wind_total = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $wind_total = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $wind_total_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Wind:Total(kw)')
         if $wind_total_col.nil?
           $wind_total_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Wind:Total(kw)')
         end
 
-        $wind_to_battery = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_to_battery_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $wind_to_battery = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_to_battery_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $wind_to_battery_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Wind:ToBattery(kw)')
         if $wind_to_battery_col.nil?
           $wind_to_battery_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Wind:ToBattery(kw)')
         end
 
-        $wind_to_load = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_to_load_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $wind_to_load = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_to_load_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $wind_to_load_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Wind:ToLoad(kw)')
         if $wind_to_load_col.nil?
           $wind_to_load_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Wind:ToLoad(kw)')
         end
 
-        $wind_to_grid = scale_timeseries(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_to_grid_series_kw']) || [0] * (8760 * scenario_report.timesteps_per_hour)
+        $wind_to_grid = scale_timeseries(convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_to_grid_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)) || [0] * (8760 * scenario_report.timesteps_per_hour)
         $wind_to_grid_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Wind:ToGrid(kw)')
         if $wind_to_grid_col.nil?
           $wind_to_grid_col = scenario_report.timeseries_csv.column_names.length

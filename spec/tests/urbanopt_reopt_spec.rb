@@ -90,10 +90,12 @@ RSpec.describe URBANopt::REopt do
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, save_name: 'test__/scenario_report_reopt_global')
 
     FileUtils.rm_rf('spec/run/example_scenario/test__')
+    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
+    FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
   end
 
-  it 'can process a feature report' do
+  it 'can process a feature report and handle time resolution conversion' do
     begin
       FileUtils.rm_rf('spec/run/example_scenario/test__')
     rescue
@@ -123,7 +125,7 @@ RSpec.describe URBANopt::REopt do
 
     reopt_output_file = File.join(feature_report.directory_name, 'reopt/feature_report_reopt_run1.json')
     timeseries_output_file = File.join(feature_report.directory_name, 'feature_report_timeseries1.csv')
-    reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
+    reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_4tsperhour.json')
     reopt_assumptions = nil
     File.open(reopt_assumptions_file, 'r') do |file|
       reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
@@ -196,6 +198,8 @@ RSpec.describe URBANopt::REopt do
     
     FileUtils.rm_rf('spec/run/example_scenario/reopt')
     FileUtils.rm_rf('spec/run/example_scenario/test__')
+    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
+    FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
     
   end
 
