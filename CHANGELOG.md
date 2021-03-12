@@ -1,9 +1,14 @@
 # URBANopt REopt Gem
 
-## Version 0.5.4
+## Version 0.5.5
 
 Date range: 2/8/21 - 3/12/21
 * Fix 24 hour shift in REopt Lite timeseries data in *Feature* and *Scenario* Report CSV's
+
+## Version 0.5.4
+Date range: 2/8/21 - 2/25/21
+
+Converts Feature and Scenario Report native timeseries data (i.e. load profile, optimized dispatches) to/from the specified REopt Lite time series resolution (defaulted to 1 timestep per hour), such that OpenStudio can be run at 10-minute intervals and REopt Lite at 1-hour or 15-minute intervals.
 
 
 ## Version 0.5.3
