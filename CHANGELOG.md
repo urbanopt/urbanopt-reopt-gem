@@ -1,5 +1,10 @@
 # URBANopt REopt Gem
 
+## Version 0.5.5
+
+Date range: 2/8/21 - 3/12/21
+* Fixes a bug that shifts REopt Lite timeseries data by 24 hours in **Feature** and **Scenario Report** CSV's
+
 ## Version 0.5.4
 
 Date range: 2/8/21 - 2/25/21

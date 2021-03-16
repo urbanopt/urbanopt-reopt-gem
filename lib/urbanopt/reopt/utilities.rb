@@ -1,4 +1,8 @@
 def convert_powerflow_resolution(timeseries_kw, original_res, destination_res)	
+	if timeseries_kw.nil?
+        return nil
+	end
+    
 	if timeseries_kw.length == 0
 		return nil
 	end
