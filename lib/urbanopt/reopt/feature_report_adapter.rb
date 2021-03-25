@@ -1,21 +1,31 @@
 # *********************************************************************************
-# URBANopt (tm), Copyright (c) 2019-2020, Alliance for Sustainable Energy, LLC, and other
+# URBANopt™, Copyright (c) 2019-2021, Alliance for Sustainable Energy, LLC, and other
 # contributors. All rights reserved.
-#
+
 # Redistribution and use in source and binary forms, with or without modification,
 # are permitted provided that the following conditions are met:
-#
+
 # Redistributions of source code must retain the above copyright notice, this list
 # of conditions and the following disclaimer.
-#
+
 # Redistributions in binary form must reproduce the above copyright notice, this
 # list of conditions and the following disclaimer in the documentation and/or other
 # materials provided with the distribution.
-#
+
 # Neither the name of the copyright holder nor the names of its contributors may be
 # used to endorse or promote products derived from this software without specific
 # prior written permission.
-#
+
+# Redistribution of this software, without modification, must refer to the software
+# by the same designation. Redistribution of a modified version of this software
+# (i) may not refer to the modified version by the same designation, or by any
+# confusingly similar designation, and (ii) must refer to the underlying software
+# originally provided by Alliance as “URBANopt”. Except to comply with the foregoing,
+# the term “URBANopt”, or any confusingly similar designation may not be used to
+# refer to any modified version of this software or any modified version of the
+# underlying software originally provided by Alliance without the prior written
+# consent of Alliance.
+
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -120,7 +130,7 @@ module URBANopt # :nodoc:
             end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) /
                         (( 60 / feature_report.timesteps_per_hour ) * 60)).to_int
             energy_timeseries_kw = [0.0]*(start_ts-1) + energy_timeseries_kw + [0.0]*((feature_report.timesteps_per_hour * 8760) - end_ts)
-          end          
+          end
           #Clip to one non-leap year's worth of data
           energy_timeseries_kw = energy_timeseries_kw.map { |e| e ? e : 0 }[0,(feature_report.timesteps_per_hour * 8760)]
           #Convert from the OpenDSS resolution to the REopt Lite resolution, if necessary
@@ -128,20 +138,20 @@ module URBANopt # :nodoc:
           @@logger.error("Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}")
           raise "Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}"
         end
-        
+
         # Convert load to REopt Resolution
         begin
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = convert_powerflow_resolution(energy_timeseries_kw, feature_report.timesteps_per_hour, reopt_inputs[:Scenario][:time_steps_per_hour])
-          
+
         rescue
           @@logger.error("Could not convert the annual electric load from a resolution of #{feature_report.timesteps_per_hour} to #{reopt_inputs[:Scenario][:time_steps_per_hour]}")
           raise "Could not convert the annual electric load from a resolution of #{feature_report.timesteps_per_hour} to #{reopt_inputs[:Scenario][:time_steps_per_hour]}"
         end
-        
+
         if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps].nil?
           n_top_values = 100
           tmp1 = reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw]
-          tmp2 = tmp1.each_index.max_by(n_top_values*reopt_inputs[:Scenario][:time_steps_per_hour]){|i| tmp1[i]} 
+          tmp2 = tmp1.each_index.max_by(n_top_values*reopt_inputs[:Scenario][:time_steps_per_hour]){|i| tmp1[i]}
           for i in (0...tmp2.count)
               tmp2[i] += 1
           end
@@ -151,7 +161,7 @@ module URBANopt # :nodoc:
         if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_us_dollars_per_kw].nil?
           reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_us_dollars_per_kw] = 0
         end
-        
+
         return reopt_inputs
       end
 
@@ -173,7 +183,7 @@ module URBANopt # :nodoc:
           @@logger.info("Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal")
           return feature_report
         end
- 
+
         # Update location
         feature_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
         feature_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
@@ -197,9 +207,9 @@ module URBANopt # :nodoc:
           feature_report.distributed_generation.resilience_hours_avg = resilience_stats['resilience_hours_avg']
           feature_report.distributed_generation.probs_of_surviving = resilience_stats['probs_of_surviving']
           feature_report.distributed_generation.probs_of_surviving_by_month = resilience_stats['probs_of_surviving_by_month']
-          feature_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']  
+          feature_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']
         end
-        
+
         if reopt_output['outputs']['Scenario']['Site']['PV'].class == Hash
           reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV']]
         elsif reopt_output['outputs']['Scenario']['Site']['PV'].nil?
@@ -430,12 +440,12 @@ module URBANopt # :nodoc:
         start_date = Time.parse(old_data[1][0])
         start_ts = (
                       (
-                        ((start_date.yday - 1) * 60.0 * 60.0 * 24) + 
-                        (((start_date.hour)  - 1) * 60.0 * 60.0) + 
+                        ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
+                        (((start_date.hour)  - 1) * 60.0 * 60.0) +
                         (start_date.min * 60.0) + start_date.sec ) /
                       (( 60 / feature_report.timesteps_per_hour ) * 60)
                     ).to_int
-        
+
         mod_data = old_data.map.with_index do |x, i|
           if i > 0
             modrow(x, start_ts + i -2)

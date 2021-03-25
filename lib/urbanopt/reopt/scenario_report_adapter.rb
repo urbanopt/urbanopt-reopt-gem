@@ -1,21 +1,31 @@
 # *********************************************************************************
-# URBANopt (tm), Copyright (c) 2019-2020, Alliance for Sustainable Energy, LLC, and other
+# URBANopt™, Copyright (c) 2019-2021, Alliance for Sustainable Energy, LLC, and other
 # contributors. All rights reserved.
-#
+
 # Redistribution and use in source and binary forms, with or without modification,
 # are permitted provided that the following conditions are met:
-#
+
 # Redistributions of source code must retain the above copyright notice, this list
 # of conditions and the following disclaimer.
-#
+
 # Redistributions in binary form must reproduce the above copyright notice, this
 # list of conditions and the following disclaimer in the documentation and/or other
 # materials provided with the distribution.
-#
+
 # Neither the name of the copyright holder nor the names of its contributors may be
 # used to endorse or promote products derived from this software without specific
 # prior written permission.
-#
+
+# Redistribution of this software, without modification, must refer to the software
+# by the same designation. Redistribution of a modified version of this software
+# (i) may not refer to the modified version by the same designation, or by any
+# confusingly similar designation, and (ii) must refer to the underlying software
+# originally provided by Alliance as “URBANopt”. Except to comply with the foregoing,
+# the term “URBANopt”, or any confusingly similar designation may not be used to
+# refer to any modified version of this software or any modified version of the
+# underlying software originally provided by Alliance without the prior written
+# consent of Alliance.
+
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -157,7 +167,7 @@ module URBANopt # :nodoc:
         if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps].nil?
           n_top_values = 100
           tmp1 = reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw]
-          tmp2 = tmp1.each_index.max_by(n_top_values*reopt_inputs[:Scenario][:time_steps_per_hour]){|i| tmp1[i]} 
+          tmp2 = tmp1.each_index.max_by(n_top_values*reopt_inputs[:Scenario][:time_steps_per_hour]){|i| tmp1[i]}
           for i in (0...tmp2.count)
               tmp2[i] += 1
           end
@@ -210,7 +220,7 @@ module URBANopt # :nodoc:
           @@logger.info("Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal")
           return scenario_report
         end
-        
+
         # Update location
         scenario_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
         scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
@@ -235,7 +245,7 @@ module URBANopt # :nodoc:
           scenario_report.distributed_generation.resilience_hours_avg = resilience_stats['resilience_hours_avg']
           scenario_report.distributed_generation.probs_of_surviving = resilience_stats['probs_of_surviving']
           scenario_report.distributed_generation.probs_of_surviving_by_month = resilience_stats['probs_of_surviving_by_month']
-          scenario_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']  
+          scenario_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']
         end
 
         if reopt_output['outputs']['Scenario']['Site']['PV'].class == Hash
@@ -262,10 +272,10 @@ module URBANopt # :nodoc:
         if !storage['size_kw'].nil?  and storage['size_kw'] != 0
           scenario_report.distributed_generation.add_tech 'storage',  URBANopt::Reporting::DefaultReports::Storage.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
-        
+
         reopt_resolution = reopt_output['inputs']['Scenario']['time_steps_per_hour']
         generation_timeseries_kwh = Matrix[[0] * (8760 * scenario_report.timesteps_per_hour)]
-        
+
         reopt_output['outputs']['Scenario']['Site']['PV'].each do |pv|
           if (pv['size_kw'] || 0) > 0
             if !pv['year_one_power_production_series_kw'].nil?
@@ -462,11 +472,11 @@ module URBANopt # :nodoc:
         end
 
         old_data = CSV.open(scenario_report.timeseries_csv.path).read
-        start_date = Time.parse(old_data[1][0]) # Time is the end of the timestep 
+        start_date = Time.parse(old_data[1][0]) # Time is the end of the timestep
         start_ts = (
                       (
-                        ((start_date.yday - 1) * 60.0 * 60.0 * 24) + 
-                        (((start_date.hour)  - 1) * 60.0 * 60.0) + 
+                        ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
+                        (((start_date.hour)  - 1) * 60.0 * 60.0) +
                         (start_date.min * 60.0) + start_date.sec ) /
                       (( 60 / scenario_report.timesteps_per_hour ) * 60)
                     ).to_int
