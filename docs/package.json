@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "braces": "^3.0.2",
+    "chokidar": "^3.5.1",
+    "fsevents": "^2.3.2",
     "gh-pages": "^2.0.1",
     "ini": "^2.0.0",
     "serialize-javascript": "^5.0.1",
