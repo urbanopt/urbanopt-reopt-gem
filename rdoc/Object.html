@@ -8,14 +8,10 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
-  var index_rel_prefix = "./";
 </script>
 
-<script src="./js/navigation.js" defer></script>
-<script src="./js/search.js" defer></script>
-<script src="./js/search_index.js" defer></script>
-<script src="./js/searcher.js" defer></script>
-<script src="./js/darkfish.js" defer></script>
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
 
 <link href="./css/fonts.css" rel="stylesheet">
 <link href="./css/rdoc.css" rel="stylesheet">
@@ -69,7 +65,17 @@
 
     
     
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
     
+    <li ><a href="#method-i-convert_powerflow_resolution">#convert_powerflow_resolution</a>
+    
+  </ul>
+</div>
+
   </div>
 </nav>
 
@@ -82,6 +88,8 @@
     
   </section>
 
+  
+  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -97,7 +105,36 @@
       
         <dt id="DEVELOPER_NREL_KEY">DEVELOPER_NREL_KEY
         
-        <dd>
+        <dd><p>*********************************************************************************
+<a href="URBANopt.html">URBANopt</a> (tm), Copyright © 2019-2020, Alliance
+for Sustainable Energy, LLC, and other contributors. All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:</p>
+
+<p>Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.</p>
+
+<p>Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation
+and/or other materials provided with the distribution.</p>
+
+<p>Neither the name of the copyright holder nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.</p>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS”
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+*********************************************************************************</p>
         
       
       </dl>
@@ -107,13 +144,162 @@
     
 
     
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-convert_powerflow_resolution" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">convert_powerflow_resolution</span><span
+            class="method-args">(timeseries_kw, original_res, destination_res)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="convert_powerflow_resolution-source">
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/utilities.rb, line 1</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">convert_powerflow_resolution</span>(<span class="ruby-identifier">timeseries_kw</span>, <span class="ruby-identifier">original_res</span>, <span class="ruby-identifier">destination_res</span>)  
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeseries_kw</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-keyword">end</span>
+    
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeseries_kw</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+                <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-keyword">end</span>
+        
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">original_res</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">destination_res</span>
+                <span class="ruby-comment"># Timesteps will be reduced, i.e. 35040 -&gt; 8760</span>
+                
+        <span class="ruby-comment"># This algorithm works by stepping along the origin timeseries at an interval equal to</span>
+        <span class="ruby-comment"># one timestep in the destintion timeseries and then averaging all origin values that</span>
+        <span class="ruby-comment"># coincide with the interval. Averages are weighted if a destination timestep</span>
+        <span class="ruby-comment"># only partaially overlaps an origin timestep.</span>
+        
+        <span class="ruby-comment"># EX 1</span>
+        <span class="ruby-comment"># stepping interval 2</span>
+        <span class="ruby-comment"># origin stepping       | 1 | 2 | 2 | 4 |</span>
+        <span class="ruby-comment"># destination stepping  |  1.5  |   3   |</span>
+
+        <span class="ruby-comment"># EX 2</span>
+        <span class="ruby-comment"># stepping interval 2.5</span>
+        <span class="ruby-comment"># origin stepping       | 1 | 1 | 4 | 2 | 2 |</span>
+        <span class="ruby-comment"># destination stepping  |   1.6   |  2.4    |</span>
+        
+        <span class="ruby-identifier">result</span> = []
+        <span class="ruby-identifier">stepping_interval</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">original_res</span>) <span class="ruby-operator">/</span> <span class="ruby-constant">Float</span>(<span class="ruby-identifier">destination_res</span>)
+        <span class="ruby-identifier">current_origin_ts</span> = <span class="ruby-value">0</span> <span class="ruby-comment"># fraction stepped along the origin time series</span>
+                <span class="ruby-identifier">current_origin_idx</span> = <span class="ruby-value">0</span> <span class="ruby-comment"># current integer index of the origin timeseries</span>
+                (<span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-value">8760</span><span class="ruby-operator">*</span><span class="ruby-identifier">destination_res</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ts</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">next_stopping_ts</span> = <span class="ruby-identifier">current_origin_ts</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">stepping_interval</span> <span class="ruby-comment">#stop at the next destination interval</span>
+                        <span class="ruby-identifier">total_power</span> = [] <span class="ruby-comment">#create to store wieghted origin timestep values to average</span>
+                        <span class="ruby-keyword">while</span> <span class="ruby-identifier">current_origin_ts</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">next_stopping_ts</span> <span class="ruby-keyword">do</span>
+                                <span class="ruby-identifier">next_origin_ts_int</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">current_origin_ts</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+                                <span class="ruby-comment"># Calc next stopping point that will being you to the next origin or destination time step</span>
+                                <span class="ruby-identifier">next_origin_ts</span> = [<span class="ruby-identifier">next_origin_ts_int</span>, <span class="ruby-identifier">next_stopping_ts</span>].<span class="ruby-identifier">min</span> 
+                                <span class="ruby-comment"># Calc next step length</span>
+                                <span class="ruby-identifier">delta_to_next_origin_ts</span> = <span class="ruby-identifier">next_origin_ts</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">current_origin_ts</span> 
+                                <span class="ruby-comment"># Add the proportional origin timestep value to the total power variable</span>
+                                <span class="ruby-identifier">total_power</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">Float</span>(<span class="ruby-identifier">timeseries_kw</span>[<span class="ruby-identifier">current_origin_idx</span>]) <span class="ruby-operator">*</span>  <span class="ruby-identifier">delta_to_next_origin_ts</span>)
+                                <span class="ruby-comment"># Only move on to the next origin timestep if you are not ending mid way though an origin timestep</span>
+                                <span class="ruby-comment"># i.e  in EX 2 above, the value 4 is needed in destination timestep 1 and 2 </span>
+                                <span class="ruby-keyword">if</span> <span class="ruby-identifier">next_origin_ts_int</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">next_stopping_ts</span>
+                                        <span class="ruby-identifier">current_origin_idx</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+                                <span class="ruby-keyword">end</span>
+                                <span class="ruby-comment"># Step to the next stopping point</span>
+                                <span class="ruby-identifier">current_origin_ts</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">delta_to_next_origin_ts</span>
+                        <span class="ruby-keyword">end</span>
+                        <span class="ruby-comment"># Add averaged total power variable for the destination time step</span>
+                        <span class="ruby-identifier">result</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">Float</span>(<span class="ruby-identifier">total_power</span>.<span class="ruby-identifier">sum</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">stepping_interval</span>)
+                <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination_res</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">original_res</span>
+                <span class="ruby-comment">#Timesteps will be expanded, i.e. 8760 -&gt; 35040</span>
+
+                <span class="ruby-comment"># This algorithm works by stepping along the destination timeseries. Steps are made to the next </span>
+                <span class="ruby-comment"># destination or origin breakpoint, and at each step the propotional amount of the origin stepped</span>
+                <span class="ruby-comment"># is added to the destination. For example, in in EX 1 below 4 steps are made each with adding the full amount of</span>
+                <span class="ruby-comment"># the origin (1, 1, 2 and 2) since each in the destination overlaps perfectly with 2 origin</span>
+                <span class="ruby-comment"># timesteps. In EX 2, the origin overlaps with the first 2 destination timesteps but the third</span>
+                <span class="ruby-comment"># destination value much be compose of half the 1st origin timestep value and half the second</span>
+                <span class="ruby-comment"># (i.e  4, 4, (4 * 1/2) + (3 * 1/2), 3, and 3 are added to the destination). </span>
+        
+        <span class="ruby-comment"># EX 1</span>
+        <span class="ruby-comment"># stepping interval 2</span>
+        <span class="ruby-comment"># origin stepping       |   1   |   2   |</span>
+        <span class="ruby-comment"># destination stepping  | 1 | 1 | 2 | 2 |</span>
+
+        <span class="ruby-comment"># EX 2</span>
+        <span class="ruby-comment"># stepping interval 2.5</span>
+        <span class="ruby-comment"># origin stepping       |     4    |    3     |</span>
+        <span class="ruby-comment"># destination stepping  | 4 | 4 | 3.5 | 3 | 3 |</span>
+        
+                <span class="ruby-identifier">result</span> = []
+                <span class="ruby-identifier">stepping_interval</span> = (<span class="ruby-constant">Float</span>(<span class="ruby-identifier">destination_res</span>) <span class="ruby-operator">/</span> <span class="ruby-constant">Float</span>(<span class="ruby-identifier">original_res</span>))
+                <span class="ruby-identifier">current_destination_ts</span> = <span class="ruby-value">0</span> <span class="ruby-comment"># fraction stepped along the origin time series</span>
+                (<span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-value">8760</span><span class="ruby-operator">*</span><span class="ruby-identifier">original_res</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">original_ts</span><span class="ruby-operator">|</span>
+                        <span class="ruby-comment"># keep track of step length along the destination time series</span>
+                        <span class="ruby-identifier">original_indices_stepped</span> = <span class="ruby-value">0</span>
+                        <span class="ruby-comment"># See if you are start in the middle of a destination time step and add the proportional</span>
+                        <span class="ruby-comment"># value to the most recent (and incomplete) destination value</span>
+                        <span class="ruby-identifier">remainder</span> = (<span class="ruby-identifier">current_destination_ts</span> <span class="ruby-operator">-</span> <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">current_destination_ts</span>))
+                        <span class="ruby-keyword">if</span> <span class="ruby-identifier">remainder</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+                                <span class="ruby-identifier">current_destination_ts</span> <span class="ruby-operator">+=</span> (<span class="ruby-value">1</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">remainder</span>)
+                                <span class="ruby-identifier">original_indices_stepped</span> <span class="ruby-operator">+=</span> (<span class="ruby-value">1</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">remainder</span>)
+                                <span class="ruby-identifier">result</span>[<span class="ruby-value">-1</span>] = <span class="ruby-identifier">result</span>[<span class="ruby-value">-1</span>] <span class="ruby-operator">+</span> (<span class="ruby-constant">Float</span>(<span class="ruby-identifier">timeseries_kw</span>[<span class="ruby-identifier">original_ts</span>])<span class="ruby-operator">*</span>(<span class="ruby-value">1</span><span class="ruby-operator">-</span><span class="ruby-identifier">remainder</span>))
+                        <span class="ruby-keyword">end</span>
+                        <span class="ruby-comment"># Make whole steps along the destination timeseries that overlap perfectly with the </span>
+                        <span class="ruby-comment"># origin timeseries</span>
+                        <span class="ruby-keyword">while</span> (<span class="ruby-identifier">original_indices_stepped</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">stepping_interval</span>) <span class="ruby-keyword">and</span> ((<span class="ruby-identifier">original_indices_stepped</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">stepping_interval</span>)
+                                <span class="ruby-identifier">result</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">Float</span>(<span class="ruby-identifier">timeseries_kw</span>[<span class="ruby-identifier">original_ts</span>]))
+                                <span class="ruby-identifier">original_indices_stepped</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+                                <span class="ruby-identifier">current_destination_ts</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+                        <span class="ruby-keyword">end</span>
+                        <span class="ruby-comment"># See if you need to end your step in the middle of a destination time step and </span>
+                        <span class="ruby-comment"># just add the proportional value from the current origin timestep</span>
+                        <span class="ruby-identifier">remainder</span> = (<span class="ruby-identifier">stepping_interval</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">original_indices_stepped</span>)
+                        <span class="ruby-keyword">if</span> <span class="ruby-identifier">remainder</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+                                <span class="ruby-identifier">result</span>.<span class="ruby-identifier">push</span>((<span class="ruby-constant">Float</span>(<span class="ruby-identifier">timeseries_kw</span>[<span class="ruby-identifier">original_ts</span>]) <span class="ruby-operator">*</span> <span class="ruby-identifier">remainder</span>))
+                                <span class="ruby-identifier">current_destination_ts</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">remainder</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination_res</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">original_res</span>
+        <span class="ruby-comment">#No resolution conversion necessary</span>
+                <span class="ruby-identifier">result</span> = <span class="ruby-identifier">timeseries_kw</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
   </section>
 </main>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="https://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

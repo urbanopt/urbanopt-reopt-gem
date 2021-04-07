@@ -8,14 +8,10 @@
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
-  var index_rel_prefix = "./";
 </script>
 
-<script src="./js/navigation.js" defer></script>
-<script src="./js/search.js" defer></script>
-<script src="./js/search_index.js" defer></script>
-<script src="./js/searcher.js" defer></script>
-<script src="./js/darkfish.js" defer></script>
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
 
 <link href="./css/fonts.css" rel="stylesheet">
 <link href="./css/rdoc.css" rel="stylesheet">
@@ -60,7 +56,7 @@
   <h3>Table of Contents</h3>
 
   <ul class="link-list" role="directory">
-    <li><a href="#label-URBANopt+REopt+Gem"><strong>URBANopt REopt Gem</strong></a>
+    <li><a href="#label-URBANopt+REopt+Gem">URBANopt REopt Gem</a>
     <li><a href="#label-Installation">Installation</a>
     <li><a href="#label-Functionality">Functionality</a>
     <li><a href="#label-Getting+Started">Getting Started</a>
@@ -78,7 +74,13 @@
   
     <li><a href="./CHANGELOG_md.html">CHANGELOG</a>
   
+    <li><a href="./CONTRIBUTING_md.html">CONTRIBUTING</a>
+  
     <li><a href="./RDOC_MAIN_md.html">RDOC_MAIN</a>
+  
+    <li><a href="./index_html.html">index.html</a>
+  
+    <li><a href="./index_md.html">index</a>
   
     <li><a href="./lib/urbanopt/reopt/reopt_schema/reopt_input_schema_json.html">reopt_input_schema.json</a>
   
@@ -92,17 +94,34 @@
 
 <main role="main" aria-label="Page RDOC_MAIN.md">
 
-<h1 id="label-URBANopt+REopt+Gem"><strong>URBANopt REopt Gem</strong><span><a href="#label-URBANopt+REopt+Gem">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<h1 id="label-URBANopt+REopt+Gem">URBANopt REopt Gem<span><a href="#label-URBANopt+REopt+Gem">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p>The <strong>URBANopt REopt Gem</strong> extends <strong>URBANopt::Scenario::DefaultReports::ScenarioReport</strong> and <strong>URBANopt::Scenario::DefaultReports::FeatureReport</strong> with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the <a href="https://reopt.nrel.gov/tool">REopt Lite</a> decision support platform. REopt Lite is a technoeconomic model which leverages mixed integer linear programming to identify the cost-optimal sizing of solar PV, Wind, Storage and/or diesel generation given an electric load profile, a utility rate tariff and other technoeconomic parameters. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">developer.nrel.gov/docs/energy-optimization/reopt-v1/</a> for more detailed information on input parameters and default assumptions.</p>
+<p>The <strong>URBANopt™ REopt Gem</strong> extends
+<strong>URBANopt::Reporting::DefaultReports::ScenarioReport</strong> and
+<strong>URBANopt::Reporting::DefaultReports::FeatureReport</strong> with
+the ability to derive cost-optimal distributed energy resource (DER)
+technology sizes and annual dispatch strageties via the <a
+href="https://reopt.nrel.gov/tool">REopt Lite</a> decision support
+platform. REopt Lite is a technoeconomic model which leverages mixed
+integer linear programming to identify the cost-optimal sizing of solar PV,
+Wind, Storage and/or diesel generation given an electric load profile, a
+utility rate tariff and other technoeconomic parameters. See <a
+href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">developer.nrel.gov/docs/energy-optimization/reopt-v1/</a>
+for more detailed information on input parameters and default assumptions.</p>
 
-<p>See the <a href="https://github.com/urbanopt/urbanopt-example-reopt-project.git">example project</a> for more infomation about usage of this gem.</p>
+<p>See the <a
+href="https://github.com/urbanopt/urbanopt-example-reopt-project.git">example
+project</a> for more infomation about usage of this gem.</p>
 
-<p><strong>Note:</strong> This module requires an API Key from the <a href="https://developer.nrel.gov/">NREL Developer Network</a></p>
+<p><strong>Note:</strong> This module requires an API Key from the <a
+href="https://developer.nrel.gov/">NREL Developer Network</a></p>
 
 <h2 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>See <a href="https://docs.urbanopt.net/installation/installation.html">docs.urbanopt.net/installation/installation.html</a> for instructions on prerequiste software, including: - Ruby 2.2.6 - Bundler 1.17.0 - OpenStudio 2.8.1</p>
+<p>See <a
+href="https://docs.urbanopt.net/installation/installation.html">docs.urbanopt.net/installation/installation.html</a>
+for instructions on prerequiste software, including: - Ruby 2.2.6 - Bundler
+1.17.0 - OpenStudio 2.8.1</p>
 
 <p>Add this line to your application&#39;s Gemfile:</p>
 
@@ -120,7 +139,10 @@ $ bundle update</pre>
 
 <h2 id="label-Functionality">Functionality<span><a href="#label-Functionality">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>This gem is used to call the REopt Lite API on a Scenario Report or Feature Report to update the object&#39;s Distributed Generation attributes (including system financial and sizing metrics) as shown in an example below:</p>
+<p>This gem is used to call the REopt Lite API on a Scenario Report or Feature
+Report to update the object&#39;s Distributed Generation attributes
+(including system financial and sizing metrics) as shown in an example
+below:</p>
 
 <pre>&quot;distributed_generation&quot;: {
               &quot;lcc_us_dollars&quot;: 100000000.0,
@@ -144,7 +166,10 @@ $ bundle update</pre>
               }
             }</pre>
 
-<p>Moreover, the following optimal dispatch fields are added to its timeseries CSV. Where no system component is recommended the dispatch will be all zero (i.e. if no solar PV is recommended ElectricityProduced:PV:Total will be always be zero)</p>
+<p>Moreover, the following optimal dispatch fields are added to its timeseries
+CSV. Where no system component is recommended the dispatch will be all zero
+(i.e. if no solar PV is recommended ElectricityProduced:PV:Total will be
+always be zero)</p>
 
 <pre>|            output                        |  unit   |
 | -----------------------------------------| ------- |
@@ -168,20 +193,29 @@ $ bundle update</pre>
 | ElectricityProduced:Wind:ToLoad          | kWh     |
 | ElectricityProduced:Wind:ToGrid          | kWh     |</pre>
 
-<p>The REopt Lite has default values for all non-required input parameters that are used unless the user specifies custom assumptions. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">developer.nrel.gov/docs/energy-optimization/reopt-v1/</a> for more detailed information on input parameters and default assumptions.</p>
+<p>The REopt Lite has default values for all non-required input parameters
+that are used unless the user specifies custom assumptions. See <a
+href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">developer.nrel.gov/docs/energy-optimization/reopt-v1/</a>
+for more detailed information on input parameters and default assumptions.</p>
 
-<p><strong>Note:</strong> Required attributes for a REopt run include latitude and longitude. If no utility rate is specified in your REopt Lite assumption settings, then a constant default rate of $0.13 is assumed without demand charges. Also, by default, only solar PV and storage are considered in the analysis (i.e. Wind and Generators are excluded from consideration).</p>
+<p><strong>Note:</strong> Required attributes for a REopt run include latitude
+and longitude. If no utility rate is specified in your REopt Lite
+assumption settings, then a constant default rate of $0.13 is assumed
+without demand charges. Also, by default, only solar PV and storage are
+considered in the analysis (i.e. Wind and Generators are excluded from
+consideration).</p>
 
 <h2 id="label-Getting+Started">Getting Started<span><a href="#label-Getting+Started">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>The code below shows how to run the REopt API on a single Feature Report hash using this gem:</p>
+<p>The code below shows how to run the REopt API on a single Feature Report
+hash using this gem:</p>
 
 <pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;urbanopt/reopt&#39;</span>
 <span class="ruby-comment">#Load a Feature Report Hash</span>
 <span class="ruby-identifier">feature_reports_hash</span> = {} <span class="ruby-comment"># &lt;insert a Feature Report hash here&gt;</span>
 
 <span class="ruby-comment">#Create a Feature Report</span>
-<span class="ruby-identifier">feature_report</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">Scenario</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultReports</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReport</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">feature_reports_hash</span>)
+<span class="ruby-identifier">feature_report</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">Reporting</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultReports</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReport</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">feature_reports_hash</span>)
 
 <span class="ruby-comment">#Specify a file name where REopt Lite results will be written in JSON format</span>
 <span class="ruby-identifier">reopt_output_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-string">&#39;feature_report_reopt_run1.json&#39;</span>)
@@ -199,11 +233,12 @@ $ bundle update</pre>
 <span class="ruby-identifier">updated_feature_report</span> = <span class="ruby-identifier">reopt_post_processor</span>.<span class="ruby-identifier">run_feature_report</span>(<span class="ruby-identifier">feature_report</span>,<span class="ruby-identifier">reopt_assumptions_file</span>,<span class="ruby-identifier">reopt_output_file</span>,<span class="ruby-identifier">timeseries_output_file</span>)
 </pre>
 
-<p>More commonly, this gem can be used to run REopt a collection of features stored in a Scenario Report as show here:</p>
+<p>More commonly, this gem can be used to run REopt a collection of features
+stored in a Scenario Report as show here:</p>
 
 <pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;urbanopt/reopt&#39;</span>
 <span class="ruby-comment">#Create a Scenario Report</span>
-<span class="ruby-identifier">scenario_report</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">Scenario</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultReports</span><span class="ruby-operator">::</span><span class="ruby-constant">ScenarioReport</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">:directory_name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;../run/example_scenario&#39;</span>), <span class="ruby-value">:timeseries_csv</span> <span class="ruby-operator">=&gt;</span> {<span class="ruby-value">:path</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;../run/example_scenario/timeseries.csv&#39;</span>) }})
+<span class="ruby-identifier">scenario_report</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">Reporting</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultReports</span><span class="ruby-operator">::</span><span class="ruby-constant">ScenarioReport</span>.<span class="ruby-identifier">new</span>({:<span class="ruby-identifier">directory_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;../run/example_scenario&#39;</span>), :<span class="ruby-identifier">timeseries_csv</span> =<span class="ruby-operator">&gt;</span> {:<span class="ruby-identifier">path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;../run/example_scenario/timeseries.csv&#39;</span>) }})
 
 <span class="ruby-comment">#Load Feature Reports into the Scenario Report</span>
 (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
@@ -211,11 +246,11 @@ $ bundle update</pre>
 
   <span class="ruby-identifier">feature_reports_hash</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">feature_reports_path</span>, <span class="ruby-string">&#39;r&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">feature_reports_hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>, <span class="ruby-value">symbolize_names:</span> <span class="ruby-keyword">true</span>)
+    <span class="ruby-identifier">feature_reports_hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>, <span class="ruby-identifier">symbolize_names</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">feature_report</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">Scenario</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultReports</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReport</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">feature_reports_hash</span>)
-  
+  <span class="ruby-identifier">feature_report</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">Reporting</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultReports</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReport</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">feature_reports_hash</span>)
+
   <span class="ruby-identifier">feature_report_dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-node">&quot;../run/example_scenario/#{i}&quot;</span>)
   <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">directory_name</span> = <span class="ruby-identifier">feature_report_dir</span>
 
@@ -236,7 +271,10 @@ $ bundle update</pre>
 
 <p>First, check out the repository (i.e. git clone this repo).</p>
 
-<p>Next, obtain a developer.nrel.gov API key from the <a href="https://developer.nrel.gov/">NREL Developer Network</a>]. Copy and paste your key in to the <em>developer_nrel_key</em>.<em>rb</em> file then save the file:</p>
+<p>Next, obtain a developer.nrel.gov API key from the <a
+href="https://developer.nrel.gov/">NREL Developer Network</a>]. Copy and
+paste your key in to the <em>developer_nrel_key</em>.<em>rb</em> file then
+save the file:</p>
 
 <pre class="ruby"><span class="ruby-constant">DEVELOPER_NREL_KEY</span> = <span class="ruby-string">&#39;&lt;insert your key here&gt;&#39;</span>
 </pre>
@@ -244,7 +282,7 @@ $ bundle update</pre>
 <p>Finally, execute:</p>
 
 <pre>$ bundle install
-$ bundle update    
+$ bundle update
 $ bundle exec rake</pre>
 
 <h2 id="label-Releasing">Releasing<span><a href="#label-Releasing">&para;</a> <a href="#top">&uarr;</a></span></h2>
@@ -262,8 +300,8 @@ $ bundle exec rake</pre>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="https://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
