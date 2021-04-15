@@ -1,5 +1,11 @@
 # URBANopt REopt Gem
 
+## Version 0.5.6
+
+Date range: 3/12/21 - 4/15/21
+* Fixes a bug that prevents **Feature Reports** from being saved
+
+
 ## Version 0.5.5
 
 Date range: 2/8/21 - 3/12/21
