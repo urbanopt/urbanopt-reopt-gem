@@ -42,6 +42,7 @@ require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
 require 'certified'
 require 'fileutils'
+require 'pry'
 
 RSpec.describe URBANopt::REopt do
   it 'has a version number' do
@@ -49,6 +50,7 @@ RSpec.describe URBANopt::REopt do
   end
 
   it 'can connect to reopt lite' do
+    binding.pry
     api = URBANopt::REopt::REoptLiteAPI.new(DEVELOPER_NREL_KEY, false)
     dummy_data = { Scenario: { Site: { latitude: 40, longitude: -110, Wind: { max_kw: 0 }, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, LoadProfile: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } } } }
     ok = api.check_connection(dummy_data)
