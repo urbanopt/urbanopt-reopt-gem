@@ -1,5 +1,10 @@
 # URBANopt REopt Gem
 
+## Version 0.6.0
+Date Range: 4/16/21 - 4/29/21
+
+* Update dependencies for OpenStudio 3.2.0 / Ruby 2.7
+
 ## Version 0.5.7
 
 Date range: 4/7/21 - 4/15/21
