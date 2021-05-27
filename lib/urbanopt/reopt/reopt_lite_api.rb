@@ -128,10 +128,10 @@ module URBANopt # :nodoc:
               puts "\nYou have exceeded the REopt-Lite limit of 300 requests per hour."
               puts "Using the URBANopt CLI to submit a Scenario optimization counts as one request per scenario"
               puts "Using the URBANopt CLI to submit a Feature optimization counts as one request per feature"
-              puts "Please wait and try again once the time period has elapsed\n\n"
+              abort("Please wait and try again once the time period has elapsed")
             elsif (result.code != "201") && (result.code != "200")  # Anything in the 200s is success
               puts "\nREopt-Lite has returned a #{result.code} status code."
-              puts "Visit https://developer.nrel.gov/docs/errors/ for more information\n\n"
+              abort("Visit https://developer.nrel.gov/docs/errors/ for more information")
             end
             tries = 4
           rescue StandardError
