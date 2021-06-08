@@ -213,7 +213,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _Array_ - Optional. A array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the feature_reports array.
       #
       # [*return:*] _Array_ Returns an array of updated _URBANopt::Scenario::DefaultReports::FeatureReport_ objects
-      def run_feature_reports(feature_reports:, reopt_assumptions_hashes:[], reopt_output_files:[], timeseries_csv_paths:[], save_names:nil, run_resilience:true)
+      def run_feature_reports(feature_reports:, reopt_assumptions_hashes:[], reopt_output_files:[], timeseries_csv_paths:[], save_names:nil, run_resilience:true, keep_existing_output:false)
 
         if !reopt_assumptions_hashes.empty?
           @feature_reports_reopt_default_assumption_hashes = reopt_assumptions_hashes
@@ -243,34 +243,57 @@ module URBANopt # :nodoc:
         feature_adapter = URBANopt::REopt::FeatureReportAdapter.new
         new_feature_reports = []
         feature_reports.each_with_index do |feature_report, idx|
-          begin
-            reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx])
-            reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])
-            if run_resilience
-            run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
-              if File.directory? @feature_reports_reopt_default_output_files[idx]
-                resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx])
+          # check if we should rerun
+          if !(keep_existing_output and output_exists(@feature_reports_reopt_default_output_files[idx]))
+            begin
+              reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx])
+              reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])
+              if run_resilience
+              run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
+                if File.directory? @feature_reports_reopt_default_output_files[idx]
+                  resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx])
+                else
+                  resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx].sub!('.json','_resilience.json'))
+                end
               else
-                resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx].sub!('.json','_resilience.json'))
+                resilience_stats = nil
               end
-            else
-              resilience_stats = nil
-            end
-            new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, @feature_reports_timeseries_default_output_files[idx], resilience_stats)
-            new_feature_reports.push(new_feature_report)
-            if !save_names.nil?
-              if save_names.length == feature_reports.length
-                new_feature_report.save save_names[idx]
-              else
-                warn "Could not save feature reports - the number of save names provided did not match the number of feature reports"
+              new_feature_report = feature_adapter.update_feature_report(feature_report, reopt_output, @feature_reports_timeseries_default_output_files[idx], resilience_stats)
+              new_feature_reports.push(new_feature_report)
+              if !save_names.nil?
+                if save_names.length == feature_reports.length
+                  new_feature_report.save save_names[idx]
+                else
+                  warn "Could not save feature reports - the number of save names provided did not match the number of feature reports"
+                end
               end
+            rescue StandardError
+              @@logger.info("Could not optimize Feature Report #{feature_report.name} #{feature_report.id}")
             end
-          rescue StandardError
-            @@logger.info("Could not optimize Feature Report #{feature_report.name} #{feature_report.id}")
+          else
+            puts("Output file already exists...skipping")
           end
         end
 
         return new_feature_reports
+      end
+
+      # Checks whether a feature has already been run by determining if output files already exists (for rate limit issues and larger projects)
+      ##
+      #
+      # [*parameters:*]
+      #
+      # * +output_file+ - _Array_ - Optional. An array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
+      # [*return:*] _Boolean_ - Returns true if file or nonempty directory exist
+      def output_exists(output_file)
+        res = false
+        if File.directory? output_file and !File.empty? output_file
+          res = true
+        elsif File.exists? output_file
+          res = true
+        end
+
+        return res
       end
 
       # Updates a ScenarioReport based on an optional set of \REopt Lite optimization assumptions.
@@ -284,22 +307,26 @@ module URBANopt # :nodoc:
       # * +feature_report_timeseries_csv_paths+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
-      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes:[], reopt_output_files:[], feature_report_timeseries_csv_paths:[], save_names_feature_reports:nil, save_name_scenario_report:nil, run_resilience:true)
-        new_feature_reports = run_feature_reports(feature_reports:scenario_report.feature_reports, reopt_assumptions_hashes:reopt_assumptions_hashes, reopt_output_files:reopt_output_files, timeseries_csv_paths:feature_report_timeseries_csv_paths,save_names:save_names_feature_reports, run_resilience:run_resilience)
-
+      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes:[], reopt_output_files:[], feature_report_timeseries_csv_paths:[], save_names_feature_reports:nil, save_name_scenario_report:nil, run_resilience:true, keep_existing_output: false)
+        new_feature_reports = run_feature_reports(feature_reports:scenario_report.feature_reports, reopt_assumptions_hashes:reopt_assumptions_hashes, reopt_output_files:reopt_output_files, timeseries_csv_paths:feature_report_timeseries_csv_paths,save_names:save_names_feature_reports, run_resilience:run_resilience, keep_existing_output: keep_existing_output)
+        puts("KEEP EXISTING? #{keep_existing_output}")
+        # only do this if you have run feature reports
         new_scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
-        new_scenario_report.id = scenario_report.id
-        new_scenario_report.name = scenario_report.name
-        new_scenario_report.directory_name = scenario_report.directory_name
+        if new_feature_reports.size > 0
 
-        timeseries_hash = { column_names: scenario_report.timeseries_csv.column_names }
-        new_scenario_report.timeseries_csv = URBANopt::Reporting::DefaultReports::TimeseriesCSV.new(timeseries_hash)
+          new_scenario_report.id = scenario_report.id
+          new_scenario_report.name = scenario_report.name
+          new_scenario_report.directory_name = scenario_report.directory_name
+        
+          timeseries_hash = { column_names: scenario_report.timeseries_csv.column_names }
+          new_scenario_report.timeseries_csv = URBANopt::Reporting::DefaultReports::TimeseriesCSV.new(timeseries_hash)
 
-        new_feature_reports.each do |feature_report|
-          new_scenario_report.add_feature_report(feature_report)
-        end
-        if !save_name_scenario_report.nil?
-          new_scenario_report.save save_name_scenario_report
+          new_feature_reports.each do |feature_report|
+            new_scenario_report.add_feature_report(feature_report)
+          end
+          if !save_name_scenario_report.nil?
+            new_scenario_report.save save_name_scenario_report
+          end
         end
         return new_scenario_report
       end

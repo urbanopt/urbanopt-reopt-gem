@@ -55,6 +55,27 @@ RSpec.describe URBANopt::REopt do
     expect(ok).to be true
   end
 
+  it 'returns graceful status code message to user' do
+    bogus_dev_key = "#{DEVELOPER_NREL_KEY}asdf"
+    api = URBANopt::REopt::REoptLiteAPI.new(bogus_dev_key, false)
+
+    # Prepare the request
+    header = { 'Content-Type' => 'application/json' }
+    @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@bogus_dev_key}")
+    http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
+    http.use_ssl = true
+
+    # Build the request
+    post_request = Net::HTTP::Post.new(@uri_submit, header)
+    dummy_data = { Scenario: { Site: { latitude: 40, longitude: -110, Wind: { max_kw: 0 }, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, LoadProfile: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } } } }
+    post_request.body = ::JSON.generate(dummy_data, allow_nan: true)
+
+    # Send the request, test response
+    expect { api.make_request(http, post_request) }
+    .to output(a_string_including("REopt-Lite has returned"))
+    .to_stdout_from_any_process
+  end
+
   it 'can process a scenario report' do
     begin
       FileUtils.rm_rf('spec/run/example_scenario/test__')
