@@ -55,7 +55,7 @@ RSpec.describe URBANopt::REopt do
     expect(ok).to be true
   end
 
-  it 'returns appropriate status code to user' do
+  it 'returns graceful status code message to user' do
     bogus_dev_key = "#{DEVELOPER_NREL_KEY}asdf"
     api = URBANopt::REopt::REoptLiteAPI.new(bogus_dev_key, false)
 
@@ -66,12 +66,12 @@ RSpec.describe URBANopt::REopt do
     http.use_ssl = true
 
     # Build the request
-    request = Net::HTTP::Post.new(@uri_submit, header)
+    post_request = Net::HTTP::Post.new(@uri_submit, header)
     dummy_data = { Scenario: { Site: { latitude: 40, longitude: -110, Wind: { max_kw: 0 }, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, LoadProfile: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } } } }
-    request.body = ::JSON.generate(dummy_data, allow_nan: true)
+    post_request.body = ::JSON.generate(dummy_data, allow_nan: true)
 
     # Send the request, test response
-    expect { api.make_request(http, request) }
+    expect { api.make_request(http, post_request) }
     .to output(a_string_including("REopt-Lite has returned"))
     .to_stdout_from_any_process
   end
