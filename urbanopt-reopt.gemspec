@@ -1,4 +1,3 @@
-
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'urbanopt/reopt/version'
@@ -27,11 +26,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '>= 2.1.0'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.7'
   spec.add_development_dependency 'rdoc', '~> 4.3.0'
+  spec.add_development_dependency 'rspec', '~> 3.7'
 
   spec.add_dependency 'certified', '~> 1'
   spec.add_dependency 'json_pure', '~> 2'
-  spec.add_dependency 'urbanopt-scenario', '~> 0.6.0'
-
+  spec.add_dependency 'urbanopt-scenario', '~> 0.6.2'
 end

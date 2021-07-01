@@ -61,10 +61,10 @@ task :cli_openssl_test do
 
   puts 'SYSTEM CALL:'
   puts the_call
-  STDOUT.flush
+  $stdout.flush
   result = runner.run_command(the_call)
   puts "DONE, result = #{result}"
-  STDOUT.flush
+  $stdout.flush
 end
 
 task default: :spec
