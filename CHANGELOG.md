@@ -1,5 +1,12 @@
 # URBANopt REopt Gem
 
+## Version 0.6.1
+
+Date Range: 04/30/21 - 06/30/21:
+* Fixed [#83]( https://github.com/urbanopt/urbanopt-reopt-gem/issues/83 ), reopt rate-limit error is hard to decipher
+* Fixed [#84]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/84 ), Api error codes
+* Fixed [#86]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/86 ), update rubocop configs to v4
+
 ## Version 0.6.0
 Date Range: 4/16/21 - 4/29/21
 

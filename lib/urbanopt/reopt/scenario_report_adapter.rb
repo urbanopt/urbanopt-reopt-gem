@@ -81,22 +81,20 @@ module URBANopt # :nodoc:
         end
 
         # Update required info
-        if scenario_report.location.latitude_deg.nil? || scenario_report.location.longitude_deg.nil? || (scenario_report.location.latitude_deg == 0) || (scenario_report.location.longitude_deg == 0)
-          if !scenario_report.feature_reports.nil? && (scenario_report.feature_reports != [])
-            lats = []
-            longs = []
-            scenario_report.feature_reports.each do |x|
-              puts " ERROR: #{x.location.latitude_deg}"
-              if ![nil].include?(x.location.latitude_deg) && ![nil].include?(x.location.longitude_deg)
-                lats.push(x.location.latitude_deg)
-                longs.push(x.location.longitude_deg)
-              end
+        if (scenario_report.location.latitude_deg.nil? || scenario_report.location.longitude_deg.nil? || (scenario_report.location.latitude_deg == 0) || (scenario_report.location.longitude_deg == 0)) && (!scenario_report.feature_reports.nil? && (scenario_report.feature_reports != []))
+          lats = []
+          longs = []
+          scenario_report.feature_reports.each do |x|
+            puts " ERROR: #{x.location.latitude_deg}"
+            if ![nil].include?(x.location.latitude_deg) && ![nil].include?(x.location.longitude_deg)
+              lats.push(x.location.latitude_deg)
+              longs.push(x.location.longitude_deg)
             end
+          end
 
-            if !lats.empty? && !longs.empty?
-              scenario_report.location.latitude_deg = lats.reduce(:+) / lats.size.to_f
-              scenario_report.location.longitude_deg = longs.reduce(:+) / longs.size.to_f
-            end
+          if !lats.empty? && !longs.empty?
+            scenario_report.location.latitude_deg = lats.reduce(:+) / lats.size.to_f
+            scenario_report.location.longitude_deg = longs.reduce(:+) / longs.size.to_f
           end
         end
 
@@ -120,16 +118,12 @@ module URBANopt # :nodoc:
 
         # Update optional info
         # REK: attribute names should be updated
-        if reopt_inputs[:Scenario][:Site][:roof_squarefeet].nil?
-          if !scenario_report.program.roof_area_sqft.nil?
-            reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
-          end
+        if reopt_inputs[:Scenario][:Site][:roof_squarefeet].nil? && !scenario_report.program.roof_area_sqft.nil?
+          reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
         end
 
-        if reopt_inputs[:Scenario][:Site][:land_acres].nil?
-          if !scenario_report.program.site_area_sqft.nil?
-            reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
-          end
+        if reopt_inputs[:Scenario][:Site][:land_acres].nil? && !scenario_report.program.site_area_sqft.nil?
+          reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
         end
 
         if reopt_inputs[:Scenario][:time_steps_per_hour].nil?
@@ -140,17 +134,17 @@ module URBANopt # :nodoc:
         begin
           col_num = scenario_report.timeseries_csv.column_names.index('Electricity:Facility(kWh)')
           t = CSV.read(scenario_report.timeseries_csv.path, headers: true, converters: :numeric)
-          energy_timeseries_kw = t.by_col[col_num].map { |e| ((e * scenario_report.timesteps_per_hour || 0) ) }
+          energy_timeseries_kw = t.by_col[col_num].map { |e| ((e * scenario_report.timesteps_per_hour || 0)) }
           if energy_timeseries_kw.length < (scenario_report.timesteps_per_hour * 8760)
-            start_date = Time.parse(t.by_col["Datetime"][0])
+            start_date = Time.parse(t.by_col['Datetime'][0])
             start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) / \
-                        (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
-            end_date = Time.parse(t.by_col["Datetime"][-1])
+                        ((60 / scenario_report.timesteps_per_hour) * 60)).to_int
+            end_date = Time.parse(t.by_col['Datetime'][-1])
             end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) / \
-                        (( 60 / scenario_report.timesteps_per_hour ) * 60)).to_int
-            energy_timeseries_kw = [0.0]*(start_ts-1) + energy_timeseries_kw + [0.0]*((scenario_report.timesteps_per_hour * 8760) - end_ts)
+                        ((60 / scenario_report.timesteps_per_hour) * 60)).to_int
+            energy_timeseries_kw = [0.0] * (start_ts - 1) + energy_timeseries_kw + [0.0] * ((scenario_report.timesteps_per_hour * 8760) - end_ts)
           end
-          energy_timeseries_kw = energy_timeseries_kw.map { |e| e ? e : 0 }[0,(scenario_report.timesteps_per_hour * 8760)]
+          energy_timeseries_kw = energy_timeseries_kw.map { |e| e || 0 }[0, (scenario_report.timesteps_per_hour * 8760)]
         rescue StandardError
           @@logger.error("Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}")
           raise "Could not parse the annual electric load from the timeseries csv - #{scenario_report.timeseries_csv.path}"
@@ -159,7 +153,7 @@ module URBANopt # :nodoc:
         # Convert load to REopt Resolution
         begin
           reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw] = convert_powerflow_resolution(energy_timeseries_kw, scenario_report.timesteps_per_hour, reopt_inputs[:Scenario][:time_steps_per_hour])
-        rescue
+        rescue StandardError
           @@logger.error("Could not convert the annual electric load from a resolution of #{scenario_report.timesteps_per_hour} to #{reopt_inputs[:Scenario][:time_steps_per_hour]}")
           raise "Could not convert the annual electric load from a resolution of #{scenario_report.timesteps_per_hour} to #{reopt_inputs[:Scenario][:time_steps_per_hour]}"
         end
@@ -167,9 +161,9 @@ module URBANopt # :nodoc:
         if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps].nil?
           n_top_values = 100
           tmp1 = reopt_inputs[:Scenario][:Site][:LoadProfile][:loads_kw]
-          tmp2 = tmp1.each_index.max_by(n_top_values*reopt_inputs[:Scenario][:time_steps_per_hour]){|i| tmp1[i]}
+          tmp2 = tmp1.each_index.max_by(n_top_values * reopt_inputs[:Scenario][:time_steps_per_hour]) { |i| tmp1[i] }
           for i in (0...tmp2.count)
-              tmp2[i] += 1
+            tmp2[i] += 1
           end
           reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps] = tmp2
         end
@@ -180,7 +174,6 @@ module URBANopt # :nodoc:
 
         return reopt_inputs
       end
-
 
       ##
       # Converts a FeatureReport list from a ScenarioReport into an array of \REopt Lite posts
@@ -215,7 +208,7 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _URBANopt::Reporting::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
       ##
-      def update_scenario_report(scenario_report, reopt_output, timeseries_csv_path=nil, resilience_stats=nil)
+      def update_scenario_report(scenario_report, reopt_output, timeseries_csv_path = nil, resilience_stats = nil)
         if reopt_output['outputs']['Scenario']['status'] != 'optimal'
           @@logger.info("Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal")
           return scenario_report
@@ -248,56 +241,46 @@ module URBANopt # :nodoc:
           scenario_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']
         end
 
-        if reopt_output['outputs']['Scenario']['Site']['PV'].class == Hash
+        if reopt_output['outputs']['Scenario']['Site']['PV'].instance_of?(Hash)
           reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV']]
         elsif reopt_output['outputs']['Scenario']['Site']['PV'].nil?
           reopt_output['outputs']['Scenario']['Site']['PV'] = []
         end
 
         reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
-          scenario_report.distributed_generation.add_tech 'solar_pv',  URBANopt::Reporting::DefaultReports::SolarPV.new( {size_kw: (pv['size_kw'] || 0), id: i })
+          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i })
         end
 
         wind = reopt_output['outputs']['Scenario']['Site']['Wind']
-        if !wind['size_kw'].nil? and wind['size_kw'] != 0
-          scenario_report.distributed_generation.add_tech 'wind',  URBANopt::Reporting::DefaultReports::Wind.new( {size_kw: (wind['size_kw'] || 0) })
+        if !wind['size_kw'].nil? && (wind['size_kw'] != 0)
+          scenario_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0) })
         end
 
         generator = reopt_output['outputs']['Scenario']['Site']['Generator']
-        if !generator['size_kw'].nil? and generator['size_kw'] != 0
-          scenario_report.distributed_generation.add_tech 'generator',  URBANopt::Reporting::DefaultReports::Generator.new( {size_kw: (generator['size_kw'] || 0) })
+        if !generator['size_kw'].nil? && (generator['size_kw'] != 0)
+          scenario_report.distributed_generation.add_tech 'generator', URBANopt::Reporting::DefaultReports::Generator.new({ size_kw: (generator['size_kw'] || 0) })
         end
 
         storage = reopt_output['outputs']['Scenario']['Site']['Storage']
-        if !storage['size_kw'].nil?  and storage['size_kw'] != 0
-          scenario_report.distributed_generation.add_tech 'storage',  URBANopt::Reporting::DefaultReports::Storage.new( {size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
+        if !storage['size_kw'].nil? && (storage['size_kw'] != 0)
+          scenario_report.distributed_generation.add_tech 'storage', URBANopt::Reporting::DefaultReports::Storage.new({ size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
 
         reopt_resolution = reopt_output['inputs']['Scenario']['time_steps_per_hour']
         generation_timeseries_kwh = Matrix[[0] * (8760 * scenario_report.timesteps_per_hour)]
 
         reopt_output['outputs']['Scenario']['Site']['PV'].each do |pv|
-          if (pv['size_kw'] || 0) > 0
-            if !pv['year_one_power_production_series_kw'].nil?
-              generation_timeseries_kwh += Matrix[convert_powerflow_resolution(pv['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
-            end
-          end
-         end
-
-        unless reopt_output['outputs']['Scenario']['Site']['Wind'].nil?
-          if (reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) > 0
-            if !reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'].nil?
-              generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
-            end
+          if (pv['size_kw'] || 0) > 0 && !pv['year_one_power_production_series_kw'].nil?
+            generation_timeseries_kwh += Matrix[convert_powerflow_resolution(pv['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
           end
         end
 
-        unless reopt_output['outputs']['Scenario']['Site']['Generator'].nil?
-          if (reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) > 0
-            if !reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'].nil?
-              generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
-            end
-          end
+        if !reopt_output['outputs']['Scenario']['Site']['Wind'].nil? && ((reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) > 0) && !reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'].nil?
+          generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
+        end
+
+        if !reopt_output['outputs']['Scenario']['Site']['Generator'].nil? && ((reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) > 0) && !reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'].nil?
+          generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
         end
 
         $generation_timeseries_kwh = generation_timeseries_kwh.to_a[0] || [0] * (8760 * scenario_report.timesteps_per_hour)
@@ -476,13 +459,13 @@ module URBANopt # :nodoc:
         start_ts = (
                       (
                         ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
-                        (((start_date.hour)  - 1) * 60.0 * 60.0) +
-                        (start_date.min * 60.0) + start_date.sec ) /
-                      (( 60 / scenario_report.timesteps_per_hour ) * 60)
+                        ((start_date.hour - 1) * 60.0 * 60.0) +
+                        (start_date.min * 60.0) + start_date.sec) /
+                      ((60 / scenario_report.timesteps_per_hour) * 60)
                     ).to_int
         mod_data = old_data.map.with_index do |x, i|
           if i > 0
-            modrow(x, start_ts + i -1)
+            modrow(x, start_ts + i - 1)
           else
             x
           end
