@@ -97,6 +97,7 @@ module URBANopt # :nodoc:
         if @use_localhost
           return URI.parse("http://127.0.0.1:8000/v1/job/#{run_uuid}/results")
         end
+
         return URI.parse("https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
       end
 
@@ -114,6 +115,7 @@ module URBANopt # :nodoc:
         if @use_localhost
           return URI.parse("http://127.0.0.1:8000/v1/job/#{run_uuid}/resilience_stats")
         end
+
         return URI.parse("https://developer.nrel.gov/api/reopt/v1/job/#{run_uuid}/resilience_stats?api_key=#{@nrel_developer_key}")
       end
 
@@ -122,11 +124,20 @@ module URBANopt # :nodoc:
         tries = 0
         while tries < max_tries
           begin
-               result = http.request(r)
-               tries = 4
-             rescue StandardError
-               tries += 1
-             end
+            result = http.request(r)
+            # Result codes sourced from https://developer.nrel.gov/docs/errors/
+            if result.code == '429'
+              @@logger.fatal('Exceeded the REopt-Lite API limit of 300 requests per hour')
+              puts 'Using the URBANopt CLI to submit a Scenario optimization counts as one request per scenario'
+              puts 'Using the URBANopt CLI to submit a Feature optimization counts as one request per feature'
+              abort('Please wait and try again once the time period has elapsed')
+            elsif (result.code != '201') && (result.code != '200') # Anything in the 200s is success
+              @@logger.debug("REopt-Lite has returned a '#{result.code}' status code. Visit https://developer.nrel.gov/docs/errors/ for more status code information")
+            end
+            tries = 4
+          rescue StandardError
+            tries += 1
+          end
         end
         return result
       end
@@ -148,11 +159,11 @@ module URBANopt # :nodoc:
           http.use_ssl = true
         end
 
-        request = Net::HTTP::Post.new(@uri_submit, header)
-        request.body = ::JSON.generate(data, allow_nan: true)
+        post_request = Net::HTTP::Post.new(@uri_submit, header)
+        post_request.body = ::JSON.generate(data, allow_nan: true)
 
         # Send the request
-        response = make_request(http, request)
+        response = make_request(http, post_request)
 
         if !response.is_a?(Net::HTTPSuccess)
           @@logger.error('Check_connection Failed')
@@ -175,7 +186,6 @@ module URBANopt # :nodoc:
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
       def resilience_request(run_uuid, filename)
-
         if File.directory? filename
           if run_uuid.nil?
             run_uuid = 'error'
@@ -187,33 +197,38 @@ module URBANopt # :nodoc:
           @@logger.info("REopt results saved to #{filename}")
         end
 
-        #Submit Job
+        # Submit Job
         @@logger.info("Submitting Resilience Statistics job for #{run_uuid}")
         header = { 'Content-Type' => 'application/json' }
         http = Net::HTTP.new(@uri_submit_outagesimjob.host, @uri_submit_outagesimjob.port)
         if !@use_localhost
           http.use_ssl = true
         end
-        request = Net::HTTP::Post.new(@uri_submit_outagesimjob, header)
-        request.body = ::JSON.generate({"run_uuid" => run_uuid, "bau" => false }, allow_nan: true)
-        submit_response = make_request(http, request)
-        @@logger.info(submit_response.body)
+        post_request = Net::HTTP::Post.new(@uri_submit_outagesimjob, header)
+        post_request.body = ::JSON.generate({ 'run_uuid' => run_uuid, 'bau' => false }, allow_nan: true)
+        submit_response = make_request(http, post_request)
+        @@logger.debug(submit_response.body)
 
-        #Fetch Results
+        # Fetch Results
         uri = uri_resilience(run_uuid)
         http = Net::HTTP.new(uri.host, uri.port)
         if !@use_localhost
           http.use_ssl = true
         end
 
+        # Wait a few seconds for the REopt database to update before GETing results
+        sleep 5
+        get_request = Net::HTTP::Get.new(uri.request_uri)
+        response = make_request(http, get_request)
+
+        # Set a limit on retries when 404s are returned from REopt API
         elapsed_time = 0
         max_elapsed_time = 60 * 5
 
-        request = Net::HTTP::Get.new(uri.request_uri)
-        response = make_request(http, request)
-
-        while (elapsed_time < max_elapsed_time) & (response.code == "404")
-          response = make_request(http, request)
+        # If database still hasn't updated, wait a little longer and try again
+        while (elapsed_time < max_elapsed_time) & (response.code == '404')
+          response = make_request(http, get_request)
+          @@logger.warn('GET request was too fast for REOpt-Lite API. Retrying...')
           elapsed_time += 5
           sleep 5
         end
@@ -224,17 +239,16 @@ module URBANopt # :nodoc:
           File.open(filename, 'w+') do |f|
             f.puts(text)
           end
-        rescue
-          @@logger.info("Cannot write - #{filename}")
+        rescue StandardError
+          @@logger.error("Cannot write - #{filename}")
         end
 
-        if response.code == "200"
+        if response.code == '200'
           return data
         end
 
-        @@logger.info("Error from REopt API - #{data['Error']}")
+        @@logger.error("Error from REopt API - #{data['Error']}")
         return {}
-
       end
 
       ##
@@ -261,14 +275,14 @@ module URBANopt # :nodoc:
         if !@use_localhost
           http.use_ssl = true
         end
-        request = Net::HTTP::Post.new(@uri_submit, header)
-        request.body = ::JSON.generate(reopt_input, allow_nan: true)
+        post_request = Net::HTTP::Post.new(@uri_submit, header)
+        post_request.body = ::JSON.generate(reopt_input, allow_nan: true)
 
         # Send the request
-        response = make_request(http, request)
+        response = make_request(http, post_request)
 
         # Get UUID
-        run_uuid = JSON.parse(response.body, allow_nan:true)['run_uuid']
+        run_uuid = JSON.parse(response.body, allow_nan: true)['run_uuid']
 
         if File.directory? filename
           if run_uuid.nil?
@@ -286,7 +300,7 @@ module URBANopt # :nodoc:
           File.open(filename, 'w+') do |f|
             f.puts(text)
           end
-          @@logger.info("Cannot write - #{filename}")
+          @@logger.error("Cannot write - #{filename}")
           raise "Error in REopt optimization post - see #{filename}"
         end
 
@@ -298,17 +312,17 @@ module URBANopt # :nodoc:
           http.use_ssl = true
         end
 
-        request = Net::HTTP::Get.new(uri.request_uri)
+        get_request = Net::HTTP::Get.new(uri.request_uri)
 
         while status == 'Optimizing...'
-          response = make_request(http, request)
+          response = make_request(http, get_request)
 
-          data = JSON.parse(response.body, allow_nan:true)
+          data = JSON.parse(response.body, allow_nan: true)
 
-          if data['outputs']['Scenario']['Site']['PV'].kind_of?(Array)
+          if data['outputs']['Scenario']['Site']['PV'].is_a?(Array)
             pv_sizes = 0
             data['outputs']['Scenario']['Site']['PV'].each do |x|
-              pv_sizes = pv_sizes + x['size_kw'].to_f
+              pv_sizes += x['size_kw'].to_f
             end
           else
             pv_sizes = data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0
@@ -323,13 +337,13 @@ module URBANopt # :nodoc:
         _tries = 0
         (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
         while (_tries < _max_retry) && check_complete
-          sleep 1
-          response = make_request(http, request)
-          data = JSON.parse(response.body, allow_nan:true)
-          if data['outputs']['Scenario']['Site']['PV'].kind_of?(Array)
+          sleep 3
+          response = make_request(http, get_request)
+          data = JSON.parse(response.body, allow_nan: true)
+          if data['outputs']['Scenario']['Site']['PV'].is_a?(Array)
             pv_sizes = 0
             data['outputs']['Scenario']['Site']['PV'].each do |x|
-              pv_sizes = pv_sizes + x['size_kw'].to_f
+              pv_sizes += x['size_kw'].to_f
             end
           else
             pv_sizes = data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0
@@ -345,8 +359,8 @@ module URBANopt # :nodoc:
           File.open(filename, 'w+') do |f|
             f.puts(text)
           end
-        rescue
-          @@logger.info("Cannot write - #{filename}")
+        rescue StandardError
+          @@logger.error("Cannot write - #{filename}")
         end
 
         if status == 'optimal'

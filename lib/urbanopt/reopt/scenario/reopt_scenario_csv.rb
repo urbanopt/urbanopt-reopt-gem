@@ -44,8 +44,10 @@ require 'urbanopt/scenario/simulation_dir_osw'
 require 'csv'
 require 'fileutils'
 
-module URBANopt # nodoc:
-  module Scenario # nodoc:
+# nodoc:
+module URBANopt
+  # nodoc:
+  module Scenario
     class REoptScenarioCSV < ScenarioCSV
       ##
       # REoptScenarioCSV is an extension of ScenarioCSV which assigns a Simulation Mapper to each Feature in a FeatureFile using a simple CSV format.
@@ -101,10 +103,8 @@ module URBANopt # nodoc:
           mapper_class = row[2].chomp
           # Assume fourth columns, if exists, contains the name of the JSON file in the reopt_files_dir to use when running \REopt Lite for the feature report
 
-          if row.length > 3
-            if !@reopt_files_dir.nil?
-              @reopt_feature_assumptions[idx - 1] = File.join(@reopt_files_dir, row[3].chomp)
-            end
+          if row.length > 3 && !@reopt_files_dir.nil?
+            @reopt_feature_assumptions[idx - 1] = File.join(@reopt_files_dir, row[3].chomp)
           end
 
           # gets +features+ from the feature_file.
@@ -120,6 +120,6 @@ module URBANopt # nodoc:
         end
         return result
       end
-  end
+    end
   end
 end
