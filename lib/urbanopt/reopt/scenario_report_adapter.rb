@@ -67,7 +67,7 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
       ##
-      def reopt_json_from_scenario_report(scenario_report, reopt_assumptions_json = nil)
+      def reopt_json_from_scenario_report(scenario_report, reopt_assumptions_json = nil, community_photovoltaic)
         name = scenario_report.name.delete ' '
         scenario_id = scenario_report.id.delete ' '
         description = "scenario_report_#{name}_#{scenario_id}"
@@ -122,8 +122,8 @@ module URBANopt # :nodoc:
           reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
         end
 
-        if reopt_inputs[:Scenario][:Site][:land_acres].nil? && !scenario_report.program.site_area_sqft.nil?
-          reopt_inputs[:Scenario][:Site][:land_acres] = scenario_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
+        if reopt_inputs[:Scenario][:Site][:land_acres].nil? && !community_photovoltaic[0][:properties][:footprint_area].nil?
+          reopt_inputs[:Scenario][:Site][:land_acres] = community_photovoltaic[0][:properties][:footprint_area] * 1.0 / 43560 # acres/sqft
         end
 
         if reopt_inputs[:Scenario][:time_steps_per_hour].nil?

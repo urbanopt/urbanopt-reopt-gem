@@ -166,7 +166,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _String_ - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
-      def run_scenario_report(scenario_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: true)
+      def run_scenario_report(scenario_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: true, community_photovoltaic: nil)
         if !reopt_assumptions_hash.nil?
           @scenario_reopt_default_assumptions_hash = reopt_assumptions_hash
         end
@@ -180,7 +180,7 @@ module URBANopt # :nodoc:
         api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
         adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
-        reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash)
+        reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash, community_photovoltaic)
 
         reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)
         if run_resilience
