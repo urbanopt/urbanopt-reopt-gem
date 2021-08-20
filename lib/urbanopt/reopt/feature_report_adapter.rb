@@ -101,6 +101,21 @@ module URBANopt # :nodoc:
         # Parse Optional FeatureReport metrics - do not overwrite from assumptions file
         if reopt_inputs[:Scenario][:Site][:roof_squarefeet].nil? && !feature_report.program.roof_area_sqft.nil?
           reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area_sqft[:available_roof_area_sqft]
+          reopt_assumptions_hash[:Scenario][:Site][:PV].each do |pv|
+
+            # Check for rooftop PV
+            if pv[:location] == 'roof'
+              begin
+                # Check if % roof area is specified
+                if pv[:perc_roof_area]
+                  perc_roof_area = pv[:perc_roof_area]
+                  # Update roof square feet for the site based on % roof area specified
+                  reopt_inputs[:Scenario][:Site][:roof_squarefeet] = (feature_report.program.roof_area_sqft[:available_roof_area_sqft])*perc_roof_area
+                end
+              rescue
+              end
+            end
+          end
         end
 
         if reopt_inputs[:Scenario][:Site][:land_acres].nil? && !feature_report.program.site_area_sqft.nil?
