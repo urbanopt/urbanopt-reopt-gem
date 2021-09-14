@@ -120,7 +120,22 @@ module URBANopt # :nodoc:
         # REK: attribute names should be updated
         if reopt_inputs[:Scenario][:Site][:roof_squarefeet].nil? && !scenario_report.program.roof_area_sqft.nil?
           reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
-        end
+          #begin
+            reopt_assumptions_json[:Scenario][:Site][:PV].each do |pv|
+              
+              # Check for rooftop PV
+              if pv[:location] == 'roof'
+                # Check if % roof area is specified
+                if pv[:perc_roof_area]
+                  perc_roof_area = pv[:perc_roof_area]
+                  # Update roof square feet for the site based on % roof area specified
+                  reopt_inputs[:Scenario][:Site][:roof_squarefeet] = (scenario_report.program.roof_area_sqft[:available_roof_area_sqft])*perc_roof_area
+                end
+              end
+            #end
+            #rescue
+            end
+          end
 
         if reopt_inputs[:Scenario][:Site][:land_acres].nil? && !community_photovoltaic[0][:properties][:footprint_area].nil?
           reopt_inputs[:Scenario][:Site][:land_acres] = community_photovoltaic[0][:properties][:footprint_area] * 1.0 / 43560 # acres/sqft
@@ -214,6 +229,10 @@ module URBANopt # :nodoc:
           return scenario_report
         end
 
+
+        puts "4HELLO this is scenario report = #{reopt_output['inputs']['Scenario']['Site']['PV'][0]['location']}"
+        puts "4HELLO this is scenario report = #{reopt_output['outputs']['Scenario']['Site']['PV'][0]['pv_name']}"
+        puts "4HELLO this is scenario report = #{reopt_output['inputs']['Scenario']['Site']['PV'][0]['pv_name']}"
         # Update location
         scenario_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
         scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
@@ -247,8 +266,15 @@ module URBANopt # :nodoc:
           reopt_output['outputs']['Scenario']['Site']['PV'] = []
         end
 
+        # Add the PV name and location in a hash
+        location = {}
+        reopt_output['inputs']['Scenario']['Site']['PV'].each do |pv|
+          location[pv['pv_name']] = pv['location']
+        end
+
+
         reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
-          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i })
+          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']]})
         end
 
         wind = reopt_output['outputs']['Scenario']['Site']['Wind']

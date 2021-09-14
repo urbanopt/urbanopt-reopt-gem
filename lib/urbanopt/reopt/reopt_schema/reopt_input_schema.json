@@ -371,6 +371,11 @@
 										"description": "State rebate based on installed capacity",
 										"min": 0
 									},
+									"location": {
+										"default": "roof",
+										"type": "string",
+										"description": "Indicates location of PV. Available options are roof and ground."
+									},
 									"max_kw": {
 										"default": 1000000000.0,
 										"max": 1000000000.0,
