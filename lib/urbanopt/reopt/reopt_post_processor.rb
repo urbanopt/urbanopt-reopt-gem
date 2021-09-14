@@ -212,7 +212,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _Array_ - Optional. A array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the feature_reports array.
       #
       # [*return:*] _Array_ Returns an array of updated _URBANopt::Scenario::DefaultReports::FeatureReport_ objects
-      def run_feature_reports(feature_reports:, reopt_assumptions_hashes: [], reopt_output_files: [], timeseries_csv_paths: [], save_names: nil, run_resilience: true, keep_existing_output: false)
+      def run_feature_reports(feature_reports:, reopt_assumptions_hashes: [], reopt_output_files: [], timeseries_csv_paths: [], save_names: nil, run_resilience: true, keep_existing_output: false, groundmount_photovoltaic: nil)
         if !reopt_assumptions_hashes.empty?
           @feature_reports_reopt_default_assumption_hashes = reopt_assumptions_hashes
         end
@@ -244,7 +244,7 @@ module URBANopt # :nodoc:
           # check if we should rerun
           if !(keep_existing_output && output_exists(@feature_reports_reopt_default_output_files[idx]))
             begin
-              reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx])
+              reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx], groundmount_photovoltaic)
               reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])
               if run_resilience
                 run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
@@ -305,8 +305,8 @@ module URBANopt # :nodoc:
       # * +feature_report_timeseries_csv_paths+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
-      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes: [], reopt_output_files: [], feature_report_timeseries_csv_paths: [], save_names_feature_reports: nil, save_name_scenario_report: nil, run_resilience: true, keep_existing_output: false)
-        new_feature_reports = run_feature_reports(feature_reports: scenario_report.feature_reports, reopt_assumptions_hashes: reopt_assumptions_hashes, reopt_output_files: reopt_output_files, timeseries_csv_paths: feature_report_timeseries_csv_paths, save_names: save_names_feature_reports, run_resilience: run_resilience, keep_existing_output: keep_existing_output)
+      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes: [], reopt_output_files: [], feature_report_timeseries_csv_paths: [], save_names_feature_reports: nil, save_name_scenario_report: nil, run_resilience: true, keep_existing_output: false, groundmount_photovoltaic: nil)
+        new_feature_reports = run_feature_reports(feature_reports: scenario_report.feature_reports, reopt_assumptions_hashes: reopt_assumptions_hashes, reopt_output_files: reopt_output_files, timeseries_csv_paths: feature_report_timeseries_csv_paths, save_names: save_names_feature_reports, run_resilience: run_resilience, keep_existing_output: keep_existing_output, groundmount_photovoltaic: groundmount_photovoltaic)
         puts("KEEP EXISTING? #{keep_existing_output}")
         # only do this if you have run feature reports
         new_scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new

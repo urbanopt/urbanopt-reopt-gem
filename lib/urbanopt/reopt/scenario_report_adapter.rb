@@ -230,9 +230,6 @@ module URBANopt # :nodoc:
         end
 
 
-        puts "4HELLO this is scenario report = #{reopt_output['inputs']['Scenario']['Site']['PV'][0]['location']}"
-        puts "4HELLO this is scenario report = #{reopt_output['outputs']['Scenario']['Site']['PV'][0]['pv_name']}"
-        puts "4HELLO this is scenario report = #{reopt_output['inputs']['Scenario']['Site']['PV'][0]['pv_name']}"
         # Update location
         scenario_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
         scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']

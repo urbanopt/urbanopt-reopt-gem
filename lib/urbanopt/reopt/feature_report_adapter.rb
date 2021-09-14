@@ -68,7 +68,7 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
       ##
-      def reopt_json_from_feature_report(feature_report, reopt_assumptions_hash = nil)
+      def reopt_json_from_feature_report(feature_report, reopt_assumptions_hash = nil, groundmount_photovoltaic = nil)
         name = feature_report.name.delete ' '
         description = "feature_report_#{name}_#{feature_report.id}"
         reopt_inputs = { Scenario: { Site: { ElectricTariff: { blended_monthly_demand_charges_us_dollars_per_kw: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], blended_monthly_rates_us_dollars_per_kwh: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13] }, LoadProfile: {}, Wind: { max_kw: 0 } } } }
@@ -103,8 +103,15 @@ module URBANopt # :nodoc:
           reopt_inputs[:Scenario][:Site][:roof_squarefeet] = feature_report.program.roof_area_sqft[:available_roof_area_sqft]
         end
 
-        if reopt_inputs[:Scenario][:Site][:land_acres].nil? && !feature_report.program.site_area_sqft.nil?
-          reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
+        if reopt_inputs[:Scenario][:Site][:land_acres].nil?
+          # Check if ground-mount PV is specified with the Feature ID and take footprint area of PV
+          # constrain for REopt optimization
+          if !groundmount_photovoltaic[feature_report.id].nil?
+            reopt_inputs[:Scenario][:Site][:land_acres] = groundmount_photovoltaic[feature_report.id] * 1.0 / 43560 # acres/sqft
+          # If no ground-mount PV associated with feature use site area as constrain for REopt optimization 
+          elsif !feature_report.program.site_area_sqft.nil?
+            reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
+          end
         end
 
         if reopt_inputs[:Scenario][:time_steps_per_hour].nil?
