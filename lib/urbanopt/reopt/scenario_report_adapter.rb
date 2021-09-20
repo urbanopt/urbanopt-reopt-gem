@@ -67,7 +67,7 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
       ##
-      def reopt_json_from_scenario_report(scenario_report, reopt_assumptions_json = nil, community_photovoltaic)
+      def reopt_json_from_scenario_report(scenario_report, reopt_assumptions_json = nil, community_photovoltaic = nil)
         name = scenario_report.name.delete ' '
         scenario_id = scenario_report.id.delete ' '
         description = "scenario_report_#{name}_#{scenario_id}"
@@ -120,25 +120,13 @@ module URBANopt # :nodoc:
         # REK: attribute names should be updated
         if reopt_inputs[:Scenario][:Site][:roof_squarefeet].nil? && !scenario_report.program.roof_area_sqft.nil?
           reopt_inputs[:Scenario][:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
-          #begin
-            reopt_assumptions_json[:Scenario][:Site][:PV].each do |pv|
-              
-              # Check for rooftop PV
-              if pv[:location] == 'roof'
-                # Check if % roof area is specified
-                if pv[:perc_roof_area]
-                  perc_roof_area = pv[:perc_roof_area]
-                  # Update roof square feet for the site based on % roof area specified
-                  reopt_inputs[:Scenario][:Site][:roof_squarefeet] = (scenario_report.program.roof_area_sqft[:available_roof_area_sqft])*perc_roof_area
-                end
-              end
-            #end
-            #rescue
-            end
-          end
+        end
 
-        if reopt_inputs[:Scenario][:Site][:land_acres].nil? && !community_photovoltaic[0][:properties][:footprint_area].nil?
-          reopt_inputs[:Scenario][:Site][:land_acres] = community_photovoltaic[0][:properties][:footprint_area] * 1.0 / 43560 # acres/sqft
+        begin
+          if reopt_inputs[:Scenario][:Site][:land_acres].nil? && !community_photovoltaic[0][:properties][:footprint_area].nil?
+            reopt_inputs[:Scenario][:Site][:land_acres] = community_photovoltaic[0][:properties][:footprint_area] * 1.0 / 43560 # acres/sqft
+          end
+        rescue
         end
 
         if reopt_inputs[:Scenario][:time_steps_per_hour].nil?
@@ -263,10 +251,15 @@ module URBANopt # :nodoc:
           reopt_output['outputs']['Scenario']['Site']['PV'] = []
         end
 
-        # Add the PV name and location in a hash
+        #Store the PV name and location in a hash
         location = {}
-        reopt_output['inputs']['Scenario']['Site']['PV'].each do |pv|
-          location[pv['pv_name']] = pv['location']
+        #Check whether multi PV assumption input file is used or single PV
+        if reopt_output['inputs']['Scenario']['Site']['PV'].kind_of?(Array)
+          reopt_output['inputs']['Scenario']['Site']['PV'].each do |pv|
+            location[pv['pv_name']] = pv['location']
+          end
+        else
+          location[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['location']
         end
 
 

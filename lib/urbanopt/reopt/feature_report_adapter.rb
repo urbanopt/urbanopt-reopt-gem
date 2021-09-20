@@ -106,11 +106,14 @@ module URBANopt # :nodoc:
         if reopt_inputs[:Scenario][:Site][:land_acres].nil?
           # Check if ground-mount PV is specified with the Feature ID and take footprint area of PV
           # constrain for REopt optimization
-          if !groundmount_photovoltaic[feature_report.id].nil?
-            reopt_inputs[:Scenario][:Site][:land_acres] = groundmount_photovoltaic[feature_report.id] * 1.0 / 43560 # acres/sqft
-          # If no ground-mount PV associated with feature use site area as constrain for REopt optimization 
-          elsif !feature_report.program.site_area_sqft.nil?
-            reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
+          begin
+            if !groundmount_photovoltaic[feature_report.id].nil?
+              reopt_inputs[:Scenario][:Site][:land_acres] = groundmount_photovoltaic[feature_report.id] * 1.0 / 43560 # acres/sqft
+            # If no ground-mount PV associated with feature use site area as constrain for REopt optimization 
+            elsif !feature_report.program.site_area_sqft.nil?
+              reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
+            end
+          rescue
           end
         end
 
@@ -219,8 +222,13 @@ module URBANopt # :nodoc:
 
         #Store the PV name and location in a hash
         location = {}
-        reopt_output['inputs']['Scenario']['Site']['PV'].each do |pv|
-          location[pv['pv_name']] = pv['location']
+        #Check whether multi PV assumption input file is used or single PV
+        if reopt_output['inputs']['Scenario']['Site']['PV'].kind_of?(Array)
+          reopt_output['inputs']['Scenario']['Site']['PV'].each do |pv|
+            location[pv['pv_name']] = pv['location']
+          end
+        else
+          location[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['location']
         end
 
         reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
