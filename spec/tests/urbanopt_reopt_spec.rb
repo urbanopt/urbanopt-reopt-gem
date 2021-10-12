@@ -49,6 +49,7 @@ RSpec.describe URBANopt::REopt do
   end
 
   it 'can connect to reopt lite' do
+    puts "trying to connect..."
     api = URBANopt::REopt::REoptLiteAPI.new(DEVELOPER_NREL_KEY, false)
     dummy_data = { Scenario: { Site: { latitude: 40, longitude: -110, Wind: { max_kw: 0 }, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, LoadProfile: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } } } }
     ok = api.check_connection(dummy_data)
