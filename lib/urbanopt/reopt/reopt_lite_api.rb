@@ -148,7 +148,7 @@ module URBANopt # :nodoc:
               @@logger.debug("trying again...")
             else
               @@logger.debug("max tries reached!")
-              abort("REopt Lite API error: #{e}")
+              return {}
             end
             tries += 1
           end
@@ -295,6 +295,10 @@ module URBANopt # :nodoc:
 
         # Send the request
         response = make_request(http, post_request)
+        if !response.is_a?(Net::HTTPSuccess)
+          @@logger.error('make_request Failed')
+          raise 'Check_connection Failed'
+        end
 
         # Get UUID
         run_uuid = JSON.parse(response.body, allow_nan: true)['run_uuid']
