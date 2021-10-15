@@ -142,6 +142,11 @@
                   "PV": {
                     "type": "object",
                     "properties": {
+                      "location": {
+                        "default": "roof",
+                        "type": "string",
+                        "description": "Indicates location of PV. Available options are roof and ground."
+                      },
                       "size_kw": {
                         "type": "float",
                         "description": "Optimal PV system size",

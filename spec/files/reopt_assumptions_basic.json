@@ -5,7 +5,9 @@
     "Site": {
       "Wind": {"max_kw":0},
       "PV": {
+        "pv_name": "Roof - South Face",
         "pbi_years": 1.0,
+        "location":"roof",
         "macrs_bonus_pct": 0.0,
         "max_kw": 1000000000.0,
         "pbi_max_us_dollars": 1000000000.0,

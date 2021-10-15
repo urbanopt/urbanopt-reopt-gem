@@ -141,8 +141,15 @@ module URBANopt # :nodoc:
                 @@logger.error("MESSAGES: #{json_res['messages']}")
               end
             end
-            tries = 4
-          rescue StandardError
+            tries = max_tries
+          rescue StandardError => e
+            @@logger.debug("error from REopt lite API: #{e}")
+            if tries+1 < max_tries
+              @@logger.debug("trying again...")
+            else
+              @@logger.debug("max tries reached!")
+              return 
+            end
             tries += 1
           end
         end
@@ -226,7 +233,7 @@ module URBANopt # :nodoc:
         # Wait a few seconds for the REopt database to update before GETing results
         sleep 5
         get_request = Net::HTTP::Get.new(uri.request_uri)
-        response = make_request(http, get_request)
+        response = make_request(http, get_request,8)
 
         # Set a limit on retries when 404s are returned from REopt API
         elapsed_time = 0
@@ -288,6 +295,10 @@ module URBANopt # :nodoc:
 
         # Send the request
         response = make_request(http, post_request)
+        if !response.is_a?(Net::HTTPSuccess)
+          @@logger.error('make_request Failed')
+          raise 'Check_connection Failed'
+        end
 
         # Get UUID
         run_uuid = JSON.parse(response.body, allow_nan: true)['run_uuid']
