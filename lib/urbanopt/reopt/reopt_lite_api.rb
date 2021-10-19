@@ -144,11 +144,11 @@ module URBANopt # :nodoc:
             tries = max_tries
           rescue StandardError => e
             @@logger.debug("error from REopt lite API: #{e}")
-            if tries+1 < max_tries
-              @@logger.debug("trying again...")
+            if tries + 1 < max_tries
+              @@logger.debug('trying again...')
             else
-              @@logger.debug("max tries reached!")
-              return 
+              @@logger.debug('max tries reached!')
+              return
             end
             tries += 1
           end
@@ -233,7 +233,7 @@ module URBANopt # :nodoc:
         # Wait a few seconds for the REopt database to update before GETing results
         sleep 5
         get_request = Net::HTTP::Get.new(uri.request_uri)
-        response = make_request(http, get_request,8)
+        response = make_request(http, get_request, 8)
 
         # Set a limit on retries when 404s are returned from REopt API
         elapsed_time = 0

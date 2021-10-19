@@ -1,6 +1,14 @@
 # URBANopt REopt Gem
 
-## Version 0.6.1
+## Version 0.6.2
+
+Date Range: 06/30/21 - 10/15/21:
+
+* Fixed [#90]( https://github.com/urbanopt/urbanopt-reopt-gem/issues/90 ), Add location of PV to Scenario and Feature optimization reopt reports
+* Fixed [#90]( https://github.com/urbanopt/urbanopt-reopt-gem/issues/91 ), Add constrain for area of ground-mount and community solar
+
+
+# Version 0.6.1
 
 Date Range: 04/30/21 - 06/30/21:
 * Fixed [#83]( https://github.com/urbanopt/urbanopt-reopt-gem/issues/83 ), reopt rate-limit error is hard to decipher
