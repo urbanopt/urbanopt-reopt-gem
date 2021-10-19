@@ -130,12 +130,26 @@ module URBANopt # :nodoc:
               @@logger.fatal('Exceeded the REopt-Lite API limit of 300 requests per hour')
               puts 'Using the URBANopt CLI to submit a Scenario optimization counts as one request per scenario'
               puts 'Using the URBANopt CLI to submit a Feature optimization counts as one request per feature'
-              abort('Please wait and try again once the time period has elapsed')
+              abort('Please wait and try again once the time period has elapsed.  The URBANopt CLI flag --reopt-keep-existing can be used to resume the optimization')
             elsif (result.code != '201') && (result.code != '200') # Anything in the 200s is success
               @@logger.debug("REopt-Lite has returned a '#{result.code}' status code. Visit https://developer.nrel.gov/docs/errors/ for more status code information")
+              # display error messages
+              json_res = JSON.parse(result.body, allow_nan: true)
+              json_res['messages'].delete('warnings') if json_res['messages']['warnings']
+              json_res['messages'].delete('Deprecations') if json_res['messages']['Deprecations']
+              if json_res['messages']
+                @@logger.error("MESSAGES: #{json_res['messages']}")
+              end
             end
-            tries = 4
-          rescue StandardError
+            tries = max_tries
+          rescue StandardError => e
+            @@logger.debug("error from REopt lite API: #{e}")
+            if tries+1 < max_tries
+              @@logger.debug("trying again...")
+            else
+              @@logger.debug("max tries reached!")
+              return 
+            end
             tries += 1
           end
         end
@@ -219,7 +233,7 @@ module URBANopt # :nodoc:
         # Wait a few seconds for the REopt database to update before GETing results
         sleep 5
         get_request = Net::HTTP::Get.new(uri.request_uri)
-        response = make_request(http, get_request)
+        response = make_request(http, get_request,8)
 
         # Set a limit on retries when 404s are returned from REopt API
         elapsed_time = 0
@@ -233,14 +247,15 @@ module URBANopt # :nodoc:
           sleep 5
         end
 
-        data = JSON.parse(response.body)
-        text = ::JSON.generate(data, allow_nan: true)
+        data = JSON.parse(response.body, allow_nan: true)
+        text = JSON.pretty_generate(data)
         begin
           File.open(filename, 'w+') do |f|
             f.puts(text)
           end
-        rescue StandardError
+        rescue StandardError => e
           @@logger.error("Cannot write - #{filename}")
+          @@logger.error("ERROR: #{e}")
         end
 
         if response.code == '200'
@@ -280,6 +295,10 @@ module URBANopt # :nodoc:
 
         # Send the request
         response = make_request(http, post_request)
+        if !response.is_a?(Net::HTTPSuccess)
+          @@logger.error('make_request Failed')
+          raise 'Check_connection Failed'
+        end
 
         # Get UUID
         run_uuid = JSON.parse(response.body, allow_nan: true)['run_uuid']
@@ -295,12 +314,11 @@ module URBANopt # :nodoc:
           @@logger.info("REopt results saved to #{filename}")
         end
 
-        text = ::JSON.generate(response.body, allow_nan: true)
+        text = JSON.parse(response.body, allow_nan: true)
         if response.code != '201'
           File.open(filename, 'w+') do |f|
-            f.puts(text)
+            f.puts(JSON.pretty_generate(text))
           end
-          @@logger.error("Cannot write - #{filename}")
           raise "Error in REopt optimization post - see #{filename}"
         end
 
@@ -353,8 +371,8 @@ module URBANopt # :nodoc:
           _tries += 1
         end
 
-        data = JSON.parse(response.body)
-        text = ::JSON.generate(data, allow_nan: true)
+        data = JSON.parse(response.body, allow_nan: true)
+        text = JSON.pretty_generate(data)
         begin
           File.open(filename, 'w+') do |f|
             f.puts(text)
