@@ -109,11 +109,11 @@ module URBANopt # :nodoc:
           begin
             if !groundmount_photovoltaic[feature_report.id].nil?
               reopt_inputs[:Scenario][:Site][:land_acres] = groundmount_photovoltaic[feature_report.id] * 1.0 / 43560 # acres/sqft
-            # If no ground-mount PV associated with feature use site area as constrain for REopt optimization 
+            # If no ground-mount PV associated with feature use site area as constrain for REopt optimization
             elsif !feature_report.program.site_area_sqft.nil?
               reopt_inputs[:Scenario][:Site][:land_acres] = feature_report.program.site_area_sqft * 1.0 / 43560 # acres/sqft
             end
-          rescue
+          rescue StandardError
           end
         end
 
@@ -220,10 +220,10 @@ module URBANopt # :nodoc:
           reopt_output['outputs']['Scenario']['Site']['PV'] = []
         end
 
-        #Store the PV name and location in a hash
+        # Store the PV name and location in a hash
         location = {}
-        #Check whether multi PV assumption input file is used or single PV
-        if reopt_output['inputs']['Scenario']['Site']['PV'].kind_of?(Array)
+        # Check whether multi PV assumption input file is used or single PV
+        if reopt_output['inputs']['Scenario']['Site']['PV'].is_a?(Array)
           reopt_output['inputs']['Scenario']['Site']['PV'].each do |pv|
             location[pv['pv_name']] = pv['location']
           end

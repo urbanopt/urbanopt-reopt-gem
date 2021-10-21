@@ -126,7 +126,7 @@ module URBANopt # :nodoc:
           if reopt_inputs[:Scenario][:Site][:land_acres].nil? && !community_photovoltaic[0][:properties][:footprint_area].nil?
             reopt_inputs[:Scenario][:Site][:land_acres] = community_photovoltaic[0][:properties][:footprint_area] * 1.0 / 43560 # acres/sqft
           end
-        rescue
+        rescue StandardError
         end
 
         if reopt_inputs[:Scenario][:time_steps_per_hour].nil?
@@ -217,7 +217,6 @@ module URBANopt # :nodoc:
           return scenario_report
         end
 
-
         # Update location
         scenario_report.location.latitude_deg = reopt_output['inputs']['Scenario']['Site']['latitude']
         scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
@@ -251,10 +250,10 @@ module URBANopt # :nodoc:
           reopt_output['outputs']['Scenario']['Site']['PV'] = []
         end
 
-        #Store the PV name and location in a hash
+        # Store the PV name and location in a hash
         location = {}
-        #Check whether multi PV assumption input file is used or single PV
-        if reopt_output['inputs']['Scenario']['Site']['PV'].kind_of?(Array)
+        # Check whether multi PV assumption input file is used or single PV
+        if reopt_output['inputs']['Scenario']['Site']['PV'].is_a?(Array)
           reopt_output['inputs']['Scenario']['Site']['PV'].each do |pv|
             location[pv['pv_name']] = pv['location']
           end
@@ -262,9 +261,8 @@ module URBANopt # :nodoc:
           location[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['location']
         end
 
-
         reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
-          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']]})
+          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']] })
         end
 
         wind = reopt_output['outputs']['Scenario']['Site']['Wind']
