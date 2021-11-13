@@ -101,12 +101,14 @@ module URBANopt # :nodoc:
         end
 
         if !scenario_reopt_assumptions_file.nil?
+          @scenario_reopt_assumptions_file = scenario_reopt_assumptions_file
           File.open(scenario_reopt_assumptions_file, 'r') do |file|
             @scenario_reopt_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
           end
         end
 
         if !reopt_feature_assumptions.empty?
+          @reopt_feature_assumptions = reopt_feature_assumptions
           reopt_feature_assumptions.each do |file|
             @feature_reports_reopt_default_assumption_hashes << JSON.parse(File.open(file, 'r').read, symbolize_names: true)
           end
@@ -167,8 +169,12 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
       def run_scenario_report(scenario_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: true, community_photovoltaic: nil)
+        puts "run scenario report"
+        @save_assumptions_filepath = false
         if !reopt_assumptions_hash.nil?
           @scenario_reopt_default_assumptions_hash = reopt_assumptions_hash
+        else
+          @save_assumptions_filepath = true
         end
         if !reopt_output_file.nil?
           @scenario_reopt_default_output_file = reopt_output_file
@@ -195,8 +201,15 @@ module URBANopt # :nodoc:
         end
 
         result = adapter.update_scenario_report(scenario_report, reopt_output, @scenario_timeseries_default_output_file, resilience_stats)
+
+        # can you save the assumptions file path that was used?
+        if @save_assumptions_filepath && @scenario_reopt_assumptions_file
+          result.distributed_generation.reopt_assumptions_file_path = @scenario_reopt_assumptions_file
+        end
+
         if !save_name.nil?
-          result.save save_name
+          # don't save individual feature reports when doing the scenario optimization!
+          result.save(save_name, false)
         end
         return result
       end

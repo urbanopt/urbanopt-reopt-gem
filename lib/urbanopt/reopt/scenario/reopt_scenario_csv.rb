@@ -106,7 +106,7 @@ module URBANopt
           if row.length > 3 && !@reopt_files_dir.nil?
             @reopt_feature_assumptions[idx - 1] = File.join(@reopt_files_dir, row[3].chomp)
           end
-
+          
           # gets +features+ from the feature_file.
           features = []
           feature = feature_file.get_feature_by_id(feature_id)
