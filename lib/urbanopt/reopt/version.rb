@@ -40,6 +40,6 @@
 
 module URBANopt # :nodoc:
   module REopt # :nodoc:
-    VERSION = '0.6.2'.freeze
+    VERSION = '0.7.0'.freeze
   end
 end
