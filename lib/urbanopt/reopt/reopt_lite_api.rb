@@ -148,7 +148,7 @@ module URBANopt # :nodoc:
               @@logger.debug('trying again...')
             else
               @@logger.debug('max tries reached!')
-              return
+              return result
             end
             tries += 1
           end
@@ -240,7 +240,7 @@ module URBANopt # :nodoc:
         max_elapsed_time = 60 * 5
 
         # If database still hasn't updated, wait a little longer and try again
-        while (elapsed_time < max_elapsed_time) & (response.code == '404')
+        while (elapsed_time < max_elapsed_time) && (response && response.code == '404')
           response = make_request(http, get_request)
           @@logger.warn('GET request was too fast for REOpt-Lite API. Retrying...')
           elapsed_time += 5
