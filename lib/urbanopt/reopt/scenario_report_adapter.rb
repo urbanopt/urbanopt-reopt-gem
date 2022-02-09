@@ -85,7 +85,7 @@ module URBANopt # :nodoc:
           lats = []
           longs = []
           scenario_report.feature_reports.each do |x|
-            puts " ERROR: #{x.location.latitude_deg}"
+            @@logger.info(" ERROR: #{x.location.latitude_deg}")
             if ![nil].include?(x.location.latitude_deg) && ![nil].include?(x.location.longitude_deg)
               lats.push(x.location.latitude_deg)
               longs.push(x.location.longitude_deg)
@@ -222,7 +222,6 @@ module URBANopt # :nodoc:
         scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
 
         # Update distributed generation sizing and financials
-
         scenario_report.distributed_generation.lcc_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc_us_dollars'] || 0
         scenario_report.distributed_generation.npv_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0
         scenario_report.distributed_generation.year_one_energy_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars'] || 0
@@ -260,14 +259,28 @@ module URBANopt # :nodoc:
         else
           location[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['location']
         end
-
-        reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
-          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']] })
+        pv_inputs = reopt_output['inputs']['Scenario']['Site']['PV']
+        if pv_inputs.is_a?(Hash)
+          pv_inputs = [pv_inputs]
+        end
+        pv_outputs = reopt_output['outputs']['Scenario']['Site']['PV']
+        if pv_outputs.is_a?(Hash)
+          pv_outputs = [pv_outputs]
+        end
+        pv_outputs.each_with_index do |pv, i|
+          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']], tilt: (pv_inputs[i]['tilt'] || 0), azimuth: (pv_inputs[i]['azimuth'] || 0), module_type: (pv_inputs[i]['module_type'] || 0) })
         end
 
         wind = reopt_output['outputs']['Scenario']['Site']['Wind']
         if !wind['size_kw'].nil? && (wind['size_kw'] != 0)
-          scenario_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0) })
+          # find size_class
+          size_class = nil
+          if reopt_output['inputs']['Scenario']['Site']['Wind']['size_class']
+            size_class = reopt_output['inputs']['Scenario']['Site']['Wind']['size_class']
+          else
+            size_class = 'commercial' # default
+          end
+          scenario_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0), size_class: size_class, average_yearly_energy_produced_kwh: (wind['average_yearly_energy_produced_kwh'] || 0) })
         end
 
         generator = reopt_output['outputs']['Scenario']['Site']['Generator']
