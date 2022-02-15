@@ -137,6 +137,7 @@ module URBANopt # :nodoc:
           reopt_output_file = File.join(feature_report.directory_name, 'reopt')
         end
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
+        print("REOPT OUTPUT FILE: #{reopt_output_file}")
         if run_resilience
           run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
           if File.directory? reopt_output_file
@@ -270,7 +271,7 @@ module URBANopt # :nodoc:
               @@logger.error("ERROR: #{e}")
             end
           else
-            puts('Output file already exists...skipping')
+            @@logger.info('Output file already exists...skipping')
           end
         end
 
@@ -308,7 +309,7 @@ module URBANopt # :nodoc:
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
       def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes: [], reopt_output_files: [], feature_report_timeseries_csv_paths: [], save_names_feature_reports: nil, save_name_scenario_report: nil, run_resilience: true, keep_existing_output: false, groundmount_photovoltaic: nil)
         new_feature_reports = run_feature_reports(feature_reports: scenario_report.feature_reports, reopt_assumptions_hashes: reopt_assumptions_hashes, reopt_output_files: reopt_output_files, timeseries_csv_paths: feature_report_timeseries_csv_paths, save_names: save_names_feature_reports, run_resilience: run_resilience, keep_existing_output: keep_existing_output, groundmount_photovoltaic: groundmount_photovoltaic)
-        puts("KEEP EXISTING? #{keep_existing_output}")
+
         # only do this if you have run feature reports
         new_scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
         if !new_feature_reports.empty?
