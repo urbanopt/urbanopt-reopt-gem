@@ -130,10 +130,10 @@ module URBANopt # :nodoc:
           # Fill in missing timestep values with 0 if a full year is not provided
           if energy_timeseries_kw.length < (feature_report.timesteps_per_hour * 8760)
             start_date = Time.parse(t.by_col['Datetime'][0])
-            start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) /
+            start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) / \
                         ((60 / feature_report.timesteps_per_hour) * 60)).to_int
             end_date = Time.parse(t.by_col['Datetime'][-1])
-            end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) /
+            end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) / \
                         ((60 / feature_report.timesteps_per_hour) * 60)).to_int
             energy_timeseries_kw = [0.0] * (start_ts - 1) + energy_timeseries_kw + [0.0] * ((feature_report.timesteps_per_hour * 8760) - end_ts)
           end
