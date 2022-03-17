@@ -71,6 +71,10 @@
               "Site": {
                 "type": "object",
                 "properties": {
+                  "annual_renewable_electricity_pct": {
+                    "type": "float",
+                    "description": "Fraction of annual renewable electricity - 0 for none, 1 for all, over 1 for more generated than consumed"
+                  },
                   "LoadProfile": {
                     "type": "object",
                     "properties": {
@@ -97,10 +101,6 @@
                         "type": "int",
                         "description": "Number of hours the existing system can sustain with resilience check",
                         "units": "hours"
-                      },
-                      "annual_renewable_electricity_pct": {
-                        "type": "float",
-                        "description": "Fraction of annual renewable electricity - 0 for none, 1 for all, over 1 for more generated than consumed"
                       }
                     }
                   },
