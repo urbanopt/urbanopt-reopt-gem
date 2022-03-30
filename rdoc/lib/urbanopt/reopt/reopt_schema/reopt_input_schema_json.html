@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>reopt_input_schema.json - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../../";
+  var index_rel_prefix = "../../../../";
+</script>
+
+<script src="../../../../js/navigation.js" defer></script>
+<script src="../../../../js/search.js" defer></script>
+<script src="../../../../js/search_index.js" defer></script>
+<script src="../../../../js/searcher.js" defer></script>
+<script src="../../../../js/darkfish.js" defer></script>
+
+<link href="../../../../css/fonts.css" rel="stylesheet">
+<link href="../../../../css/rdoc.css" rel="stylesheet">
+
+
+<link href="../../../../custom_rdoc_styles.css" rel="stylesheet">
+
+
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../../../CHANGELOG_md.html">CHANGELOG</a>
+  
+    <li><a href="../../../../CONTRIBUTING_md.html">CONTRIBUTING</a>
+  
+    <li><a href="../../../../RDOC_MAIN_md.html">RDOC_MAIN</a>
+  
+    <li><a href="../../../../index_html.html">index.html</a>
+  
+    <li><a href="../../../../index_md.html">index</a>
+  
+    <li><a href="../../../../lib/urbanopt/reopt/reopt_schema/reopt_input_schema_json.html">reopt_input_schema.json</a>
+  
+    <li><a href="../../../../lib/urbanopt/reopt/reopt_schema/reopt_output_schema_json.html">reopt_output_schema.json</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page lib/urbanopt/reopt/reopt_schema/reopt_input_schema.json">
+
+<p>{</p>
+
+<pre>&quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#&quot;,
+&quot;description&quot;: &quot;Data Dictionary for REopt Lite Inputs&quot;,
+&quot;type&quot;: &quot;object&quot;,
+&quot;properties&quot;: {
+        &quot;$ref&quot;: &quot;#/definitions/Scenario&quot;
+},
+&quot;required&quot;: [
+        &quot;Scenario&quot;
+],
+&quot;definitions&quot;: {
+        &quot;Scenario&quot;: {
+                &quot;Scenario&quot;: {
+                        &quot;type&quot;:&quot;object&quot;,
+                        &quot;properties&quot;:{
+                                &quot;user_uuid&quot;: {
+                                        &quot;type&quot;: &quot;str&quot;,
+                                        &quot;description&quot;: &quot;The assigned unique ID of a signed in REOpt user&quot;
+                                },
+                                &quot;time_steps_per_hour&quot;: {
+                                        &quot;default&quot;: 1,
+                                        &quot;max&quot;: 4,
+                                        &quot;type&quot;: &quot;int&quot;,
+                                        &quot;description&quot;: &quot;The number of time steps per hour in the REopt simulation&quot;,
+                                        &quot;min&quot;: 1
+                                },
+                                &quot;timeout_seconds&quot;: {
+                                        &quot;default&quot;: 295,
+                                        &quot;max&quot;: 295,
+                                        &quot;type&quot;: &quot;float&quot;,
+                                        &quot;description&quot;: &quot;The number of seconds allowed before the optimization times out&quot;,
+                                        &quot;min&quot;: 1
+                                },
+                                &quot;description&quot;: {
+                                        &quot;type&quot;: &quot;str&quot;,
+                                        &quot;description&quot;: &quot;An optional user defined description to describe the scenario and run&quot;
+                                },
+                                &quot;Site&quot;: {
+                                        &quot;type&quot;: &quot;object&quot;,
+                                        &quot;properties&quot;: {
+                                                &quot;latitude&quot;: {
+                                                        &quot;max&quot;: 90,
+                                                        &quot;required&quot;: true,
+                                                        &quot;type&quot;: &quot;float&quot;,
+                                                        &quot;description&quot;: &quot;The approximate latitude of the site in decimal degrees&quot;,
+                                                        &quot;min&quot;: -90
+                                                },
+                                                &quot;longitude&quot;: {
+                                                        &quot;max&quot;: 180,
+                                                        &quot;required&quot;: true,
+                                                        &quot;type&quot;: &quot;float&quot;,
+                                                        &quot;description&quot;: &quot;The approximate longitude of the site in decimal degrees&quot;,
+                                                        &quot;min&quot;: -180
+                                                },
+                                                &quot;land_acres&quot;: {
+                                                        &quot;max&quot;: 1000000.0,
+                                                        &quot;type&quot;: &quot;float&quot;,
+                                                        &quot;description&quot;: &quot;Land area in acres available for PV panel siting&quot;,
+                                                        &quot;min&quot;: 0
+                                                },
+                                                &quot;address&quot;: {
+                                                        &quot;type&quot;: &quot;str&quot;,
+                                                        &quot;description&quot;: &quot;A user defined address as optional metadata (street address, city, state or zip code)&quot;
+                                                },
+                                                &quot;roof_squarefeet&quot;: {
+                                                        &quot;max&quot;: 1000000000.0,
+                                                        &quot;type&quot;: &quot;float&quot;,
+                                                        &quot;description&quot;: &quot;Area of roof in square feet available for PV siting&quot;,
+                                                        &quot;min&quot;: 0
+                                                },
+                                                &quot;Financial&quot;: {
+                                                        &quot;type&quot;: &quot;object&quot;,
+                                                        &quot;properties&quot;: {
+                                                                &quot;escalation_pct&quot;: {
+                                                                        &quot;default&quot;: 0.026,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Annual nominal utility electricity cost escalation rate&quot;,
+                                                                        &quot;min&quot;: -1
+                                                                },
+                                                                &quot;offtaker_discount_pct&quot;: {
+                                                                        &quot;default&quot;: 0.081,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Nominal host discount rate&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;value_of_lost_load_us_dollars_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 100,
+                                                                        &quot;max&quot;: 1000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Value placed on unmet site load during grid outages. Units are US dollars per unmet kilowatt-hour. The value of lost load (VoLL) is used to determine the avoided outage costs by multiplying VoLL [$/kWh] with the average number of hours that the critical load can be met by the energy system (determined by simulating outages occuring at every hour of the year), and multiplying by the mean critical load.&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;analysis_years&quot;: {
+                                                                        &quot;default&quot;: 20,
+                                                                        &quot;max&quot;: 75,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;Analysis period&quot;,
+                                                                        &quot;min&quot;: 1
+                                                                },
+                                                                &quot;microgrid_upgrade_cost_pct&quot;: {
+                                                                        &quot;default&quot;: 0.3,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Additional cost, in percent of non-islandable capital costs, to make a distributed energy system islandable from the grid and able to serve critical loads. Includes all upgrade costs such as additional laber and critical load panels.&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;offtaker_tax_pct&quot;: {
+                                                                        &quot;default&quot;: 0.26,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Host tax rate&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;om_cost_escalation_pct&quot;: {
+                                                                        &quot;default&quot;: 0.025,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Annual nominal O&amp;M cost escalation rate&quot;,
+                                                                        &quot;min&quot;: -1
+                                                                }
+                                                        }
+                                                },
+                                                &quot;ElectricTariff&quot;: {
+                                                        &quot;type&quot;: &quot;object&quot;,
+                                                        &quot;properties&quot;: {
+                                                                &quot;add_blended_rates_to_urdb_rate&quot;: {
+                                                                        &quot;default&quot;: false,
+                                                                        &quot;type&quot;: &quot;bool&quot;,
+                                                                        &quot;description&quot;: &quot;Set to &#39;true&#39; to add the monthly blended energy rates and demand charges to the URDB rate schedule. Otherwise, blended rates will only be considered if a URDB rate is not provided. &quot;
+                                                                },
+                                                                &quot;wholesale_rate_us_dollars_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Price of electricity sold back to the grid in absence of net metering or above net metering limit, restricted to total site load&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;interconnection_limit_kw&quot;: {
+                                                                        &quot;default&quot;: 100000000.0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Limit on system capacity size that can be interconnected to the grid&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;wholesale_rate_above_site_load_us_dollars_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Price of electricity sold back to the grid above the site load, regardless of net metering&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;urdb_response&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;urdb_response&quot;],
+                                                                                [&quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;, &quot;blended_monthly_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;blended_annual_demand_charges_us_dollars_per_kw&quot;, &quot;blended_annual_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;urdb_label&quot;],
+                                                                                [&quot;urdb_utility_name&quot;, &quot;urdb_rate_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;dict&quot;,
+                                                                        &quot;description&quot;: &quot;Utility rate structure from &lt;a href=&#39;https: //openei.org/services/doc/rest/util_rates/?version=3&#39; target=&#39;blank&#39;&gt;Utility Rate Database API&lt;/a&gt;&quot;
+                                                                },
+                                                                &quot;blended_annual_demand_charges_us_dollars_per_kw&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;urdb_response&quot;],
+                                                                                [&quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;, &quot;blended_monthly_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;blended_annual_demand_charges_us_dollars_per_kw&quot;, &quot;blended_annual_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;urdb_label&quot;],
+                                                                                [&quot;urdb_utility_name&quot;, &quot;urdb_rate_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Annual blended demand rates (annual demand charge cost in $ divided by annual peak demand in kW)&quot;,
+                                                                        &quot;depends_on&quot;: [&quot;blended_annual_rates_us_dollars_per_kwh&quot;]
+                                                                },
+                                                                &quot;blended_annual_rates_us_dollars_per_kwh&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;urdb_response&quot;],
+                                                                                [&quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;, &quot;blended_monthly_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;blended_annual_demand_charges_us_dollars_per_kw&quot;, &quot;blended_annual_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;urdb_label&quot;],
+                                                                                [&quot;urdb_utility_name&quot;, &quot;urdb_rate_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Annual blended energy rate (total annual energy in kWh divided by annual cost in $)&quot;,
+                                                                        &quot;depends_on&quot;: [&quot;blended_annual_demand_charges_us_dollars_per_kw&quot;]
+                                                                },
+                                                                &quot;net_metering_limit_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;System size above which net metering is not allowed&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;urdb_response&quot;],
+                                                                                [&quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;, &quot;blended_monthly_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;blended_annual_demand_charges_us_dollars_per_kw&quot;, &quot;blended_annual_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;urdb_label&quot;],
+                                                                                [&quot;urdb_utility_name&quot;, &quot;urdb_rate_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;list_of_float&quot;,
+                                                                        &quot;description&quot;: &quot;Array (length of 12) of blended demand charges (demand charge cost in $ divided by monthly peak demand in kW)&quot;,
+                                                                        &quot;depends_on&quot;: [&quot;blended_monthly_rates_us_dollars_per_kwh&quot;]
+                                                                },
+                                                                &quot;urdb_utility_name&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;urdb_response&quot;],
+                                                                                [&quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;, &quot;blended_monthly_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;blended_annual_demand_charges_us_dollars_per_kw&quot;, &quot;blended_annual_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;urdb_label&quot;],
+                                                                                [&quot;urdb_utility_name&quot;, &quot;urdb_rate_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;str&quot;,
+                                                                        &quot;description&quot;: &quot;Name of Utility from  &lt;a href=&#39;https: //openei.org/wiki/Utility_Rate_Database&#39; target=&#39;blank&#39;&gt;Utility Rate Database&lt;/a&gt;&quot;,
+                                                                        &quot;depends_on&quot;: [&quot;urdb_rate_name&quot;]
+                                                                },
+                                                                &quot;urdb_label&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;urdb_response&quot;],
+                                                                                [&quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;, &quot;blended_monthly_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;blended_annual_demand_charges_us_dollars_per_kw&quot;, &quot;blended_annual_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;urdb_label&quot;],
+                                                                                [&quot;urdb_utility_name&quot;, &quot;urdb_rate_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;str&quot;,
+                                                                        &quot;description&quot;: &quot;Label attribute of utility rate structure from &lt;a href=&#39;https: //openei.org/services/doc/rest/util_rates/?version=3&#39; target=&#39;blank&#39;&gt;Utility Rate Database API&lt;/a&gt;&quot;
+                                                                },
+                                                                &quot;urdb_rate_name&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;urdb_response&quot;],
+                                                                                [&quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;, &quot;blended_monthly_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;blended_annual_demand_charges_us_dollars_per_kw&quot;, &quot;blended_annual_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;urdb_label&quot;],
+                                                                                [&quot;urdb_utility_name&quot;, &quot;urdb_rate_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;str&quot;,
+                                                                        &quot;description&quot;: &quot;Name of utility rate from  &lt;a href=&#39;https: //openei.org/wiki/Utility_Rate_Database&#39; target=&#39;blank&#39;&gt;Utility Rate Database&lt;/a&gt;&quot;,
+                                                                        &quot;depends_on&quot;: [&quot;urdb_utility_name&quot;]
+                                                                },
+                                                                &quot;blended_monthly_rates_us_dollars_per_kwh&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;urdb_response&quot;],
+                                                                                [&quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;, &quot;blended_monthly_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;blended_annual_demand_charges_us_dollars_per_kw&quot;, &quot;blended_annual_rates_us_dollars_per_kwh&quot;],
+                                                                                [&quot;urdb_label&quot;],
+                                                                                [&quot;urdb_utility_name&quot;, &quot;urdb_rate_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;list_of_float&quot;,
+                                                                        &quot;description&quot;: &quot;Array (length of 12) of blended energy rates (total monthly energy in kWh divided by monthly cost in $)&quot;,
+                                                                        &quot;depends_on&quot;: [&quot;blended_monthly_demand_charges_us_dollars_per_kw&quot;]
+                                                                }
+                                                        }
+                                                },
+                                                &quot;LoadProfile&quot;: {
+                                                        &quot;type&quot;: &quot;object&quot;,
+                                                        &quot;properties&quot;: {
+                                                                &quot;critical_load_pct&quot;: {
+                                                                        &quot;default&quot;: 0.5,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Critical load factor is multiplied by the typical load to determine the critical load that must be met during an outage. Value must be between zero and one, inclusive.&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;outage_start_hour&quot;: {
+                                                                        &quot;max&quot;: 8759,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;Hour of year that grid outage starts. Must be less than outage_end.&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;outage_end_hour&quot;: {
+                                                                        &quot;max&quot;: 8759,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;Hour of year that grid outage ends. Must be greater than outage_start.&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;monthly_totals_kwh&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;loads_kw&quot;],
+                                                                                [&quot;doe_reference_name&quot;, &quot;monthly_totals_kwh&quot;],
+                                                                                [&quot;annual_kwh&quot;, &quot;doe_reference_name&quot;],
+                                                                                [&quot;doe_reference_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;list_of_float&quot;,
+                                                                        &quot;description&quot;: &quot;Array (length of 12) of total monthly energy consumption used to scale simulated building load profile.&quot;,
+                                                                        &quot;depends_on&quot;: [&quot;doe_reference_name&quot;]
+                                                                },
+                                                                &quot;year&quot;: {
+                                                                        &quot;default&quot;: 2018,
+                                                                        &quot;max&quot;: 9999,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;Year of Custom Load Profile. If a custom load profile is uploaded via the loads_kw parameter, it is important that this year correlates with the load profile so that weekdays/weekends are determined correctly for the utility rate tariff. If a DOE Reference Building profile (aka simulated profile) is used, the year is set to 2017 since the DOE profiles start on a Sunday.&quot;,
+                                                                        &quot;min&quot;: 1
+                                                                },
+                                                                &quot;loads_kw&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;loads_kw&quot;],
+                                                                                [&quot;doe_reference_name&quot;, &quot;monthly_totals_kwh&quot;],
+                                                                                [&quot;annual_kwh&quot;, &quot;doe_reference_name&quot;],
+                                                                                [&quot;doe_reference_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;list_of_float&quot;,
+                                                                        &quot;description&quot;: &quot;Typical load over all hours in one year. Must be hourly (8,760 samples), 30 minute (17,520 samples), or 15 minute (35,040 samples).&quot;
+                                                                },
+                                                                &quot;outage_is_major_event&quot;: {
+                                                                        &quot;default&quot;: true,
+                                                                        &quot;type&quot;: &quot;bool&quot;,
+                                                                        &quot;description&quot;: &quot;Boolean value for if outage is a major event, which affects the avoided_outage_costs_us_dollars. If True, the avoided outage costs are calculated for a single outage occurring in the first year of the analysis_years. If False, the outage event is assumed to be an average outage event that occurs every year of the analysis period. In the latter case, the avoided outage costs for one year are escalated and discounted using the escalation_pct and offtaker_discount_pct to account for an annually recurring outage. (Average outage durations for certain utility service areas can be estimated using statistics reported on EIA form 861.)&quot;
+                                                                },
+                                                                &quot;critical_loads_kw_is_net&quot;: {
+                                                                        &quot;default&quot;: false,
+                                                                        &quot;type&quot;: &quot;bool&quot;,
+                                                                        &quot;description&quot;: &quot;If there is existing PV, must specify whether provided load is the net load after existing PV or not.&quot;
+                                                                },
+                                                                &quot;loads_kw_is_net&quot;: {
+                                                                        &quot;default&quot;: true,
+                                                                        &quot;type&quot;: &quot;bool&quot;,
+                                                                        &quot;description&quot;: &quot;If there is existing PV, must specify whether provided load is the net load after existing PV or not.&quot;
+                                                                },
+                                                                &quot;annual_kwh&quot;: {
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Annual energy consumption used to scale simulated building load profile, if &lt;b&gt;&lt;small&gt;monthly_totals_kwh&lt;/b&gt;&lt;/small&gt; is not provided.&quot;,
+                                                                        &quot;min&quot;: 1,
+                                                                        &quot;max&quot;: 1000000000000.0,
+                                                                        &quot;depends_on&quot;: [&quot;doe_reference_name&quot;],
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;loads_kw&quot;],
+                                                                                [&quot;doe_reference_name&quot;, &quot;monthly_totals_kwh&quot;],
+                                                                                [&quot;annual_kwh&quot;, &quot;doe_reference_name&quot;],
+                                                                                [&quot;doe_reference_name&quot;]
+                                                                        ]
+                                                                },
+                                                                &quot;doe_reference_name&quot;: {
+                                                                        &quot;replacement_sets&quot;: [
+                                                                                [&quot;loads_kw&quot;],
+                                                                                [&quot;doe_reference_name&quot;, &quot;monthly_totals_kwh&quot;],
+                                                                                [&quot;annual_kwh&quot;, &quot;doe_reference_name&quot;],
+                                                                                [&quot;doe_reference_name&quot;]
+                                                                        ],
+                                                                        &quot;type&quot;: &quot;str&quot;,
+                                                                        &quot;description&quot;: &quot;Simulated load profile from DOE &lt;a href=&#39;https: //energy.gov/eere/buildings/commercial-reference-buildings&#39; target=&#39;blank&#39;&gt;Commercial Reference Buildings&lt;/a&gt;&quot;,
+                                                                        &quot;restrict_to&quot;: [&quot;FastFoodRest&quot;, &quot;FullServiceRest&quot;, &quot;Hospital&quot;, &quot;LargeHotel&quot;, &quot;LargeOffice&quot;, &quot;MediumOffice&quot;, &quot;MidriseApartment&quot;, &quot;Outpatient&quot;, &quot;PrimarySchool&quot;, &quot;RetailStore&quot;, &quot;SecondarySchool&quot;, &quot;SmallHotel&quot;, &quot;SmallOffice&quot;, &quot;StripMall&quot;, &quot;Supermarket&quot;, &quot;Warehouse&quot;, &quot;FlatLoad&quot;]
+                                                                },
+                                                                &quot;critical_loads_kw&quot;: {
+                                                                        &quot;type&quot;: &quot;list_of_float&quot;,
+                                                                        &quot;description&quot;: &quot;Critical load during an outage period. Must be hourly (8,760 samples), 30 minute (17,520 samples), or 15 minute (35,040 samples).&quot;
+                                                                }
+                                                        }
+                                                },
+                                                &quot;PV&quot;: {
+                                                        &quot;type&quot;: &quot;object&quot;,
+                                                        &quot;properties&quot;: {
+                                                                &quot;pbi_years&quot;: {
+                                                                        &quot;default&quot;: 1,
+                                                                        &quot;max&quot;: 100,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Duration of production-based incentives from installation date&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_bonus_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of upfront project costs to depreciate in year one in addition to scheduled depreciation&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;state_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;State rebate based on installed capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;location&quot;: {
+                                                                        &quot;default&quot;: &quot;roof&quot;,
+                                                                        &quot;type&quot;: &quot;string&quot;,
+                                                                        &quot;description&quot;: &quot;Indicates location of PV. Available options are roof and ground.&quot;
+                                                                },
+                                                                &quot;max_kw&quot;: {
+                                                                        &quot;default&quot;: 1000000000.0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum PV size constraint for optimization. Set to zero to disable PV&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;azimuth&quot;: {
+                                                                        &quot;default&quot;: 180,
+                                                                        &quot;max&quot;: 360,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;PV azimuth angle&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;state_rebate_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 10000000000.0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum state rebate&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;gcr&quot;: {
+                                                                        &quot;default&quot;: 0.4,
+                                                                        &quot;max&quot;: 0.99,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;PV ground cover ratio (photovoltaic array area : total ground area).&quot;,
+                                                                        &quot;min&quot;: 0.01
+                                                                },
+                                                                &quot;federal_itc_pct&quot;: {
+                                                                        &quot;default&quot;: 0.3,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percentage of capital costs that are credited towards federal taxes&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;pbi_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 1000000000.0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum annual value of production-based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;pbi_us_dollars_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Production-based incentive value&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;module_type&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;PV module type (0: Standard; 1: Premium; 2: Thin Film)&quot;,
+                                                                        &quot;restrict_to&quot;: [0, 1, 2]
+                                                                },
+                                                                &quot;dc_ac_ratio&quot;: {
+                                                                        &quot;default&quot;: 1.1,
+                                                                        &quot;max&quot;: 2,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;PV DC-AC ratio&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;array_type&quot;: {
+                                                                        &quot;default&quot;: 1,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;PV Watts array type (0: Ground Mount Fixed (Open Rack); 1: Rooftop, Fixed; 2: Ground Mount 1-Axis Tracking; 3 : 1-Axis Backtracking; 4: Ground Mount, 2-Axis Tracking)&quot;,
+                                                                        &quot;restrict_to&quot;: [0, 1, 2, 3, 4]
+                                                                },
+                                                                &quot;state_ibi_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percentage of capital costs offset by state incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_rebate_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 10000000000.0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum utility rebate&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_ibi_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 10000000000.0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum dollar value of utility percentage-based capital cost incentive&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;installed_cost_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 2000,
+                                                                        &quot;max&quot;: 100000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Installed PV cost in $/kW&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;existing_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 100000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Existing PV size&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;om_cost_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 16,
+                                                                        &quot;max&quot;: 1000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Annual PV operations and maintenance costs in $/kW&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Utility rebate based on installed capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;min_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Minimum PV size constraint for optimization&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;tilt&quot;: {
+                                                                        &quot;default&quot;: 0.537,
+                                                                        &quot;max&quot;: 90,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;PV system tilt&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;losses&quot;: {
+                                                                        &quot;default&quot;: 0.14,
+                                                                        &quot;max&quot;: 0.99,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;PV system performance losses&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_itc_reduction&quot;: {
+                                                                        &quot;default&quot;: 0.5,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of the ITC value by which depreciable basis is reduced&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;degradation_pct&quot;: {
+                                                                        &quot;default&quot;: 0.005,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Annual rate of degradation in PV energy production&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;federal_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Federal rebates based on installed capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;inv_eff&quot;: {
+                                                                        &quot;default&quot;: 0.96,
+                                                                        &quot;max&quot;: 0.995,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;PV inverter efficiency&quot;,
+                                                                        &quot;min&quot;: 0.9
+                                                                },
+                                                                &quot;pbi_system_max_kw&quot;: {
+                                                                        &quot;default&quot;: 1000000000.0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum system size eligible for production-based incentive&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_option_years&quot;: {
+                                                                        &quot;default&quot;: 5,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;Duration over which accelerated depreciation will occur. Set to zero to disable&quot;,
+                                                                        &quot;restrict_to&quot;: [0, 5, 7]
+                                                                },
+                                                                &quot;radius&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Radius to use when searching for the closest climate data station. Use zero to use the closest station regardless of the distance&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_ibi_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percentage of capital costs offset by utility incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;state_ibi_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 10000000000.0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum dollar value of state percentage-based capital cost incentive&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                }
+                                                        }
+                                                },
+
+                                                &quot;Storage&quot;: {
+                                                        &quot;type&quot;: &quot;object&quot;,
+                                                        &quot;properties&quot;: {
+                                                                &quot;total_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Rebate based on installed power capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;max_kwh&quot;: {
+                                                                        &quot;default&quot;: 1000000,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum battery energy storage capacity constraint for optimization. Set to zero to disable Storage&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;rectifier_efficiency_pct&quot;: {
+                                                                        &quot;default&quot;: 0.96,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Battery rectifier efficiency&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;total_itc_pct&quot;: {
+                                                                        &quot;default&quot;: 0.0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Total investment tax credit in percent applied toward capital costs&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;min_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Minimum battery power capacity size constraint for optimization&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;max_kw&quot;: {
+                                                                        &quot;default&quot;: 1000000,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum battery power capacity size constraint for optimization. Set to zero to disable storage&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;replace_cost_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 460,
+                                                                        &quot;max&quot;: 10000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Battery power capacity replacement cost at time of replacement year&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;replace_cost_us_dollars_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 230,
+                                                                        &quot;max&quot;: 10000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Battery energy capacity replacement cost at time of replacement year&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;min_kwh&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Minimum battery energy storage capacity constraint for optimization&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;installed_cost_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 1000,
+                                                                        &quot;max&quot;: 10000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Total upfront battery power capacity costs (e.g. inverter and balance of power systems)&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;battery_replacement_year&quot;: {
+                                                                        &quot;default&quot;: 10,
+                                                                        &quot;max&quot;: 75,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Number of years from start of analysis period to replace battery&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;installed_cost_us_dollars_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 500,
+                                                                        &quot;max&quot;: 10000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Total upfront battery costs&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;inverter_efficiency_pct&quot;: {
+                                                                        &quot;default&quot;: 0.96,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Battery inverter efficiency&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_itc_reduction&quot;: {
+                                                                        &quot;default&quot;: 0.5,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of the ITC value by which depreciable basis is reduced&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;canGridCharge&quot;: {
+                                                                        &quot;default&quot;: true,
+                                                                        &quot;type&quot;: &quot;bool&quot;,
+                                                                        &quot;description&quot;: &quot;Flag to set whether the battery can be charged from the grid, or just onsite generation&quot;
+                                                                },
+                                                                &quot;macrs_bonus_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of upfront project costs to depreciate under MACRS in year one in addtion to scheduled depreciation&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;inverter_replacement_year&quot;: {
+                                                                        &quot;default&quot;: 10,
+                                                                        &quot;max&quot;: 75,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Number of years from start of analysis period to replace inverter&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_option_years&quot;: {
+                                                                        &quot;default&quot;: 7,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;Duration over which accelerated depreciation will occur. Set to zero by default&quot;,
+                                                                        &quot;restrict_to&quot;: [0, 5, 7]
+                                                                },
+                                                                &quot;internal_efficiency_pct&quot;: {
+                                                                        &quot;default&quot;: 0.975,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Battery inherent efficiency independent of inverter and rectifier&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;soc_min_pct&quot;: {
+                                                                        &quot;default&quot;: 0.2,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Minimum allowable battery state of charge&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;soc_init_pct&quot;: {
+                                                                        &quot;default&quot;: 0.5,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Battery state of charge at first hour of optimization&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                }
+                                                        }
+                                                },
+                                                &quot;Wind&quot;: {
+                                                        &quot;type&quot;: &quot;object&quot;,
+                                                        &quot;properties&quot;: {
+                                                                &quot;pbi_years&quot;: {
+                                                                        &quot;default&quot;: 1,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Duration of production-based incentives from installation date&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_bonus_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of upfront project costs to depreciate under MACRS&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;max_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum wind power capacity constraint for optimization. Set to zero to disable Wind. Enabled by default&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;pbi_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 1000000000.0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under utility production-based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;wind_meters_per_sec&quot;: {
+                                                                        &quot;type&quot;: &quot;list_of_float&quot;,
+                                                                        &quot;description&quot;: &quot;Data downloaded from Wind ToolKit for modeling wind turbine.&quot;
+                                                                },
+                                                                &quot;state_ibi_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of upfront project costs to discount under state investment based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_rebate_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 10000000000.0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under utility rebates&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;installed_cost_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 3013,
+                                                                        &quot;max&quot;: 100000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Total upfront installed costs in US dollars per kW. Determined by size_class. For the &#39;large&#39; (&gt;2MW) size_class the cost is $1,874/kW. For the &#39;medium commercial&#39; size_class the cost is $4,111 per kW. For the &#39;small commercial&#39; size_class the cost is $4,989 per kW and for the &#39;residential&#39; size_class the cost is $10,792 per kW &quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_ibi_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 10000000000.0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under utility investment based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;pressure_atmospheres&quot;: {
+                                                                        &quot;type&quot;: &quot;list_of_float&quot;,
+                                                                        &quot;description&quot;: &quot;Data downloaded from Wind ToolKit for modeling wind turbine.&quot;
+                                                                },
+                                                                &quot;pbi_system_max_kw&quot;: {
+                                                                        &quot;default&quot;: 1000000000.0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum system size for which production-based incentives apply&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_ibi_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of upfront project costs to discount under utility investment based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;state_ibi_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 10000000000.0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under state investment based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;wind_direction_degrees&quot;: {
+                                                                        &quot;type&quot;: &quot;list_of_float&quot;,
+                                                                        &quot;description&quot;: &quot;Data downloaded from Wind ToolKit for modeling wind turbine.&quot;
+                                                                },
+                                                                &quot;size_class&quot;: {
+                                                                        &quot;type&quot;: &quot;str&quot;,
+                                                                        &quot;description&quot;: &quot;Turbine size-class. One of [residential, commercial, medium, large]&quot;,
+                                                                        &quot;restrict_to&quot;: &quot;[&#39;residential&#39;, &#39;commercial&#39;, &#39;medium&#39;, &#39;large&#39;]&quot;
+                                                                },
+                                                                &quot;state_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;State rebates based on installed capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_option_years&quot;: {
+                                                                        &quot;default&quot;: 5,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;MACRS schedule for financial analysis. Set to zero to disable&quot;,
+                                                                        &quot;restrict_to&quot;: [0, 5, 7]
+                                                                },
+                                                                &quot;state_rebate_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 10000000000.0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under state rebates&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;federal_itc_pct&quot;: {
+                                                                        &quot;default&quot;: 0.3,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent federal capital cost incentive&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;temperature_celsius&quot;: {
+                                                                        &quot;type&quot;: &quot;list_of_float&quot;,
+                                                                        &quot;description&quot;: &quot;Data downloaded from Wind ToolKit for modeling wind turbine.&quot;
+                                                                },
+                                                                &quot;pbi_us_dollars_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Production-based incentive value&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;om_cost_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 35,
+                                                                        &quot;max&quot;: 1000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Total annual operations and maintenance costs for wind&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Utility rebates based on installed capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;min_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Minimum wind power capacity constraint for optimization&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_itc_reduction&quot;: {
+                                                                        &quot;default&quot;: 0.5,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of the full ITC that depreciable basis is reduced by&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;federal_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Federal rebate based on installed capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                }
+                                                        }
+                                                },
+                                                &quot;Generator&quot;: {
+                                                        &quot;type&quot;: &quot;object&quot;,
+                                                        &quot;properties&quot;: {
+                                                                &quot;pbi_years&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Duration of production-based incentives from installation date&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_bonus_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of upfront project costs to depreciate under MACRS&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;om_cost_us_dollars_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 0.01,
+                                                                        &quot;max&quot;: 1000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;diesel generator per unit production (variable) operations and maintenance costs in $/kWh&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;max_kw&quot;: {
+                                                                        &quot;default&quot;: 1000000000.0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum diesel generator size constraint for optimization. Set to zero to disable gen&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;pbi_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under utility production-based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;state_ibi_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of upfront project costs to discount under state investment based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;fuel_intercept_gal_per_hr&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 10,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Generator fuel consumption curve y-intercept in gallons per hour.&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;generator_only_runs_during_grid_outage&quot;: {
+                                                                        &quot;default&quot;: true,
+                                                                        &quot;type&quot;: &quot;bool&quot;,
+                                                                        &quot;description&quot;: &quot;If there is existing diesel generator, must specify whether it should run only during grid outage or all the time in the bau case.&quot;
+                                                                },
+                                                                &quot;utility_rebate_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under utility rebates&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;installed_cost_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 600,
+                                                                        &quot;max&quot;: 100000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Installed diesel generator cost in $/kW&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_ibi_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under utility investment based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;fuel_avail_gal&quot;: {
+                                                                        &quot;default&quot;: 1000000000.0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;On-site generator fuel available in gallons.&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;min_turn_down_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Minimum generator loading in percent of capacity (size_kw).&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;pbi_system_max_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum system size for which production-based incentives apply&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_ibi_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of upfront project costs to discount under utility investment based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;state_ibi_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under state investment based incentives&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;diesel_fuel_cost_us_dollars_per_gallon&quot;: {
+                                                                        &quot;default&quot;: 3,
+                                                                        &quot;max&quot;: 100.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;diesel cost in $/gallon&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;fuel_slope_gal_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 10,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Generator fuel burn rate in gallons/kWh.&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;state_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;State rebates based on installed capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_option_years&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;type&quot;: &quot;int&quot;,
+                                                                        &quot;description&quot;: &quot;MACRS schedule for financial analysis. Set to zero to disable&quot;,
+                                                                        &quot;restrict_to&quot;: [0, 5, 7]
+                                                                },
+                                                                &quot;state_rebate_max_us_dollars&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 10000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Maximum rebate allowed under state rebates&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;federal_itc_pct&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent federal capital cost incentive&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;pbi_us_dollars_per_kwh&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Production-based incentive value&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;existing_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 100000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Existing diesel generator size&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;om_cost_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 10,
+                                                                        &quot;max&quot;: 1000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Annual diesel generator fixed operations and maintenance costs in $/kW&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;utility_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Utility rebates based on installed capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;min_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Minimum diesel generator size constraint for optimization&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;macrs_itc_reduction&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Percent of the full ITC that depreciable basis is reduced by&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;federal_rebate_us_dollars_per_kw&quot;: {
+                                                                        &quot;default&quot;: 0,
+                                                                        &quot;max&quot;: 1000000000.0,
+                                                                        &quot;type&quot;: &quot;float&quot;,
+                                                                        &quot;description&quot;: &quot;Federal rebate based on installed capacity&quot;,
+                                                                        &quot;min&quot;: 0
+                                                                },
+                                                                &quot;generator_sells_energy_back_to_grid&quot;: {
+                                                                        &quot;default&quot;: false,
+                                                                        &quot;type&quot;: &quot;bool&quot;,
+                                                                        &quot;description&quot;: &quot;If there is existing diesel generator, must specify whether it should run only during grid outage or all the time in the bau case.&quot;
+                                                                }
+                                                        }
+                                                }
+                                        }
+                                }
+                        }
+                }
+        }
+}</pre>
+
+<p>}</p>
+
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.1.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
