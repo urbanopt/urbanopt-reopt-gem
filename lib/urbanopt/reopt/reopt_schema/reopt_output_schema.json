@@ -71,6 +71,11 @@
               "Site": {
                 "type": "object",
                 "properties": {
+                  "annual_renewable_electricity_pct": {
+                    "type": "float",
+                    "description": "Fraction of annual renewable electricity - 0 for none, 1 for all, over 1 for more generated than consumed",
+                    "units": "none"
+                  },
                   "LoadProfile": {
                     "type": "object",
                     "properties": {

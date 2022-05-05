@@ -1,31 +1,21 @@
 # *********************************************************************************
-# URBANopt™, Copyright (c) 2019-2021, Alliance for Sustainable Energy, LLC, and other
+# URBANopt™, Copyright (c) 2019-2022, Alliance for Sustainable Energy, LLC, and other
 # contributors. All rights reserved.
-
+#
 # Redistribution and use in source and binary forms, with or without modification,
 # are permitted provided that the following conditions are met:
-
+#
 # Redistributions of source code must retain the above copyright notice, this list
 # of conditions and the following disclaimer.
-
+#
 # Redistributions in binary form must reproduce the above copyright notice, this
 # list of conditions and the following disclaimer in the documentation and/or other
 # materials provided with the distribution.
-
+#
 # Neither the name of the copyright holder nor the names of its contributors may be
 # used to endorse or promote products derived from this software without specific
 # prior written permission.
-
-# Redistribution of this software, without modification, must refer to the software
-# by the same designation. Redistribution of a modified version of this software
-# (i) may not refer to the modified version by the same designation, or by any
-# confusingly similar designation, and (ii) must refer to the underlying software
-# originally provided by Alliance as “URBANopt”. Except to comply with the foregoing,
-# the term “URBANopt”, or any confusingly similar designation may not be used to
-# refer to any modified version of this software or any modified version of the
-# underlying software originally provided by Alliance without the prior written
-# consent of Alliance.
-
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -85,7 +75,7 @@ module URBANopt # :nodoc:
           lats = []
           longs = []
           scenario_report.feature_reports.each do |x|
-            puts " ERROR: #{x.location.latitude_deg}"
+            @@logger.info(" ERROR: #{x.location.latitude_deg}")
             if ![nil].include?(x.location.latitude_deg) && ![nil].include?(x.location.longitude_deg)
               lats.push(x.location.latitude_deg)
               longs.push(x.location.longitude_deg)
@@ -222,7 +212,7 @@ module URBANopt # :nodoc:
         scenario_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
 
         # Update distributed generation sizing and financials
-
+        scenario_report.distributed_generation.annual_renewable_electricity_pct = reopt_output['outputs']['Scenario']['Site']['annual_renewable_electricity_pct'] || 0
         scenario_report.distributed_generation.lcc_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc_us_dollars'] || 0
         scenario_report.distributed_generation.npv_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0
         scenario_report.distributed_generation.year_one_energy_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars'] || 0
@@ -272,6 +262,29 @@ module URBANopt # :nodoc:
           module_type[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['module_type']
           gcr[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['gcr']
         end
+        pv_inputs = reopt_output['inputs']['Scenario']['Site']['PV']
+        if pv_inputs.is_a?(Hash)
+          pv_inputs = [pv_inputs]
+        end
+        pv_outputs = reopt_output['outputs']['Scenario']['Site']['PV']
+        if pv_outputs.is_a?(Hash)
+          pv_outputs = [pv_outputs]
+        end
+        pv_outputs.each_with_index do |pv, i|
+          tilt = 0
+          azimuth = 0
+          module_type = 0
+          if pv_inputs[i]
+            if pv_inputs[i]['tilt']
+              tilt = pv_inputs[i]['tilt']
+            end
+            if pv_inputs[i]['azimuth']
+              azimuth = pv_inputs[i]['azimuth']
+            end
+            if pv_inputs[i]['module_type']
+              module_type = pv_inputs[i]['module_type']
+            end
+          end
 
         reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
           scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['pv_name']], tilt: tilt[pv['pv_name']], module_type: module_type[pv['pv_name']], gcr: gcr[pv['pv_name']] })
@@ -279,7 +292,14 @@ module URBANopt # :nodoc:
 
         wind = reopt_output['outputs']['Scenario']['Site']['Wind']
         if !wind['size_kw'].nil? && (wind['size_kw'] != 0)
-          scenario_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0) })
+          # find size_class
+          size_class = nil
+          if reopt_output['inputs']['Scenario']['Site']['Wind']['size_class']
+            size_class = reopt_output['inputs']['Scenario']['Site']['Wind']['size_class']
+          else
+            size_class = 'commercial' # default
+          end
+          scenario_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0), size_class: size_class, average_yearly_energy_produced_kwh: (wind['average_yearly_energy_produced_kwh'] || 0) })
         end
 
         generator = reopt_output['outputs']['Scenario']['Site']['Generator']

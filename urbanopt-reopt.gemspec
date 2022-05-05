@@ -26,10 +26,9 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '>= 2.1.0'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rdoc', '~> 4.3.0'
-  spec.add_development_dependency 'rspec', '~> 3.7'
+  spec.add_development_dependency 'rspec', '~> 3.9'
 
   spec.add_dependency 'certified', '~> 1'
   spec.add_dependency 'json_pure', '~> 2'
-  spec.add_dependency 'urbanopt-scenario', '~> 0.6.3'
+  # spec.add_dependency 'urbanopt-scenario', '~> 0.7.0'
 end

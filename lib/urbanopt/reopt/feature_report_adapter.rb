@@ -1,31 +1,21 @@
 # *********************************************************************************
-# URBANopt™, Copyright (c) 2019-2021, Alliance for Sustainable Energy, LLC, and other
+# URBANopt™, Copyright (c) 2019-2022, Alliance for Sustainable Energy, LLC, and other
 # contributors. All rights reserved.
-
+#
 # Redistribution and use in source and binary forms, with or without modification,
 # are permitted provided that the following conditions are met:
-
+#
 # Redistributions of source code must retain the above copyright notice, this list
 # of conditions and the following disclaimer.
-
+#
 # Redistributions in binary form must reproduce the above copyright notice, this
 # list of conditions and the following disclaimer in the documentation and/or other
 # materials provided with the distribution.
-
+#
 # Neither the name of the copyright holder nor the names of its contributors may be
 # used to endorse or promote products derived from this software without specific
 # prior written permission.
-
-# Redistribution of this software, without modification, must refer to the software
-# by the same designation. Redistribution of a modified version of this software
-# (i) may not refer to the modified version by the same designation, or by any
-# confusingly similar designation, and (ii) must refer to the underlying software
-# originally provided by Alliance as “URBANopt”. Except to comply with the foregoing,
-# the term “URBANopt”, or any confusingly similar designation may not be used to
-# refer to any modified version of this software or any modified version of the
-# underlying software originally provided by Alliance without the prior written
-# consent of Alliance.
-
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -130,10 +120,10 @@ module URBANopt # :nodoc:
           # Fill in missing timestep values with 0 if a full year is not provided
           if energy_timeseries_kw.length < (feature_report.timesteps_per_hour * 8760)
             start_date = Time.parse(t.by_col['Datetime'][0])
-            start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) /
+            start_ts = (((start_date.yday * 60.0 * 60.0 * 24) + (start_date.hour * 60.0 * 60.0) + (start_date.min * 60.0) + start_date.sec) / \
                         ((60 / feature_report.timesteps_per_hour) * 60)).to_int
             end_date = Time.parse(t.by_col['Datetime'][-1])
-            end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) /
+            end_ts = (((end_date.yday * 60.0 * 60.0 * 24) + (end_date.hour * 60.0 * 60.0) + (end_date.min * 60.0) + end_date.sec) / \
                         ((60 / feature_report.timesteps_per_hour) * 60)).to_int
             energy_timeseries_kw = [0.0] * (start_ts - 1) + energy_timeseries_kw + [0.0] * ((feature_report.timesteps_per_hour * 8760) - end_ts)
           end
@@ -193,6 +183,7 @@ module URBANopt # :nodoc:
         feature_report.location.longitude_deg = reopt_output['inputs']['Scenario']['Site']['longitude']
 
         # Update distributed generation sizing and financials
+        feature_report.distributed_generation.annual_renewable_electricity_pct = reopt_output['outputs']['Scenario']['Site']['annual_renewable_electricity_pct'] || 0
         feature_report.distributed_generation.lcc_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc_us_dollars'] || 0
         feature_report.distributed_generation.npv_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0
         feature_report.distributed_generation.year_one_energy_cost_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars'] || 0

@@ -1,31 +1,21 @@
 # *********************************************************************************
-# URBANopt™, Copyright (c) 2019-2021, Alliance for Sustainable Energy, LLC, and other
+# URBANopt™, Copyright (c) 2019-2022, Alliance for Sustainable Energy, LLC, and other
 # contributors. All rights reserved.
-
+#
 # Redistribution and use in source and binary forms, with or without modification,
 # are permitted provided that the following conditions are met:
-
+#
 # Redistributions of source code must retain the above copyright notice, this list
 # of conditions and the following disclaimer.
-
+#
 # Redistributions in binary form must reproduce the above copyright notice, this
 # list of conditions and the following disclaimer in the documentation and/or other
 # materials provided with the distribution.
-
+#
 # Neither the name of the copyright holder nor the names of its contributors may be
 # used to endorse or promote products derived from this software without specific
 # prior written permission.
-
-# Redistribution of this software, without modification, must refer to the software
-# by the same designation. Redistribution of a modified version of this software
-# (i) may not refer to the modified version by the same designation, or by any
-# confusingly similar designation, and (ii) must refer to the underlying software
-# originally provided by Alliance as “URBANopt”. Except to comply with the foregoing,
-# the term “URBANopt”, or any confusingly similar designation may not be used to
-# refer to any modified version of this software or any modified version of the
-# underlying software originally provided by Alliance without the prior written
-# consent of Alliance.
-
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -139,6 +129,7 @@ module URBANopt # :nodoc:
           reopt_output_file = File.join(feature_report.directory_name, 'reopt')
         end
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
+        print("REOPT OUTPUT FILE: #{reopt_output_file}")
         if run_resilience
           run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
           if File.directory? reopt_output_file
@@ -283,7 +274,7 @@ module URBANopt # :nodoc:
               @@logger.error("ERROR: #{e}")
             end
           else
-            puts('Output file already exists...skipping')
+            @@logger.info('Output file already exists...skipping')
           end
         end
 
@@ -321,7 +312,7 @@ module URBANopt # :nodoc:
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
       def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes: [], reopt_output_files: [], feature_report_timeseries_csv_paths: [], save_names_feature_reports: nil, save_name_scenario_report: nil, run_resilience: true, keep_existing_output: false, groundmount_photovoltaic: nil)
         new_feature_reports = run_feature_reports(feature_reports: scenario_report.feature_reports, reopt_assumptions_hashes: reopt_assumptions_hashes, reopt_output_files: reopt_output_files, timeseries_csv_paths: feature_report_timeseries_csv_paths, save_names: save_names_feature_reports, run_resilience: run_resilience, keep_existing_output: keep_existing_output, groundmount_photovoltaic: groundmount_photovoltaic)
-        puts("KEEP EXISTING? #{keep_existing_output}")
+
         # only do this if you have run feature reports
         new_scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
         if !new_feature_reports.empty?
