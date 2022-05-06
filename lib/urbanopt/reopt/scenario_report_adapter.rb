@@ -271,22 +271,20 @@ module URBANopt # :nodoc:
           pv_outputs = [pv_outputs]
         end
         pv_outputs.each_with_index do |pv, i|
-          tilt = 0
-          azimuth = 0
-          module_type = 0
           if pv_inputs[i]
             if pv_inputs[i]['tilt']
-              tilt = pv_inputs[i]['tilt']
+              tilt[pv['pv_name']] = pv_inputs[i]['tilt']
             end
             if pv_inputs[i]['azimuth']
-              azimuth = pv_inputs[i]['azimuth']
+              azimuth[pv['pv_name']] = pv_inputs[i]['azimuth']
             end
             if pv_inputs[i]['module_type']
-              module_type = pv_inputs[i]['module_type']
+              module_type[pv['pv_name']] = pv_inputs[i]['module_type']
             end
           end
+        end
 
-        reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
+        pv_outputs.each_with_index do |pv, i|
           scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['pv_name']], tilt: tilt[pv['pv_name']], module_type: module_type[pv['pv_name']], gcr: gcr[pv['pv_name']] })
         end
 

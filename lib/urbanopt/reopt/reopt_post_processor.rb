@@ -192,7 +192,6 @@ module URBANopt # :nodoc:
         end
 
         result = adapter.update_scenario_report(scenario_report, reopt_output, @scenario_timeseries_default_output_file, resilience_stats)
-
         # can you save the assumptions file path that was used?
         if @save_assumptions_filepath && @scenario_reopt_assumptions_file
           result.distributed_generation.reopt_assumptions_file_path = @scenario_reopt_assumptions_file
