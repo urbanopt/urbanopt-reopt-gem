@@ -242,13 +242,25 @@ module URBANopt # :nodoc:
 
         # Store the PV name and location in a hash
         location = {}
+        azimuth = {}
+        tilt = {}
+        module_type = {}
+        gcr = {}
         # Check whether multi PV assumption input file is used or single PV
         if reopt_output['inputs']['Scenario']['Site']['PV'].is_a?(Array)
           reopt_output['inputs']['Scenario']['Site']['PV'].each do |pv|
             location[pv['pv_name']] = pv['location']
+            azimuth[pv['pv_name']] = pv['azimuth']
+            tilt[pv['pv_name']] = pv['tilt']
+            module_type[pv['pv_name']] = pv['module_type']
+            gcr[pv['pv_name']] = pv['gcr']
           end
         else
           location[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['location']
+          azimuth[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['azimuth']
+          tilt[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['tilt']
+          module_type[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['module_type']
+          gcr[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['gcr']
         end
         pv_inputs = reopt_output['inputs']['Scenario']['Site']['PV']
         if pv_inputs.is_a?(Hash)
@@ -259,22 +271,21 @@ module URBANopt # :nodoc:
           pv_outputs = [pv_outputs]
         end
         pv_outputs.each_with_index do |pv, i|
-          tilt = 0
-          azimuth = 0
-          module_type = 0
           if pv_inputs[i]
             if pv_inputs[i]['tilt']
-              tilt = pv_inputs[i]['tilt']
+              tilt[pv['pv_name']] = pv_inputs[i]['tilt']
             end
             if pv_inputs[i]['azimuth']
-              azimuth = pv_inputs[i]['azimuth']
+              azimuth[pv['pv_name']] = pv_inputs[i]['azimuth']
             end
             if pv_inputs[i]['module_type']
-              module_type = pv_inputs[i]['module_type']
+              module_type[pv['pv_name']] = pv_inputs[i]['module_type']
             end
           end
+        end
 
-          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']], tilt: tilt, azimuth: azimuth, module_type: module_type })
+        pv_outputs.each_with_index do |pv, i|
+          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['pv_name']], tilt: tilt[pv['pv_name']], module_type: module_type[pv['pv_name']], gcr: gcr[pv['pv_name']] })
         end
 
         wind = reopt_output['outputs']['Scenario']['Site']['Wind']

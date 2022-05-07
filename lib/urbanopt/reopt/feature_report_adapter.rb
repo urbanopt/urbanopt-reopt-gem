@@ -213,17 +213,30 @@ module URBANopt # :nodoc:
 
         # Store the PV name and location in a hash
         location = {}
+        azimuth = {}
+        tilt = {}
+        module_type = {}
+        gcr = {}
+
         # Check whether multi PV assumption input file is used or single PV
         if reopt_output['inputs']['Scenario']['Site']['PV'].is_a?(Array)
           reopt_output['inputs']['Scenario']['Site']['PV'].each do |pv|
             location[pv['pv_name']] = pv['location']
+            azimuth[pv['pv_name']] = pv['azimuth']
+            tilt[pv['pv_name']] = pv['tilt']
+            module_type[pv['pv_name']] = pv['module_type']
+            gcr[pv['pv_name']] = pv['gcr']
           end
         else
           location[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['location']
+          azimuth[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['azimuth']
+          tilt[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['tilt']
+          module_type[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['module_type']
+          gcr[reopt_output['inputs']['Scenario']['Site']['PV']['pv_name']] = reopt_output['inputs']['Scenario']['Site']['PV']['gcr']
         end
 
         reopt_output['outputs']['Scenario']['Site']['PV'].each_with_index do |pv, i|
-          feature_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']] })
+          feature_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['pv_name']], tilt: tilt[pv['pv_name']], module_type: module_type[pv['pv_name']], gcr: gcr[pv['pv_name']] })
         end
 
         wind = reopt_output['outputs']['Scenario']['Site']['Wind']
