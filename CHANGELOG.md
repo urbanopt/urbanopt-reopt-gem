@@ -1,5 +1,27 @@
 # URBANopt REopt Gem
 
+## Version 0.8.0
+
+Date Range: 11/23/21 - 05/10/22
+
+- Fixed [#95]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/95 ), adding additional PV fields to UO reports
+- Fixed [#98]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/98 ), updates for OpenStudio 3.3
+- Fixed [#99]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/99 ), fix dependencies
+- Fixed [#100]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/100 ), Bump url-parse from 1.5.1 to 1.5.2 in /docs
+- Fixed [#104]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/104 ), adding REopt results to URBANopt reports
+- Fixed [#105]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/105 ), Bump follow-redirects from 1.13.3 to 1.14.8 in /docs
+- Fixed [#106]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/106 ), Bump nanoid from 3.1.23 to 3.3.0 in /docs
+- Fixed [#107]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/107 ), Bump url-parse from 1.5.1 to 1.5.6 in /docs
+- Fixed [#108]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/108 ), Bump prismjs from 1.23.0 to 1.27.0 in /docs
+- Fixed [#109]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/109 ), Bump url-parse from 1.5.1 to 1.5.8 in /docs
+- Fixed [#110]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/110 ), Bump url-parse from 1.5.1 to 1.5.9 in /docs
+- Fixed [#111]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/111 ), Renewable pct
+- Fixed [#114]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/114 ), Bump nanoid from 3.1.23 to 3.3.1 in /docs
+- Fixed [#115]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/115 ), Bump follow-redirects from 1.13.3 to 1.14.9 in /docs
+- Fixed [#116]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/116 ), Bump minimist from 1.2.5 to 1.2.6 in /docs
+- Fixed [#117]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/117 ), Update copyrights
+- Fixed [#118]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/118 ), Bump async from 2.6.3 to 2.6.4 in /docs
+
 ## Version 0.7.0
 
 Date Range: 10/16/21 - 11/22/21:
