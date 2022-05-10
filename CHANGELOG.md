@@ -1,7 +1,9 @@
 # URBANopt REopt Gem
 
 ## Version 0.8.0
+
 Date Range: 11/23/21 - 05/10/22
+
 - Fixed [#95]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/95 ), adding additional PV fields to UO reports
 - Fixed [#98]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/98 ), updates for OpenStudio 3.3
 - Fixed [#99]( https://github.com/urbanopt/urbanopt-reopt-gem/pull/99 ), fix dependencies
