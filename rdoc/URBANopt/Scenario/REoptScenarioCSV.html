@@ -252,7 +252,7 @@
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">row</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">3</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@reopt_files_dir</span>.<span class="ruby-identifier">nil?</span>
       <span class="ruby-ivar">@reopt_feature_assumptions</span>[<span class="ruby-identifier">idx</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>] = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@reopt_files_dir</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">chomp</span>)
     <span class="ruby-keyword">end</span>
-
+    
     <span class="ruby-comment"># gets +features+ from the feature_file.</span>
     <span class="ruby-identifier">features</span> = []
     <span class="ruby-identifier">feature</span> = <span class="ruby-identifier">feature_file</span>.<span class="ruby-identifier">get_feature_by_id</span>(<span class="ruby-identifier">feature_id</span>)
