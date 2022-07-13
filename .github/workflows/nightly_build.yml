@@ -31,6 +31,7 @@ jobs:
       - name: Update gems
         run: |
           bundle update
+          bundle exec certified-update
       - name: Run Rspec
         run: bundle exec rspec
       # coveralls action docs: https://github.com/marketplace/actions/coveralls-github-action
