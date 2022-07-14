@@ -27,6 +27,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '>= 2.1.0'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.9'
+  spec.add_development_dependency 'simplecov', '~> 0.18.2'
+  spec.add_development_dependency 'simplecov-lcov', '~> 0.8.0'
 
   spec.add_dependency 'certified', '~> 1'
   spec.add_dependency 'json_pure', '~> 2'
