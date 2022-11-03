@@ -51,7 +51,7 @@ RSpec.describe URBANopt::REopt do
 
     # Prepare the request
     header = { 'Content-Type' => 'application/json' }
-    @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@bogus_dev_key}")
+    @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v2/job?api_key=#{@bogus_dev_key}")
     http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
     http.use_ssl = true
 
