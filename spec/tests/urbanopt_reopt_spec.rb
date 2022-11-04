@@ -32,6 +32,7 @@ require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
 require 'certified'
 require 'fileutils'
+require 'pathname'
 
 RSpec.describe URBANopt::REopt do
   it 'has a version number' do
@@ -162,7 +163,7 @@ RSpec.describe URBANopt::REopt do
     FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
   end
 
-  it 'can process multiple PV\'s ' do
+  it "can process multiple PV's" do
     begin
       FileUtils.rm_rf('spec/run/example_scenario/reopt')
       FileUtils.rm_rf('spec/run/example_scenario/test__')
@@ -173,7 +174,7 @@ RSpec.describe URBANopt::REopt do
     end
     scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
 
-    scenario_report_dir = File.join(File.dirname(__FILE__), '../run/example_scenario')
+    scenario_report_dir = Pathname(__FILE__).dirname.parent / 'run' / 'example_scenario'
     scenario_report.directory_name = scenario_report_dir
 
     (1..2).each do |i|
@@ -196,7 +197,7 @@ RSpec.describe URBANopt::REopt do
 
     scenario_report.save 'test__/can_process_multiple_PV'
 
-    reopt_output_file = File.join(scenario_report.directory_name, 'reopt/scenario_report_multiPV_reopt_run.json')
+    reopt_output_file = scenario_report.directory_name / 'scenario_report_multiPV_reopt_run.json'
     timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
     reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
 
@@ -216,7 +217,8 @@ RSpec.describe URBANopt::REopt do
     scenario_report = adapter.update_scenario_report(scenario_report, reopt_output, timeseries_output_file)
     scenario_report.save 'test__/scenario_report_reopt_mulitPV'
 
-    FileUtils.rm_rf('spec/run/example_scenario/reopt')
+    expect(File.exist?(reopt_output_file)).to be true
+
     FileUtils.rm_rf('spec/run/example_scenario/test__')
     FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
     FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
