@@ -83,9 +83,6 @@ module URBANopt # :nodoc:
               @@logger.info("Created directory: #{File.join(fr.directory_name, 'reopt')}")
             end
             @feature_reports_reopt_default_output_files << File.join(fr.directory_name, "reopt/feature_report_#{fr.id}_reopt_run.json")
-          end
-
-          @scenario_report.feature_reports.each do |fr|
             @feature_reports_timeseries_default_output_files << File.join(fr.directory_name, "feature_report_#{fr.id}_timeseries.csv")
           end
         end
@@ -129,7 +126,7 @@ module URBANopt # :nodoc:
           reopt_output_file = File.join(feature_report.directory_name, 'reopt')
         end
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
-        print("REOPT OUTPUT FILE: #{reopt_output_file}")
+        @@logger.debug("REOpt output file: #{reopt_output_file}")
         if run_resilience
           run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
           if File.directory? reopt_output_file
@@ -160,7 +157,7 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
       def run_scenario_report(scenario_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: true, community_photovoltaic: nil)
-        puts "run scenario report"
+        puts 'run scenario report'
         @save_assumptions_filepath = false
         if !reopt_assumptions_hash.nil?
           @scenario_reopt_default_assumptions_hash = reopt_assumptions_hash
