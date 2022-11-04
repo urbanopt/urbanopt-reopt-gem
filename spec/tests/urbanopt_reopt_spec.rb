@@ -197,7 +197,7 @@ RSpec.describe URBANopt::REopt do
 
     scenario_report.save 'test__/can_process_multiple_PV'
 
-    reopt_output_file = scenario_report.directory_name / 'reopt' / 'scenario_report_multiPV_reopt_run.json'
+    reopt_output_file = scenario_report.directory_name / 'scenario_report_multiPV_reopt_run.json'
     timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
     reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
 
@@ -217,7 +217,8 @@ RSpec.describe URBANopt::REopt do
     scenario_report = adapter.update_scenario_report(scenario_report, reopt_output, timeseries_output_file)
     scenario_report.save 'test__/scenario_report_reopt_mulitPV'
 
-    FileUtils.rm_rf('spec/run/example_scenario/reopt')
+    expect(File.exist?(reopt_output_file)).to be true
+
     FileUtils.rm_rf('spec/run/example_scenario/test__')
     FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
     FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
