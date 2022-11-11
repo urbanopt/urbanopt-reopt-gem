@@ -4,14 +4,8 @@ on:
   # push:
   schedule:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
-    # 5 am UTC (11pm MDT the day before) every weekday night in MDT
+    # 5:23 am UTC (11:23pm MDT the day before) every weekday night in MDT
     - cron: '23 5 * * 2-6'
-
-# Cancels an existing job (of the same workflow) if it is still running
-# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
-# concurrency:
-#   group: ${{ github.workflow }}-${{ github.ref }}
-#   cancel-in-progress: true
 
 env:
   # This env var should enforce develop branch of all dependencies
