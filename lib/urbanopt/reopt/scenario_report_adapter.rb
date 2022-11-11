@@ -75,7 +75,7 @@ module URBANopt # :nodoc:
           lats = []
           longs = []
           scenario_report.feature_reports.each do |x|
-            @@logger.info(" ERROR: #{x.location.latitude_deg}")
+            @@logger.debug("Latitude '#{x.location.latitude_deg}' in feature report but not in scenario report. Adding it now.")
             if ![nil].include?(x.location.latitude_deg) && ![nil].include?(x.location.longitude_deg)
               lats.push(x.location.latitude_deg)
               longs.push(x.location.longitude_deg)
