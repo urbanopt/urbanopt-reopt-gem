@@ -31,7 +31,6 @@
 require 'net/https'
 require 'openssl'
 require 'uri'
-require 'uri'
 require 'json'
 require 'securerandom'
 require 'certified'
@@ -109,20 +108,25 @@ module URBANopt # :nodoc:
         return URI.parse("https://developer.nrel.gov/api/reopt/v2/job/#{run_uuid}/resilience_stats?api_key=#{@nrel_developer_key}")
       end
 
-      def make_request(http, r, max_tries = 3)
+      def make_request(http, req, max_tries = 3)
         result = nil
         tries = 0
         while tries < max_tries
           begin
-            result = http.request(r)
+            result = http.request(req)
             # Result codes sourced from https://developer.nrel.gov/docs/errors/
             if result.code == '429'
               @@logger.fatal('Exceeded the REopt-Lite API limit of 300 requests per hour')
               puts 'Using the URBANopt CLI to submit a Scenario optimization counts as one request per scenario'
               puts 'Using the URBANopt CLI to submit a Feature optimization counts as one request per feature'
               abort('Please wait and try again once the time period has elapsed.  The URBANopt CLI flag --reopt-keep-existing can be used to resume the optimization')
+            elsif result.code == '404'
+              @@logger.info("REOpt is still calculating. We'll give it a moment and check again")
+              sleep 15
+              tries += 1
+              next
             elsif (result.code != '201') && (result.code != '200') # Anything in the 200s is success
-              @@logger.debug("REopt-Lite has returned a '#{result.code}' status code. Visit https://developer.nrel.gov/docs/errors/ for more status code information")
+              @@logger.warn("REopt-Lite has returned a '#{result.code}' status code. Visit https://developer.nrel.gov/docs/errors/ for more status code information")
               # display error messages
               json_res = JSON.parse(result.body, allow_nan: true)
               json_res['messages'].delete('warnings') if json_res['messages']['warnings']
@@ -341,10 +345,10 @@ module URBANopt # :nodoc:
           sleep 5
         end
 
-        _max_retry = 5
-        _tries = 0
+        max_retry = 5
+        tries = 0
         (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
-        while (_tries < _max_retry) && check_complete
+        while (tries < max_retry) && check_complete
           sleep 3
           response = make_request(http, get_request)
           data = JSON.parse(response.body, allow_nan: true)
@@ -358,7 +362,7 @@ module URBANopt # :nodoc:
           end
           sizes = pv_sizes + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
           (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
-          _tries += 1
+          tries += 1
         end
 
         data = JSON.parse(response.body, allow_nan: true)

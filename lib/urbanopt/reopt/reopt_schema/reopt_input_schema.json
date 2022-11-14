@@ -577,7 +577,6 @@
 									}
 								}
 							},
-							
 							"Storage": {
 								"type": "object",
 								"properties": {

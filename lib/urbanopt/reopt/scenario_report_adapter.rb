@@ -75,7 +75,7 @@ module URBANopt # :nodoc:
           lats = []
           longs = []
           scenario_report.feature_reports.each do |x|
-            @@logger.info(" ERROR: #{x.location.latitude_deg}")
+            @@logger.debug("Latitude '#{x.location.latitude_deg}' in feature report but not in scenario report. Adding it now.")
             if ![nil].include?(x.location.latitude_deg) && ![nil].include?(x.location.longitude_deg)
               lats.push(x.location.latitude_deg)
               longs.push(x.location.longitude_deg)
@@ -190,6 +190,29 @@ module URBANopt # :nodoc:
         return results
       end
 
+      def modrow(data, idx) # :nodoc:
+        data[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[idx] || 0
+        data[$load_col] = $load[idx] || 0
+        data[$utility_to_load_col] = $utility_to_load[idx] || 0
+        data[$utility_to_battery_col] = $utility_to_battery[idx] || 0
+        data[$storage_to_load_col] = $storage_to_load[idx] || 0
+        data[$storage_to_grid_col] = $storage_to_grid[idx] || 0
+        data[$storage_soc_col] = $storage_soc[idx] || 0
+        data[$generator_total_col] = $generator_total[idx] || 0
+        data[$generator_to_battery_col] = $generator_to_battery[idx] || 0
+        data[$generator_to_load_col] = $generator_to_load[idx] || 0
+        data[$generator_to_grid_col] = $generator_to_grid[idx] || 0
+        data[$pv_total_col] = $pv_total[idx] || 0
+        data[$pv_to_battery_col] = $pv_to_battery[idx] || 0
+        data[$pv_to_load_col] = $pv_to_load[idx] || 0
+        data[$pv_to_grid_col] = $pv_to_grid[idx] || 0
+        data[$wind_total_col] = $wind_total[idx] || 0
+        data[$wind_to_battery_col] = $wind_to_battery[idx] || 0
+        data[$wind_to_load_col] = $wind_to_load[idx] || 0
+        data[$wind_to_grid_col] = $wind_to_grid[idx] || 0
+        return data
+      end
+
       ##
       # Updates a ScenarioReport from a \REopt Lite response
       #
@@ -282,9 +305,6 @@ module URBANopt # :nodoc:
               module_type[pv['pv_name']] = pv_inputs[i]['module_type']
             end
           end
-        end
-
-        pv_outputs.each_with_index do |pv, i|
           scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['pv_name']], tilt: tilt[pv['pv_name']], module_type: module_type[pv['pv_name']], gcr: gcr[pv['pv_name']] })
         end
 
@@ -475,36 +495,13 @@ module URBANopt # :nodoc:
           scenario_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Wind:ToGrid(kw)')
         end
 
-        def modrow(x, i) # :nodoc:
-          x[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[i] || 0
-          x[$load_col] = $load[i] || 0
-          x[$utility_to_load_col] = $utility_to_load[i] || 0
-          x[$utility_to_battery_col] = $utility_to_battery[i] || 0
-          x[$storage_to_load_col] = $storage_to_load[i] || 0
-          x[$storage_to_grid_col] = $storage_to_grid[i] || 0
-          x[$storage_soc_col] = $storage_soc[i] || 0
-          x[$generator_total_col] = $generator_total[i] || 0
-          x[$generator_to_battery_col] = $generator_to_battery[i] || 0
-          x[$generator_to_load_col] = $generator_to_load[i] || 0
-          x[$generator_to_grid_col] = $generator_to_grid[i] || 0
-          x[$pv_total_col] = $pv_total[i] || 0
-          x[$pv_to_battery_col] = $pv_to_battery[i] || 0
-          x[$pv_to_load_col] = $pv_to_load[i] || 0
-          x[$pv_to_grid_col] = $pv_to_grid[i] || 0
-          x[$wind_total_col] = $wind_total[i] || 0
-          x[$wind_to_battery_col] = $wind_to_battery[i] || 0
-          x[$wind_to_load_col] = $wind_to_load[i] || 0
-          x[$wind_to_grid_col] = $wind_to_grid[i] || 0
-          return x
-        end
-
         old_data = CSV.open(scenario_report.timeseries_csv.path).read
         start_date = Time.parse(old_data[1][0]) # Time is the end of the timestep
         start_ts = (
                       (
                         ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
                         ((start_date.hour - 1) * 60.0 * 60.0) +
-                        (start_date.min * 60.0) + start_date.sec) /
+                        (start_date.min * 60.0) + start_date.sec) / \
                       ((60 / scenario_report.timesteps_per_hour) * 60)
                     ).to_int
         mod_data = old_data.map.with_index do |x, i|

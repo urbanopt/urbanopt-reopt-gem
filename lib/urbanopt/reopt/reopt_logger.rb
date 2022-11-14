@@ -33,6 +33,9 @@ require 'logger'
 module URBANopt
   module REopt
     @@reopt_logger = Logger.new($stdout)
+
+    # Set Logger::DEBUG for development
+    @@reopt_logger.level = Logger::WARN
     ##
     # Definining class variable "@@logger" to log errors, info and warning messages.
     def self.reopt_logger

@@ -132,7 +132,7 @@ module URBANopt # :nodoc:
           if File.directory? reopt_output_file
             resilience_stats = api.resilience_request(run_uuid, reopt_output_file)
           else
-            resilience_stats = api.resilience_request(run_uuid, reopt_output_file.sub!('.json', '_resilience.json'))
+            resilience_stats = api.resilience_request(run_uuid, reopt_output_file.sub('.json', '_resilience.json'))
           end
         else
           resilience_stats = nil
@@ -182,7 +182,7 @@ module URBANopt # :nodoc:
           if File.directory? @scenario_reopt_default_output_file
             resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file)
           else
-            resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file.sub!('.json', '_resilience.json'))
+            resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file.sub('.json', '_resilience.json'))
           end
         else
           resilience_stats = nil
@@ -251,7 +251,7 @@ module URBANopt # :nodoc:
                 if File.directory? @feature_reports_reopt_default_output_files[idx]
                   resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx])
                 else
-                  resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx].sub!('.json', '_resilience.json'))
+                  resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx].sub('.json', '_resilience.json'))
                 end
               else
                 resilience_stats = nil
