@@ -1,5 +1,11 @@
 # URBANopt REopt Gem
 
+## Version 0.9.0
+
+Date Range: 05/11/22 - 12/5/22
+
+- Update dependencies for OpenStudio 3.5.0
+
 ## Version 0.8.0
 
 Date Range: 11/23/21 - 05/10/22
