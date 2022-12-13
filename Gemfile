@@ -17,7 +17,7 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # if allow_local && File.exist?('../OpenStudio-extension-gem')
 #   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'
 # elsif allow_local
-   gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'develop'
+#   gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'develop'
 # end
 #
 # if allow_local && File.exist?('../openstudio-common-measures-gem')
@@ -44,7 +44,7 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # if allow_local && File.exist?('../urbanopt-scenario-gem')
 #  gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
 # elsif allow_local
- gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'OS-3.5'
+#  gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'develop'
 # end
 
 # if allow_local && File.exists?('../urbanopt-geojson-gem')
@@ -52,6 +52,3 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # elsif allow_local
 #   gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'develop'
 # end
-
-# temporary
-gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'OS-3.5'
