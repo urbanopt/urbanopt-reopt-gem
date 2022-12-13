@@ -2,7 +2,7 @@
 
 ## Version 0.9.0
 
-Date Range: 05/11/22 - 12/5/22
+Date Range: 05/11/22 - 12/13/22
 
 - Update dependencies for OpenStudio 3.5.0
 - Fixed [#102]( https://github.com/urbanopt/urbanopt-reopt-gem/issues/102 ), update REopt API to v2 by 10/1/2022
