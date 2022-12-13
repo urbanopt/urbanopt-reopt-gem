@@ -1,5 +1,15 @@
 # URBANopt REopt Gem
 
+## Version 0.9.0
+
+Date Range: 05/11/22 - 12/13/22
+
+- Update dependencies for OpenStudio 3.5.0
+- Fixed [#102]( https://github.com/urbanopt/urbanopt-reopt-gem/issues/102 ), update REopt API to v2 by 10/1/2022
+- Fixed [#113]( https://github.com/urbanopt/urbanopt-reopt-gem/issues/113 ), Passing test includes an output error.
+- Fixed [#122]( https://github.com/urbanopt/urbanopt-reopt-gem/issues/122 ), REopt gem test review
+- Fixed [#124]( https://github.com/urbanopt/urbanopt-reopt-gem/issues/124 ), Code coverage reporting
+
 ## Version 0.8.0
 
 Date Range: 11/23/21 - 05/10/22
