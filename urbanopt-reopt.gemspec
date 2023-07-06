@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', '~> 0.18.2'
   spec.add_development_dependency 'simplecov-lcov', '~> 0.8.0'
 
-  # spec.add_dependency 'certified', '~> 1'
+  spec.add_dependency 'certified', '~> 1'
   # spec.add_dependency 'json_pure', '~> 2'
   # spec.add_dependency 'urbanopt-scenario', '~> 0.9.0'
 end
