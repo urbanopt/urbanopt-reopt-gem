@@ -1,5 +1,12 @@
 # URBANopt REopt Gem
 
+## Version 0.10.0
+Date Range: 12/13/22 - 7/6/23
+
+- Update dependencies for OpenStudio 3.6.1
+- Update license and references to the license file
+- Add badge for GHA CI nightly build status
+
 ## Version 0.9.0
 
 Date Range: 05/11/22 - 12/13/22
@@ -109,9 +116,9 @@ Date range: 12/11/20 - 1/08/21
 
 Date range: 11/13/20 - 12/11/20
 
-* Updates to support OpenStudio 3.1  
+* Updates to support OpenStudio 3.1
 
- 
+
 ## Version 0.4.1
 
 Date range: 9/23/20 - 11/12/20
@@ -127,7 +134,7 @@ Date range: 9/23/20 - 11/12/20
 Date range: 6/5/20 - 9/22/20
 
 * Changes to support the new reporting gem
-* Parsing additional results from the REopt Lite API: 
+* Parsing additional results from the REopt Lite API:
   - lcc_bau_us_dollars
   - year_one_energy_cost_bau_us_dollars
   - year_one_demand_cost_bau_us_dollars
@@ -148,12 +155,12 @@ Date range: 6/5/20 - 9/22/20
 
 * Updating to support OpenStudio 3.0 and Ruby 2.5
 
-## Version 0.2.1 
+## Version 0.2.1
 * Corrects code checking PV size that fails on multi PV
 * Corrects parsing of site energy at timesteps other than 1 per hour
 
 
-## Version 0.2.0 
+## Version 0.2.0
 
 * Handles multiple PV systems in the REopt Lite assumptions
 * Changes REoptPostProcessor run_scenario and run_scenario_features methods to save feature and scenario reports with custom names
@@ -161,6 +168,6 @@ Date range: 6/5/20 - 9/22/20
 * Renames REopt timeseries CSV columns to include 'REopt' and units
 
 
-## Version 0.1.0 
+## Version 0.1.0
 
-* Initial release of URBANopt REopt Gem. 
+* Initial release of URBANopt REopt Gem.
