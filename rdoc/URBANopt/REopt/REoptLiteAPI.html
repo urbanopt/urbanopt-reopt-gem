@@ -147,12 +147,12 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 55</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">nrel_developer_key</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">use_localhost</span> = <span class="ruby-keyword">false</span>)
   <span class="ruby-ivar">@use_localhost</span> = <span class="ruby-identifier">use_localhost</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@use_localhost</span>
-    <span class="ruby-ivar">@uri_submit</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-string">&#39;http//:127.0.0.1:8000/v1/job/&#39;</span>)
-    <span class="ruby-ivar">@uri_submit_outagesimjob</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-string">&#39;http//:127.0.0.1:8000/v1/outagesimjob/&#39;</span>)
+    <span class="ruby-ivar">@uri_submit</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-string">&#39;http//:127.0.0.1:8000/v2/job/&#39;</span>)
+    <span class="ruby-ivar">@uri_submit_outagesimjob</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-string">&#39;http//:127.0.0.1:8000/v2/outagesimjob/&#39;</span>)
   <span class="ruby-keyword">else</span>
     <span class="ruby-keyword">if</span> [<span class="ruby-keyword">nil</span>, <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&lt;insert your key here&gt;&#39;</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">nrel_developer_key</span>
       <span class="ruby-keyword">if</span> [<span class="ruby-keyword">nil</span>, <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&lt;insert your key here&gt;&#39;</span>].<span class="ruby-identifier">include?</span> <span class="ruby-constant">DEVELOPER_NREL_KEY</span>
@@ -162,8 +162,8 @@
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
     <span class="ruby-ivar">@nrel_developer_key</span> = <span class="ruby-identifier">nrel_developer_key</span>
-    <span class="ruby-ivar">@uri_submit</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-node">&quot;https://developer.nrel.gov/api/reopt/v1/job/?api_key=#{@nrel_developer_key}&quot;</span>)
-    <span class="ruby-ivar">@uri_submit_outagesimjob</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-node">&quot;https://developer.nrel.gov/api/reopt/v1/outagesimjob/?api_key=#{@nrel_developer_key}&quot;</span>)
+    <span class="ruby-ivar">@uri_submit</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-node">&quot;https://developer.nrel.gov/api/reopt/v2/job?api_key=#{@nrel_developer_key}&quot;</span>)
+    <span class="ruby-ivar">@uri_submit_outagesimjob</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-node">&quot;https://developer.nrel.gov/api/reopt/v2/outagesimjob?api_key=#{@nrel_developer_key}&quot;</span>)
     <span class="ruby-comment"># initialize @@logger</span>
     <span class="ruby-identifier">@@logger</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span>.<span class="ruby-identifier">reopt_logger</span>
   <span class="ruby-keyword">end</span>
@@ -212,7 +212,7 @@
 
           
           <div class="method-source-code" id="check_connection-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 159</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 138</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">check_connection</span>(<span class="ruby-identifier">data</span>)
   <span class="ruby-identifier">header</span> = { <span class="ruby-string">&#39;Content-Type&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;application/json&#39;</span> }
   <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@uri_submit</span>.<span class="ruby-identifier">host</span>, <span class="ruby-ivar">@uri_submit</span>.<span class="ruby-identifier">port</span>)
@@ -246,7 +246,7 @@
         
         <div class="method-heading">
           <span class="method-name">make_request</span><span
-            class="method-args">(http, r, max_tries = 3)</span>
+            class="method-args">(http, req, max_tries = 3)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -261,21 +261,26 @@
 
           
           <div class="method-source-code" id="make_request-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 112</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">make_request</span>(<span class="ruby-identifier">http</span>, <span class="ruby-identifier">r</span>, <span class="ruby-identifier">max_tries</span> = <span class="ruby-value">3</span>)
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">make_request</span>(<span class="ruby-identifier">http</span>, <span class="ruby-identifier">req</span>, <span class="ruby-identifier">max_tries</span> = <span class="ruby-value">3</span>)
   <span class="ruby-identifier">result</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-identifier">tries</span> = <span class="ruby-value">0</span>
   <span class="ruby-keyword">while</span> <span class="ruby-identifier">tries</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">max_tries</span>
     <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">result</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">r</span>)
+      <span class="ruby-identifier">result</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">req</span>)
       <span class="ruby-comment"># Result codes sourced from https://developer.nrel.gov/docs/errors/</span>
       <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">code</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;429&#39;</span>
         <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">fatal</span>(<span class="ruby-string">&#39;Exceeded the REopt-Lite API limit of 300 requests per hour&#39;</span>)
         <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Using the URBANopt CLI to submit a Scenario optimization counts as one request per scenario&#39;</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Using the URBANopt CLI to submit a Feature optimization counts as one request per feature&#39;</span>
         <span class="ruby-identifier">abort</span>(<span class="ruby-string">&#39;Please wait and try again once the time period has elapsed.  The URBANopt CLI flag --reopt-keep-existing can be used to resume the optimization&#39;</span>)
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">code</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;404&#39;</span>
+        <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;REOpt is still calculating. We&#39;ll give it a moment and check again&quot;</span>)
+        <span class="ruby-identifier">sleep</span> <span class="ruby-value">15</span>
+        <span class="ruby-identifier">tries</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword">next</span>
       <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">result</span>.<span class="ruby-identifier">code</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;201&#39;</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">result</span>.<span class="ruby-identifier">code</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;200&#39;</span>) <span class="ruby-comment"># Anything in the 200s is success</span>
-        <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;REopt-Lite has returned a &#39;#{result.code}&#39; status code. Visit https://developer.nrel.gov/docs/errors/ for more status code information&quot;</span>)
+        <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;REopt-Lite has returned a &#39;#{result.code}&#39; status code. Visit https://developer.nrel.gov/docs/errors/ for more status code information&quot;</span>)
         <span class="ruby-comment"># display error messages</span>
         <span class="ruby-identifier">json_res</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">result</span>.<span class="ruby-identifier">body</span>, <span class="ruby-value">allow_nan:</span> <span class="ruby-keyword">true</span>)
         <span class="ruby-identifier">json_res</span>[<span class="ruby-string">&#39;messages&#39;</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-string">&#39;warnings&#39;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">json_res</span>[<span class="ruby-string">&#39;messages&#39;</span>][<span class="ruby-string">&#39;warnings&#39;</span>]
@@ -336,7 +341,7 @@
 
           
           <div class="method-source-code" id="reopt_request-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 272</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 251</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_request</span>(<span class="ruby-identifier">reopt_input</span>, <span class="ruby-identifier">filename</span>)
   <span class="ruby-identifier">description</span> = <span class="ruby-identifier">reopt_input</span>[<span class="ruby-value">:Scenario</span>][<span class="ruby-value">:description</span>]
 
@@ -409,10 +414,10 @@
     <span class="ruby-identifier">sleep</span> <span class="ruby-value">5</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">_max_retry</span> = <span class="ruby-value">5</span>
-  <span class="ruby-identifier">_tries</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">max_retry</span> = <span class="ruby-value">5</span>
+  <span class="ruby-identifier">tries</span> = <span class="ruby-value">0</span>
   (<span class="ruby-identifier">check_complete</span> = <span class="ruby-identifier">sizes</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&amp;&amp;</span> ((<span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Financial&#39;</span>][<span class="ruby-string">&#39;npv_us_dollars&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)
-  <span class="ruby-keyword">while</span> (<span class="ruby-identifier">_tries</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">_max_retry</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">check_complete</span>
+  <span class="ruby-keyword">while</span> (<span class="ruby-identifier">tries</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">max_retry</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">check_complete</span>
     <span class="ruby-identifier">sleep</span> <span class="ruby-value">3</span>
     <span class="ruby-identifier">response</span> = <span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">http</span>, <span class="ruby-identifier">get_request</span>)
     <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>, <span class="ruby-value">allow_nan:</span> <span class="ruby-keyword">true</span>)
@@ -426,7 +431,7 @@
     <span class="ruby-keyword">end</span>
     <span class="ruby-identifier">sizes</span> = <span class="ruby-identifier">pv_sizes</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Storage&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Wind&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Generator&#39;</span>][<span class="ruby-string">&#39;size_kw&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>)
     (<span class="ruby-identifier">check_complete</span> = <span class="ruby-identifier">sizes</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&amp;&amp;</span> ((<span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;Site&#39;</span>][<span class="ruby-string">&#39;Financial&#39;</span>][<span class="ruby-string">&#39;npv_us_dollars&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)
-    <span class="ruby-identifier">_tries</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">tries</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>, <span class="ruby-value">allow_nan:</span> <span class="ruby-keyword">true</span>)
@@ -484,7 +489,7 @@
 
           
           <div class="method-source-code" id="resilience_request-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 192</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_lite_api.rb, line 171</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-identifier">filename</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span> <span class="ruby-identifier">filename</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">run_uuid</span>.<span class="ruby-identifier">nil?</span>

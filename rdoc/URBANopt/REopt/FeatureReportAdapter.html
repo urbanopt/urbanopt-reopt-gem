@@ -138,7 +138,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 46</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
   <span class="ruby-comment"># initialize @@logger</span>
   <span class="ruby-identifier">@@logger</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span>.<span class="ruby-identifier">reopt_logger</span>
@@ -189,7 +189,7 @@
 
           
           <div class="method-source-code" id="reopt_json_from_feature_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 61</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopt_json_from_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_assumptions_hash</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">groundmount_photovoltaic</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">name</span> = <span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">delete</span> <span class="ruby-string">&#39; &#39;</span>
   <span class="ruby-identifier">description</span> = <span class="ruby-node">&quot;feature_report_#{name}_#{feature_report.id}&quot;</span>
@@ -331,7 +331,7 @@
 
           
           <div class="method-source-code" id="update_feature_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 174</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/feature_report_adapter.rb, line 149</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update_feature_report</span>(<span class="ruby-identifier">feature_report</span>, <span class="ruby-identifier">reopt_output</span>, <span class="ruby-identifier">timeseries_csv_path</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-comment"># Check if the \REopt Lite response is valid</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;status&#39;</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;optimal&#39;</span>

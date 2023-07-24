@@ -106,7 +106,7 @@
 
 <h1 id="label-URBANopt+REopt+Gem"><strong>URBANopt REopt Gem</strong><span><a href="#label-URBANopt+REopt+Gem">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p>The <strong>URBANopt&lt;sup&gt;™&lt;/sup&gt; REopt Gem</strong> extends <strong>URBANopt::Reporting::DefaultReports::ScenarioReport</strong> and <strong>URBANopt::Reporting::DefaultReports::FeatureReport</strong> with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the <a href="https://reopt.nrel.gov/tool">REopt Lite</a> decision support platform. REopt Lite is a technoeconomic model which leverages mixed integer linear programming to identify the cost-optimal sizing of solar PV, Wind, Storage and/or diesel generation given an electric load profile, a utility rate tariff and other technoeconomic parameters. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">developer.nrel.gov/docs/energy-optimization/reopt-v1/</a> for more detailed information on input parameters and default assumptions.</p>
+<p>The <strong>URBANopt&lt;sup&gt;™&lt;/sup&gt; REopt Gem</strong> extends <strong>URBANopt::Reporting::DefaultReports::ScenarioReport</strong> and <strong>URBANopt::Reporting::DefaultReports::FeatureReport</strong> with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the <a href="https://reopt.nrel.gov/tool">REopt Lite</a> decision support platform. REopt Lite is a technoeconomic model which leverages mixed integer linear programming to identify the cost-optimal sizing of solar PV, Wind, Storage and/or diesel generation given an electric load profile, a utility rate tariff and other technoeconomic parameters. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt/v2/">developer.nrel.gov/docs/energy-optimization/reopt/v2/</a> for more detailed information on input parameters and default assumptions.</p>
 
 <p>See the <a href="https://github.com/urbanopt/urbanopt-example-reopt-project.git">example project</a> for more infomation about usage of this gem.</p>
 
@@ -180,7 +180,7 @@ $ bundle update</pre>
 | ElectricityProduced:Wind:ToLoad          | kWh     |
 | ElectricityProduced:Wind:ToGrid          | kWh     |</pre>
 
-<p>The REopt Lite has default values for all non-required input parameters that are used unless the user specifies custom assumptions. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt-v1/">developer.nrel.gov/docs/energy-optimization/reopt-v1/</a> for more detailed information on input parameters and default assumptions.</p>
+<p>The REopt Lite has default values for all non-required input parameters that are used unless the user specifies custom assumptions. See <a href="https://developer.nrel.gov/docs/energy-optimization/reopt/v2/">developer.nrel.gov/docs/energy-optimization/reopt/v2/</a> for more detailed information on input parameters and default assumptions.</p>
 
 <p><strong>Note:</strong> Required attributes for a REopt run include latitude and longitude. If no utility rate is specified in your REopt Lite assumption settings, then a constant default rate of $0.13 is assumed without demand charges. Also, by default, only solar PV and storage are considered in the analysis (i.e. Wind and Generators are excluded from consideration).</p>
 

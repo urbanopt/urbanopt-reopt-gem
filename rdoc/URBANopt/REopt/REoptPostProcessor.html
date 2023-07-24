@@ -241,7 +241,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 51</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">scenario_report</span>, <span class="ruby-identifier">scenario_reopt_assumptions_file</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">reopt_feature_assumptions</span> = [], <span class="ruby-identifier">nrel_developer_key</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">localhost</span> = <span class="ruby-keyword">false</span>)
   <span class="ruby-comment"># initialize @@logger</span>
   <span class="ruby-identifier">@@logger</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span>.<span class="ruby-identifier">reopt_logger</span>
@@ -277,9 +277,6 @@
         <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Created directory: #{File.join(fr.directory_name, &#39;reopt&#39;)}&quot;</span>)
       <span class="ruby-keyword">end</span>
       <span class="ruby-ivar">@feature_reports_reopt_default_output_files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">fr</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-node">&quot;reopt/feature_report_#{fr.id}_reopt_run.json&quot;</span>)
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-ivar">@scenario_report</span>.<span class="ruby-identifier">feature_reports</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fr</span><span class="ruby-operator">|</span>
       <span class="ruby-ivar">@feature_reports_timeseries_default_output_files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">fr</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-node">&quot;feature_report_#{fr.id}_timeseries.csv&quot;</span>)
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
@@ -340,7 +337,7 @@
 
           
           <div class="method-source-code" id="output_exists-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 290</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 262</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">output_exists</span>(<span class="ruby-identifier">output_file</span>)
   <span class="ruby-identifier">res</span> = <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">output_file</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">empty?</span>(<span class="ruby-identifier">output_file</span>)
@@ -393,7 +390,7 @@
 
           
           <div class="method-source-code" id="run_feature_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 123</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 95</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_feature_report</span>(<span class="ruby-value">feature_report:</span>, <span class="ruby-value">reopt_assumptions_hash:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">reopt_output_file:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">timeseries_csv_path:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">save_name:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">run_resilience:</span> <span class="ruby-keyword">true</span>)
   <span class="ruby-identifier">api</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REoptLiteAPI</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@nrel_developer_key</span>, <span class="ruby-ivar">@localhost</span>)
   <span class="ruby-identifier">adapter</span> = <span class="ruby-constant">URBANopt</span><span class="ruby-operator">::</span><span class="ruby-constant">REopt</span><span class="ruby-operator">::</span><span class="ruby-constant">FeatureReportAdapter</span>.<span class="ruby-identifier">new</span>
@@ -403,13 +400,13 @@
     <span class="ruby-identifier">reopt_output_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">feature_report</span>.<span class="ruby-identifier">directory_name</span>, <span class="ruby-string">&#39;reopt&#39;</span>)
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">reopt_output</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">reopt_request</span>(<span class="ruby-identifier">reopt_input</span>, <span class="ruby-identifier">reopt_output_file</span>)
-  <span class="ruby-identifier">print</span>(<span class="ruby-node">&quot;REOPT OUTPUT FILE: #{reopt_output_file}&quot;</span>)
+  <span class="ruby-identifier">@@logger</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;REOpt output file: #{reopt_output_file}&quot;</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">run_resilience</span>
     <span class="ruby-identifier">run_uuid</span> = <span class="ruby-identifier">reopt_output</span>[<span class="ruby-string">&#39;outputs&#39;</span>][<span class="ruby-string">&#39;Scenario&#39;</span>][<span class="ruby-string">&#39;run_uuid&#39;</span>]
     <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span> <span class="ruby-identifier">reopt_output_file</span>
       <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-identifier">reopt_output_file</span>)
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-identifier">reopt_output_file</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-string">&#39;.json&#39;</span>, <span class="ruby-string">&#39;_resilience.json&#39;</span>))
+      <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-identifier">reopt_output_file</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;.json&#39;</span>, <span class="ruby-string">&#39;_resilience.json&#39;</span>))
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-keyword">nil</span>
@@ -462,7 +459,7 @@
 
           
           <div class="method-source-code" id="run_feature_reports-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 218</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 190</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_feature_reports</span>(<span class="ruby-value">feature_reports:</span>, <span class="ruby-value">reopt_assumptions_hashes:</span> [], <span class="ruby-value">reopt_output_files:</span> [], <span class="ruby-value">timeseries_csv_paths:</span> [], <span class="ruby-value">save_names:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">run_resilience:</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">keep_existing_output:</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">groundmount_photovoltaic:</span> <span class="ruby-keyword">nil</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_assumptions_hashes</span>.<span class="ruby-identifier">empty?</span>
     <span class="ruby-ivar">@feature_reports_reopt_default_assumption_hashes</span> = <span class="ruby-identifier">reopt_assumptions_hashes</span>
@@ -502,7 +499,7 @@
           <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span> <span class="ruby-ivar">@feature_reports_reopt_default_output_files</span>[<span class="ruby-identifier">idx</span>]
             <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-ivar">@feature_reports_reopt_default_output_files</span>[<span class="ruby-identifier">idx</span>])
           <span class="ruby-keyword">else</span>
-            <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-ivar">@feature_reports_reopt_default_output_files</span>[<span class="ruby-identifier">idx</span>].<span class="ruby-identifier">sub!</span>(<span class="ruby-string">&#39;.json&#39;</span>, <span class="ruby-string">&#39;_resilience.json&#39;</span>))
+            <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-ivar">@feature_reports_reopt_default_output_files</span>[<span class="ruby-identifier">idx</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;.json&#39;</span>, <span class="ruby-string">&#39;_resilience.json&#39;</span>))
           <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">else</span>
           <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-keyword">nil</span>
@@ -569,9 +566,9 @@
 
           
           <div class="method-source-code" id="run_scenario_report-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 162</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 134</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_scenario_report</span>(<span class="ruby-value">scenario_report:</span>, <span class="ruby-value">reopt_assumptions_hash:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">reopt_output_file:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">timeseries_csv_path:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">save_name:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">run_resilience:</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">community_photovoltaic:</span> <span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;run scenario report&quot;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;run scenario report&#39;</span>
   <span class="ruby-ivar">@save_assumptions_filepath</span> = <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">reopt_assumptions_hash</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-ivar">@scenario_reopt_default_assumptions_hash</span> = <span class="ruby-identifier">reopt_assumptions_hash</span>
@@ -596,7 +593,7 @@
     <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span> <span class="ruby-ivar">@scenario_reopt_default_output_file</span>
       <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-ivar">@scenario_reopt_default_output_file</span>)
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-ivar">@scenario_reopt_default_output_file</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-string">&#39;.json&#39;</span>, <span class="ruby-string">&#39;_resilience.json&#39;</span>))
+      <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-identifier">api</span>.<span class="ruby-identifier">resilience_request</span>(<span class="ruby-identifier">run_uuid</span>, <span class="ruby-ivar">@scenario_reopt_default_output_file</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;.json&#39;</span>, <span class="ruby-string">&#39;_resilience.json&#39;</span>))
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">resilience_stats</span> = <span class="ruby-keyword">nil</span>
@@ -656,7 +653,7 @@
 
           
           <div class="method-source-code" id="run_scenario_report_features-source">
-            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 312</span>
+            <pre><span class="ruby-comment"># File lib/urbanopt/reopt/reopt_post_processor.rb, line 284</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run_scenario_report_features</span>(<span class="ruby-value">scenario_report:</span>, <span class="ruby-value">reopt_assumptions_hashes:</span> [], <span class="ruby-value">reopt_output_files:</span> [], <span class="ruby-value">feature_report_timeseries_csv_paths:</span> [], <span class="ruby-value">save_names_feature_reports:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">save_name_scenario_report:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">run_resilience:</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">keep_existing_output:</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">groundmount_photovoltaic:</span> <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">new_feature_reports</span> = <span class="ruby-identifier">run_feature_reports</span>(<span class="ruby-value">feature_reports:</span> <span class="ruby-identifier">scenario_report</span>.<span class="ruby-identifier">feature_reports</span>, <span class="ruby-value">reopt_assumptions_hashes:</span> <span class="ruby-identifier">reopt_assumptions_hashes</span>, <span class="ruby-value">reopt_output_files:</span> <span class="ruby-identifier">reopt_output_files</span>, <span class="ruby-value">timeseries_csv_paths:</span> <span class="ruby-identifier">feature_report_timeseries_csv_paths</span>, <span class="ruby-value">save_names:</span> <span class="ruby-identifier">save_names_feature_reports</span>, <span class="ruby-value">run_resilience:</span> <span class="ruby-identifier">run_resilience</span>, <span class="ruby-value">keep_existing_output:</span> <span class="ruby-identifier">keep_existing_output</span>, <span class="ruby-value">groundmount_photovoltaic:</span> <span class="ruby-identifier">groundmount_photovoltaic</span>)
 
