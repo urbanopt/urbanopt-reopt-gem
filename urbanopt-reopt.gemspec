@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.email         = ['']
   spec.licenses      = 'Nonstandard'
 
-  spec.summary       = 'Accessing the REopt Lite API within OpenStudio workflows.'
-  spec.description   = 'Classes and measures for utilizing the REopt Lite API within OpenStudio workflows.'
+  spec.summary       = 'Accessing the REopt API within OpenStudio workflows.'
+  spec.description   = 'Classes and measures for utilizing the REopt API within OpenStudio workflows.'
   spec.homepage      = 'https://github.com/urbanopt/urbanopt-reopt-gem'
 
   # Specify which files should be added to the gem when it is released.

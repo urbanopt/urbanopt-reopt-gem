@@ -14,7 +14,7 @@ module URBANopt # :nodoc:
   module REopt # :nodoc:
     class ScenarioReportAdapter
       ##
-      # ScenarioReportAdapter can convert a ScenarioReport into a \REopt Lite posts or updates a ScenarioReport and its FeatureReports from \REopt Lite response(s)
+      # ScenarioReportAdapter can convert a ScenarioReport into a \REopt posts or updates a ScenarioReport and its FeatureReports from \REopt response(s)
       ##
       # [*parameters:*]
       def initialize
@@ -23,26 +23,26 @@ module URBANopt # :nodoc:
       end
 
       ##
-      # Convert a ScenarioReport into a \REopt Lite post
+      # Convert a ScenarioReport into a \REopt post
       #
       # [*parameters:*]
       #
-      # * +scenario_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ - ScenarioReport to use in converting the +reopt_assumptions_hash+, if provided, to a \REopt Lite post. Otherwise, if the +reopt_assumptions_hash+ is nil a default post will be updated from this ScenarioReport and submitted to the \REopt Lite API.
-      # * +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.
+      # * +scenario_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ - ScenarioReport to use in converting the +reopt_assumptions_hash+, if provided, to a \REopt post. Otherwise, if the +reopt_assumptions_hash+ is nil a default post will be updated from this ScenarioReport and submitted to the \REopt API.
+      # * +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.
       #
-      # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
+      # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt API
       ##
       def reopt_json_from_scenario_report(scenario_report, reopt_assumptions_json = nil, community_photovoltaic = nil)
         name = scenario_report.name.delete ' '
         scenario_id = scenario_report.id.delete ' '
         description = "scenario_report_#{name}_#{scenario_id}"
 
-        # Create base REpopt Lite post
+        # Create base REpopt post
         reopt_inputs = { Scenario: { Site: { ElectricTariff: { blended_monthly_demand_charges_us_dollars_per_kw: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], blended_monthly_rates_us_dollars_per_kwh: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13] }, LoadProfile: {}, Wind: { max_kw: 0 } } } }
         if !reopt_assumptions_json.nil?
           reopt_inputs = reopt_assumptions_json
         else
-          @@logger.info('Using default REopt Lite assumptions')
+          @@logger.info('Using default REopt assumptions')
         end
 
         # Update required info
@@ -144,14 +144,14 @@ module URBANopt # :nodoc:
       end
 
       ##
-      # Converts a FeatureReport list from a ScenarioReport into an array of \REopt Lite posts
+      # Converts a FeatureReport list from a ScenarioReport into an array of \REopt posts
       #
       # [*parameters:*]
       #
-      # * +scenario_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ - ScenarioReport to use in converting FeatureReports and respecitive +reopt_assumptions_hashes+, if provided, to a \REopt Lite post. If no +reopt_assumptions_hashes+ are provided default posts will be updated from these FeatureReports and submitted to the \REopt Lite API.
-      # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of hashes formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.
+      # * +scenario_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ - ScenarioReport to use in converting FeatureReports and respecitive +reopt_assumptions_hashes+, if provided, to a \REopt post. If no +reopt_assumptions_hashes+ are provided default posts will be updated from these FeatureReports and submitted to the \REopt API.
+      # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of hashes formatted for submittal to the \REopt API containing default values. Values will be overwritten from the ScenarioReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API. The order should match the list in ScenarioReport.feature_reports.
       #
-      # [*return:*] _Array_ - Returns an array of hashes formatted for submittal to the \REopt Lite API in the order of the FeatureReports lited in ScenarioReport.feature_reports.
+      # [*return:*] _Array_ - Returns an array of hashes formatted for submittal to the \REopt API in the order of the FeatureReports lited in ScenarioReport.feature_reports.
       ##
       def reopt_jsons_from_scenario_feature_reports(scenario_report, reopt_assumptions_hashes = [])
         results = []
@@ -189,13 +189,13 @@ module URBANopt # :nodoc:
       end
 
       ##
-      # Updates a ScenarioReport from a \REopt Lite response
+      # Updates a ScenarioReport from a \REopt response
       #
       # [*parameters:*]
       #
-      # * +scenario_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ - ScenarioReport to update from a \REopt Lite response.
-      # * +reopt_output+ - _Hash_ - A hash response from the \REopt Lite API.
-      # * +timeseries_csv_path+ - _String_ - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the \REopt Lite optimization task.
+      # * +scenario_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ - ScenarioReport to update from a \REopt response.
+      # * +reopt_output+ - _Hash_ - A hash response from the \REopt API.
+      # * +timeseries_csv_path+ - _String_ - Optional. The path to a file at which new timeseries data will be written. If not provided a file is created based on the run_uuid of the \REopt optimization task.
       #
       # [*return:*] _URBANopt::Reporting::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
       ##

@@ -12,16 +12,16 @@ module URBANopt # :nodoc:
   module REopt # :nodoc:
     class REoptPostProcessor
       ##
-      # \REoptPostProcessor updates a ScenarioReport or FeatureReport based on \REopt Lite optimization response.
+      # \REoptPostProcessor updates a ScenarioReport or FeatureReport based on \REopt optimization response.
       ##
       #
       # [*parameters:*]
       #
-      # * +scenario_report+ - _ScenarioReport_ - Optional. A scenario report that has been returned from the URBANopt::Reporting::ScenarioDefaultPostProcessor - used in creating default output file names in \REopt Lite optimizations.
-      # * +scenario_reopt_assumptions_file+ - _String_ - Optional. JSON file formatted for a \REopt Lite analysis containing custom input parameters for optimizations at the Scenario Report level
-      # * +reopt_feature_assumptions+ - _Array_ - Optional. A list of JSON file formatted for a \REopt Lite analysis containing custom input parameters for optimizations at the Feature Report level. The order and number of files must match the Feature Reports in the scenario_report input.
-      # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt Lite API running on localhost. Default is false, such that the production version of \REopt Lite is accessed.
-      # * +nrel_developer_key+ - _String_ - API used to access the \REopt Lite APi. Required only if +localhost+ is false. Obtain from https://developer.nrel.gov/signup/
+      # * +scenario_report+ - _ScenarioReport_ - Optional. A scenario report that has been returned from the URBANopt::Reporting::ScenarioDefaultPostProcessor - used in creating default output file names in \REopt optimizations.
+      # * +scenario_reopt_assumptions_file+ - _String_ - Optional. JSON file formatted for a \REopt analysis containing custom input parameters for optimizations at the Scenario Report level
+      # * +reopt_feature_assumptions+ - _Array_ - Optional. A list of JSON file formatted for a \REopt analysis containing custom input parameters for optimizations at the Feature Report level. The order and number of files must match the Feature Reports in the scenario_report input.
+      # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt API running on localhost. Default is false, such that the production version of \REopt is accessed.
+      # * +nrel_developer_key+ - _String_ - API used to access the \REopt APi. Required only if +localhost+ is false. Obtain from https://developer.nrel.gov/signup/
       ##
       def initialize(scenario_report, scenario_reopt_assumptions_file = nil, reopt_feature_assumptions = [], nrel_developer_key = nil, localhost = false)
         # initialize @@logger
@@ -80,14 +80,14 @@ module URBANopt # :nodoc:
       attr_accessor :scenario_reopt_default_assumptions_hash, :scenario_reopt_default_output_file, :scenario_timeseries_default_output_file, :feature_reports_reopt_default_assumption_hashes, :feature_reports_reopt_default_output_files, :feature_reports_timeseries_default_output_files
 
       ##
-      # Updates a FeatureReport based on an optional set of \REopt Lite optimization assumptions.
+      # Updates a FeatureReport based on an optional set of \REopt optimization assumptions.
       ##
       #
       # [*parameters:*]
       #
-      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ -  FeatureReport which will be used in creating and then updated by a \REopt Lite opimization response.
-      # * +reopt_assumptions_hash+ - _Hash_ - Optional. A \REopt Lite formatted hash containing default parameters (i.e. utility rate, escalation rate) which will be updated by the FeatureReport (i.e. location, roof availability)
-      # * +reopt_output_file+ - _String_ - Optional. Path to a file at which REpopt Lite responses will be saved.
+      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ -  FeatureReport which will be used in creating and then updated by a \REopt opimization response.
+      # * +reopt_assumptions_hash+ - _Hash_ - Optional. A \REopt formatted hash containing default parameters (i.e. utility rate, escalation rate) which will be updated by the FeatureReport (i.e. location, roof availability)
+      # * +reopt_output_file+ - _String_ - Optional. Path to a file at which REpopt responses will be saved.
       # * +timeseries_csv_path+ - _String_ - Optional. Path to a file at which the new timeseries CSV for the FeatureReport will be saved.
       #
       # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport
@@ -120,14 +120,14 @@ module URBANopt # :nodoc:
       end
 
       ##
-      # Updates a ScenarioReport based on an optional set of \REopt Lite optimization assumptions.
+      # Updates a ScenarioReport based on an optional set of \REopt optimization assumptions.
       ##
       #
       # [*parameters:*]
       #
-      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ -  ScenarioReport which will be used in creating and then updated by a \REopt Lite opimization response.
-      # * +reopt_assumptions_hash+ - _Hash_ - Optional. A \REopt Lite formatted hash containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability)
-      # * +reopt_output_file+ - _String_ - Optional. Path to a file at which REpopt Lite responses will be saved.
+      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ -  ScenarioReport which will be used in creating and then updated by a \REopt opimization response.
+      # * +reopt_assumptions_hash+ - _Hash_ - Optional. A \REopt formatted hash containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability)
+      # * +reopt_output_file+ - _String_ - Optional. Path to a file at which REpopt responses will be saved.
       # * +timeseries_csv_path+ - _String_ - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
@@ -176,14 +176,14 @@ module URBANopt # :nodoc:
         return result
       end
 
-      # Updates a set of FeatureReports based on an optional set of \REopt Lite optimization assumptions.
+      # Updates a set of FeatureReports based on an optional set of \REopt optimization assumptions.
       ##
       #
       # [*parameters:*]
       #
-      # * +feature_reports+ - _Array_ -  An array of _URBANopt::Reporting::DefaultReports::FeatureReport_ objetcs which will each be used to create (and are subsquently updated by) a \REopt Lite opimization response.
-      # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of \REopt Lite formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the feature_reports array.
-      # * +reopt_output_files+ - _Array_ - Optional. A array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the feature_reports array.
+      # * +feature_reports+ - _Array_ -  An array of _URBANopt::Reporting::DefaultReports::FeatureReport_ objetcs which will each be used to create (and are subsquently updated by) a \REopt opimization response.
+      # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of \REopt formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the feature_reports array.
+      # * +reopt_output_files+ - _Array_ - Optional. A array of paths to files at which REpopt responses will be saved. The number and order of the paths should match the feature_reports array.
       # * +timeseries_csv_path+ - _Array_ - Optional. A array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the feature_reports array.
       #
       # [*return:*] _Array_ Returns an array of updated _URBANopt::Scenario::DefaultReports::FeatureReport_ objects
@@ -257,7 +257,7 @@ module URBANopt # :nodoc:
       #
       # [*parameters:*]
       #
-      # * +output_file+ - _Array_ - Optional. An array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
+      # * +output_file+ - _Array_ - Optional. An array of paths to files at which REpopt responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       # [*return:*] _Boolean_ - Returns true if file or nonempty directory exist
       def output_exists(output_file)
         res = false
@@ -270,14 +270,14 @@ module URBANopt # :nodoc:
         return res
       end
 
-      # Updates a ScenarioReport based on an optional set of \REopt Lite optimization assumptions.
+      # Updates a ScenarioReport based on an optional set of \REopt optimization assumptions.
       ##
       #
       # [*parameters:*]
       #
-      # * +scenario_report+ - _Array_ -  A _URBANopt::Reporting::DefaultReports::ScenarioReport_ which will each be used to create (and is subsquently updated by) \REopt Lite opimization responses for each of its FeatureReports.
-      # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of \REopt Lite formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the array in ScenarioReport.feature_reports.
-      # * +reopt_output_files+ - _Array_ - Optional. An array of paths to files at which REpopt Lite responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
+      # * +scenario_report+ - _Array_ -  A _URBANopt::Reporting::DefaultReports::ScenarioReport_ which will each be used to create (and is subsquently updated by) \REopt opimization responses for each of its FeatureReports.
+      # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of \REopt formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the array in ScenarioReport.feature_reports.
+      # * +reopt_output_files+ - _Array_ - Optional. An array of paths to files at which REpopt responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       # * +feature_report_timeseries_csv_paths+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport

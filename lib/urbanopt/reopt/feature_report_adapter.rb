@@ -14,7 +14,7 @@ module URBANopt # :nodoc:
   module REopt # :nodoc:
     class FeatureReportAdapter
       ##
-      # FeatureReportAdapter can convert a URBANopt::Reporting::DefaultReports::FeatureReport into a \REopt Lite posts or update a URBANopt::Reporting::DefaultReports::FeatureReport from a \REopt Lite response.
+      # FeatureReportAdapter can convert a URBANopt::Reporting::DefaultReports::FeatureReport into a \REopt posts or update a URBANopt::Reporting::DefaultReports::FeatureReport from a \REopt response.
       ##
       # [*parameters:*]
       ##
@@ -24,14 +24,14 @@ module URBANopt # :nodoc:
       end
 
       ##
-      # Convert a FeatureReport into a \REopt Lite post
+      # Convert a FeatureReport into a \REopt post
       #
       # [*parameters:*]
       #
-      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ - FeatureReport to use in converting the optional +reopt_assumptions_hash+ to a \REopt Lite post. If a +reopt_assumptions_hash+ is not provided, a default post will be updated from this FeatureReport and submitted to the \REopt Lite API.
-      # *  +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt Lite API containing default values. Values will be overwritten from the FeatureReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.
+      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ - FeatureReport to use in converting the optional +reopt_assumptions_hash+ to a \REopt post. If a +reopt_assumptions_hash+ is not provided, a default post will be updated from this FeatureReport and submitted to the \REopt API.
+      # *  +reopt_assumptions_hash+ - _Hash_ - Optional. A hash formatted for submittal to the \REopt API containing default values. Values will be overwritten from the FeatureReport where available (i.e. latitude, roof_squarefeet). Missing optional parameters will be filled in with default values by the API.
       #
-      # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt Lite API
+      # [*return:*] _Hash_ - Returns hash formatted for submittal to the \REopt API
       ##
       def reopt_json_from_feature_report(feature_report, reopt_assumptions_hash = nil, groundmount_photovoltaic = nil)
         name = feature_report.name.delete ' '
@@ -40,7 +40,7 @@ module URBANopt # :nodoc:
         if !reopt_assumptions_hash.nil?
           reopt_inputs = reopt_assumptions_hash
         else
-          @@logger.info('Using default REopt Lite assumptions')
+          @@logger.info('Using default REopt assumptions')
         end
 
         # Check FeatureReport has required data
@@ -104,7 +104,7 @@ module URBANopt # :nodoc:
           end
           # Clip to one non-leap year's worth of data
           energy_timeseries_kw = energy_timeseries_kw.map { |e| e || 0 }[0, (feature_report.timesteps_per_hour * 8760)]
-          # Convert from the OpenDSS resolution to the REopt Lite resolution, if necessary
+          # Convert from the OpenDSS resolution to the REopt resolution, if necessary
         rescue StandardError
           @@logger.error("Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}")
           raise "Could not parse the annual electric load from the timeseries csv - #{feature_report.timeseries_csv.path}"
@@ -136,18 +136,18 @@ module URBANopt # :nodoc:
       end
 
       ##
-      # Update a FeatureReport from a \REopt Lite response
+      # Update a FeatureReport from a \REopt response
       #
       # [*parameters:*]
       #
-      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ - FeatureReport to update from a \REopt Lite reponse hash.
-      # * +reopt_output+ - _Hash_ - A reponse hash from the \REopt Lite API to use in overwriting FeatureReport technology sizes, costs and dispatch strategies.
-      # * +timeseries_csv_path+ - _String_ - Optional. The path to a file at which a new timeseries CSV will be written. If not provided a file is created based on the run_uuid of the \REopt Lite optimization task.
+      # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ - FeatureReport to update from a \REopt reponse hash.
+      # * +reopt_output+ - _Hash_ - A reponse hash from the \REopt API to use in overwriting FeatureReport technology sizes, costs and dispatch strategies.
+      # * +timeseries_csv_path+ - _String_ - Optional. The path to a file at which a new timeseries CSV will be written. If not provided a file is created based on the run_uuid of the \REopt optimization task.
       #
       # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport.
       ##
       def update_feature_report(feature_report, reopt_output, timeseries_csv_path = nil, resilience_stats = nil)
-        # Check if the \REopt Lite response is valid
+        # Check if the \REopt response is valid
         if reopt_output['outputs']['Scenario']['status'] != 'optimal'
           @@logger.info("Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal")
           return feature_report
