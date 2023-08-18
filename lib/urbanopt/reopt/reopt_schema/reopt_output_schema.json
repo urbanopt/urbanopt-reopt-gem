@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "description": "Data Dictionary for REopt Lite Outputs",
+  "description": "Data Dictionary for REopt Outputs",
   "type": "object",
   "properties": {
     "$ref": "#/definitions/Response"

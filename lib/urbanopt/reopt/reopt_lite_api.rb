@@ -16,15 +16,15 @@ module URBANopt # :nodoc:
   module REopt  # :nodoc:
     class REoptLiteAPI
       ##
-      # \REoptLiteAPI manages submitting optimization tasks to the \REopt Lite API  and recieving results.
-      # Results can either be sourced from the production \REopt Lite API with an API key from developer.nrel.gov, or from
+      # \REoptLiteAPI manages submitting optimization tasks to the \REopt API  and recieving results.
+      # Results can either be sourced from the production \REopt API with an API key from developer.nrel.gov, or from
       # a version running at localhost.
       ##
       #
       # [*parameters:*]
       #
-      # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt Lite API running on localhost. Default is false, such that the production version of \REopt Lite is accessed.
-      # * +nrel_developer_key+ - _String_ - API key used to access the \REopt Lite APi. Required only if localhost is false. Obtain from https://developer.nrel.gov/signup/
+      # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt API running on localhost. Default is false, such that the production version of \REopt is accessed.
+      # * +nrel_developer_key+ - _String_ - API key used to access the \REopt APi. Required only if localhost is false. Obtain from https://developer.nrel.gov/signup/
       ##
       def initialize(nrel_developer_key = nil, use_localhost = false)
         @use_localhost = use_localhost
@@ -53,9 +53,9 @@ module URBANopt # :nodoc:
       #
       # [*parameters:*]
       #
-      # * +run_uuid+ - _String_ - Unique run_uuid obtained from the \REopt Lite job submittal URL for a specific optimization task.
+      # * +run_uuid+ - _String_ - Unique run_uuid obtained from the \REopt job submittal URL for a specific optimization task.
       #
-      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt Lite results endpoint for a specifc optimization task.
+      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt results endpoint for a specifc optimization task.
       ##
       def uri_results(run_uuid) # :nodoc:
         if @use_localhost
@@ -71,9 +71,9 @@ module URBANopt # :nodoc:
       #
       # [*parameters:*]
       #
-      # * +run_uuid+ - _String_ - Resilience statistics for a unique run_uuid obtained from the \REopt Lite job submittal URL for a specific optimization task.
+      # * +run_uuid+ - _String_ - Resilience statistics for a unique run_uuid obtained from the \REopt job submittal URL for a specific optimization task.
       #
-      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt Lite resilience statistics endpoint for a specifc optimization task.
+      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt resilience statistics endpoint for a specifc optimization task.
       ##
       def uri_resilience(run_uuid) # :nodoc:
         if @use_localhost
@@ -91,7 +91,7 @@ module URBANopt # :nodoc:
             result = http.request(req)
             # Result codes sourced from https://developer.nrel.gov/docs/errors/
             if result.code == '429'
-              @@logger.fatal('Exceeded the REopt-Lite API limit of 300 requests per hour')
+              @@logger.fatal('Exceeded the REopt API limit of 300 requests per hour')
               puts 'Using the URBANopt CLI to submit a Scenario optimization counts as one request per scenario'
               puts 'Using the URBANopt CLI to submit a Feature optimization counts as one request per feature'
               abort('Please wait and try again once the time period has elapsed.  The URBANopt CLI flag --reopt-keep-existing can be used to resume the optimization')
@@ -101,7 +101,7 @@ module URBANopt # :nodoc:
               tries += 1
               next
             elsif (result.code != '201') && (result.code != '200') # Anything in the 200s is success
-              @@logger.warn("REopt-Lite has returned a '#{result.code}' status code. Visit https://developer.nrel.gov/docs/errors/ for more status code information")
+              @@logger.warn("REopt has returned a '#{result.code}' status code. Visit https://developer.nrel.gov/docs/errors/ for more status code information")
               # display error messages
               json_res = JSON.parse(result.body, allow_nan: true)
               json_res['messages'].delete('warnings') if json_res['messages']['warnings']
@@ -112,7 +112,7 @@ module URBANopt # :nodoc:
             end
             tries = max_tries
           rescue StandardError => e
-            @@logger.debug("error from REopt lite API: #{e}")
+            @@logger.debug("error from REopt API: #{e}")
             if tries + 1 < max_tries
               @@logger.debug('trying again...')
             else
@@ -126,12 +126,12 @@ module URBANopt # :nodoc:
       end
 
       ##
-      # Checks if a optimization task can be submitted to the \REopt Lite API
+      # Checks if a optimization task can be submitted to the \REopt API
       ##
       #
       # [*parameters:*]
       #
-      # * +data+ - _Hash_ - Default \REopt Lite formatted post containing at least all the required parameters.
+      # * +data+ - _Hash_ - Default \REopt formatted post containing at least all the required parameters.
       #
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
@@ -156,15 +156,15 @@ module URBANopt # :nodoc:
       end
 
       ##
-      # Completes a \REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API.
+      # Completes a \REopt optimization. From a formatted hash, an optimization task is submitted to the API.
       # Results are polled at 5 second interval until they are ready or an error is returned from the API. Results
       # are written to disk.
       ##
       #
       # [*parameters:*]
       #
-      # * +reopt_input+ - _Hash_ - \REopt Lite formatted post containing at least required parameters.
-      # * +filename+ - _String_ - Path to file that will be created containing the full \REopt Lite response.
+      # * +reopt_input+ - _Hash_ - \REopt formatted post containing at least required parameters.
+      # * +filename+ - _String_ - Path to file that will be created containing the full \REopt response.
       #
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
@@ -211,7 +211,7 @@ module URBANopt # :nodoc:
         # If database still hasn't updated, wait a little longer and try again
         while (elapsed_time < max_elapsed_time) && (response && response.code == '404')
           response = make_request(http, get_request)
-          @@logger.warn('GET request was too fast for REOpt-Lite API. Retrying...')
+          @@logger.warn('GET request was too fast for REOpt-API. Retrying...')
           elapsed_time += 5
           sleep 5
         end
@@ -236,22 +236,22 @@ module URBANopt # :nodoc:
       end
 
       ##
-      # Completes a \REopt Lite optimization. From a formatted hash, an optimization task is submitted to the API.
+      # Completes a \REopt optimization. From a formatted hash, an optimization task is submitted to the API.
       # Results are polled at 5 second interval until they are ready or an error is returned from the API. Results
       # are written to disk.
       ##
       #
       # [*parameters:*]
       #
-      # * +reopt_input+ - _Hash_ - \REopt Lite formatted post containing at least required parameters.
-      # * +filename+ - _String_ - Path to file that will be created containing the full \REopt Lite response.
+      # * +reopt_input+ - _Hash_ - \REopt formatted post containing at least required parameters.
+      # * +filename+ - _String_ - Path to file that will be created containing the full \REopt response.
       #
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
       def reopt_request(reopt_input, filename)
         description = reopt_input[:Scenario][:description]
 
-        @@logger.info("Submitting #{description} to REopt Lite API")
+        @@logger.info("Submitting #{description} to REopt API")
 
         # Format the request
         header = { 'Content-Type' => 'application/json' }
