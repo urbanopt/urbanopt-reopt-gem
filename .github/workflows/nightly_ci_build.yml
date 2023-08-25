@@ -1,4 +1,4 @@
-name: nightly_build
+name: REopt-gem CI
 
 on:
   # push:
