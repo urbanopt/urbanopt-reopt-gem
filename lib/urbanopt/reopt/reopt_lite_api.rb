@@ -266,7 +266,7 @@ module URBANopt # :nodoc:
         response = make_request(http, post_request)
         if !response.is_a?(Net::HTTPSuccess)
           @@logger.error('make_request Failed')
-          raise 'Check_connection Failed'
+          raise 'REopt connection Failed'
         end
 
         # Get UUID
