@@ -22,7 +22,7 @@ jobs:
     container:
       image: docker://nrel/openstudio:3.6.1
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Update gems
         run: |
           bundle update
