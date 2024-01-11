@@ -1,5 +1,15 @@
 # URBANopt REopt Gem
 
+## Version 0.11.0
+Date Range: 07/06/23 - 01/11/24
+
+* Use different error messages in different places by @vtnate in https://github.com/urbanopt/urbanopt-reopt-gem/pull/145
+* Support OpenStudio 3.7 by @vtnate in https://github.com/urbanopt/urbanopt-reopt-gem/pull/146
+* Remove jenkins by @vtnate in https://github.com/urbanopt/urbanopt-reopt-gem/pull/142
+* remove "lite" name from reopt by @vtnate in https://github.com/urbanopt/urbanopt-reopt-gem/pull/143
+
+**Full Changelog**: https://github.com/urbanopt/urbanopt-reopt-gem/compare/v0.10.0...v0.11.0
+
 ## Version 0.10.0
 Date Range: 12/13/22 - 7/6/23
 

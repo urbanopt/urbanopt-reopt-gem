@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"description": "Data Dictionary for REopt Lite Inputs",
+	"description": "Data Dictionary for REopt Inputs",
 	"type": "object",
 	"properties": {
 		"$ref": "#/definitions/Scenario"

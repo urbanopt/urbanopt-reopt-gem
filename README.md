@@ -1,10 +1,10 @@
 # URBANopt REopt Gem
 
 [![Coverage Status](https://coveralls.io/repos/github/urbanopt/urbanopt-reopt-gem/badge.svg?branch=develop)](https://coveralls.io/github/urbanopt/urbanopt-reopt-gem?branch=develop)
-[![nightly_build](https://github.com/urbanopt/urbanopt-reopt-gem/actions/workflows/nightly_build.yml/badge.svg)](https://github.com/urbanopt/urbanopt-reopt-gem/actions/workflows/nightly_build.yml)
+[![nightly_build](https://github.com/urbanopt/urbanopt-reopt-gem/actions/workflows/nightly_ci_build.yml/badge.svg)](https://github.com/urbanopt/urbanopt-reopt-gem/actions/workflows/nightly_ci_build.yml)
 
-The **URBANopt<sup>&trade;</sup> REopt Gem** extends **URBANopt::Reporting::DefaultReports::ScenarioReport** and **URBANopt::Reporting::DefaultReports::FeatureReport** with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the [REopt Lite](https://reopt.nrel.gov/tool) decision support platform.
-REopt Lite is a technoeconomic model which leverages mixed integer linear programming to identify the cost-optimal sizing of solar PV, Wind, Storage and/or diesel generation given an electric load profile, a utility rate tariff and other technoeconomic parameters. See [https://developer.nrel.gov/docs/energy-optimization/reopt/v2/](https://developer.nrel.gov/docs/energy-optimization/reopt/v2/) for more detailed information on input parameters and default assumptions.
+The **URBANopt<sup>&trade;</sup> REopt Gem** extends **URBANopt::Reporting::DefaultReports::ScenarioReport** and **URBANopt::Reporting::DefaultReports::FeatureReport** with the ability to derive cost-optimal distributed energy resource (DER) technology sizes and annual dispatch strageties via the [REopt](https://reopt.nrel.gov/tool) decision support platform.
+REopt is a technoeconomic model which leverages mixed integer linear programming to identify the cost-optimal sizing of solar PV, Wind, Storage and/or diesel generation given an electric load profile, a utility rate tariff and other technoeconomic parameters. See [https://developer.nrel.gov/docs/energy-optimization/reopt/v2/](https://developer.nrel.gov/docs/energy-optimization/reopt/v2/) for more detailed information on input parameters and default assumptions.
 
 See the [example project](https://github.com/urbanopt/urbanopt-example-geojson-reopt-project) for more infomation about usage of this gem.
 
@@ -38,7 +38,7 @@ Or install it yourself as:
 
 ## Functionality
 
-This gem is used to call the REopt Lite API on a Scenario Report or Feature Report to update the object's Distributed Generation attributes (including system financial and sizing metrics) as shown in an example below:
+This gem is used to call the REopt API on a Scenario Report or Feature Report to update the object's Distributed Generation attributes (including system financial and sizing metrics) as shown in an example below:
 ```
 	"distributed_generation": {
 	      "lcc_us_dollars": 100000000.0,
@@ -88,9 +88,9 @@ Moreover, the following optimal dispatch fields are added to its timeseries CSV.
 | ElectricityProduced:Wind:ToGrid          | kWh     |
 
 
-The REopt Lite has default values for all non-required input parameters that are used unless the user specifies custom assumptions. See <StaticLink target="\_blank" href="https://developer.nrel.gov/docs/energy-optimization/reopt/v2/">https://developer.nrel.gov/docs/energy-optimization/reopt/v2/</StaticLink> for more detailed information on input parameters and default assumptions.
+The REopt has default values for all non-required input parameters that are used unless the user specifies custom assumptions. See <StaticLink target="\_blank" href="https://developer.nrel.gov/docs/energy-optimization/reopt/v2/">https://developer.nrel.gov/docs/energy-optimization/reopt/v2/</StaticLink> for more detailed information on input parameters and default assumptions.
 
-<b>Note:</b> Required attributes for a REopt run include latitude and longitude. If no utility rate is specified in your REopt Lite assumption settings, then a constant default rate of $0.13 is assumed without demand charges. Also, by default, only solar PV and storage are considered in the analysis (i.e. Wind and Generators are excluded from consideration).
+<b>Note:</b> Required attributes for a REopt run include latitude and longitude. If no utility rate is specified in your REopt assumption settings, then a constant default rate of $0.13 is assumed without demand charges. Also, by default, only solar PV and storage are considered in the analysis (i.e. Wind and Generators are excluded from consideration).
 
 
 
@@ -106,19 +106,19 @@ feature_reports_hash = {} # <insert a Feature Report hash here>
 #Create a Feature Report
 feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_hash)
 
-#Specify a file name where REopt Lite results will be written in JSON format
+#Specify a file name where REopt results will be written in JSON format
 reopt_output_file = File.join(feature_report.directory_name, 'feature_report_reopt_run1.json')
 
-#Specify a file name where the new timeseries CSV will be written after REopt Lite has determined cost optimal dispatch
+#Specify a file name where the new timeseries CSV will be written after REopt has determined cost optimal dispatch
 timeseries_output_file = File.join(feature_report.directory_name, 'feature_report_timeseries1.csv')
 
-#Specify non-default REopt Lite assumptions, saved in JSON format, to be used in calling the API
+#Specify non-default REopt assumptions, saved in JSON format, to be used in calling the API
 reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
 
-#Create a REopt Lite Post Processor to call the API, note you will need a Developer.nrel.gov API key in this step
+#Create a REopt Post Processor to call the API, note you will need a Developer.nrel.gov API key in this step
 reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, nil, DEVELOPER_NREL_KEY)
 
-#Call REopt Lite with the post processor to update the feature's distributed generation attributes and timeseries CSV.
+#Call REopt with the post processor to update the feature's distributed generation attributes and timeseries CSV.
 updated_feature_report = reopt_post_processor.run_feature_report(feature_report,reopt_assumptions_file,reopt_output_file,timeseries_output_file)
 
 ```
@@ -146,13 +146,13 @@ scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new({:dire
   scenario_report.add_feature_report(feature_report)
 end
 
-#Specify non-default REopt Lite assumptions, saved in JSON format, to be used in calling the API
+#Specify non-default REopt assumptions, saved in JSON format, to be used in calling the API
 reopt_assumptions_file = File.join(File.dirname(__FILE__), '../files/reopt_assumptions_basic.json')
 
-#Create a REopt Lite Post Processor to call the API, note you will need a Developer.nrel.gov API key in this step
+#Create a REopt Post Processor to call the API, note you will need a Developer.nrel.gov API key in this step
 reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
 
-#Call REopt Lite with the post processor once on the sceanrio's aggregated load to update the scenario's distributed generation attributes and timeseries CSV.
+#Call REopt with the post processor once on the sceanrio's aggregated load to update the scenario's distributed generation attributes and timeseries CSV.
 updated_scenario_report = reopt_post_processor.run_scenario_report(scenario_report)
 
 ```

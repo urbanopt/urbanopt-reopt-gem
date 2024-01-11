@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.email         = ['']
   spec.licenses      = 'Nonstandard'
 
-  spec.summary       = 'Accessing the REopt Lite API within OpenStudio workflows.'
-  spec.description   = 'Classes and measures for utilizing the REopt Lite API within OpenStudio workflows.'
+  spec.summary       = 'Accessing the REopt API within OpenStudio workflows.'
+  spec.description   = 'Classes and measures for utilizing the REopt API within OpenStudio workflows.'
   spec.homepage      = 'https://github.com/urbanopt/urbanopt-reopt-gem'
 
   # Specify which files should be added to the gem when it is released.
@@ -27,9 +27,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 2.1'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.9'
+  spec.add_development_dependency 'rubocop', '~> 1.15.0'
   spec.add_development_dependency 'simplecov', '~> 0.18.2'
   spec.add_development_dependency 'simplecov-lcov', '~> 0.8.0'
+  spec.add_development_dependency 'openstudio-extension', '~> 0.7.1'
 
   spec.add_dependency 'certified', '~> 1'
-  spec.add_dependency 'urbanopt-scenario', '~> 0.10.0'
+  spec.add_dependency 'urbanopt-scenario', '~> 0.11.0'
 end
