@@ -12,7 +12,7 @@
         "type": "object",
         "properties": {
           "run_uuid": {
-            "type": "str",
+            "type": "string",
             "description": "Unique id",
             "units": "none"
           },
@@ -20,7 +20,7 @@
             "type": "str"
           },
           "status": {
-            "type": "str",
+            "type": "string",
             "description": "Problem Status",
             "units": "none"
           },
@@ -28,27 +28,27 @@
             "type": "object",
             "properties": {
               "pre_setup_scenario_seconds": {
-                "type": "float",
+                "type": "number",
                 "description": "Time spent before setting up scenario",
                 "units": "seconds"
               },
               "setup_scenario_seconds": {
-                "type": "float",
+                "type": "number",
                 "description": "Time spent setting up scenario",
                 "units": "seconds"
               },
               "reopt_seconds": {
-                "type": "float",
+                "type": "number",
                 "description": "Time spent solving scenario",
                 "units": "seconds"
               },
               "reopt_bau_seconds": {
-                "type": "float",
+                "type": "number",
                 "description": "Time spent solving base-case scenario",
                 "units": "seconds"
               },
               "parse_run_outputs_seconds": {
-                "type": "float",
+                "type": "number",
                 "description": "Time spent parsing outputs",
                 "units": "seconds"
               }
@@ -58,7 +58,7 @@
             "type": "object",
             "properties": {
               "annual_renewable_electricity_pct": {
-                "type": "float",
+                "type": "number",
                 "description": "Fraction of annual renewable electricity - 0 for none, 1 for all, over 1 for more generated than consumed",
                 "units": "none"
               }
@@ -68,17 +68,17 @@
             "type": "object",
             "properties": {
               "year_one_electric_load_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of electric load",
                 "units": "kW"
               },
               "critical_load_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Hourly critical load for outage simulator. Values are either uploaded by user, or determined from typical load (either uploaded or simulated) and critical_load_fraction.",
                 "units": "kW"
               },
               "annual_calculated_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Annual energy consumption calculated by summing up 8760 load profile",
                 "units": "kWh"
               },
@@ -97,32 +97,32 @@
             "type": "object",
             "properties": {
               "lcc_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal lifecycle cost",
                 "units": "dollars"
               },
               "lcc_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual lifecycle cost",
                 "units": "dollars"
               },
               "npv_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Net present value of savings realized by the project",
                 "units": "dollars"
               },
               "net_capital_costs_plus_om_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Capital cost for all technologies plus present value of operations and maintenance over anlaysis period",
                 "units": "$"
               },
               "net_capital_costs": {
-                "type": "float",
+                "type": "number",
                 "description": "Capital cost for all technologies.",
                 "units": "$"
               },
               "microgrid_upgrade_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Cost in US dollars to make a distributed energy system islandable from the grid. Determined by multiplying the total capital costs of resultant energy systems from REopt (such as PV and Storage system) with the input value for microgrid_upgrade_cost_fraction (which defaults to 0.30)."
               }
             }
@@ -136,62 +136,62 @@
                 "description": "Indicates location of PV. Available options are roof and ground."
               },
               "size_kw": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal PV system size",
                 "units": "kW"
               },
               "average_yearly_energy_produced_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Average annual energy produced by the PV system over one year",
                 "units": "kWh"
               },
               "average_yearly_energy_exported_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Average annual energy exported by the PV system",
                 "units": "kWh"
               },
               "year_one_energy_produced_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Year one energy produced by the PV system",
                 "units": "kWh"
               },
               "year_one_power_production_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one PV power production time series",
                 "units": "kW"
               },
               "year_one_to_battery_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of PV charging",
                 "units": "kW"
               },
               "year_one_to_load_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of PV serving load",
                 "units": "kW"
               },
               "year_one_to_grid_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of PV exporting to grid",
                 "units": "kW"
               },
               "existing_pv_om_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Lifetime O & M costfor existing PV system.",
                 "units": "$"
               },
               "station_latitude": {
-                "type": "float",
+                "type": "number",
                 "description": "The latitude of the station usedfor weather resource data",
                 "units": "degrees"
               },
               "station_longitude": {
-                "type": "float",
+                "type": "number",
                 "description": "The longitude of the station usedfor weather resource data",
                 "units": "degrees"
               },
               "station_distance_km": {
-                "type": "float",
+                "type": "number",
                 "description": "The distance from the weather resource station from the input site",
                 "units": "km"
               }
@@ -201,42 +201,42 @@
             "type": "object",
             "properties": {
               "size_kw": {
-                "type": "float",
+                "type": "number",
                 "description": "Recommended wind system size",
                 "units": "kW"
               },
               "average_yearly_energy_produced_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Average energy produced by the wind system over one year",
                 "units": "kWh"
               },
               "average_yearly_energy_exported_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Average annual energy exported by the wind system",
                 "units": "kWh"
               },
               "year_one_energy_produced_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Wind energy produced in year one",
                 "units": "kWh"
               },
               "year_one_power_production_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Hourly wind resource",
                 "units": "kW"
               },
               "year_one_to_battery_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one wind to battery time series",
                 "units": "kW"
               },
               "year_one_to_load_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one wind to load time series",
                 "units": "kW"
               },
               "year_one_to_grid_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one wind to grid time series",
                 "units": "kW"
               }
@@ -246,27 +246,27 @@
             "type": "object",
             "properties": {
               "size_kw": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal battery power capacity",
                 "units": "kW"
               },
               "size_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal battery energy capacity",
                 "units": "kWh"
               },
               "year_one_to_load_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of battery serving load",
                 "units": "kW"
               },
               "year_one_to_grid_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of battery exporting to grid",
                 "units": "kW"
               },
               "year_one_soc_series_pct": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of battery state of charge",
                 "units": " %"
               }
@@ -276,132 +276,132 @@
             "type": "object",
             "properties": {
               "year_one_energy_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal year one utility energy cost",
                 "units": "$"
               },
               "year_one_demand_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal year one utility demand cost",
                 "units": "$"
               },
               "year_one_fixed_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal year one utility fixed cost",
                 "units": "$"
               },
               "year_one_min_charge_adder_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal year one utility minimum charge adder",
                 "units": "$"
               },
               "year_one_energy_cost_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual year one utility energy cost",
                 "units": "$"
               },
               "year_one_demand_cost_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual year one utility demand cost",
                 "units": "$"
               },
               "year_one_fixed_cost_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual year one utility fixed cost",
                 "units": "$"
               },
               "year_one_min_charge_adder_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual year one utility minimum charge adder",
                 "units": "$"
               },
               "total_energy_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Total utility energy cost over the lifecycle,after - tax",
                 "units": "$"
               },
               "total_demand_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal total lifecycle utility demand cost over the analysis period,after - tax",
                 "units": "$"
               },
               "total_fixed_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Total utility fixed cost over the lifecycle,after - tax",
                 "units": "$"
               },
               "total_min_charge_adder_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Total utility minimum charge adder",
                 "units": "$"
               },
               "total_energy_cost_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual total utility energy cost over the lifecycle,after - tax",
                 "units": "$"
               },
               "total_demand_cost_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual total lifecycle utility demand cost over the analysis period,after - tax",
                 "units": "$"
               },
               "total_fixed_cost_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual total utility fixed cost over the lifecycle,after - tax",
                 "units": "$"
               },
               "total_export_benefit_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Totalexport benefit cost over the lifecycle,after - tax",
                 "units": "$"
               },
               "total_min_charge_adder_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual total utility minimum charge adder",
                 "units": "$"
               },
               "year_one_bill_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal year one total utility bill",
                 "units": "$"
               },
               "year_one_bill_bau_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Business as usual year one total utility bill",
                 "units": "$"
               },
               "year_one_export_benefit_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal year one value of exported energy",
                 "units": "$"
               },
               "year_one_energy_cost_series_us_dollars_per_kwh": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly energy costs",
                 "units": "$ / kWh"
               },
               "year_one_demand_cost_series_us_dollars_per_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly demand costs",
                 "units": "$ / kW"
               },
               "year_one_to_load_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one grid to load time series",
                 "units": "kW"
               },
               "year_one_to_battery_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of power from grid to battery",
                 "units": "kW"
               },
               "year_one_energy_supplied_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Year one hourly time series of power from grid to load",
                 "units": "kWh"
               },
               "year_one_energy_supplied_kwh_bau": {
-                "type": "float",
+                "type": "number",
                 "description": "Year one hourly time series of power from grid to load in bau scenario",
                 "units": "kWh"
               }
@@ -411,97 +411,97 @@
             "type": "object",
             "properties": {
               "size_kw": {
-                "type": "float",
+                "type": "number",
                 "description": "Optimal diesel generator system size",
                 "units": "kW"
               },
               "fuel_used_gal": {
-                "type": "float",
+                "type": "number",
                 "description": "Generator fuel used to meet critical load during grid outage.",
                 "units": "US gallons"
               },
               "fuel_used_gal_bau": {
-                "type": "float",
+                "type": "number",
                 "description": "Generator fuel used to meet critical load during grid outage in baucase.",
                 "units": "US gallons"
               },
               "average_yearly_energy_produced_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Average annual energy produced by the diesel generator over one year",
                 "units": "kWh"
               },
               "average_yearly_energy_exported_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Average annual energy exported by the diesel generator",
                 "units": "kWh"
               },
               "year_one_energy_produced_kwh": {
-                "type": "float",
+                "type": "number",
                 "description": "Year one energy produced by the diesel generator",
                 "units": "kWh"
               },
               "year_one_power_production_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one diesel generator power production time series",
                 "units": "kW"
               },
               "year_one_to_battery_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of diesel generator charging",
                 "units": "kW"
               },
               "year_one_to_load_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one generator to load time series.",
                 "units": "kW"
               },
               "year_one_to_grid_series_kw": {
-                "type": "list_of_float",
+                "type": "array",
                 "description": "Year one hourly time series of diesel generator exporting to grid",
                 "units": "kW"
               },
               "existing_gen_total_fixed_om_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Lifetime fixed O & M costfor existing diesel generator system in baucase.",
                 "units": "$"
               },
               "existing_gen_total_variable_om_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Lifetime variable(based on kwh produced) O & M costfor existing diesel generator system.",
                 "units": "$"
               },
               "existing_gen_year_one_variable_om_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Year one variable(based on kwh produced) O & M costfor existing diesel generator system.",
                 "units": "$"
               },
               "total_variable_om_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Total lifecycle variable(based on kwh produced) O & M costfor existing + newly recommended diesel generator system",
                 "units": "$"
               },
               "year_one_variable_om_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Year one variable(based on kwh produced) O & M costfor existing + newly recommended diesel generator system",
                 "units": "$"
               },
               "total_fuel_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Total lifecycle fuel costfor existing + newly recommended diesel generator system",
                 "units": "$"
               },
               "year_one_fuel_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Year one fuel costfor existing + newly recommended diesel generator system",
                 "units": "$"
               },
               "existing_gen_total_fuel_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Total lifecycle fuel costfor existing diesel generator system",
                 "units": "$"
               },
               "existing_gen_year_one_fuel_cost_us_dollars": {
-                "type": "float",
+                "type": "number",
                 "description": "Year one fuel costfor existing diesel generator system",
                 "units": "$"
               }
@@ -514,11 +514,11 @@
       "type": "object",
       "properties": {
         "warnings": {
-          "type": "list_of_string",
+          "type": "array",
           "description": "Warnings generated by simulation"
         },
         "error": {
-          "type": "str",
+          "type": "string",
           "description": "Error generated by simulation"
         }
       }
