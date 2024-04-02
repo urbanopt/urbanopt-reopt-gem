@@ -76,9 +76,9 @@
     "federal_rebate_per_kw": 0.0,
     "generator_sells_energy_back_to_grid": false
   },
-  "LoadProfile": {
+  "ElectricLoad": {
     "critical_loads_kw_is_net": false,
-    "critical_load_pct": 0,
+    "critical_load_fraction": 0,
     "loads_kw_is_net": true
   },
   "roof_squarefeet": null,
