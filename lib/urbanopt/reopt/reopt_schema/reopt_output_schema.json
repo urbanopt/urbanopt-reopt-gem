@@ -92,7 +92,7 @@
                 "description": "Capital cost for all technologies plus present value of operations and maintenance over anlaysis period",
                 "units": "$"
               },
-              "net_capital_costs": {
+              "lifecycle_capital_costs": {
                 "type": "number",
                 "description": "Capital cost for all technologies.",
                 "units": "$"
