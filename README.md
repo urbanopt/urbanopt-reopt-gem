@@ -41,7 +41,7 @@ Or install it yourself as:
 This gem is used to call the REopt API on a Scenario Report or Feature Report to update the object's Distributed Generation attributes (including system financial and sizing metrics) as shown in an example below:
 ```
 	"distributed_generation": {
-	      "lcc_us_dollars": 100000000.0,
+	      "lcc": 100000000.0,
 	      "npv_us_dollars": 10000000.0,
 	      "year_one_energy_cost_us_dollars": 7000000.0,
 	      "year_one_demand_cost_us_dollars": 3000000.0,
