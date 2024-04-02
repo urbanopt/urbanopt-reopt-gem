@@ -29,8 +29,8 @@ module URBANopt # :nodoc:
       def initialize(nrel_developer_key = nil, use_localhost = false)
         @use_localhost = use_localhost
         if @use_localhost
-          @uri_submit = URI.parse('http//:127.0.0.1:8000/v2/job/')
-          @uri_submit_outagesimjob = URI.parse('http//:127.0.0.1:8000/v2/outagesimjob/')
+          @uri_submit = URI.parse('http//:127.0.0.1:8000/v3/job/')
+          @uri_submit_outagesimjob = URI.parse('http//:127.0.0.1:8000/v3/outagesimjob/')
         else
           if [nil, '', '<insert your key here>'].include? nrel_developer_key
             if [nil, '', '<insert your key here>'].include? DEVELOPER_NREL_KEY
@@ -40,8 +40,8 @@ module URBANopt # :nodoc:
             end
           end
           @nrel_developer_key = nrel_developer_key
-          @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v2/job?api_key=#{@nrel_developer_key}")
-          @uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v2/outagesimjob?api_key=#{@nrel_developer_key}")
+          @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v3/job?api_key=#{@nrel_developer_key}")
+          @uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v3/outagesimjob?api_key=#{@nrel_developer_key}")
           # initialize @@logger
           @@logger ||= URBANopt::REopt.reopt_logger
         end
@@ -59,10 +59,10 @@ module URBANopt # :nodoc:
       ##
       def uri_results(run_uuid) # :nodoc:
         if @use_localhost
-          return URI.parse("http://127.0.0.1:8000/v2/job/#{run_uuid}/results")
+          return URI.parse("http://127.0.0.1:8000/v3/job/#{run_uuid}/results")
         end
 
-        return URI.parse("https://developer.nrel.gov/api/reopt/v2/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
+        return URI.parse("https://developer.nrel.gov/api/reopt/v3/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
       end
 
       ##
@@ -77,10 +77,10 @@ module URBANopt # :nodoc:
       ##
       def uri_resilience(run_uuid) # :nodoc:
         if @use_localhost
-          return URI.parse("http://127.0.0.1:8000/v2/job/#{run_uuid}/resilience_stats")
+          return URI.parse("http://127.0.0.1:8000/v3/job/#{run_uuid}/resilience_stats")
         end
 
-        return URI.parse("https://developer.nrel.gov/api/reopt/v2/job/#{run_uuid}/resilience_stats?api_key=#{@nrel_developer_key}")
+        return URI.parse("https://developer.nrel.gov/api/reopt/v3/job/#{run_uuid}/resilience_stats?api_key=#{@nrel_developer_key}")
       end
 
       def make_request(http, req, max_tries = 3)
