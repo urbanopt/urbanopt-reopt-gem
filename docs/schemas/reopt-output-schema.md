@@ -13,11 +13,11 @@ The REopt Lite API updates the distributed_generation attributes of a Scenario o
 ```
 	"distributed_generation": {
 	      "lcc": 100000000.0,
-	      "npv_us_dollars": 10000000.0,
-	      "year_one_energy_cost_us_dollars": 7000000.0,
-	      "year_one_demand_cost_us_dollars": 3000000.0,
-	      "year_one_bill_us_dollars": 10000000.0,
-	      "total_energy_cost_us_dollars": 70000000.0,
+	      "npv": 10000000.0,
+	      "year_one_energy_cost_before_tax": 7000000.0,
+	      "year_one_demand_cost_before_tax": 3000000.0,
+	      "year_one_bill_before_tax": 10000000.0,
+	      "lifecycle_energy_cost_after_tax": 70000000.0,
 	      "solar_pv": {
 	        "size_kw": 30000.0
 	      },

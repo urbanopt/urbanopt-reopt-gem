@@ -212,17 +212,17 @@ module URBANopt # :nodoc:
         # Update distributed generation sizing and financials
         scenario_report.distributed_generation.annual_renewable_electricity_pct = reopt_output['outputs']['Scenario']['Site']['annual_renewable_electricity_pct'] || 0
         scenario_report.distributed_generation.lcc = reopt_output['outputs']['Scenario']['Site']['Financial']['lcc'] || 0
-        scenario_report.distributed_generation.npv_us_dollars = reopt_output['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0
-        scenario_report.distributed_generation.year_one_energy_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_us_dollars'] || 0
-        scenario_report.distributed_generation.year_one_demand_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_us_dollars'] || 0
-        scenario_report.distributed_generation.year_one_bill_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_us_dollars'] || 0
-        scenario_report.distributed_generation.total_energy_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_us_dollars'] || 0
-        scenario_report.distributed_generation.total_demand_cost_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_demand_cost_us_dollars'] || 0
-        scenario_report.distributed_generation.year_one_energy_cost_bau_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_bau_us_dollars'] || 0
-        scenario_report.distributed_generation.year_one_demand_cost_bau_us_dollars =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_bau_us_dollars'] || 0
-        scenario_report.distributed_generation.year_one_bill_bau_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_bau_us_dollars'] || 0
-        scenario_report.distributed_generation.total_demand_cost_bau_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_demand_cost_bau_us_dollars'] || 0
-        scenario_report.distributed_generation.total_energy_cost_bau_us_dollars = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['total_energy_cost_bau_us_dollars'] || 0
+        scenario_report.distributed_generation.npv = reopt_output['outputs']['Scenario']['Site']['Financial']['npv'] || 0
+        scenario_report.distributed_generation.year_one_energy_cost_before_tax = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_before_tax'] || 0
+        scenario_report.distributed_generation.year_one_demand_cost_before_tax = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_before_tax'] || 0
+        scenario_report.distributed_generation.year_one_bill_before_tax = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_before_tax'] || 0
+        scenario_report.distributed_generation.lifecycle_energy_cost_after_tax = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['lifecycle_energy_cost_after_tax'] || 0
+        scenario_report.distributed_generation.lifecycle_demand_cost_after_tax = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['lifecycle_demand_cost_after_tax'] || 0
+        scenario_report.distributed_generation.year_one_energy_cost_before_tax_bau =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_energy_cost_before_tax_bau'] || 0
+        scenario_report.distributed_generation.year_one_demand_cost_before_tax_bau =  reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_demand_cost_before_tax_bau'] || 0
+        scenario_report.distributed_generation.year_one_bill_before_tax_bau = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['year_one_bill_before_tax_bau'] || 0
+        scenario_report.distributed_generation.lifecycle_demand_cost_after_tax_bau = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['lifecycle_demand_cost_after_tax_bau'] || 0
+        scenario_report.distributed_generation.lifecycle_energy_cost_after_tax_bau = reopt_output['outputs']['Scenario']['Site']['ElectricTariff']['lifecycle_energy_cost_after_tax_bau'] || 0
         if !resilience_stats.nil?
           scenario_report.distributed_generation.resilience_hours_min = resilience_stats['resilience_hours_min']
           scenario_report.distributed_generation.resilience_hours_max = resilience_stats['resilience_hours_max']

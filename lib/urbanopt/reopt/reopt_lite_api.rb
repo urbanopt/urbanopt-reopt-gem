@@ -322,7 +322,7 @@ module URBANopt # :nodoc:
 
         max_retry = 5
         tries = 0
-        (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
+        (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv'] || 0) > 0)
         while (tries < max_retry) && check_complete
           sleep 3
           response = make_request(http, get_request)
@@ -336,7 +336,7 @@ module URBANopt # :nodoc:
             pv_sizes = data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0
           end
           sizes = pv_sizes + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
-          (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
+          (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv'] || 0) > 0)
           tries += 1
         end
 
