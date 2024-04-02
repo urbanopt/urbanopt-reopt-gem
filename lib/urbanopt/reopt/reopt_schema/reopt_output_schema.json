@@ -218,7 +218,7 @@
               }
             }
           },
-          "Storage": {
+          "ElectricStorage": {
             "type": "object",
             "properties": {
               "size_kw": {

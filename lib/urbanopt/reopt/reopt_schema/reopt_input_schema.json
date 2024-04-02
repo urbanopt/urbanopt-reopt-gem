@@ -597,7 +597,7 @@
 				}
 			}
 		},
-		"Storage": {
+		"ElectricStorage": {
 			"type": "object",
 			"properties": {
 				"total_rebate_per_kw": {
