@@ -27,29 +27,14 @@
           "Profile": {
             "type": "object",
             "properties": {
-              "pre_setup_scenario_seconds": {
-                "type": "number",
-                "description": "Time spent before setting up scenario",
-                "units": "seconds"
-              },
-              "setup_scenario_seconds": {
-                "type": "number",
-                "description": "Time spent setting up scenario",
-                "units": "seconds"
-              },
               "reopt_seconds": {
                 "type": "number",
-                "description": "Time spent solving scenario",
+                "description": "Time spent solving scenario | UNUSED as of 2024-04-02",
                 "units": "seconds"
               },
               "reopt_bau_seconds": {
                 "type": "number",
-                "description": "Time spent solving base-case scenario",
-                "units": "seconds"
-              },
-              "parse_run_outputs_seconds": {
-                "type": "number",
-                "description": "Time spent parsing outputs",
+                "description": "Time spent solving base-case scenario | UNUSED as of 2024-04-02",
                 "units": "seconds"
               }
             }
@@ -64,10 +49,10 @@
               }
             }
           },
-          "LoadProfile": {
+          "ElectricLoad": {
             "type": "object",
             "properties": {
-              "year_one_electric_load_series_kw": {
+              "load_series_kw": {
                 "type": "array",
                 "description": "Year one hourly time series of electric load",
                 "units": "kW"
@@ -81,37 +66,28 @@
                 "type": "number",
                 "description": "Annual energy consumption calculated by summing up 8760 load profile",
                 "units": "kWh"
-              },
-              "resilience_check_flag": {
-                "type": "boolean",
-                "description": "BAU resilience check status for existing system"
-              },
-              "sustain_hours": {
-                "type": "int",
-                "description": "Number of hours the existing system can sustain with resilience check",
-                "units": "hours"
               }
             }
           },
           "Financial": {
             "type": "object",
             "properties": {
-              "lcc_us_dollars": {
+              "lcc": {
                 "type": "number",
                 "description": "Optimal lifecycle cost",
                 "units": "dollars"
               },
-              "lcc_bau_us_dollars": {
+              "lcc_bau": {
                 "type": "number",
                 "description": "Business as usual lifecycle cost",
                 "units": "dollars"
               },
-              "npv_us_dollars": {
+              "npv": {
                 "type": "number",
                 "description": "Net present value of savings realized by the project",
                 "units": "dollars"
               },
-              "net_capital_costs_plus_om_us_dollars": {
+              "lifecycle_capital_costs_plus_om_after_tax": {
                 "type": "number",
                 "description": "Capital cost for all technologies plus present value of operations and maintenance over anlaysis period",
                 "units": "$"
@@ -121,7 +97,7 @@
                 "description": "Capital cost for all technologies.",
                 "units": "$"
               },
-              "microgrid_upgrade_cost_us_dollars": {
+              "lifecycle_MG_upgrade_and_fuel_cost": {
                 "type": "number",
                 "description": "Cost in US dollars to make a distributed energy system islandable from the grid. Determined by multiplying the total capital costs of resultant energy systems from REopt (such as PV and Storage system) with the input value for microgrid_upgrade_cost_fraction (which defaults to 0.30)."
               }
@@ -175,7 +151,7 @@
                 "description": "Year one hourly time series of PV exporting to grid",
                 "units": "kW"
               },
-              "existing_pv_om_cost_us_dollars": {
+              "lifecycle_om_cost_after_tax_bau": {
                 "type": "number",
                 "description": "Lifetime O & M costfor existing PV system.",
                 "units": "$"
@@ -275,114 +251,114 @@
           "ElectricTariff": {
             "type": "object",
             "properties": {
-              "year_one_energy_cost_us_dollars": {
+              "year_one_energy_cost_before_tax": {
                 "type": "number",
                 "description": "Optimal year one utility energy cost",
                 "units": "$"
               },
-              "year_one_demand_cost_us_dollars": {
+              "year_one_demand_cost_before_tax": {
                 "type": "number",
                 "description": "Optimal year one utility demand cost",
                 "units": "$"
               },
-              "year_one_fixed_cost_us_dollars": {
+              "year_one_fixed_cost_before_tax": {
                 "type": "number",
                 "description": "Optimal year one utility fixed cost",
                 "units": "$"
               },
-              "year_one_min_charge_adder_us_dollars": {
+              "year_one_min_charge_adder_before_tax": {
                 "type": "number",
                 "description": "Optimal year one utility minimum charge adder",
                 "units": "$"
               },
-              "year_one_energy_cost_bau_us_dollars": {
+              "year_one_energy_cost_before_tax_bau": {
                 "type": "number",
                 "description": "Business as usual year one utility energy cost",
                 "units": "$"
               },
-              "year_one_demand_cost_bau_us_dollars": {
+              "year_one_demand_cost_before_tax_bau": {
                 "type": "number",
                 "description": "Business as usual year one utility demand cost",
                 "units": "$"
               },
-              "year_one_fixed_cost_bau_us_dollars": {
+              "year_one_fixed_cost_before_tax_bau": {
                 "type": "number",
                 "description": "Business as usual year one utility fixed cost",
                 "units": "$"
               },
-              "year_one_min_charge_adder_bau_us_dollars": {
+              "year_one_min_charge_adder_before_tax_bau": {
                 "type": "number",
                 "description": "Business as usual year one utility minimum charge adder",
                 "units": "$"
               },
-              "total_energy_cost_us_dollars": {
+              "lifecycle_energy_cost_after_tax": {
                 "type": "number",
                 "description": "Total utility energy cost over the lifecycle,after - tax",
                 "units": "$"
               },
-              "total_demand_cost_us_dollars": {
+              "lifecycle_demand_cost_after_tax": {
                 "type": "number",
                 "description": "Optimal total lifecycle utility demand cost over the analysis period,after - tax",
                 "units": "$"
               },
-              "total_fixed_cost_us_dollars": {
+              "lifecycle_fixed_cost_after_tax": {
                 "type": "number",
                 "description": "Total utility fixed cost over the lifecycle,after - tax",
                 "units": "$"
               },
-              "total_min_charge_adder_us_dollars": {
+              "lifecycle_min_charge_adder_after_tax": {
                 "type": "number",
                 "description": "Total utility minimum charge adder",
                 "units": "$"
               },
-              "total_energy_cost_bau_us_dollars": {
+              "lifecycle_energy_cost_after_tax_bau": {
                 "type": "number",
                 "description": "Business as usual total utility energy cost over the lifecycle,after - tax",
                 "units": "$"
               },
-              "total_demand_cost_bau_us_dollars": {
+              "lifecycle_demand_cost_after_tax_bau": {
                 "type": "number",
                 "description": "Business as usual total lifecycle utility demand cost over the analysis period,after - tax",
                 "units": "$"
               },
-              "total_fixed_cost_bau_us_dollars": {
+              "lifecycle_fixed_cost_after_tax_bau": {
                 "type": "number",
                 "description": "Business as usual total utility fixed cost over the lifecycle,after - tax",
                 "units": "$"
               },
-              "total_export_benefit_us_dollars": {
+              "lifecycle_export_benefit_after_tax": {
                 "type": "number",
                 "description": "Totalexport benefit cost over the lifecycle,after - tax",
                 "units": "$"
               },
-              "total_min_charge_adder_bau_us_dollars": {
+              "lifecycle_min_charge_adder_after_tax_bau": {
                 "type": "number",
                 "description": "Business as usual total utility minimum charge adder",
                 "units": "$"
               },
-              "year_one_bill_us_dollars": {
+              "year_one_bill_before_tax": {
                 "type": "number",
                 "description": "Optimal year one total utility bill",
                 "units": "$"
               },
-              "year_one_bill_bau_us_dollars": {
+              "year_one_bill_before_tax_bau": {
                 "type": "number",
                 "description": "Business as usual year one total utility bill",
                 "units": "$"
               },
-              "year_one_export_benefit_us_dollars": {
+              "year_one_export_benefit_before_tax": {
                 "type": "number",
                 "description": "Optimal year one value of exported energy",
                 "units": "$"
               },
               "year_one_energy_cost_series_us_dollars_per_kwh": {
                 "type": "array",
-                "description": "Year one hourly energy costs",
+                "description": "Year one hourly energy costs | UNUSED as of 2024-04-02",
                 "units": "$ / kWh"
               },
               "year_one_demand_cost_series_us_dollars_per_kw": {
                 "type": "array",
-                "description": "Year one hourly demand costs",
+                "description": "Year one hourly demand costs | UNUSED as of 2024-04-02",
                 "units": "$ / kW"
               },
               "year_one_to_load_series_kw": {
@@ -460,47 +436,47 @@
                 "description": "Year one hourly time series of diesel generator exporting to grid",
                 "units": "kW"
               },
-              "existing_gen_total_fixed_om_cost_us_dollars": {
+              "lifecycle_fixed_om_cost_bau": {
                 "type": "number",
                 "description": "Lifetime fixed O & M costfor existing diesel generator system in baucase.",
                 "units": "$"
               },
-              "existing_gen_total_variable_om_cost_us_dollars": {
+              "lifecycle_variable_om_cost_after_tax_bau": {
                 "type": "number",
                 "description": "Lifetime variable(based on kwh produced) O & M costfor existing diesel generator system.",
                 "units": "$"
               },
-              "existing_gen_year_one_variable_om_cost_us_dollars": {
+              "year_one_variable_om_cost_before_tax_bau": {
                 "type": "number",
                 "description": "Year one variable(based on kwh produced) O & M costfor existing diesel generator system.",
                 "units": "$"
               },
-              "total_variable_om_cost_us_dollars": {
+              "lifecycle_variable_om_cost_after_tax": {
                 "type": "number",
                 "description": "Total lifecycle variable(based on kwh produced) O & M costfor existing + newly recommended diesel generator system",
                 "units": "$"
               },
-              "year_one_variable_om_cost_us_dollars": {
+              "year_one_variable_om_cost_before_tax": {
                 "type": "number",
                 "description": "Year one variable(based on kwh produced) O & M costfor existing + newly recommended diesel generator system",
                 "units": "$"
               },
-              "total_fuel_cost_us_dollars": {
+              "lifecycle_fuel_costs_after_tax": {
                 "type": "number",
                 "description": "Total lifecycle fuel costfor existing + newly recommended diesel generator system",
                 "units": "$"
               },
-              "year_one_fuel_cost_us_dollars": {
+              "year_one_fuel_cost_before_tax": {
                 "type": "number",
                 "description": "Year one fuel costfor existing + newly recommended diesel generator system",
                 "units": "$"
               },
-              "existing_gen_total_fuel_cost_us_dollars": {
+              "lifecycle_fuel_cost_after_tax_bau": {
                 "type": "number",
                 "description": "Total lifecycle fuel costfor existing diesel generator system",
                 "units": "$"
               },
-              "existing_gen_year_one_fuel_cost_us_dollars": {
+              "year_one_fuel_cost_before_tax_bau": {
                 "type": "number",
                 "description": "Year one fuel costfor existing diesel generator system",
                 "units": "$"
