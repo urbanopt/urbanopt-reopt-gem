@@ -116,7 +116,7 @@
                 "description": "Optimal PV system size",
                 "units": "kW"
               },
-              "average_yearly_energy_produced_kwh": {
+              "annual_energy_produced_kwh": {
                 "type": "number",
                 "description": "Average annual energy produced by the PV system over one year",
                 "units": "kWh"
@@ -131,22 +131,17 @@
                 "description": "Year one energy produced by the PV system",
                 "units": "kWh"
               },
-              "year_one_power_production_series_kw": {
-                "type": "array",
-                "description": "Year one PV power production time series",
-                "units": "kW"
-              },
-              "year_one_to_battery_series_kw": {
+              "electric_to_storage_series_kw": {
                 "type": "array",
                 "description": "Year one hourly time series of PV charging",
                 "units": "kW"
               },
-              "year_one_to_load_series_kw": {
+              "electric_to_load_series_kw": {
                 "type": "array",
                 "description": "Year one hourly time series of PV serving load",
                 "units": "kW"
               },
-              "year_one_to_grid_series_kw": {
+              "electric_to_grid_series_kw": {
                 "type": "array",
                 "description": "Year one hourly time series of PV exporting to grid",
                 "units": "kW"
@@ -181,9 +176,9 @@
                 "description": "Recommended wind system size",
                 "units": "kW"
               },
-              "average_yearly_energy_produced_kwh": {
+              "annual_energy_produced_kwh": {
                 "type": "number",
-                "description": "Average energy produced by the wind system over one year",
+                "description": "Energy produced by the wind system over one year",
                 "units": "kWh"
               },
               "average_yearly_energy_exported_kwh": {
@@ -191,27 +186,17 @@
                 "description": "Average annual energy exported by the wind system",
                 "units": "kWh"
               },
-              "year_one_energy_produced_kwh": {
-                "type": "number",
-                "description": "Wind energy produced in year one",
-                "units": "kWh"
-              },
-              "year_one_power_production_series_kw": {
-                "type": "array",
-                "description": "Hourly wind resource",
-                "units": "kW"
-              },
-              "year_one_to_battery_series_kw": {
+              "electric_to_storage_series_kw": {
                 "type": "array",
                 "description": "Year one wind to battery time series",
                 "units": "kW"
               },
-              "year_one_to_load_series_kw": {
+              "electric_to_load_series_kw": {
                 "type": "array",
                 "description": "Year one wind to load time series",
                 "units": "kW"
               },
-              "year_one_to_grid_series_kw": {
+              "electric_to_grid_series_kw": {
                 "type": "array",
                 "description": "Year one wind to grid time series",
                 "units": "kW"
@@ -231,17 +216,17 @@
                 "description": "Optimal battery energy capacity",
                 "units": "kWh"
               },
-              "year_one_to_load_series_kw": {
+              "electric_to_load_series_kw": {
                 "type": "array",
                 "description": "Year one hourly time series of battery serving load",
                 "units": "kW"
               },
-              "year_one_to_grid_series_kw": {
+              "electric_to_grid_series_kw": {
                 "type": "array",
                 "description": "Year one hourly time series of battery exporting to grid",
                 "units": "kW"
               },
-              "year_one_soc_series_pct": {
+              "soc_series_fraction": {
                 "type": "array",
                 "description": "Year one hourly time series of battery state of charge",
                 "units": " %"
@@ -360,23 +345,23 @@
                 "type": "array",
                 "description": "Year one hourly demand costs | UNUSED as of 2024-04-02",
                 "units": "$ / kW"
-              },
-              "year_one_to_load_series_kw": {
+              }
+            }
+          },
+          "ElectricUtility": {
+            "type": "object",
+            "properties": {
+              "electric_to_load_series_kw": {
                 "type": "array",
                 "description": "Year one grid to load time series",
                 "units": "kW"
               },
-              "year_one_to_battery_series_kw": {
-                "type": "array",
-                "description": "Year one hourly time series of power from grid to battery",
-                "units": "kW"
-              },
-              "year_one_energy_supplied_kwh": {
+              "annual_energy_supplied_kwh": {
                 "type": "number",
                 "description": "Year one hourly time series of power from grid to load",
                 "units": "kWh"
               },
-              "year_one_energy_supplied_kwh_bau": {
+              "annual_energy_supplied_kwh_bau": {
                 "type": "number",
                 "description": "Year one hourly time series of power from grid to load in bau scenario",
                 "units": "kWh"
@@ -401,37 +386,27 @@
                 "description": "Generator fuel used to meet critical load during grid outage in baucase.",
                 "units": "US gallons"
               },
-              "average_yearly_energy_produced_kwh": {
-                "type": "number",
-                "description": "Average annual energy produced by the diesel generator over one year",
-                "units": "kWh"
-              },
               "average_yearly_energy_exported_kwh": {
                 "type": "number",
                 "description": "Average annual energy exported by the diesel generator",
                 "units": "kWh"
               },
-              "year_one_energy_produced_kwh": {
+              "annual_energy_produced_kwh": {
                 "type": "number",
                 "description": "Year one energy produced by the diesel generator",
                 "units": "kWh"
               },
-              "year_one_power_production_series_kw": {
-                "type": "array",
-                "description": "Year one diesel generator power production time series",
-                "units": "kW"
-              },
-              "year_one_to_battery_series_kw": {
+              "electric_to_storage_series_kw": {
                 "type": "array",
                 "description": "Year one hourly time series of diesel generator charging",
                 "units": "kW"
               },
-              "year_one_to_load_series_kw": {
+              "electric_to_load_series_kw": {
                 "type": "array",
                 "description": "Year one generator to load time series.",
                 "units": "kW"
               },
-              "year_one_to_grid_series_kw": {
+              "electric_to_grid_series_kw": {
                 "type": "array",
                 "description": "Year one hourly time series of diesel generator exporting to grid",
                 "units": "kW"
