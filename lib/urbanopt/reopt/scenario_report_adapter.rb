@@ -38,7 +38,7 @@ module URBANopt # :nodoc:
         description = "scenario_report_#{name}_#{scenario_id}"
 
         # Create base REpopt post
-        reopt_inputs = { Scenario: { Site: { ElectricTariff: { blended_monthly_demand_charges_us_dollars_per_kw: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], blended_monthly_rates_us_dollars_per_kwh: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13] }, LoadProfile: {}, Wind: { max_kw: 0 } } } }
+        reopt_inputs = { Scenario: { Site: { ElectricTariff: { monthly_demand_rates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], monthly_energy_rates: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13] }, LoadProfile: {}, Wind: { max_kw: 0 } } } }
         if !reopt_assumptions_json.nil?
           reopt_inputs = reopt_assumptions_json
         else
@@ -136,8 +136,8 @@ module URBANopt # :nodoc:
           reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_active_timesteps] = tmp2
         end
 
-        if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_us_dollars_per_kw].nil?
-          reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_us_dollars_per_kw] = 0
+        if reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_per_kw].nil?
+          reopt_inputs[:Scenario][:Site][:ElectricTariff][:coincident_peak_load_charge_per_kw] = 0
         end
 
         return reopt_inputs
