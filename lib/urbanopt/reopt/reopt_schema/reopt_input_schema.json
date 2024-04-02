@@ -36,6 +36,13 @@
 					"max": 295,
 					"type": "number",
 					"description": "The number of seconds allowed before the optimization times out"
+				},
+				"optimality_tolerance": {
+					"default": 0.001,
+					"min": 0.000005,
+          "max": 0.2,
+          "type": "number",
+          "description": 	"The threshold for the difference between the solution's objective value and the best possible value at which the solver terminates"
 				}
 			}
 		},
