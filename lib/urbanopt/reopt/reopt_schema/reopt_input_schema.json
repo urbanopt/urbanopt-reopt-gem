@@ -7,13 +7,18 @@
 			"type": "string",
 			"description": "The assigned unique ID of a signed in REOpt user"
 		},
-		"description": {
-			"type": "string",
-			"description": "An optional user defined description to describe the scenario and run"
-		},
-		"address": {
-			"type": "string",
-			"description": "A user defined address as optional metadata (street address, city, state or zip code)"
+		"UserProvidedMeta": {
+			"type": "object",
+			"properties": {
+				"description": {
+					"type": "string",
+					"description": "An optional user defined description to describe the scenario and run"
+				},
+				"address": {
+					"type": "string",
+					"description": "A user defined address as optional metadata (street address, city, state or zip code)"
+				}
+			}
 		},
 		"Settings": {
 			"type": "object",
