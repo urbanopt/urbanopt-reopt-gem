@@ -35,7 +35,7 @@ RSpec.describe URBANopt::REopt do
 
     # Build the request
     post_request = Net::HTTP::Post.new(@uri_submit, header)
-    dummy_data = { Scenario: { Site: { latitude: 40, longitude: -110, Wind: { max_kw: 0 }, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, LoadProfile: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } } } }
+    dummy_data = { Site: { latitude: 40, longitude: -110}, Wind: { max_kw: 0 }, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, ElectricLoad: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } }
     post_request.body = ::JSON.generate(dummy_data, allow_nan: true)
 
     # Send the request, test response
