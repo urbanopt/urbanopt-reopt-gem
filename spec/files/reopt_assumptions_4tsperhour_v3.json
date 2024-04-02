@@ -100,7 +100,7 @@
         "inverter_replacement_year": 10
       },
       "ElectricTariff": {
-        "add_blended_rates_to_urdb_rate": false,
+        "add_monthly_rates_to_urdb_rate": false,
         "wholesale_rate_us_dollars_per_kwh": 0.0,
         "net_metering_limit_kw": 0.0,
         "interconnection_limit_kw": 100000000.0,
