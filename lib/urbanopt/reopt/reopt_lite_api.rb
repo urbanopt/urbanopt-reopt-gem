@@ -249,7 +249,7 @@ module URBANopt # :nodoc:
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
       def reopt_request(reopt_input, filename)
-        description = reopt_input[:Scenario][:description]
+        description = reopt_input[:Meta][:description]
 
         @@logger.info("Submitting #{description} to REopt API")
 
@@ -306,15 +306,15 @@ module URBANopt # :nodoc:
 
           data = JSON.parse(response.body, allow_nan: true)
 
-          if data['outputs']['Scenario']['Site']['PV'].is_a?(Array)
+          if data['outputs']['PV'].is_a?(Array)
             pv_sizes = 0
-            data['outputs']['Scenario']['Site']['PV'].each do |x|
+            data['outputs']['PV'].each do |x|
               pv_sizes += x['size_kw'].to_f
             end
           else
-            pv_sizes = data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0
+            pv_sizes = data['outputs']['PV']['size_kw'] || 0
           end
-          sizes = pv_sizes + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
+          sizes = pv_sizes + (data['outputs']['ElectricStorage']['size_kw'] || 0) + (data['outputs']['Wind']['size_kw'] || 0) + (data['outputs']['Generator']['size_kw'] || 0)
           status = data['outputs']['Scenario']['status']
 
           sleep 5
@@ -322,21 +322,21 @@ module URBANopt # :nodoc:
 
         max_retry = 5
         tries = 0
-        (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv'] || 0) > 0)
+        (check_complete = sizes == 0) && ((data['outputs']['Financial']['npv'] || 0) > 0)
         while (tries < max_retry) && check_complete
           sleep 3
           response = make_request(http, get_request)
           data = JSON.parse(response.body, allow_nan: true)
-          if data['outputs']['Scenario']['Site']['PV'].is_a?(Array)
+          if data['outputs']['PV'].is_a?(Array)
             pv_sizes = 0
-            data['outputs']['Scenario']['Site']['PV'].each do |x|
+            data['outputs']['PV'].each do |x|
               pv_sizes += x['size_kw'].to_f
             end
           else
-            pv_sizes = data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0
+            pv_sizes = data['outputs']['PV']['size_kw'] || 0
           end
-          sizes = pv_sizes + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
-          (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv'] || 0) > 0)
+          sizes = pv_sizes + (data['outputs']['ElectricStorage']['size_kw'] || 0) + (data['outputs']['Wind']['size_kw'] || 0) + (data['outputs']['Generator']['size_kw'] || 0)
+          (check_complete = sizes == 0) && ((data['outputs']['Financial']['npv'] || 0) > 0)
           tries += 1
         end
 
