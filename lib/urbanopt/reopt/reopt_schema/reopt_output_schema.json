@@ -216,7 +216,7 @@
                 "description": "Optimal battery energy capacity",
                 "units": "kWh"
               },
-              "electric_to_load_series_kw": {
+              "storage_to_load_series_kw": {
                 "type": "array",
                 "description": "Year one hourly time series of battery serving load",
                 "units": "kW"

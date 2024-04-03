@@ -151,7 +151,7 @@
 					"default": 0,
 					"min": 0,
 					"max": 1000000000.0,
-					"type": "number",
+					"type": "integer",
 					"description": "Optional coincident peak demand charge that is applied to the max load during the time_steps specified in coincident_peak_load_active_time_steps"
 				},
 				"wholesale_rate": {
