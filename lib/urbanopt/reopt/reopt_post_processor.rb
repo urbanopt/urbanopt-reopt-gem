@@ -32,7 +32,7 @@ module URBANopt # :nodoc:
         end
         @nrel_developer_key = nrel_developer_key
         @localhost = localhost
-        @reopt_base_post = { Scenario: { Site: { ElectricTariff: {}, LoadProfile: {}, Wind: { max_kw: 0 } } } }
+        @reopt_base_post = { ElectricTariff: {}, ElectricLoad: {}, Wind: { max_kw: 0 } }
 
         @scenario_reopt_default_output_file = nil
         @scenario_timeseries_default_output_file = nil
@@ -103,7 +103,7 @@ module URBANopt # :nodoc:
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
         @@logger.debug("REOpt output file: #{reopt_output_file}")
         if run_resilience
-          run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
+          run_uuid = reopt_output['outputs']['run_uuid']
           if File.directory? reopt_output_file
             resilience_stats = api.resilience_request(run_uuid, reopt_output_file)
           else
@@ -153,7 +153,7 @@ module URBANopt # :nodoc:
 
         reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)
         if run_resilience
-          run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
+          run_uuid = reopt_output['outputs']['run_uuid']
           if File.directory? @scenario_reopt_default_output_file
             resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file)
           else
@@ -222,7 +222,7 @@ module URBANopt # :nodoc:
               reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx], groundmount_photovoltaic)
               reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])
               if run_resilience
-                run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
+                run_uuid = reopt_output['outputs']['run_uuid']
                 if File.directory? @feature_reports_reopt_default_output_files[idx]
                   resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx])
                 else
