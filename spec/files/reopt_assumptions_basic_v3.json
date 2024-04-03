@@ -5,7 +5,8 @@
   },
   "Site": {
     "latitude": 40.0,
-    "longitude": -105.0
+    "longitude": -105.0,
+    "roof_squarefeet": null
   },
   "Wind": {"max_kw":0},
   "PV": {
@@ -81,7 +82,6 @@
     "critical_load_fraction": 0,
     "loads_kw_is_net": true
   },
-  "roof_squarefeet": null,
   "Storage": {
     "max_kwh": 1000000.0,
     "rectifier_efficiency_fraction": 0.96,
