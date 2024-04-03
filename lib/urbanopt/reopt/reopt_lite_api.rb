@@ -249,7 +249,7 @@ module URBANopt # :nodoc:
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
       def reopt_request(reopt_input, filename)
-        description = reopt_input[:Meta][:description]
+        description = reopt_input[:description]
 
         @@logger.info("Submitting #{description} to REopt API")
 
