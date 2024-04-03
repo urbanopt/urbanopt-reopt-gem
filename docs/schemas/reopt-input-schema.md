@@ -25,18 +25,16 @@ Otherwise, all non-required input parameters will be filled in with default valu
 
 ```
 {
-	"Scenario": {
-		"Site":{
-			"latiude":45,
-			"longitude":-110,
-			"ElectricTariff": {
-				"urdb_label":"594976725457a37b1175d089"
-			},
-			"LoadProfile":{
-				"doe_reference_name":"Hospital",
-				"annual_kwh":1000000
-			}
-		}
+	"Site":{
+		"latiude":45,
+		"longitude":-110
+	},
+	"ElectricTariff": {
+		"urdb_label":"594976725457a37b1175d089"
+	},
+	"ElectricLoad":{
+		"doe_reference_name":"Hospital",
+		"annual_kwh":1000000
 	}
 }
 ```
