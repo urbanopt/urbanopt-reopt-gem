@@ -160,13 +160,6 @@
 					"type": "number",
 					"description": "Price of electricity sold back to the grid in absence of net metering or above net metering limit, restricted to total site load"
 				},
-				"interconnection_limit_kw": {
-					"default": 100000000.0,
-					"min": 0,
-					"max": 1000000000.0,
-					"type": "number",
-					"description": "Limit on system capacity size that can be interconnected to the grid"
-				},
 				"export_rate_beyond_net_metering_limit": {
 					"default": 0,
 					"min": 0,
@@ -207,13 +200,6 @@
 					"type": "number",
 					"description": "Annual blended energy rate (total annual energy in kWh divided by annual cost in $)",
 					"depends_on": ["blended_annual_demand_rate"]
-				},
-				"net_metering_limit_kw": {
-					"default": 0,
-					"min": 0,
-					"max": 1000000000.0,
-					"type": "number",
-					"description": "System size above which net metering is not allowed"
 				},
 				"monthly_demand_rates": {
 					"replacement_sets": [
@@ -273,6 +259,25 @@
 					"type": "array",
 					"description": "Array (length of 12) of blended energy rates (total monthly energy in kWh divided by monthly cost in $)",
 					"depends_on": ["monthly_demand_rates"]
+				}
+			}
+		},
+		"ElectricUtility": {
+			"type": "object",
+			"properties": {
+				"interconnection_limit_kw": {
+					"default": 100000000.0,
+					"min": 0,
+					"max": 1000000000.0,
+					"type": "number",
+					"description": "Limit on system capacity size that can be interconnected to the grid"
+				},
+				"net_metering_limit_kw": {
+					"default": 0,
+					"min": 0,
+					"max": 1000000000.0,
+					"type": "number",
+					"description": "System size above which net metering is not allowed"
 				}
 			}
 		},
