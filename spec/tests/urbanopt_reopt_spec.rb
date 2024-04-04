@@ -194,7 +194,7 @@ RSpec.describe URBANopt::REopt do
     reopt_input[:Scenario][:Site][:PV][:min_kw] = 5
     reopt_output = api.reopt_request(reopt_input, reopt_output_file)
 
-    reopt_output['outputs']['Scenario']['Site']['PV'] = [reopt_output['outputs']['Scenario']['Site']['PV'], reopt_output['outputs']['Scenario']['Site']['PV']]
+    reopt_output['outputs']['PV'] = [reopt_output['outputs']['PV'], reopt_output['outputs']['PV']]
 
     scenario_report = adapter.update_scenario_report(scenario_report, reopt_output, timeseries_output_file)
     scenario_report.save 'test__/scenario_report_reopt_mulitPV'
