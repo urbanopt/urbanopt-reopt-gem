@@ -112,8 +112,7 @@
     "interconnection_limit_kw": 100000000.0,
     "urdb_utility_name": "Entergy New Orleans Inc",
     "export_rate_beyond_net_metering_limit": 0.0,
-    "urdb_label": "5cef01e55457a33576f60fe0",
-    "coincident_peak_load_charge_per_kw":0.0
+    "urdb_label": "5cef01e55457a33576f60fe0"
     },
   "Financial": {
     "elec_cost_escalation_rate_fraction": 0.026,
