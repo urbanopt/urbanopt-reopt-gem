@@ -8,7 +8,6 @@
     "longitude": -105.0,
     "roof_squarefeet": null
   },
-  "Wind": {"max_kw":0},
   "PV": {
     "pv_name": "Roof - South Face",
     "pbi_years": 1.0,
