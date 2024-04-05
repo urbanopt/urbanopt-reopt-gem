@@ -41,10 +41,7 @@ module URBANopt # :nodoc:
             monthly_demand_rates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             monthly_energy_rates: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
           },
-          ElectricLoad: {},
-          Wind: {
-            max_kw: 0
-          }
+          ElectricLoad: {}
         }
         if !reopt_assumptions_hash.nil?
           reopt_inputs = reopt_assumptions_hash
@@ -66,7 +63,7 @@ module URBANopt # :nodoc:
           end
         end
 
-        reopt_inputs[:Meta][:description] = description
+        reopt_inputs[:description] = description
 
         # Parse Location
         reopt_inputs[:Site][:latitude] = feature_report.location.latitude_deg
@@ -127,14 +124,14 @@ module URBANopt # :nodoc:
           raise "Could not convert the annual electric load from a resolution of #{feature_report.timesteps_per_hour} to #{reopt_inputs[:Settings][:time_steps_per_hour]}"
         end
 
-        if reopt_inputs[:ElectricTariff][:coincident_peak_load_active_timesteps].nil?
+        if reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps].nil?
           n_top_values = 100
           tmp1 = reopt_inputs[:ElectricLoad][:loads_kw]
           tmp2 = tmp1.each_index.max_by(n_top_values * reopt_inputs[:Settings][:time_steps_per_hour]) { |i| tmp1[i] }
           for i in (0...tmp2.count)
             tmp2[i] += 1
           end
-          reopt_inputs[:ElectricTariff][:coincident_peak_load_active_timesteps] = tmp2
+          reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps] = tmp2
         end
 
         if reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw].nil?
