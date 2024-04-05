@@ -7,7 +7,7 @@
 			"type": "string",
 			"description": "The assigned unique ID of a signed in REOpt user"
 		},
-		"UserProvidedMeta": {
+		"Meta": {
 			"type": "object",
 			"properties": {
 				"description": {
