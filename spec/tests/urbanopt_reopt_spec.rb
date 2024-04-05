@@ -18,7 +18,7 @@ RSpec.describe URBANopt::REopt do
 
   it 'can connect to reopt' do
     api = URBANopt::REopt::REoptLiteAPI.new(DEVELOPER_NREL_KEY, false)
-    dummy_data = { Site: { latitude: 40, longitude: -110}, Wind: { max_kw: 0 }, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, ElectricLoad: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } }
+    dummy_data = { Site: { latitude: 40, longitude: -110}, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, ElectricLoad: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } }
     ok = api.check_connection(dummy_data)
     expect(ok).to be true
   end
@@ -35,7 +35,7 @@ RSpec.describe URBANopt::REopt do
 
     # Build the request
     post_request = Net::HTTP::Post.new(@uri_submit, header)
-    dummy_data = { Site: { latitude: 40, longitude: -110}, Wind: { max_kw: 0 }, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, ElectricLoad: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } }
+    dummy_data = { Site: { latitude: 40, longitude: -110}, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, ElectricLoad: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } }
     post_request.body = ::JSON.generate(dummy_data, allow_nan: true)
 
     # Send the request, test response
@@ -191,7 +191,7 @@ RSpec.describe URBANopt::REopt do
     adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
     reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash)
-    reopt_input[:Scenario][:Site][:PV][:min_kw] = 5
+    reopt_input[:PV][:min_kw] = 5
     reopt_output = api.reopt_request(reopt_input, reopt_output_file)
 
     reopt_output['outputs']['PV'] = [reopt_output['outputs']['PV'], reopt_output['outputs']['PV']]
