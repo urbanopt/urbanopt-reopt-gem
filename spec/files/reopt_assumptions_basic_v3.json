@@ -105,14 +105,12 @@
     "inverter_replacement_year": 10
   },
   "ElectricTariff": {
-    "add_monthly_rates_to_urdb_rate": false,
-    "wholesale_rate": 0.0,
+    "add_blended_rates_to_urdb_rate": false,
     "net_metering_limit_kw": 0.0,
     "interconnection_limit_kw": 100000000.0,
-    "urdb_utility_name": "Entergy New Orleans Inc",
-    "export_rate_beyond_net_metering_limit": 0.0,
-    "urdb_label": "5cef01e55457a33576f60fe0"
-    },
+    "monthly_demand_rates": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+    "monthly_energy_rates": [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
+  },
   "Financial": {
     "elec_cost_escalation_rate_fraction": 0.026,
     "offtaker_discount_rate_fraction": 0.081,

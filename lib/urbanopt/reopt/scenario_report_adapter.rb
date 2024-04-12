@@ -132,19 +132,21 @@ module URBANopt # :nodoc:
           raise "Could not convert the annual electric load from a resolution of #{scenario_report.timesteps_per_hour} to #{reopt_inputs[:Settings][:time_steps_per_hour]}"
         end
 
-        if reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps].nil?
-          n_top_values = 100
-          tmp1 = reopt_inputs[:ElectricLoad][:loads_kw]
-          tmp2 = tmp1.each_index.max_by(n_top_values * reopt_inputs[:Settings][:time_steps_per_hour]) { |i| tmp1[i] }
-          for i in (0...tmp2.count)
-            tmp2[i] += 1
-          end
-          reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps] = tmp2
-        end
+        # REMOVE COINCIDENT PEAKS STUFF JUST FOR TESTING
+        # if reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps].nil?
+        #   n_top_values = 10
+        #   tmp1 = reopt_inputs[:ElectricLoad][:loads_kw]
+        #   tmp2 = tmp1.each_index.max_by(n_top_values * reopt_inputs[:Settings][:time_steps_per_hour]) { |i| tmp1[i] }
+        #   for i in (0...tmp2.count)
+        #     tmp2[i] += 1
+        #   end
+        #   # this needs to be a 2D array
+        #   reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps] = [tmp2]
+        # end
 
-        if reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw].nil?
-          reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw] = 0
-        end
+        # if reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw].nil?
+        #   reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw] = 0
+        # end
 
         return reopt_inputs
       end

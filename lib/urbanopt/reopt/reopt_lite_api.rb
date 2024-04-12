@@ -301,44 +301,116 @@ module URBANopt # :nodoc:
 
         get_request = Net::HTTP::Get.new(uri.request_uri)
 
+        counter = 0
         while status == 'Optimizing...'
+          puts "optimizing... make another request"
           response = make_request(http, get_request)
 
           data = JSON.parse(response.body, allow_nan: true)
+          # puts "OUTPUT DATA: #{data['outputs'].to_json}"
 
-          if data['outputs']['PV'].is_a?(Array)
+          # TEMPORARY - for testing
+          counter += 1
+          File.open(File.join("/Users/kflemin/repos/urbanopt-reopt-gem/spec/run/example_scenario", "reopt_output_temp_#{counter}.json"),"w") do |f|
+            f.write(JSON.pretty_generate(data))
+          end  
+
+          if !data['outputs']['PV']
             pv_sizes = 0
-            data['outputs']['PV'].each do |x|
-              pv_sizes += x['size_kw'].to_f
-            end
+            sizes = 0
           else
-            pv_sizes = data['outputs']['PV']['size_kw'] || 0
+            # there should be results in there now
+            if data['outputs']['PV'].is_a?(Array)
+              pv_sizes = 0
+              data['outputs']['PV'].each do |x|
+                pv_sizes += x['size_kw'].to_f
+              end
+            else
+              pv_sizes = data['outputs']['PV']['size_kw'] || 0
+            end
+            sizes = pv_sizes 
+
+            # we need to review if these keys are still the same:
+            # also do we want to add any more here? 
+            # maybe go through all the outputs main keys and see if they have a 'size_kw'?
+            # data['outputs']['ElectricStorage']['size_kw']
+            # data['outputs']['Wind']['size_kw']
+            # data['outputs']['Generator']['size_kw']
+            if data['outputs'].key?("ElectricStorage")
+              sizes += data['outputs']['ElectricStorage']['size_kw']
+            end
+            if data['outputs'].key?("Wind")
+              sizes += data['outputs']['Wind']['size_kw']
+            end
+            if data['outputs'].key?("Generator")
+              sizes += data['outputs']['Generator']['size_kw']
+            end
           end
-          sizes = pv_sizes + (data['outputs']['ElectricStorage']['size_kw'] || 0) + (data['outputs']['Wind']['size_kw'] || 0) + (data['outputs']['Generator']['size_kw'] || 0)
-          status = data['outputs']['Scenario']['status']
+
+          status = data['status']
+          puts "STATUS: #{status}"
+
+          if status == 'error'
+            puts "response.code: #{response.code}"
+            puts "message: #{response.message}"
+            error_message = data['messages']['errors']
+            raise "Error from REopt API - #{error_message}"
+          end
 
           sleep 5
         end
-
+        
         max_retry = 5
         tries = 0
-        (check_complete = sizes == 0) && ((data['outputs']['Financial']['npv'] || 0) > 0)
-        while (tries < max_retry) && check_complete
-          sleep 3
-          response = make_request(http, get_request)
-          data = JSON.parse(response.body, allow_nan: true)
-          if data['outputs']['PV'].is_a?(Array)
-            pv_sizes = 0
-            data['outputs']['PV'].each do |x|
-              pv_sizes += x['size_kw'].to_f
+
+        check_complete = sizes == 0
+        # I don't know what this line does:
+        # (((data['outputs'] && data['outputs'].key?('Financial') && data['outputs']['Financial']['npv']) || 0) > 0)
+        
+        if check_complete
+          puts "sizes are 0...checking optimization complete"
+        
+          while (tries < max_retry) && check_complete
+            sleep 3
+            response = make_request(http, get_request)
+            data = JSON.parse(response.body, allow_nan: true)
+            
+            # TEMPORARY - for testing
+            File.open(File.join(File.dirname(__FILE__), "../../../spec/run/example_scenario", "reopt_output_checkoutput_#{tries}.json"),"w") do |f|
+              f.write(JSON.pretty_generate(data))
+            end        
+
+
+            if data['outputs'].key?('PV') && data['outputs']['PV'].is_a?(Array)
+              pv_sizes = 0
+              data['outputs']['PV'].each do |x|
+                pv_sizes += x['size_kw'].to_f
+              end
+            else
+              pv_sizes = data['outputs']['PV']['size_kw'] || 0
             end
-          else
-            pv_sizes = data['outputs']['PV']['size_kw'] || 0
+
+            # review these keys and potentially add more
+            # maybe go through all the outputs main keys and see if they have a 'size_kw'?
+            if data['outputs'].key?("ElectricStorage")
+              sizes += data['outputs']['ElectricStorage']['size_kw']
+            end
+            if data['outputs'].key?("Wind")
+              sizes += data['outputs']['Wind']['size_kw']
+            end
+            if data['outputs'].key?("Generator")
+              sizes += data['outputs']['Generator']['size_kw']
+            end
+
+            # I don't understand this line fully:
+            #(check_complete = sizes == 0) && ((data['outputs']['Financial']['npv'] || 0) > 0)
+            
+            check_complete = sizes == 0
+            tries += 1
           end
-          sizes = pv_sizes + (data['outputs']['ElectricStorage']['size_kw'] || 0) + (data['outputs']['Wind']['size_kw'] || 0) + (data['outputs']['Generator']['size_kw'] || 0)
-          (check_complete = sizes == 0) && ((data['outputs']['Financial']['npv'] || 0) > 0)
-          tries += 1
         end
+
+        puts "check output is complete!"
 
         data = JSON.parse(response.body, allow_nan: true)
         text = JSON.pretty_generate(data)

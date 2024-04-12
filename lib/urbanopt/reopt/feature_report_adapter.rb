@@ -131,7 +131,8 @@ module URBANopt # :nodoc:
           for i in (0...tmp2.count)
             tmp2[i] += 1
           end
-          reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps] = tmp2
+          # this needs to be a 2D array
+          reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps] = [tmp2]
         end
 
         if reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw].nil?
