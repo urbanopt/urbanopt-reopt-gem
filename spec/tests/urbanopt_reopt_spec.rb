@@ -170,7 +170,7 @@ RSpec.describe URBANopt::REopt do
 
       feature_report_dir = scenario_dir / feature_id.to_s
       feature_report.directory_name = feature_report_dir
-      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{feature_id}/007_default_feature_reports/default_feature_reports.csv"
+      feature_report.timeseries_csv.path = scenario_dir / feature_id.to_s / '007_default_feature_reports' / 'default_feature_reports.csv'
       scenario_report.add_feature_report(feature_report)
     end
 
@@ -225,7 +225,7 @@ RSpec.describe URBANopt::REopt do
     feature_report_save_names = []
     feature_list.each do |feature_id|
       feature_reports_path = scenario_dir / feature_id.to_s / '007_default_feature_reports' / 'default_feature_reports.json'
-      Dir.mkdir("spec/run/example_scenario/#{feature_id}/reopt")
+      Dir.mkdir(scenario_dir / feature_id.to_s / 'reopt')
 
       expect((File.size(feature_reports_path).to_f / 1024) > 20)
 
@@ -238,7 +238,7 @@ RSpec.describe URBANopt::REopt do
 
       feature_report_dir = scenario_dir / feature_id.to_s
       feature_report.directory_name = feature_report_dir
-      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{feature_id}/007_default_feature_reports/default_feature_reports.csv"
+      feature_report.timeseries_csv.path = scenario_dir / feature_id.to_s / '007_default_feature_reports' / 'default_feature_reports.csv'
 
       reopt_assumption_files << reopt_assumptions_file
       feature_reports << feature_report
@@ -297,7 +297,7 @@ RSpec.describe URBANopt::REopt do
       feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
       feature_report_dir = scenario_dir / feature_id.to_s
       feature_report.directory_name = feature_report_dir
-      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{feature_id}/007_default_feature_reports/default_feature_reports.csv"
+      feature_report.timeseries_csv.path = scenario_dir / feature_id.to_s / '007_default_feature_reports' / 'default_feature_reports.csv'
 
       reopt_assumption_files << reopt_assumptions_file
       reopt_assumption_jsons << Marshal.load(Marshal.dump(reopt_assumptions))
