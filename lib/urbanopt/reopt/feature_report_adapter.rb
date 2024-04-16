@@ -124,20 +124,21 @@ module URBANopt # :nodoc:
           raise "Could not convert the annual electric load from a resolution of #{feature_report.timesteps_per_hour} to #{reopt_inputs[:Settings][:time_steps_per_hour]}"
         end
 
-        if reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps].nil?
-          n_top_values = 100
-          tmp1 = reopt_inputs[:ElectricLoad][:loads_kw]
-          tmp2 = tmp1.each_index.max_by(n_top_values * reopt_inputs[:Settings][:time_steps_per_hour]) { |i| tmp1[i] }
-          for i in (0...tmp2.count)
-            tmp2[i] += 1
-          end
-          # this needs to be a 2D array
-          reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps] = [tmp2]
-        end
+        # TODO: Restore coincident_peak stuff here and in Scenario Report adapter
+        # if reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps].nil?
+        #   n_top_values = 100
+        #   tmp1 = reopt_inputs[:ElectricLoad][:loads_kw]
+        #   tmp2 = tmp1.each_index.max_by(n_top_values * reopt_inputs[:Settings][:time_steps_per_hour]) { |i| tmp1[i] }
+        #   for i in (0...tmp2.count)
+        #     tmp2[i] += 1
+        #   end
+        #   # this needs to be a 2D array
+        #   reopt_inputs[:ElectricTariff][:coincident_peak_load_active_time_steps] = [tmp2]
+        # end
 
-        if reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw].nil?
-          reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw] = 0
-        end
+        # if reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw].nil?
+        #   reopt_inputs[:ElectricTariff][:coincident_peak_load_charge_per_kw] = 0
+        # end
 
         return reopt_inputs
       end
@@ -168,13 +169,13 @@ module URBANopt # :nodoc:
         feature_report.distributed_generation.annual_renewable_electricity_pct = reopt_output['outputs']['Site']['annual_renewable_electricity_pct'] || 0
         feature_report.distributed_generation.lcc = reopt_output['outputs']['Financial']['lcc'] || 0
         feature_report.distributed_generation.npv = reopt_output['outputs']['Financial']['npv'] || 0
-        feature_report.distributed_generation.year_one_energy_cost_before_tax =  reopt_output['outputs']['ElectricTariff']['year_one_energy_cost_before_tax'] || 0
-        feature_report.distributed_generation.year_one_demand_cost_before_tax =  reopt_output['outputs']['ElectricTariff']['year_one_demand_cost_before_tax'] || 0
+        feature_report.distributed_generation.year_one_energy_cost_before_tax = reopt_output['outputs']['ElectricTariff']['year_one_energy_cost_before_tax'] || 0
+        feature_report.distributed_generation.year_one_demand_cost_before_tax = reopt_output['outputs']['ElectricTariff']['year_one_demand_cost_before_tax'] || 0
         feature_report.distributed_generation.year_one_bill_before_tax = reopt_output['outputs']['ElectricTariff']['year_one_bill_before_tax'] || 0
         feature_report.distributed_generation.lifecycle_energy_cost_after_tax = reopt_output['outputs']['ElectricTariff']['lifecycle_energy_cost_after_tax'] || 0
         feature_report.distributed_generation.lifecycle_demand_cost_after_tax = reopt_output['outputs']['ElectricTariff']['lifecycle_demand_cost_after_tax'] || 0
-        feature_report.distributed_generation.year_one_energy_cost_before_tax_bau =  reopt_output['outputs']['ElectricTariff']['year_one_energy_cost_before_tax_bau'] || 0
-        feature_report.distributed_generation.year_one_demand_cost_before_tax_bau =  reopt_output['outputs']['ElectricTariff']['year_one_demand_cost_before_tax_bau'] || 0
+        feature_report.distributed_generation.year_one_energy_cost_before_tax_bau = reopt_output['outputs']['ElectricTariff']['year_one_energy_cost_before_tax_bau'] || 0
+        feature_report.distributed_generation.year_one_demand_cost_before_tax_bau = reopt_output['outputs']['ElectricTariff']['year_one_demand_cost_before_tax_bau'] || 0
         feature_report.distributed_generation.year_one_bill_before_tax_bau = reopt_output['outputs']['ElectricTariff']['year_one_bill_before_tax_bau'] || 0
         feature_report.distributed_generation.lifecycle_demand_cost_after_tax_bau = reopt_output['outputs']['ElectricTariff']['lifecycle_demand_cost_after_tax_bau'] || 0
         feature_report.distributed_generation.lifecycle_energy_cost_after_tax_bau = reopt_output['outputs']['ElectricTariff']['lifecycle_energy_cost_after_tax_bau'] || 0
@@ -283,7 +284,7 @@ module URBANopt # :nodoc:
           feature_report.timeseries_csv.column_names.push('REopt:Electricity:Grid:ToBattery(kw)')
         end
 
-        $storage_to_load = convert_powerflow_resolution(reopt_output['outputs']['ElectricStorage']['electric_to_load_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)
+        $storage_to_load = convert_powerflow_resolution(reopt_output['outputs']['ElectricStorage']['storage_to_load_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)
         $storage_to_load_col = feature_report.timeseries_csv.column_names.index('REopt:Electricity:Storage:ToLoad(kw)')
         if $storage_to_load_col.nil?
           $storage_to_load_col = feature_report.timeseries_csv.column_names.length

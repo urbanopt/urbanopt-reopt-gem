@@ -173,29 +173,6 @@ module URBANopt # :nodoc:
         return results
       end
 
-      def modrow(data, idx) # :nodoc:
-        data[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[idx] || 0
-        data[$load_col] = $load[idx] || 0
-        data[$utility_to_load_col] = $utility_to_load[idx] || 0
-        data[$utility_to_battery_col] = $utility_to_battery[idx] || 0
-        data[$storage_to_load_col] = $storage_to_load[idx] || 0
-        data[$storage_to_grid_col] = $storage_to_grid[idx] || 0
-        data[$storage_soc_col] = $storage_soc[idx] || 0
-        data[$generator_total_col] = $generator_total[idx] || 0
-        data[$generator_to_battery_col] = $generator_to_battery[idx] || 0
-        data[$generator_to_load_col] = $generator_to_load[idx] || 0
-        data[$generator_to_grid_col] = $generator_to_grid[idx] || 0
-        data[$pv_total_col] = $pv_total[idx] || 0
-        data[$pv_to_battery_col] = $pv_to_battery[idx] || 0
-        data[$pv_to_load_col] = $pv_to_load[idx] || 0
-        data[$pv_to_grid_col] = $pv_to_grid[idx] || 0
-        data[$wind_total_col] = $wind_total[idx] || 0
-        data[$wind_to_battery_col] = $wind_to_battery[idx] || 0
-        data[$wind_to_load_col] = $wind_to_load[idx] || 0
-        data[$wind_to_grid_col] = $wind_to_grid[idx] || 0
-        return data
-      end
-
       ##
       # Updates a ScenarioReport from a \REopt response
       #
@@ -476,6 +453,29 @@ module URBANopt # :nodoc:
         if $wind_to_grid_col.nil?
           $wind_to_grid_col = scenario_report.timeseries_csv.column_names.length
           scenario_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Wind:ToGrid(kw)')
+        end
+
+        def modrow(data, idx) # :nodoc:
+          data[$generation_timeseries_kwh_col] = $generation_timeseries_kwh[idx] || 0
+          data[$load_col] = $load[idx] || 0
+          data[$utility_to_load_col] = $utility_to_load[idx] || 0
+          data[$utility_to_battery_col] = $utility_to_battery[idx] || 0
+          data[$storage_to_load_col] = $storage_to_load[idx] || 0
+          data[$storage_to_grid_col] = $storage_to_grid[idx] || 0
+          data[$storage_soc_col] = $storage_soc[idx] || 0
+          data[$generator_total_col] = $generator_total[idx] || 0
+          data[$generator_to_battery_col] = $generator_to_battery[idx] || 0
+          data[$generator_to_load_col] = $generator_to_load[idx] || 0
+          data[$generator_to_grid_col] = $generator_to_grid[idx] || 0
+          data[$pv_total_col] = $pv_total[idx] || 0
+          data[$pv_to_battery_col] = $pv_to_battery[idx] || 0
+          data[$pv_to_load_col] = $pv_to_load[idx] || 0
+          data[$pv_to_grid_col] = $pv_to_grid[idx] || 0
+          data[$wind_total_col] = $wind_total[idx] || 0
+          data[$wind_to_battery_col] = $wind_to_battery[idx] || 0
+          data[$wind_to_load_col] = $wind_to_load[idx] || 0
+          data[$wind_to_grid_col] = $wind_to_grid[idx] || 0
+          return data
         end
 
         old_data = CSV.open(scenario_report.timeseries_csv.path).read
