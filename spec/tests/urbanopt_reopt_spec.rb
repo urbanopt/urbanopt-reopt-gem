@@ -76,7 +76,7 @@ RSpec.describe URBANopt::REopt do
 
       feature_report_dir = scenario_dir / feature_id.to_s
       feature_report.directory_name = feature_report_dir
-      feature_report.timeseries_csv.path = "spec/run/example_scenario/#{feature_id}/007_default_feature_reports/default_feature_reports.csv"
+      feature_report.timeseries_csv.path = scenario_dir / '1' / '007_default_feature_reports' / 'default_feature_reports.csv'
       scenario_report.add_feature_report(feature_report)
     end
     scenario_report.save 'test__/can_process_a_scenario_report'
