@@ -1,13 +1,25 @@
 {
   "Settings": {
     "timeout_seconds": 295,
-    "time_steps_per_hour": 4
+    "time_steps_per_hour": 4,
+    "off_grid_flag": false
   },
   "Site": {
     "latitude": 40.0,
-    "longitude": -105.0
+    "longitude": -105.0,
+    "roof_squarefeet": null,
+    "renewable_electricity_min_fraction": 0,
+    "renewable_electricity_max_fraction": 1
   },
-  "Wind": {"max_kw":0},
+  "Financial": {
+    "elec_cost_escalation_rate_fraction": 0.026,
+    "offtaker_discount_rate_fraction": 0.081,
+    "value_of_lost_load_per_kwh": 100.0,
+    "analysis_years": 20,
+    "microgrid_upgrade_cost_fraction": 0.3,
+    "offtaker_tax_rate_fraction": 0.26,
+    "om_cost_escalation_rate_fraction": 0.025
+  },
   "PV": {
     "pv_name": "Roof - South Face",
     "pbi_years": 1.0,
@@ -81,7 +93,6 @@
     "critical_load_fraction": 0,
     "loads_kw_is_net": true
   },
-  "roof_squarefeet": null,
   "Storage": {
     "max_kwh": 1000000.0,
     "rectifier_efficiency_fraction": 0.96,
@@ -107,20 +118,11 @@
   },
   "ElectricTariff": {
     "add_monthly_rates_to_urdb_rate": false,
-    "wholesale_rate": 0.0,
-    "net_metering_limit_kw": 0.0,
+    "monthly_demand_rates": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+    "monthly_energy_rates": [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
+  },
+  "ElectricUtility": {
     "interconnection_limit_kw": 100000000.0,
-    "urdb_utility_name": "New York State Elec & Gas Corp",
-    "export_rate_beyond_net_metering_limit": 0.0,
-    "urdb_label": "63d2ee77159b5831e801481f"
-    },
-  "Financial": {
-    "elec_cost_escalation_rate_fraction": 0.026,
-    "offtaker_discount_rate_fraction": 0.081,
-    "value_of_lost_load_per_kwh": 100.0,
-    "analysis_years": 20,
-    "microgrid_upgrade_cost_fraction": 0.3,
-    "offtaker_tax_rate_fraction": 0.26,
-    "om_cost_escalation_rate_fraction": 0.025
+    "net_metering_limit_kw": 0.0
   }
 }
