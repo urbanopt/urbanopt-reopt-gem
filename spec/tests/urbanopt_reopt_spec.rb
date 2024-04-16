@@ -94,19 +94,19 @@ RSpec.describe URBANopt::REopt do
     # Assume that file size over 10kb means data was written correctly. Test file is expected to be about 29kb
     expect((File.size(scenario_dir / 'test__' / 'scenario_report_reopt_global.json').to_f / 1024) > 20)
 
-    FileUtils.rm_rf('spec/run/example_scenario/test__')
-    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
-    FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
-    FileUtils.rm_rf('spec/run/example_scenario/reopt')
+    FileUtils.rm_rf(scenario_dir / 'test__')
+    FileUtils.rm_rf(scenario_dir / 'reopt')
+    FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
+    FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports')
   end
 
   it 'can process a feature report and handle time resolution conversion' do
     begin
-      FileUtils.rm_rf('spec/run/example_scenario/test__')
+      FileUtils.rm_rf(scenario_dir / 'test__')
     rescue StandardError
     end
     begin
-      FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
+      FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
     rescue StandardError
     end
     if !File.directory? scenario_dir / 'test__'
@@ -124,9 +124,9 @@ RSpec.describe URBANopt::REopt do
     feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
 
     feature_report_dir = scenario_dir / '1'
-    Dir.mkdir('spec/run/example_scenario/1/reopt')
+    Dir.mkdir(scenario_dir / '1' / 'reopt')
     feature_report.directory_name = feature_report_dir
-    feature_report.timeseries_csv.path = 'spec/run/example_scenario/1/007_default_feature_reports/default_feature_reports.csv'
+    feature_report.timeseries_csv.path = scenario_dir / '1' / '007_default_feature_reports' / 'default_feature_reports.csv'
 
     reopt_output_file = feature_report_dir / 'reopt' / 'feature_report_reopt_run1.json'
     timeseries_output_file = feature_report_dir / 'feature_report_timeseries1.csv'
@@ -142,14 +142,14 @@ RSpec.describe URBANopt::REopt do
     feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, timeseries_csv_path: timeseries_output_file, save_name: 'feature_report_reopt2')
     feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, reopt_output_file: reopt_output_file, save_name: 'feature_report_reopt3')
     feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, save_name: 'feature_report_reopt4')
-    FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
-    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
+    FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
+    FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
   end
 
   it "can process multiple PV's" do
     begin
-      FileUtils.rm_rf('spec/run/example_scenario/reopt')
-      FileUtils.rm_rf('spec/run/example_scenario/test__')
+      FileUtils.rm_rf(scenario_dir / 'test__')
+      FileUtils.rm_rf(scenario_dir / 'reopt')
     rescue StandardError
     end
     if !File.directory? scenario_dir / 'test__'
@@ -204,17 +204,17 @@ RSpec.describe URBANopt::REopt do
     # Assume that file size over 10kb means data was written correctly. Test file is expected to be about 29kb
     expect((File.size(reopt_output_file).to_f / 1024) > 20)
 
-    FileUtils.rm_rf('spec/run/example_scenario/test__')
-    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
-    FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
+    FileUtils.rm_rf(scenario_dir / 'test__')
+    FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
+    FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports')
   end
 
   it 'can process a set of feature reports' do
     begin
-      FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
-      FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
-      FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports/test__')
-      FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports/test__')
+      FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
+      FileUtils.rm_rf(scenario_dir / '2' / 'reopt')
+      FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports' / '/test__')
+    FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports' / '/test__')
     rescue StandardError
     end
     reopt_assumption_files = []
@@ -256,20 +256,20 @@ RSpec.describe URBANopt::REopt do
       expect((File.size(scenario_dir / feature_id.to_s / 'feature_reports' / 'feature_report_reopt.json').to_f / 1024) > 20)
       expect((File.size(scenario_dir / feature_id.to_s / 'reopt' / "feature_report_#{feature_id}_reopt_run.json").to_f / 1024) > 20)
     end
-    FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
-    FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
-    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
-    FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
+    FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
+    FileUtils.rm_rf(scenario_dir / '2' / 'reopt')
+    FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
+    FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports')
   end
 
   it 'can process all feature reports in a scenario report individually' do
     begin
-      FileUtils.rm_rf('spec/run/example_scenario/reopt')
-      FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
-      FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
-      FileUtils.rm_rf('spec/run/example_scenario/test__')
-      FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
-      FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
+      FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
+      FileUtils.rm_rf(scenario_dir / '2' / 'reopt')
+      FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
+      FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports')
+      FileUtils.rm_rf(scenario_dir / 'reopt')
+      FileUtils.rm_rf(scenario_dir / 'test__')
     rescue StandardError
     end
     if !File.directory? scenario_dir / 'test__'
@@ -324,11 +324,11 @@ RSpec.describe URBANopt::REopt do
     #   expect((File.size(ts_output_file).to_f / 1024) > 20)
     # end
     expect((File.size(reopt_output_file).to_f / 1024) > 20)
-    FileUtils.rm_rf('spec/run/example_scenario/reopt')
-    FileUtils.rm_rf('spec/run/example_scenario/1/reopt')
-    FileUtils.rm_rf('spec/run/example_scenario/2/reopt')
-    FileUtils.rm_rf('spec/run/example_scenario/test__')
-    FileUtils.rm_rf('spec/run/example_scenario/1/feature_reports')
-    FileUtils.rm_rf('spec/run/example_scenario/2/feature_reports')
+    FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
+      FileUtils.rm_rf(scenario_dir / '2' / 'reopt')
+      FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
+      FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports')
+      FileUtils.rm_rf(scenario_dir / 'reopt')
+      FileUtils.rm_rf(scenario_dir / 'test__')
   end
 end
