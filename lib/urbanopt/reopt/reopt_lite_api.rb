@@ -199,21 +199,21 @@ module URBANopt # :nodoc:
           http.use_ssl = true
         end
 
-        # Wait a few seconds for the REopt database to update before GETing results
-        sleep 5
+        # Wait for the REopt database to update before GETing results
+        sleep(15.seconds)
         get_request = Net::HTTP::Get.new(uri.request_uri)
         response = make_request(http, get_request, 8)
 
         # Set a limit on retries when 404s are returned from REopt API
         elapsed_time = 0
-        max_elapsed_time = 60 * 5
+        max_elapsed_time = 60 * 15
 
-        # If database still hasn't updated, wait a little longer and try again
+        # If database still hasn't updated, wait longer and try again
         while (elapsed_time < max_elapsed_time) && (response && response.code == '404')
           response = make_request(http, get_request)
           @@logger.warn('GET request was too fast for REOpt-API. Retrying...')
-          elapsed_time += 5
-          sleep 5
+          elapsed_time += 15
+          sleep(15.seconds)
         end
 
         data = JSON.parse(response.body, allow_nan: true)
@@ -311,9 +311,9 @@ module URBANopt # :nodoc:
 
           # TEMPORARY - for testing
           counter += 1
-          File.open(File.join("/Users/kflemin/repos/urbanopt-reopt-gem/spec/run/example_scenario", "reopt_output_temp_#{counter}.json"),"w") do |f|
+          File.open(Pathname(__FILE__).dirname.parent.parent.parent / "spec" / "run" / "example_scenario" / "reopt_output_temp_#{counter}.json", "w") do |f|
             f.write(JSON.pretty_generate(data))
-          end  
+          end
 
           if !data['outputs']['PV']
             pv_sizes = 0
@@ -328,10 +328,10 @@ module URBANopt # :nodoc:
             else
               pv_sizes = data['outputs']['PV']['size_kw'] || 0
             end
-            sizes = pv_sizes 
+            sizes = pv_sizes
 
             # we need to review if these keys are still the same:
-            # also do we want to add any more here? 
+            # also do we want to add any more here?
             # maybe go through all the outputs main keys and see if they have a 'size_kw'?
             # data['outputs']['ElectricStorage']['size_kw']
             # data['outputs']['Wind']['size_kw']
@@ -359,26 +359,26 @@ module URBANopt # :nodoc:
 
           sleep 5
         end
-        
+
         max_retry = 5
         tries = 0
 
         check_complete = sizes == 0
         # I don't know what this line does:
         # (((data['outputs'] && data['outputs'].key?('Financial') && data['outputs']['Financial']['npv']) || 0) > 0)
-        
+
         if check_complete
           puts "sizes are 0...checking optimization complete"
-        
+
           while (tries < max_retry) && check_complete
             sleep 3
             response = make_request(http, get_request)
             data = JSON.parse(response.body, allow_nan: true)
-            
+
             # TEMPORARY - for testing
             File.open(File.join(File.dirname(__FILE__), "../../../spec/run/example_scenario", "reopt_output_checkoutput_#{tries}.json"),"w") do |f|
               f.write(JSON.pretty_generate(data))
-            end        
+            end
 
 
             if data['outputs'].key?('PV') && data['outputs']['PV'].is_a?(Array)
@@ -404,7 +404,7 @@ module URBANopt # :nodoc:
 
             # I don't understand this line fully:
             #(check_complete = sizes == 0) && ((data['outputs']['Financial']['npv'] || 0) > 0)
-            
+
             check_complete = sizes == 0
             tries += 1
           end
