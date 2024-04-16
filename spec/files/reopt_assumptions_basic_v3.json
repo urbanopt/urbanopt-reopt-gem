@@ -105,11 +105,12 @@
     "inverter_replacement_year": 10
   },
   "ElectricTariff": {
-    "add_blended_rates_to_urdb_rate": false,
-    "net_metering_limit_kw": 0.0,
+    "urdb_utility_name": "New York State Elec & Gas Corp",
+    "urdb_rate_name": "WEST - SERVICE CLASSIFICATION NO. 1 - RESIDENTIAL SERVICE NSS"
+  },
+  "ElectricUtility": {
     "interconnection_limit_kw": 100000000.0,
-    "monthly_demand_rates": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-    "monthly_energy_rates": [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
+    "net_metering_limit_kw": 0.0
   },
   "Financial": {
     "elec_cost_escalation_rate_fraction": 0.026,
