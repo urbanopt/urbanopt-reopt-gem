@@ -36,17 +36,17 @@ module URBANopt # :nodoc:
       def reopt_json_from_feature_report(feature_report, reopt_assumptions_hash = nil, groundmount_photovoltaic = nil)
         name = feature_report.name.delete ' '
         description = "feature_report_#{name}_#{feature_report.id}"
-        reopt_inputs = {
-          ElectricTariff: {
-            monthly_demand_rates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            monthly_energy_rates: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
-          },
-          ElectricLoad: {}
-        }
         if !reopt_assumptions_hash.nil?
           reopt_inputs = reopt_assumptions_hash
         else
           @@logger.info('Using default REopt assumptions')
+          reopt_inputs = {
+            ElectricTariff: {
+              monthly_demand_rates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+              monthly_energy_rates: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
+            },
+            ElectricLoad: {}
+          }
         end
 
         # Check FeatureReport has required data

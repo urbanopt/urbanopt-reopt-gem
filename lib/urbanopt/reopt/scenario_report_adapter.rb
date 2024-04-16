@@ -38,17 +38,17 @@ module URBANopt # :nodoc:
         description = "scenario_report_#{name}_#{scenario_id}"
 
         # Create base REpopt post
-        reopt_inputs = {
-          ElectricTariff: {
-            monthly_demand_rates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            monthly_energy_rates: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
-          },
-          ElectricLoad: {}
-        }
         if !reopt_assumptions_json.nil?
           reopt_inputs = reopt_assumptions_json
         else
           @@logger.info('Using default REopt assumptions')
+          reopt_inputs = {
+            ElectricTariff: {
+              monthly_demand_rates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+              monthly_energy_rates: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
+            },
+            ElectricLoad: {}
+          }
         end
 
         # Update required info
