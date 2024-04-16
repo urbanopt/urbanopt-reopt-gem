@@ -84,8 +84,6 @@ RSpec.describe URBANopt::REopt do
     # Assume that file size over 10kb means data was written correctly
     expect((File.size(scenario_dir / 'test__' / 'can_process_a_scenario_report.json').to_f / 1024) > 20)
 
-    # reopt_output_file = File.join(scenario_report.directory_name, 'reopt/scenario_report_reopt_run.json')
-    # timeseries_output_file = File.join(scenario_report.directory_name, 'scenario_report_timeseries1.csv')
     reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_basic_v3.json'
 
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
@@ -243,8 +241,6 @@ RSpec.describe URBANopt::REopt do
       feature_report.timeseries_csv.path = "spec/run/example_scenario/#{feature_id}/007_default_feature_reports/default_feature_reports.csv"
 
       reopt_assumption_files << reopt_assumptions_file
-      # reopt_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_reopt_run.json")
-      # timeseries_output_files << File.join(feature_report.directory_name, "feature_report#{feature_report.id}_timeseries.csv")
       feature_reports << feature_report
       feature_report_save_names << 'feature_report_reopt'
     end
@@ -286,7 +282,6 @@ RSpec.describe URBANopt::REopt do
     end
     reopt_assumption_files = []
     reopt_output_files = []
-    # scenario_report_timeseries_output_file = scenario_dir / "scenario_report#{scenario_report.id}_timeseries.csv"
     feature_report_timeseries_output_files = []
     feature_report_save_names = []
 
@@ -314,15 +309,11 @@ RSpec.describe URBANopt::REopt do
     end
     scenario_report.save 'test__/can_process_all_feature_reports'
     reopt_output_file = scenario_dir / 'test__' / 'scenario_report_reopt_local.json'
-    # timeseries_output_file = scenario_dir / 'scenario_report_timeseries1.csv'
     reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_basic_v3.json'
 
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
     scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report: scenario_report, reopt_output_files: reopt_output_files, feature_report_timeseries_csv_paths: feature_report_timeseries_output_files, save_names_feature_reports: feature_report_save_names, save_name_scenario_report: 'test__/scenario_report_reopt_local')
 
-    # feature_report_timeseries_output_files.each do |ts_output_file|
-    #   expect((File.size(ts_output_file).to_f / 1024) > 20)
-    # end
     expect((File.size(reopt_output_file).to_f / 1024) > 20)
     FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
       FileUtils.rm_rf(scenario_dir / '2' / 'reopt')
