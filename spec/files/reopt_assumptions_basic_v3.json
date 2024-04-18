@@ -118,8 +118,7 @@
   },
   "ElectricTariff": {
     "add_monthly_rates_to_urdb_rate": false,
-    "monthly_demand_rates": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-    "monthly_energy_rates": [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
+    "urdb_label": "63d2f36655296095a0092a6e"
   },
   "ElectricUtility": {
     "interconnection_limit_kw": 100000000.0,
