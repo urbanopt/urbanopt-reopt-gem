@@ -326,7 +326,7 @@ module URBANopt # :nodoc:
             else
               data['outputs'].each do |energy_source, data|
                 if data.is_a?(Hash) && data.key?('size_kw')
-                  @@logger.warn("#{energy_source}: size_kw = #{data['size_kw'].to_f}")
+                  @@logger.debug("#{energy_source}: size_kw = #{data['size_kw'].to_f}")
                   sizes += data['size_kw'].to_f
                 end
               end
@@ -375,7 +375,7 @@ module URBANopt # :nodoc:
             else
               data['outputs'].each do |energy_source, data|
                 if data.is_a?(Hash) && data.key?('size_kw')
-                  @@logger.warn("#{energy_source}: size_kw = #{data['size_kw'].to_f}")
+                  @@logger.debug("#{energy_source}: size_kw = #{data['size_kw'].to_f}")
                   sizes += data['size_kw'].to_f
                 end
               end
