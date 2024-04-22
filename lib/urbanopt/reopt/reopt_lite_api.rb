@@ -199,8 +199,8 @@ module URBANopt # :nodoc:
           http.use_ssl = true
         end
 
-        # Wait for the REopt database to update before GETing results
-        sleep(15.seconds)
+        # Wait for the REopt API before attempting to GET results
+        sleep 30
         get_request = Net::HTTP::Get.new(uri.request_uri)
         response = make_request(http, get_request, 8)
 
@@ -213,7 +213,7 @@ module URBANopt # :nodoc:
           response = make_request(http, get_request)
           @@logger.warn('GET request was too fast for REOpt-API. Retrying...')
           elapsed_time += 15
-          sleep(15.seconds)
+          sleep 15
         end
 
         data = JSON.parse(response.body, allow_nan: true)
@@ -303,11 +303,9 @@ module URBANopt # :nodoc:
 
         counter = 0
         while status == 'Optimizing...'
-          puts "optimizing... make another request"
           response = make_request(http, get_request)
 
           data = JSON.parse(response.body, allow_nan: true)
-          # puts "OUTPUT DATA: #{data['outputs'].to_json}"
 
           # TEMPORARY - for testing
           counter += 1
@@ -326,24 +324,12 @@ module URBANopt # :nodoc:
                 pv_sizes += x['size_kw'].to_f
               end
             else
-              pv_sizes = data['outputs']['PV']['size_kw'] || 0
-            end
-            sizes = pv_sizes
-
-            # we need to review if these keys are still the same:
-            # also do we want to add any more here?
-            # maybe go through all the outputs main keys and see if they have a 'size_kw'?
-            # data['outputs']['ElectricStorage']['size_kw']
-            # data['outputs']['Wind']['size_kw']
-            # data['outputs']['Generator']['size_kw']
-            if data['outputs'].key?("ElectricStorage")
-              sizes += data['outputs']['ElectricStorage']['size_kw']
-            end
-            if data['outputs'].key?("Wind")
-              sizes += data['outputs']['Wind']['size_kw']
-            end
-            if data['outputs'].key?("Generator")
-              sizes += data['outputs']['Generator']['size_kw']
+              data['outputs'].each do |energy_source, data|
+                if data.is_a?(Hash) && data.key?('size_kw')
+                  @@logger.warn("#{energy_source}: size_kw = #{data['size_kw'].to_f}")
+                  sizes += data['size_kw'].to_f
+                end
+              end
             end
           end
 
@@ -357,7 +343,7 @@ module URBANopt # :nodoc:
             raise "Error from REopt API - #{error_message}"
           end
 
-          sleep 5
+          sleep 15
         end
 
         max_retry = 5
@@ -387,19 +373,12 @@ module URBANopt # :nodoc:
                 pv_sizes += x['size_kw'].to_f
               end
             else
-              pv_sizes = data['outputs']['PV']['size_kw'] || 0
-            end
-
-            # review these keys and potentially add more
-            # maybe go through all the outputs main keys and see if they have a 'size_kw'?
-            if data['outputs'].key?("ElectricStorage")
-              sizes += data['outputs']['ElectricStorage']['size_kw']
-            end
-            if data['outputs'].key?("Wind")
-              sizes += data['outputs']['Wind']['size_kw']
-            end
-            if data['outputs'].key?("Generator")
-              sizes += data['outputs']['Generator']['size_kw']
+              data['outputs'].each do |energy_source, data|
+                if data.is_a?(Hash) && data.key?('size_kw')
+                  @@logger.warn("#{energy_source}: size_kw = #{data['size_kw'].to_f}")
+                  sizes += data['size_kw'].to_f
+                end
+              end
             end
 
             # I don't understand this line fully:
