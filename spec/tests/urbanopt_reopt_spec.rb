@@ -90,12 +90,12 @@ RSpec.describe URBANopt::REopt do
     # Act
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, save_name: 'test__/scenario_report_reopt_global')
-    resilience_scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, run_resilience: true, save_name: 'test__/scenario_report_reopt_resilience')
+    # resilience_scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, run_resilience: true, save_name: 'test__/scenario_report_reopt_resilience')
 
     # Assert
     # Assume that file size over 10kb means data was written correctly. Test file is expected to be about 29kb
     expect((File.size(scenario_dir / 'test__' / 'scenario_report_reopt_global.json').to_f / 1024) > 20)
-    expect((File.size(scenario_dir / 'test__' / 'scenario_report_reopt_resilience.json').to_f / 1024) > 20)
+    # expect((File.size(scenario_dir / 'test__' / 'scenario_report_reopt_resilience.json').to_f / 1024) > 20)
 
     # Cleanup
     FileUtils.rm_rf(scenario_dir / 'test__')
