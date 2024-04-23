@@ -113,6 +113,7 @@ module URBANopt # :nodoc:
         else
           resilience_stats = nil
         end
+
         result = adapter.update_feature_report(feature_report, reopt_output, timeseries_csv_path, resilience_stats)
         if !save_name.nil?
           result.save save_name

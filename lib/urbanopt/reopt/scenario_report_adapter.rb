@@ -185,7 +185,7 @@ module URBANopt # :nodoc:
       # [*return:*] _URBANopt::Reporting::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
       ##
       def update_scenario_report(scenario_report, reopt_output, timeseries_csv_path = nil, resilience_stats = nil)
-        if reopt_output['outputs']['status'] != 'optimal'
+        if reopt_output['status'] != 'optimal'
           @@logger.info("Warning cannot Feature Report #{scenario_report.name} #{scenario_report.id}  - REopt optimization was non-optimal")
           return scenario_report
         end
@@ -232,18 +232,18 @@ module URBANopt # :nodoc:
         # Check whether multi PV assumption input file is used or single PV
         if reopt_output['inputs']['PV'].is_a?(Array)
           reopt_output['inputs']['PV'].each do |pv|
-            location[pv['pv_name']] = pv['location']
-            azimuth[pv['pv_name']] = pv['azimuth']
-            tilt[pv['pv_name']] = pv['tilt']
-            module_type[pv['pv_name']] = pv['module_type']
-            gcr[pv['pv_name']] = pv['gcr']
+            location[pv['name']] = pv['location']
+            azimuth[pv['name']] = pv['azimuth']
+            tilt[pv['name']] = pv['tilt']
+            module_type[pv['name']] = pv['module_type']
+            gcr[pv['name']] = pv['gcr']
           end
         else
-          location[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['location']
-          azimuth[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['azimuth']
-          tilt[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['tilt']
-          module_type[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['module_type']
-          gcr[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['gcr']
+          location[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['location']
+          azimuth[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['azimuth']
+          tilt[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['tilt']
+          module_type[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['module_type']
+          gcr[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['gcr']
         end
         pv_inputs = reopt_output['inputs']['PV']
         if pv_inputs.is_a?(Hash)
@@ -256,16 +256,16 @@ module URBANopt # :nodoc:
         pv_outputs.each_with_index do |pv, i|
           if pv_inputs[i]
             if pv_inputs[i]['tilt']
-              tilt[pv['pv_name']] = pv_inputs[i]['tilt']
+              tilt[pv['name']] = pv_inputs[i]['tilt']
             end
             if pv_inputs[i]['azimuth']
-              azimuth[pv['pv_name']] = pv_inputs[i]['azimuth']
+              azimuth[pv['name']] = pv_inputs[i]['azimuth']
             end
             if pv_inputs[i]['module_type']
-              module_type[pv['pv_name']] = pv_inputs[i]['module_type']
+              module_type[pv['name']] = pv_inputs[i]['module_type']
             end
           end
-          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['pv_name']], tilt: tilt[pv['pv_name']], module_type: module_type[pv['pv_name']], gcr: gcr[pv['pv_name']] })
+          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['name']], tilt: tilt[pv['name']], module_type: module_type[pv['name']], gcr: gcr[pv['name']] })
         end
 
         wind = reopt_output['outputs']['Wind']

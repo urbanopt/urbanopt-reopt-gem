@@ -52,3 +52,5 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # elsif allow_local
 #   gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'develop'
 # end
+
+gem 'urbanopt-reporting', path: '../urbanopt-reporting-gem'

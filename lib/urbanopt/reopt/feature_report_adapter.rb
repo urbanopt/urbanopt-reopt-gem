@@ -155,9 +155,10 @@ module URBANopt # :nodoc:
       # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport.
       ##
       def update_feature_report(feature_report, reopt_output, timeseries_csv_path = nil, resilience_stats = nil)
+        
         # Check if the \REopt response is valid
-        if reopt_output['outputs']['status'] != 'optimal'
-          @@logger.info("Warning cannot Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal")
+        if reopt_output['status'] != 'optimal'
+          @@logger.error("ERROR cannot update Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal")
           return feature_report
         end
 
@@ -211,15 +212,15 @@ module URBANopt # :nodoc:
             gcr[pv['pv_name']] = pv['gcr']
           end
         else
-          location[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['location']
-          azimuth[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['azimuth']
-          tilt[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['tilt']
-          module_type[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['module_type']
-          gcr[reopt_output['inputs']['PV']['pv_name']] = reopt_output['inputs']['PV']['gcr']
+          location[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['location']
+          azimuth[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['azimuth']
+          tilt[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['tilt']
+          module_type[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['module_type']
+          gcr[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['gcr']
         end
 
         reopt_output['outputs']['PV'].each_with_index do |pv, i|
-          feature_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['pv_name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['pv_name']], tilt: tilt[pv['pv_name']], module_type: module_type[pv['pv_name']], gcr: gcr[pv['pv_name']] })
+          feature_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['name']], average_yearly_energy_produced_kwh: pv['annual_energy_produced_kwh'], azimuth: azimuth[pv['name']], tilt: tilt[pv['name']], module_type: module_type[pv['name']], gcr: gcr[pv['name']] })
         end
 
         wind = reopt_output['outputs']['Wind']
@@ -263,7 +264,7 @@ module URBANopt # :nodoc:
           feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Total(kw)')
         end
 
-        $load = convert_powerflow_resolution(reopt_output['outputs']['ElectricLoad']['year_one_electric_load_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)
+        $load = convert_powerflow_resolution(reopt_output['outputs']['ElectricLoad']['load_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)
         $load_col = feature_report.timeseries_csv.column_names.index('REopt:Electricity:Load:Total(kw)')
         if $load_col.nil?
           $load_col = feature_report.timeseries_csv.column_names.length
