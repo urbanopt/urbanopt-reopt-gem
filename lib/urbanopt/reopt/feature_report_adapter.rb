@@ -155,7 +155,7 @@ module URBANopt # :nodoc:
       # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport.
       ##
       def update_feature_report(feature_report, reopt_output, timeseries_csv_path = nil, resilience_stats = nil)
-        
+
         # Check if the \REopt response is valid
         if reopt_output['status'] != 'optimal'
           @@logger.error("ERROR cannot update Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal")
@@ -167,7 +167,7 @@ module URBANopt # :nodoc:
         feature_report.location.longitude_deg = reopt_output['inputs']['Site']['longitude']
 
         # Update distributed generation sizing and financials
-        feature_report.distributed_generation.annual_renewable_electricity_pct = reopt_output['outputs']['Site']['annual_renewable_electricity_pct'] || 0
+        feature_report.distributed_generation.renewable_electricity_fraction = reopt_output['outputs']['Site']['renewable_electricity_fraction'] || 0
         feature_report.distributed_generation.lcc = reopt_output['outputs']['Financial']['lcc'] || 0
         feature_report.distributed_generation.npv = reopt_output['outputs']['Financial']['npv'] || 0
         feature_report.distributed_generation.year_one_energy_cost_before_tax = reopt_output['outputs']['ElectricTariff']['year_one_energy_cost_before_tax'] || 0

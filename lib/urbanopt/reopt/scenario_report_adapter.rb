@@ -195,7 +195,7 @@ module URBANopt # :nodoc:
         scenario_report.location.longitude_deg = reopt_output['inputs']['Site']['longitude']
 
         # Update distributed generation sizing and financials
-        scenario_report.distributed_generation.annual_renewable_electricity_pct = reopt_output['outputs']['Site']['annual_renewable_electricity_pct'] || 0
+        scenario_report.distributed_generation.renewable_electricity_fraction = reopt_output['outputs']['Site']['renewable_electricity_fraction'] || 0
         scenario_report.distributed_generation.lcc = reopt_output['outputs']['Financial']['lcc'] || 0
         scenario_report.distributed_generation.npv = reopt_output['outputs']['Financial']['npv'] || 0
         scenario_report.distributed_generation.year_one_energy_cost_before_tax = reopt_output['outputs']['ElectricTariff']['year_one_energy_cost_before_tax'] || 0
