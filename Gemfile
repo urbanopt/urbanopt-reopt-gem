@@ -53,4 +53,4 @@ gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'reop
 #   gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'develop'
 # end
 
-# gem 'urbanopt-reporting', path: '../urbanopt-reporting-gem'
+gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'reopt-v3'
