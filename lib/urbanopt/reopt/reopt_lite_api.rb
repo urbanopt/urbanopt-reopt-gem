@@ -307,12 +307,6 @@ module URBANopt # :nodoc:
 
           data = JSON.parse(response.body, allow_nan: true)
 
-          # TEMPORARY - for testing
-          counter += 1
-          File.open(Pathname(__FILE__).dirname.parent.parent.parent / "spec" / "run" / "example_scenario" / "reopt_output_temp_#{counter}.json", "w") do |f|
-            f.write(JSON.pretty_generate(data))
-          end
-
           if !data['outputs']['PV']
             pv_sizes = 0
             sizes = 0
@@ -360,12 +354,6 @@ module URBANopt # :nodoc:
             sleep 3
             response = make_request(http, get_request)
             data = JSON.parse(response.body, allow_nan: true)
-
-            # TEMPORARY - for testing
-            File.open(File.join(File.dirname(__FILE__), "../../../spec/run/example_scenario", "reopt_output_checkoutput_#{tries}.json"),"w") do |f|
-              f.write(JSON.pretty_generate(data))
-            end
-
 
             if data['outputs'].key?('PV') && data['outputs']['PV'].is_a?(Array)
               pv_sizes = 0

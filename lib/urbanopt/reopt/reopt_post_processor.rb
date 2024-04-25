@@ -152,12 +152,8 @@ module URBANopt # :nodoc:
         adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
         reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash, community_photovoltaic)
-        # TEMPORARY - for testing
-        File.open(File.join(@scenario_report.directory_name, 'reopt_inputs_temp.json'),"w") do |f|
-          f.write(JSON.pretty_generate(reopt_input))
-        end
-
         reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)
+
         if run_resilience
           run_uuid = reopt_output['outputs']['run_uuid']
           if File.directory? @scenario_reopt_default_output_file
