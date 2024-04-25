@@ -43,6 +43,9 @@ module URBANopt # :nodoc:
         else
           @@logger.info('Using default REopt assumptions')
           reopt_inputs = {
+            Settings:{},
+            Site: {},
+            Financial:{},
             ElectricTariff: {
               monthly_demand_rates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
               monthly_energy_rates: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
