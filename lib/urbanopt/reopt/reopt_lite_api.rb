@@ -334,7 +334,7 @@ module URBANopt # :nodoc:
           end
 
           status = data['status']
-          puts "STATUS: #{status}"
+          @@logger.debug("STATUS: #{status}")
 
           if status == 'error'
             puts "response.code: #{response.code}"
@@ -354,7 +354,7 @@ module URBANopt # :nodoc:
         # (((data['outputs'] && data['outputs'].key?('Financial') && data['outputs']['Financial']['npv']) || 0) > 0)
 
         if check_complete
-          puts "sizes are 0...checking optimization complete"
+          @@logger.info('sizes are 0...checking optimization complete')
 
           while (tries < max_retry) && check_complete
             sleep 3
@@ -389,7 +389,7 @@ module URBANopt # :nodoc:
           end
         end
 
-        puts "check output is complete!"
+        @@logger.info('REopt optimization complete and processed')
 
         data = JSON.parse(response.body, allow_nan: true)
         text = JSON.pretty_generate(data)
