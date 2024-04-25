@@ -230,46 +230,48 @@ module URBANopt # :nodoc:
         module_type = {}
         gcr = {}
         # Check whether multi PV assumption input file is used or single PV
-        if reopt_output['inputs']['PV'].is_a?(Array)
-          reopt_output['inputs']['PV'].each do |pv|
-            location[pv['name']] = pv['location']
-            azimuth[pv['name']] = pv['azimuth']
-            tilt[pv['name']] = pv['tilt']
-            module_type[pv['name']] = pv['module_type']
-            gcr[pv['name']] = pv['gcr']
+        if reopt_output['inputs'].key?('PV')
+          if reopt_output['inputs']['PV'].is_a?(Array)
+            reopt_output['inputs']['PV'].each do |pv|
+              location[pv['name']] = pv['location']
+              azimuth[pv['name']] = pv['azimuth']
+              tilt[pv['name']] = pv['tilt']
+              module_type[pv['name']] = pv['module_type']
+              gcr[pv['name']] = pv['gcr']
+            end
+          else
+            location[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['location']
+            azimuth[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['azimuth']
+            tilt[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['tilt']
+            module_type[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['module_type']
+            gcr[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['gcr']
           end
-        else
-          location[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['location']
-          azimuth[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['azimuth']
-          tilt[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['tilt']
-          module_type[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['module_type']
-          gcr[reopt_output['inputs']['PV']['name']] = reopt_output['inputs']['PV']['gcr']
-        end
-        pv_inputs = reopt_output['inputs']['PV']
-        if pv_inputs.is_a?(Hash)
-          pv_inputs = [pv_inputs]
-        end
-        pv_outputs = reopt_output['outputs']['PV']
-        if pv_outputs.is_a?(Hash)
-          pv_outputs = [pv_outputs]
-        end
-        pv_outputs.each_with_index do |pv, i|
-          if pv_inputs[i]
-            if pv_inputs[i]['tilt']
-              tilt[pv['name']] = pv_inputs[i]['tilt']
-            end
-            if pv_inputs[i]['azimuth']
-              azimuth[pv['name']] = pv_inputs[i]['azimuth']
-            end
-            if pv_inputs[i]['module_type']
-              module_type[pv['name']] = pv_inputs[i]['module_type']
-            end
+          pv_inputs = reopt_output['inputs']['PV']
+          if pv_inputs.is_a?(Hash)
+            pv_inputs = [pv_inputs]
           end
-          scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['name']], tilt: tilt[pv['name']], module_type: module_type[pv['name']], gcr: gcr[pv['name']] })
+          pv_outputs = reopt_output['outputs']['PV']
+          if pv_outputs.is_a?(Hash)
+            pv_outputs = [pv_outputs]
+          end
+          pv_outputs.each_with_index do |pv, i|
+            if pv_inputs[i]
+              if pv_inputs[i]['tilt']
+                tilt[pv['name']] = pv_inputs[i]['tilt']
+              end
+              if pv_inputs[i]['azimuth']
+                azimuth[pv['name']] = pv_inputs[i]['azimuth']
+              end
+              if pv_inputs[i]['module_type']
+                module_type[pv['name']] = pv_inputs[i]['module_type']
+              end
+            end
+            scenario_report.distributed_generation.add_tech 'solar_pv', URBANopt::Reporting::DefaultReports::SolarPV.new({ size_kw: (pv['size_kw'] || 0), id: i, location: location[pv['name']], average_yearly_energy_produced_kwh: pv['average_yearly_energy_produced_kwh'], azimuth: azimuth[pv['name']], tilt: tilt[pv['name']], module_type: module_type[pv['name']], gcr: gcr[pv['name']] })
+          end
         end
 
-        wind = reopt_output['outputs']['Wind']
-        if !wind.nil?
+        if reopt_output['outputs'].key?('Wind')
+          wind = reopt_output['outputs']['Wind']
           # find size_class
           size_class = nil
           if reopt_output['inputs']['Wind']['size_class']
@@ -280,32 +282,34 @@ module URBANopt # :nodoc:
           scenario_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0), size_class: size_class, average_yearly_energy_produced_kwh: (wind['average_yearly_energy_produced_kwh'] || 0) })
         end
 
-        generator = reopt_output['outputs']['Generator']
-        if !generator.nil?
+        if reopt_output['outputs'].key?('Generator')
+          generator = reopt_output['outputs']['Generator']
           scenario_report.distributed_generation.add_tech 'generator', URBANopt::Reporting::DefaultReports::Generator.new({ size_kw: (generator['size_kw'] || 0) })
         end
 
-        storage = reopt_output['outputs']['ElectricStorage']
-        if !storage.nil?
+        if reopt_output['outputs'].key?('ElectricStorage')
+          storage = reopt_output['outputs']['ElectricStorage']
           scenario_report.distributed_generation.add_tech 'storage', URBANopt::Reporting::DefaultReports::Storage.new({ size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
 
         reopt_resolution = reopt_output['inputs']['Settings']['time_steps_per_hour']
         generation_timeseries_kwh = Matrix[[0] * (8760 * scenario_report.timesteps_per_hour)]
 
-        # reopt_output['outputs']['Scenario']['Site']['PV'].each do |pv|
-        #   if (pv['size_kw'] || 0) > 0 && !pv['year_one_power_production_series_kw'].nil?
-        #     generation_timeseries_kwh += Matrix[convert_powerflow_resolution(pv['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
-        #   end
-        # end
+        if reopt_output['outputs'].key?('PV') && !reopt_output['outputs']['PV'].nil?
+          reopt_output['outputs']['PV'].each do |pv|
+            if (pv['size_kw'] || 0) > 0 && !pv['year_one_power_production_series_kw'].nil?
+              generation_timeseries_kwh += Matrix[convert_powerflow_resolution(pv['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
+            end
+          end
+        end
 
-        # if !reopt_output['outputs']['Scenario']['Site']['Wind'].nil? && ((reopt_output['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) > 0) && !reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'].nil?
-        #   generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
-        # end
+        if reopt_output['outputs'].key?('Wind') && !reopt_output['outputs']['Wind'].nil? && ((reopt_output['outputs']['Wind']['size_kw'] || 0) > 0) && !reopt_output['outputs']['Wind']['year_one_power_production_series_kw'].nil?
+          generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Wind']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
+        end
 
-        # if !reopt_output['outputs']['Scenario']['Site']['Generator'].nil? && ((reopt_output['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0) > 0) && !reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'].nil?
-        #   generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Generator']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
-        # end
+        if reopt_output['outputs'].key?('Generator') && !reopt_output['outputs']['Generator'].nil? && ((reopt_output['outputs']['Generator']['size_kw'] || 0) > 0) && !reopt_output['outputs']['Generator']['year_one_power_production_series_kw'].nil?
+          generation_timeseries_kwh += Matrix[convert_powerflow_resolution(reopt_output['outputs']['Generator']['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour)]
+        end
 
         $generation_timeseries_kwh = generation_timeseries_kwh.to_a[0] || [0] * (8760 * scenario_report.timesteps_per_hour)
         $generation_timeseries_kwh_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Total(kw)')
