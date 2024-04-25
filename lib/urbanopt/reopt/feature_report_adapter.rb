@@ -230,22 +230,17 @@ module URBANopt # :nodoc:
 
         if reopt_output['outputs'].key?('Wind')
           wind = reopt_output['outputs']['Wind']
-          if !wind.nil?
-            feature_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0) })
-          end
+          feature_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0) })
         end
 
         if reopt_output['outputs'].key?('Generator')
           generator = reopt_output['outputs']['Generator']
-          if !generator.nil?
-            feature_report.distributed_generation.add_tech 'generator', URBANopt::Reporting::DefaultReports::Generator.new({ size_kw: (generator['size_kw'] || 0) })
-          end
+          feature_report.distributed_generation.add_tech 'generator', URBANopt::Reporting::DefaultReports::Generator.new({ size_kw: (generator['size_kw'] || 0) })
         end
+
         if reopt_output['outputs'].key?('ElectricStorage')
           storage = reopt_output['outputs']['ElectricStorage']
-          if !storage.nil?
-            feature_report.distributed_generation.add_tech 'storage', URBANopt::Reporting::DefaultReports::Storage.new({ size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
-          end
+          feature_report.distributed_generation.add_tech 'storage', URBANopt::Reporting::DefaultReports::Storage.new({ size_kwh: (storage['size_kwh'] || 0), size_kw: (storage['size_kw'] || 0) })
         end
 
         generation_timeseries_kwh = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
