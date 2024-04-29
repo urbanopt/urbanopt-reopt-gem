@@ -20,6 +20,20 @@
     "offtaker_tax_rate_fraction": 0.26,
     "om_cost_escalation_rate_fraction": 0.025
   },
+  "ElectricTariff": {
+    "add_monthly_rates_to_urdb_rate": false,
+    "monthly_demand_rates": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+    "monthly_energy_rates": [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
+  },
+  "ElectricUtility": {
+    "interconnection_limit_kw": 100000000.0,
+    "net_metering_limit_kw": 0.0
+  },
+  "ElectricLoad": {
+    "critical_loads_kw_is_net": false,
+    "critical_load_fraction": 0,
+    "loads_kw_is_net": true
+  },
   "PV": {
     "name": "Roof - South Face",
     "production_incentive_years": 1.0,
@@ -88,11 +102,6 @@
     "federal_rebate_per_kw": 0.0,
     "generator_sells_energy_back_to_grid": false
   },
-  "ElectricLoad": {
-    "critical_loads_kw_is_net": false,
-    "critical_load_fraction": 0,
-    "loads_kw_is_net": true
-  },
   "Storage": {
     "max_kwh": 1000000.0,
     "rectifier_efficiency_fraction": 0.96,
@@ -115,14 +124,5 @@
     "soc_min_fraction": 0.2,
     "soc_init_fraction": 0.5,
     "inverter_replacement_year": 10
-  },
-  "ElectricTariff": {
-    "add_monthly_rates_to_urdb_rate": false,
-    "monthly_demand_rates": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-    "monthly_energy_rates": [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
-  },
-  "ElectricUtility": {
-    "interconnection_limit_kw": 100000000.0,
-    "net_metering_limit_kw": 0.0
   }
 }
