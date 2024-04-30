@@ -11,12 +11,16 @@ The following shows the complete set of inputs to the REopt Lite AP which is cal
 The only required parameters to the REopt Lite API (called internally by the gem) are:
 - *latitude*
 - *longitude*
-- *urdb_response*
-	Or one of the following sets: *urdb_label*; *monthly_energy_rates*; *blended_annual_demand_rate* **and** *blended_annual_energy_rate*
+- *urdb_response* OR one of the following sets:
+	- *urdb_label*
+	- *monthly_energy_rates* **and** *monthly_demand_rates*
+	- *blended_annual_demand_rate* **and** *blended_annual_energy_rate*
+	- *urdb_utility_name* **and** *urdb_rate_name*
+	- *tou_energy_rates_per_kwh*
 
-- *loads_kw*
-
-	Or one of the following sets: *doe_reference_name* **and** *annual_kwh*, *doe_reference_name* **and** *monthly_totals_kwh*
+- *loads_kw* OR one of the following sets:
+	- *doe_reference_name* **and** *annual_kwh*
+	- *doe_reference_name* **and** *monthly_totals_kwh*
 
 The gem sources *latitude*, *longitude* and *loads_kw* from a Feature or Scenario Report directly. If no specific *urdb_response* or *urdb_label* is specified as an custom assumption (see below), then a constant rate of $0.13/kWh with no demand charge is provided by the gem as a default to the REopt API.
 
@@ -26,7 +30,7 @@ Otherwise, all non-required input parameters will be filled in with default valu
 ```
 {
 	"Site":{
-		"latiude":45,
+		"latitude":45,
 		"longitude":-110
 	},
 	"ElectricTariff": {
