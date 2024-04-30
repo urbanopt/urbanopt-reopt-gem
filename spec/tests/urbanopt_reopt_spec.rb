@@ -91,6 +91,7 @@ RSpec.describe URBANopt::REopt do
     expect((File.size(scenario_dir / 'test__' / 'can_process_a_scenario_report.json').to_f / 1024) > 20)
 
     reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_basic_v3.json'
+    reopt_assumptions_file_with_wind = spec_files_dir / 'reopt_assumptions_full_v3.json'
 
     # Act
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
