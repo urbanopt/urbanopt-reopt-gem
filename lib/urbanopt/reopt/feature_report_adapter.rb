@@ -321,11 +321,13 @@ module URBANopt # :nodoc:
             feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Generator:Total(kw)')
           end
 
-          $generator_to_battery = convert_powerflow_resolution(reopt_output['outputs']['Generator']['electric_to_storage_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)
-          $generator_to_battery_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Generator:ToBattery(kw)')
-          if $generator_to_battery_col.nil?
-            $generator_to_battery_col = feature_report.timeseries_csv.column_names.length
-            feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Generator:ToBattery(kw)')
+          if !storage.nil?
+            $generator_to_battery = convert_powerflow_resolution(reopt_output['outputs']['Generator']['electric_to_storage_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)
+            $generator_to_battery_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Generator:ToBattery(kw)')
+            if $generator_to_battery_col.nil?
+              $generator_to_battery_col = feature_report.timeseries_csv.column_names.length
+              feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:Generator:ToBattery(kw)')
+            end
           end
 
           $generator_to_load = convert_powerflow_resolution(reopt_output['outputs']['Generator']['electric_to_load_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)
@@ -343,50 +345,56 @@ module URBANopt # :nodoc:
           end
         end
 
-        $pv_total_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:PV:Total(kw)')
-        if $pv_total_col.nil?
-          $pv_total_col = feature_report.timeseries_csv.column_names.length
-          feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:PV:Total(kw)')
-        end
-
-        if !storage.nil?
-          $pv_to_battery_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:PV:ToBattery(kw)')
-          if $pv_to_battery_col.nil?
-            $pv_to_battery_col = feature_report.timeseries_csv.column_names.length
-            feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:PV:ToBattery(kw)')
+        if reopt_output['outputs'].key?('PV') && !reopt_output['outputs']['PV'].nil?
+          $pv_total_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:PV:Total(kw)')
+          if $pv_total_col.nil?
+            $pv_total_col = feature_report.timeseries_csv.column_names.length
+            feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:PV:Total(kw)')
           end
-        end
 
-        $pv_to_load_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:PV:ToLoad(kw)')
-        if $pv_to_load_col.nil?
-          $pv_to_load_col = feature_report.timeseries_csv.column_names.length
-          feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:PV:ToLoad(kw)')
-        end
-
-        $pv_to_grid_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:PV:ToGrid(kw)')
-        if $pv_to_grid_col.nil?
-          $pv_to_grid_col = feature_report.timeseries_csv.column_names.length
-          feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:PV:ToGrid(kw)')
-        end
-
-        $pv_total = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
-        $pv_to_battery = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
-        $pv_to_load = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
-        $pv_to_grid = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
-
-        reopt_output['outputs']['PV'].each_with_index do |pv, i|
-          if (pv['size_kw'] || 0) > 0
-            # $pv_total += Matrix[convert_powerflow_resolution(pv['year_one_power_production_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)]
-            $pv_to_battery += Matrix[convert_powerflow_resolution(pv['electric_to_storage_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)]
-            $pv_to_load += Matrix[convert_powerflow_resolution(pv['electric_to_load_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)]
-            $pv_to_grid += Matrix[convert_powerflow_resolution(pv['electric_to_grid_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)]
+          if !storage.nil?
+            $pv_to_battery_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:PV:ToBattery(kw)')
+            if $pv_to_battery_col.nil?
+              $pv_to_battery_col = feature_report.timeseries_csv.column_names.length
+              feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:PV:ToBattery(kw)')
+            end
           end
-        end
 
-        $pv_total = $pv_total.to_a[0]
-        $pv_to_battery = $pv_to_battery.to_a[0]
-        $pv_to_load = $pv_to_load.to_a[0]
-        $pv_to_grid = $pv_to_grid.to_a[0]
+          $pv_to_load_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:PV:ToLoad(kw)')
+          if $pv_to_load_col.nil?
+            $pv_to_load_col = feature_report.timeseries_csv.column_names.length
+            feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:PV:ToLoad(kw)')
+          end
+
+          $pv_to_grid_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:PV:ToGrid(kw)')
+          if $pv_to_grid_col.nil?
+            $pv_to_grid_col = feature_report.timeseries_csv.column_names.length
+            feature_report.timeseries_csv.column_names.push('REopt:ElectricityProduced:PV:ToGrid(kw)')
+          end
+
+          $pv_total = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
+          if !storage.nil?
+            $pv_to_battery = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
+          end
+          $pv_to_load = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
+          $pv_to_grid = Matrix[[0] * (8760 * feature_report.timesteps_per_hour)]
+
+          reopt_output['outputs']['PV'].each_with_index do |pv, i|
+            if (pv['size_kw'] || 0) > 0
+              # $pv_total += Matrix[convert_powerflow_resolution(pv['year_one_power_production_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)]
+              $pv_to_battery += Matrix[convert_powerflow_resolution(pv['electric_to_storage_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)]
+              $pv_to_load += Matrix[convert_powerflow_resolution(pv['electric_to_load_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)]
+              $pv_to_grid += Matrix[convert_powerflow_resolution(pv['electric_to_grid_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)]
+            end
+          end
+
+          $pv_total = $pv_total.to_a[0]
+          if !storage.nil?
+            $pv_to_battery = $pv_to_battery.to_a[0]
+          end
+          $pv_to_load = $pv_to_load.to_a[0]
+          $pv_to_grid = $pv_to_grid.to_a[0]
+        end
 
         # $wind_total = convert_powerflow_resolution(reopt_output['outputs']['Scenario']['Site']['Wind']['year_one_power_production_series_kw'], reopt_resolution, feature_report.timesteps_per_hour) || [0] * (8760 * feature_report.timesteps_per_hour)
         $wind_total_col = feature_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Wind:Total(kw)')
