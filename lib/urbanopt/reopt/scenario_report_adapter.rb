@@ -434,7 +434,9 @@ module URBANopt # :nodoc:
           reopt_output['outputs']['PV'].each_with_index do |pv, i|
             if (pv['size_kw'] || 0) > 0
               # $pv_total += Matrix[convert_powerflow_resolution(pv['year_one_power_production_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour) || [0] * (8760 * scenario_report.timesteps_per_hour)]
-              $pv_to_battery += Matrix[convert_powerflow_resolution(pv['electric_to_storage_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour) || [0] * (8760 * scenario_report.timesteps_per_hour)]
+              if !storage.nil?
+                $pv_to_battery += Matrix[convert_powerflow_resolution(pv['electric_to_storage_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour) || [0] * (8760 * scenario_report.timesteps_per_hour)]
+              end
               $pv_to_load += Matrix[convert_powerflow_resolution(pv['electric_to_load_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour) || [0] * (8760 * scenario_report.timesteps_per_hour)]
               $pv_to_grid += Matrix[convert_powerflow_resolution(pv['electric_to_grid_series_kw'], reopt_resolution, scenario_report.timesteps_per_hour) || [0] * (8760 * scenario_report.timesteps_per_hour)]
             end
