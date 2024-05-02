@@ -87,19 +87,19 @@ RSpec.describe URBANopt::REopt do
     end
     scenario_report.save 'test__/can_process_a_scenario_report'
 
-    # Assume that file size over 10kb means data was written correctly
+    # Assume that file size over 20kb means data was written correctly
     expect((File.size(scenario_dir / 'test__' / 'can_process_a_scenario_report.json').to_f / 1024) > 20)
 
-    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_basic_v3.json'
-    reopt_assumptions_file_with_wind = spec_files_dir / 'reopt_assumptions_full_v3.json'
+    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_with_wind_v3.json'
 
     # Act
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, save_name: 'test__/scenario_report_reopt_global')
+    # Resilience functionality is not yet implemented with REopt v3
     # resilience_scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, run_resilience: true, save_name: 'test__/scenario_report_reopt_resilience')
 
     # Assert
-    # Assume that file size over 10kb means data was written correctly. Test file is expected to be about 29kb
+    # Assume that file size over 20kb means data was written correctly. Test file is expected to be about 29kb
     expect((File.size(scenario_dir / 'test__' / 'scenario_report_reopt_global.json').to_f / 1024) > 20)
     # expect((File.size(scenario_dir / 'test__' / 'scenario_report_reopt_resilience.json').to_f / 1024) > 20)
 
@@ -195,13 +195,13 @@ RSpec.describe URBANopt::REopt do
     scenario_report.save 'test__/can_process_multiple_PV'
 
     # Assert
-    # Assume that file size over 10kb means data was written correctly. Test file is expected to be about 29kb
+    # Assume that file size over 20kb means data was written correctly. Test file is expected to be about 29kb
     expect((File.size(scenario_dir / 'test__' / 'can_process_multiple_PV.json').to_f / 1024) > 20)
 
     # Set up
     reopt_output_file = scenario_dir / 'scenario_report_multiPV_reopt_run.json'
     timeseries_output_file = scenario_dir / 'scenario_report_timeseries1.csv'
-    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_basic_v3.json'
+    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_with_wind_v3.json'
 
     File.open(reopt_assumptions_file, 'r') do |file|
       @scenario_reopt_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
@@ -222,7 +222,7 @@ RSpec.describe URBANopt::REopt do
     scenario_report.save 'test__/scenario_report_reopt_mulitPV'
 
     # Assert
-    # Assume that file size over 10kb means data was written correctly. Test file is expected to be about 29kb
+    # Assume that file size over 20kb means data was written correctly. Test file is expected to be about 29kb
     expect((File.size(reopt_output_file).to_f / 1024) > 20)
 
     # Cleanup
@@ -242,7 +242,7 @@ RSpec.describe URBANopt::REopt do
     end
     reopt_assumption_files = []
     reopt_assumption_jsons = []
-    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_basic_v3.json'
+    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_with_wind_v3.json'
     reopt_assumptions = nil
     feature_reports = []
     reopt_output_files = []
@@ -305,7 +305,7 @@ RSpec.describe URBANopt::REopt do
     scenario_report.directory_name = scenario_dir
 
     reopt_assumption_jsons = []
-    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_basic_v3.json'
+    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_with_wind_v3.json'
     reopt_assumptions = nil
     File.open(reopt_assumptions_file, 'r') do |file|
       reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
@@ -339,7 +339,7 @@ RSpec.describe URBANopt::REopt do
     end
     scenario_report.save 'test__/can_process_all_feature_reports'
     reopt_output_file = scenario_dir / 'test__' / 'scenario_report_reopt_local.json'
-    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_basic_v3.json'
+    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_with_wind_v3.json'
 
     # Act
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
