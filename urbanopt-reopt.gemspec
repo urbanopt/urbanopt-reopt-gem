@@ -33,5 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'openstudio-extension', '~> 0.7.1'
 
   spec.add_dependency 'certified', '~> 1'
-  # spec.add_dependency 'urbanopt-scenario', '~> 0.11.0'
+  spec.add_dependency 'urbanopt-scenario', '~> 0.12.0'
 end
