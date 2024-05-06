@@ -1,5 +1,11 @@
 # URBANopt REopt Gem
 
+## Version 0.12.0
+Date Range: 01/11/24 - 05/06/24
+* Use Reopt v3 by @vtnate in https://github.com/urbanopt/urbanopt-reopt-gem/pull/149
+
+**Full Changelog**: https://github.com/urbanopt/urbanopt-reopt-gem/compare/v0.11.0...v0.12.0
+
 ## Version 0.11.0
 Date Range: 07/06/23 - 01/11/24
 
