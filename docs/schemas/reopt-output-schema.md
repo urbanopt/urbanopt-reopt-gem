@@ -1,6 +1,6 @@
 # REopt Lite Outputs Schema
 
-When the gem calls the REopt Lite APUI it recieves the following complete set of results described in the data dictionary below. Only those needed to update a Feature or Scenario Report's distributed_generation attibute set and timeseries CSV are pulled from the reponse and transferred to the Feature or Scenario Report. You may choose to modify the code to include more or less of the full REopt Lite response. 
+When the gem calls the REopt Lite APUI it recieves the following complete set of results described in the data dictionary below. Only those needed to update a Feature or Scenario Report's distributed_generation attibute set and timeseries CSV are pulled from the reponse and transferred to the Feature or Scenario Report. You may choose to modify the code to include more or less of the full REopt Lite response.
 
 ## Data Dictionary
 <ReoptOutputSchema />
@@ -12,12 +12,12 @@ The REopt Lite API updates the distributed_generation attributes of a Scenario o
 
 ```
 	"distributed_generation": {
-	      "lcc_us_dollars": 100000000.0,
-	      "npv_us_dollars": 10000000.0,
-	      "year_one_energy_cost_us_dollars": 7000000.0,
-	      "year_one_demand_cost_us_dollars": 3000000.0,
-	      "year_one_bill_us_dollars": 10000000.0,
-	      "total_energy_cost_us_dollars": 70000000.0,
+	      "lcc": 100000000.0,
+	      "npv": 10000000.0,
+	      "year_one_energy_cost_before_tax": 7000000.0,
+	      "year_one_demand_cost_before_tax": 3000000.0,
+	      "year_one_bill_before_tax": 10000000.0,
+	      "lifecycle_energy_cost_after_tax": 70000000.0,
 	      "solar_pv": {
 	        "size_kw": 30000.0
 	      },

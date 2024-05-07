@@ -29,8 +29,8 @@ module URBANopt # :nodoc:
       def initialize(nrel_developer_key = nil, use_localhost = false)
         @use_localhost = use_localhost
         if @use_localhost
-          @uri_submit = URI.parse('http//:127.0.0.1:8000/v2/job/')
-          @uri_submit_outagesimjob = URI.parse('http//:127.0.0.1:8000/v2/outagesimjob/')
+          @uri_submit = URI.parse('http//:127.0.0.1:8000/v3/job/')
+          @uri_submit_outagesimjob = URI.parse('http//:127.0.0.1:8000/v3/outagesimjob/')
         else
           if [nil, '', '<insert your key here>'].include? nrel_developer_key
             if [nil, '', '<insert your key here>'].include? DEVELOPER_NREL_KEY
@@ -40,8 +40,8 @@ module URBANopt # :nodoc:
             end
           end
           @nrel_developer_key = nrel_developer_key
-          @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v2/job?api_key=#{@nrel_developer_key}")
-          @uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v2/outagesimjob?api_key=#{@nrel_developer_key}")
+          @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v3/job?api_key=#{@nrel_developer_key}")
+          @uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v3/outagesimjob?api_key=#{@nrel_developer_key}")
           # initialize @@logger
           @@logger ||= URBANopt::REopt.reopt_logger
         end
@@ -59,10 +59,10 @@ module URBANopt # :nodoc:
       ##
       def uri_results(run_uuid) # :nodoc:
         if @use_localhost
-          return URI.parse("http://127.0.0.1:8000/v2/job/#{run_uuid}/results")
+          return URI.parse("http://127.0.0.1:8000/v3/job/#{run_uuid}/results")
         end
 
-        return URI.parse("https://developer.nrel.gov/api/reopt/v2/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
+        return URI.parse("https://developer.nrel.gov/api/reopt/v3/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
       end
 
       ##
@@ -77,10 +77,10 @@ module URBANopt # :nodoc:
       ##
       def uri_resilience(run_uuid) # :nodoc:
         if @use_localhost
-          return URI.parse("http://127.0.0.1:8000/v2/job/#{run_uuid}/resilience_stats")
+          return URI.parse("http://127.0.0.1:8000/v3/job/#{run_uuid}/resilience_stats")
         end
 
-        return URI.parse("https://developer.nrel.gov/api/reopt/v2/job/#{run_uuid}/resilience_stats?api_key=#{@nrel_developer_key}")
+        return URI.parse("https://developer.nrel.gov/api/reopt/v3/job/#{run_uuid}/resilience_stats?api_key=#{@nrel_developer_key}")
       end
 
       def make_request(http, req, max_tries = 3)
@@ -199,21 +199,21 @@ module URBANopt # :nodoc:
           http.use_ssl = true
         end
 
-        # Wait a few seconds for the REopt database to update before GETing results
-        sleep 5
+        # Wait for the REopt API before attempting to GET results
+        sleep 30
         get_request = Net::HTTP::Get.new(uri.request_uri)
         response = make_request(http, get_request, 8)
 
         # Set a limit on retries when 404s are returned from REopt API
         elapsed_time = 0
-        max_elapsed_time = 60 * 5
+        max_elapsed_time = 60 * 15
 
-        # If database still hasn't updated, wait a little longer and try again
+        # If database still hasn't updated, wait longer and try again
         while (elapsed_time < max_elapsed_time) && (response && response.code == '404')
           response = make_request(http, get_request)
           @@logger.warn('GET request was too fast for REOpt-API. Retrying...')
-          elapsed_time += 5
-          sleep 5
+          elapsed_time += 15
+          sleep 15
         end
 
         data = JSON.parse(response.body, allow_nan: true)
@@ -249,7 +249,7 @@ module URBANopt # :nodoc:
       # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
       ##
       def reopt_request(reopt_input, filename)
-        description = reopt_input[:Scenario][:description]
+        description = reopt_input[:description]
 
         @@logger.info("Submitting #{description} to REopt API")
 
@@ -301,44 +301,83 @@ module URBANopt # :nodoc:
 
         get_request = Net::HTTP::Get.new(uri.request_uri)
 
+        counter = 0
         while status == 'Optimizing...'
           response = make_request(http, get_request)
 
           data = JSON.parse(response.body, allow_nan: true)
 
-          if data['outputs']['Scenario']['Site']['PV'].is_a?(Array)
+          if !data['outputs']['PV']
             pv_sizes = 0
-            data['outputs']['Scenario']['Site']['PV'].each do |x|
-              pv_sizes += x['size_kw'].to_f
-            end
+            sizes = 0
           else
-            pv_sizes = data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0
+            # there should be results in there now
+            if data['outputs']['PV'].is_a?(Array)
+              pv_sizes = 0
+              data['outputs']['PV'].each do |x|
+                pv_sizes += x['size_kw'].to_f
+              end
+            else
+              data['outputs'].each do |energy_source, data|
+                if data.is_a?(Hash) && data.key?('size_kw')
+                  @@logger.debug("#{energy_source}: size_kw = #{data['size_kw'].to_f}")
+                  sizes += data['size_kw'].to_f
+                end
+              end
+            end
           end
-          sizes = pv_sizes + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
-          status = data['outputs']['Scenario']['status']
 
-          sleep 5
+          status = data['status']
+          @@logger.debug("STATUS: #{status}")
+
+          if status == 'error'
+            puts "response.code: #{response.code}"
+            puts "message: #{response.message}"
+            error_message = data['messages']['errors']
+            raise "Error from REopt API - #{error_message}"
+          end
+
+          sleep 15
         end
 
         max_retry = 5
         tries = 0
-        (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
-        while (tries < max_retry) && check_complete
-          sleep 3
-          response = make_request(http, get_request)
-          data = JSON.parse(response.body, allow_nan: true)
-          if data['outputs']['Scenario']['Site']['PV'].is_a?(Array)
-            pv_sizes = 0
-            data['outputs']['Scenario']['Site']['PV'].each do |x|
-              pv_sizes += x['size_kw'].to_f
+
+        check_complete = sizes == 0
+        # I don't know what this line does:
+        # (((data['outputs'] && data['outputs'].key?('Financial') && data['outputs']['Financial']['npv']) || 0) > 0)
+
+        if check_complete
+          @@logger.info('sizes are 0...checking optimization complete')
+
+          while (tries < max_retry) && check_complete
+            sleep 3
+            response = make_request(http, get_request)
+            data = JSON.parse(response.body, allow_nan: true)
+
+            if data['outputs'].key?('PV') && data['outputs']['PV'].is_a?(Array)
+              pv_sizes = 0
+              data['outputs']['PV'].each do |x|
+                pv_sizes += x['size_kw'].to_f
+              end
+            else
+              data['outputs'].each do |energy_source, data|
+                if data.is_a?(Hash) && data.key?('size_kw')
+                  @@logger.debug("#{energy_source}: size_kw = #{data['size_kw'].to_f}")
+                  sizes += data['size_kw'].to_f
+                end
+              end
             end
-          else
-            pv_sizes = data['outputs']['Scenario']['Site']['PV']['size_kw'] || 0
+
+            # I don't understand this line fully:
+            #(check_complete = sizes == 0) && ((data['outputs']['Financial']['npv'] || 0) > 0)
+
+            check_complete = sizes == 0
+            tries += 1
           end
-          sizes = pv_sizes + (data['outputs']['Scenario']['Site']['Storage']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Wind']['size_kw'] || 0) + (data['outputs']['Scenario']['Site']['Generator']['size_kw'] || 0)
-          (check_complete = sizes == 0) && ((data['outputs']['Scenario']['Site']['Financial']['npv_us_dollars'] || 0) > 0)
-          tries += 1
         end
+
+        @@logger.info('REopt optimization complete and processed')
 
         data = JSON.parse(response.body, allow_nan: true)
         text = JSON.pretty_generate(data)

@@ -7,6 +7,7 @@ require 'bundler/setup'
 require 'urbanopt/reporting/default_reports'
 require 'urbanopt/reopt/reopt_logger'
 require 'csv'
+require 'json'
 
 module URBANopt # :nodoc:
   module REopt # :nodoc:
@@ -32,7 +33,7 @@ module URBANopt # :nodoc:
         end
         @nrel_developer_key = nrel_developer_key
         @localhost = localhost
-        @reopt_base_post = { Scenario: { Site: { ElectricTariff: {}, LoadProfile: {}, Wind: { max_kw: 0 } } } }
+        @reopt_base_post = { ElectricTariff: {}, ElectricLoad: {}, Wind: { max_kw: 0 } }
 
         @scenario_reopt_default_output_file = nil
         @scenario_timeseries_default_output_file = nil
@@ -92,7 +93,7 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport
       ##
-      def run_feature_report(feature_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: true)
+      def run_feature_report(feature_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: false)
         api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
         adapter = URBANopt::REopt::FeatureReportAdapter.new
 
@@ -103,7 +104,7 @@ module URBANopt # :nodoc:
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
         @@logger.debug("REOpt output file: #{reopt_output_file}")
         if run_resilience
-          run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
+          run_uuid = reopt_output['outputs']['run_uuid']
           if File.directory? reopt_output_file
             resilience_stats = api.resilience_request(run_uuid, reopt_output_file)
           else
@@ -112,6 +113,7 @@ module URBANopt # :nodoc:
         else
           resilience_stats = nil
         end
+
         result = adapter.update_feature_report(feature_report, reopt_output, timeseries_csv_path, resilience_stats)
         if !save_name.nil?
           result.save save_name
@@ -131,8 +133,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _String_ - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
-      def run_scenario_report(scenario_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: true, community_photovoltaic: nil)
-        puts 'run scenario report'
+      def run_scenario_report(scenario_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: false, community_photovoltaic: nil)
         @save_assumptions_filepath = false
         if !reopt_assumptions_hash.nil?
           @scenario_reopt_default_assumptions_hash = reopt_assumptions_hash
@@ -150,10 +151,10 @@ module URBANopt # :nodoc:
         adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
         reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash, community_photovoltaic)
-
         reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)
+
         if run_resilience
-          run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
+          run_uuid = reopt_output['outputs']['run_uuid']
           if File.directory? @scenario_reopt_default_output_file
             resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file)
           else
@@ -187,7 +188,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _Array_ - Optional. A array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the feature_reports array.
       #
       # [*return:*] _Array_ Returns an array of updated _URBANopt::Scenario::DefaultReports::FeatureReport_ objects
-      def run_feature_reports(feature_reports:, reopt_assumptions_hashes: [], reopt_output_files: [], timeseries_csv_paths: [], save_names: nil, run_resilience: true, keep_existing_output: false, groundmount_photovoltaic: nil)
+      def run_feature_reports(feature_reports:, reopt_assumptions_hashes: [], reopt_output_files: [], timeseries_csv_paths: [], save_names: nil, run_resilience: false, keep_existing_output: false, groundmount_photovoltaic: nil)
         if !reopt_assumptions_hashes.empty?
           @feature_reports_reopt_default_assumption_hashes = reopt_assumptions_hashes
         end
@@ -222,7 +223,7 @@ module URBANopt # :nodoc:
               reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx], groundmount_photovoltaic)
               reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])
               if run_resilience
-                run_uuid = reopt_output['outputs']['Scenario']['run_uuid']
+                run_uuid = reopt_output['outputs']['run_uuid']
                 if File.directory? @feature_reports_reopt_default_output_files[idx]
                   resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx])
                 else
@@ -281,7 +282,7 @@ module URBANopt # :nodoc:
       # * +feature_report_timeseries_csv_paths+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
-      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes: [], reopt_output_files: [], feature_report_timeseries_csv_paths: [], save_names_feature_reports: nil, save_name_scenario_report: nil, run_resilience: true, keep_existing_output: false, groundmount_photovoltaic: nil)
+      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes: [], reopt_output_files: [], feature_report_timeseries_csv_paths: [], save_names_feature_reports: nil, save_name_scenario_report: nil, run_resilience: false, keep_existing_output: false, groundmount_photovoltaic: nil)
         new_feature_reports = run_feature_reports(feature_reports: scenario_report.feature_reports, reopt_assumptions_hashes: reopt_assumptions_hashes, reopt_output_files: reopt_output_files, timeseries_csv_paths: feature_report_timeseries_csv_paths, save_names: save_names_feature_reports, run_resilience: run_resilience, keep_existing_output: keep_existing_output, groundmount_photovoltaic: groundmount_photovoltaic)
 
         # only do this if you have run feature reports
