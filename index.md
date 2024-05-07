@@ -10,9 +10,9 @@ See the [example project](https://github.com/urbanopt/urbanopt-example-reopt-pro
 ## Installation
 
 See [https://docs.urbanopt.net/installation/installation.html](https://docs.urbanopt.net/installation/installation.html) for instructions on prerequiste software, including:
-- Ruby 2.2.6
-- Bundler 1.17.0
-- OpenStudio 2.8.1
+- Ruby 2.7.2
+- Bundler 1.21.0
+- OpenStudio 3.7.0
 
 Add this line to your application's Gemfile:
 
@@ -35,12 +35,12 @@ This gem is used to call the REopt API on a Scenario Report or Feature Report to
 
 ```
 	"distributed_generation": {
-	      "lcc_us_dollars": 100000000.0,
-	      "npv_us_dollars": 10000000.0,
-	      "year_one_energy_cost_us_dollars": 7000000.0,
-	      "year_one_demand_cost_us_dollars": 3000000.0,
-	      "year_one_bill_us_dollars": 10000000.0,
-	      "total_energy_cost_us_dollars": 70000000.0,
+	      "lcc": 100000000.0,
+	      "npv": 10000000.0,
+	      "year_one_energy_cost_before_tax": 7000000.0,
+	      "year_one_demand_cost_before_tax": 3000000.0,
+	      "year_one_bill_before_tax": 10000000.0,
+	      "lifecycle_energy_cost_after_tax": 70000000.0,
 	      "solar_pv": {
 	        "size_kw": 30000.0
 	      },
