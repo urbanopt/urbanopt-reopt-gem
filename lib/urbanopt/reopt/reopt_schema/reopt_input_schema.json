@@ -101,7 +101,7 @@
 					"min": 0,
 					"max": 1000000.0,
 					"type": "number",
-					"description": "Value placed on unmet site load during grid outages. Units are US dollars per unmet kilowatt-hour. The value of lost load (VoLL) is used to determine the avoided outage costs by multiplying VoLL [$/kWh] with the average number of hours that the critical load can be met by the energy system (determined by simulating outages occuring at every hour of the year), and multiplying by the mean critical load."
+					"description": "Value placed on unmet site load during grid outages. Units are US dollars per unmet kilowatt-hour. The value of lost load (VoLL) is used to determine the avoided outage costs by multiplying VoLL [$/kWh] with the average number of hours that the critical load can be met by the energy system (determined by simulating outages occurring at every hour of the year), and multiplying by the mean critical load."
 				},
 				"analysis_years": {
 					"default": 20,
@@ -711,7 +711,7 @@
 					"min": 0,
 					"max": 1,
 					"type": "number",
-					"description": "Fraction of upfront project costs to depreciate under MACRS in year one in addtion to scheduled depreciation"
+					"description": "Fraction of upfront project costs to depreciate under MACRS in year one in addition to scheduled depreciation"
 				},
 				"inverter_replacement_year": {
 					"default": 10,
