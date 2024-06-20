@@ -12,7 +12,7 @@ module URBANopt
     # Set Logger::DEBUG for development
     @@reopt_logger.level = Logger::WARN
     ##
-    # Definining class variable "@@logger" to log errors, info and warning messages.
+    # Defining class variable "@@logger" to log errors, info and warning messages.
     def self.reopt_logger
       @@reopt_logger
     end

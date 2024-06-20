@@ -36,7 +36,7 @@ def convert_powerflow_resolution(timeseries_kw, original_res, destination_res)
     current_origin_idx = 0 # current integer index of the origin timeseries
     (0..(8760 * destination_res - 1)).each do |ts|
       next_stopping_ts = current_origin_ts + stepping_interval # stop at the next destination interval
-      total_power = [] # create to store wieghted origin timestep values to average
+      total_power = [] # create to store weighted origin timestep values to average
       while current_origin_ts != next_stopping_ts
         next_origin_ts_int = Integer(current_origin_ts) + 1
         # Calc next stopping point that will being you to the next origin or destination time step
@@ -61,7 +61,7 @@ def convert_powerflow_resolution(timeseries_kw, original_res, destination_res)
     # Timesteps will be expanded, i.e. 8760 -> 35040
 
     # This algorithm works by stepping along the destination timeseries. Steps are made to the next
-    # destination or origin breakpoint, and at each step the propotional amount of the origin stepped
+    # destination or origin breakpoint, and at each step the proportional amount of the origin stepped
     # is added to the destination. For example, in in EX 1 below 4 steps are made each with adding the full amount of
     # the origin (1, 1, 2 and 2) since each in the destination overlaps perfectly with 2 origin
     # timesteps. In EX 2, the origin overlaps with the first 2 destination timesteps but the third
