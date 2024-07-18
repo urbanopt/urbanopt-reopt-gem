@@ -44,8 +44,11 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # if allow_local && File.exist?('../urbanopt-scenario-gem')
 #  gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
 # elsif allow_local
-# gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'reopt-v3'
+gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'os38'
 # end
+
+# Temporary! Remove this once reporting-gem is merged/released
+gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'os38'
 
 # if allow_local && File.exists?('../urbanopt-geojson-gem')
 #   gem 'urbanopt-geojson', path: '../urbanopt-geojson-gem'
