@@ -21,7 +21,7 @@ jobs:
     # https://github.com/rbenv/ruby-build/discussions/1940
     runs-on: ubuntu-latest
     container:
-      image: docker://nrel/openstudio:3.7.0
+      image: docker://nrel/openstudio:3.8.0
     steps:
       - uses: actions/checkout@v4
       - name: set git config options
