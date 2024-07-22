@@ -16,7 +16,7 @@ module URBANopt # :nodoc:
   module REopt  # :nodoc:
     class REoptLiteAPI
       ##
-      # \REoptLiteAPI manages submitting optimization tasks to the \REopt API  and recieving results.
+      # \REoptLiteAPI manages submitting optimization tasks to the \REopt API  and receiving results.
       # Results can either be sourced from the production \REopt API with an API key from developer.nrel.gov, or from
       # a version running at localhost.
       ##
@@ -55,7 +55,7 @@ module URBANopt # :nodoc:
       #
       # * +run_uuid+ - _String_ - Unique run_uuid obtained from the \REopt job submittal URL for a specific optimization task.
       #
-      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt results endpoint for a specifc optimization task.
+      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt results endpoint for a specific optimization task.
       ##
       def uri_results(run_uuid) # :nodoc:
         if @use_localhost
@@ -73,7 +73,7 @@ module URBANopt # :nodoc:
       #
       # * +run_uuid+ - _String_ - Resilience statistics for a unique run_uuid obtained from the \REopt job submittal URL for a specific optimization task.
       #
-      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt resilience statistics endpoint for a specifc optimization task.
+      # [*return:*] _URI_ - Returns URI object for use in calling the \REopt resilience statistics endpoint for a specific optimization task.
       ##
       def uri_resilience(run_uuid) # :nodoc:
         if @use_localhost
@@ -133,7 +133,7 @@ module URBANopt # :nodoc:
       #
       # * +data+ - _Hash_ - Default \REopt formatted post containing at least all the required parameters.
       #
-      # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
+      # [*return:*] _Bool_ - Returns true if the post succeeds. Otherwise returns false.
       ##
       def check_connection(data)
         header = { 'Content-Type' => 'application/json' }
@@ -166,7 +166,7 @@ module URBANopt # :nodoc:
       # * +reopt_input+ - _Hash_ - \REopt formatted post containing at least required parameters.
       # * +filename+ - _String_ - Path to file that will be created containing the full \REopt response.
       #
-      # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
+      # [*return:*] _Bool_ - Returns true if the post succeeds. Otherwise returns false.
       ##
       def resilience_request(run_uuid, filename)
         if File.directory? filename
@@ -246,7 +246,7 @@ module URBANopt # :nodoc:
       # * +reopt_input+ - _Hash_ - \REopt formatted post containing at least required parameters.
       # * +filename+ - _String_ - Path to file that will be created containing the full \REopt response.
       #
-      # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
+      # [*return:*] _Bool_ - Returns true if the post succeeds. Otherwise returns false.
       ##
       def reopt_request(reopt_input, filename)
         description = reopt_input[:description]

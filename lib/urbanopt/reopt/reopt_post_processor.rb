@@ -182,7 +182,7 @@ module URBANopt # :nodoc:
       #
       # [*parameters:*]
       #
-      # * +feature_reports+ - _Array_ -  An array of _URBANopt::Reporting::DefaultReports::FeatureReport_ objetcs which will each be used to create (and are subsquently updated by) a \REopt opimization response.
+      # * +feature_reports+ - _Array_ -  An array of _URBANopt::Reporting::DefaultReports::FeatureReport_ objects which will each be used to create (and are subsequently updated by) a \REopt opimization response.
       # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of \REopt formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the feature_reports array.
       # * +reopt_output_files+ - _Array_ - Optional. A array of paths to files at which REpopt responses will be saved. The number and order of the paths should match the feature_reports array.
       # * +timeseries_csv_path+ - _Array_ - Optional. A array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the feature_reports array.
@@ -276,7 +276,7 @@ module URBANopt # :nodoc:
       #
       # [*parameters:*]
       #
-      # * +scenario_report+ - _Array_ -  A _URBANopt::Reporting::DefaultReports::ScenarioReport_ which will each be used to create (and is subsquently updated by) \REopt opimization responses for each of its FeatureReports.
+      # * +scenario_report+ - _Array_ -  A _URBANopt::Reporting::DefaultReports::ScenarioReport_ which will each be used to create (and is subsequently updated by) \REopt opimization responses for each of its FeatureReports.
       # * +reopt_assumptions_hashes+ - _Array_ - Optional. An array of \REopt formatted hashes containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability). The number and order of the hashes should match the array in ScenarioReport.feature_reports.
       # * +reopt_output_files+ - _Array_ - Optional. An array of paths to files at which REpopt responses will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       # * +feature_report_timeseries_csv_paths+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
