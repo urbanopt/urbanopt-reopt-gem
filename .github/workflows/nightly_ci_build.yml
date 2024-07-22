@@ -30,7 +30,7 @@ jobs:
           git config --global --add safe.directory '*'
       - name: Update gems
         run: |
-          bundle update
+          bundle install
           bundle exec certified-update
       - name: Run Rspec
         run: bundle exec rspec
