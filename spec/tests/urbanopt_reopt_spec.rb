@@ -5,9 +5,6 @@
 
 require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
-require 'certified'
-require 'fileutils'
-require 'pathname'
 
 RSpec.describe URBANopt::REopt do
   scenario_dir = Pathname(__FILE__).dirname.parent / 'run' / 'example_scenario'
