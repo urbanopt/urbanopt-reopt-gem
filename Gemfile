@@ -17,7 +17,9 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # if allow_local && File.exist?('../OpenStudio-extension-gem')
 #   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'
 # elsif allow_local
-  gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'dont_raise_when_mistmatch'
+# gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'develop'
+# else
+# gem 'openstudio-extension', '~> 0.8.1'
 # end
 #
 # if allow_local && File.exist?('../openstudio-common-measures-gem')
