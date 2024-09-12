@@ -95,13 +95,20 @@ module URBANopt # :nodoc:
           @modelica_result_input = modelica_result
         end
 
-        # Create folder for REopt input files
+        # Create folder for REopt input files only if they dont exist
         reopt_ghp_dir = File.join(run_dir, "reopt_ghp")
-        FileUtils.mkdir_p(reopt_ghp_dir)
         reopt_ghp_input = File.join(reopt_ghp_dir, "reopt_ghp_inputs")
-        FileUtils.mkdir_p(reopt_ghp_input)
+        unless Dir.exist?(reopt_ghp_dir)
+          FileUtils.mkdir_p(reopt_ghp_dir)
+        end
+        unless Dir.exist?(reopt_ghp_input)
+          FileUtils.mkdir_p(reopt_ghp_input)
+        end
+        
         reopt_ghp_output = File.join(reopt_ghp_dir, "reopt_ghp_outputs")
-        FileUtils.mkdir_p(reopt_ghp_output)
+        unless Dir.exist?(reopt_ghp_output)
+          FileUtils.mkdir_p(reopt_ghp_output)
+        end
 
         # get building IDs from _loop_order.json
         building_ids = []
