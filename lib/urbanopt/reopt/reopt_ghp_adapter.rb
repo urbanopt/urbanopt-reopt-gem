@@ -143,7 +143,7 @@ module URBANopt # :nodoc:
           ghpghx_output[:inputs][:heating_thermal_load_mmbtu_per_hr] = total_space_heating_load_mmbtu_per_hour
           ghpghx_output[:inputs][:cooling_thermal_load_ton] = [0] * 8760
       
-          ghpghx_output_all = [ghpghx_output, ghpghx_output]
+          ghpghx_output_all = [ghpghx_output]
           reopt_inputs_building[:GHP][:ghpghx_responses] = {}
           reopt_inputs_building[:GHP][:ghpghx_responses] = ghpghx_output_all
 
