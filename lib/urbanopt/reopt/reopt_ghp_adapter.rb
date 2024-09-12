@@ -128,13 +128,13 @@ module URBANopt # :nodoc:
           ghpghx_output[:outputs] = {}
           ghpghx_output[:inputs] = {}
           ghpghx_output[:outputs][:heat_pump_configuration] = "WSHP"
-          ghpghx_output[:outputs][:peak_combined_heatpump_thermal_ton]
           # This is not used in REopt calculation but required for formatting.
           ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] = [0] * 8760
           ghpghx_output[:outputs][:number_of_boreholes] = 0 
           ghpghx_output[:outputs][:length_boreholes_ft] = 0
 
-          #ghpghx_output["outputs"]["peak_combined_heatpump_thermal_ton"] = ghp_size
+          #TODO : Update with actual value from modelica result
+          ghpghx_output[:outputs][:peak_combined_heatpump_thermal_ton] = 1.0
           ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = total_electric_load_building.sum
           ghpghx_output[:outputs][:yearly_total_electric_consumption_series_kw] = total_electric_load_building
           ghpghx_output[:outputs][:yearly_heating_heatpump_electric_consumption_series_kw] = total_electric_load_building
