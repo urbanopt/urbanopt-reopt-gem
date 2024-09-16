@@ -69,8 +69,6 @@ module URBANopt # :nodoc:
             results
         end
 
-        # For local run
-        # TODO determine method for server run
         def get_run_uuid(reopt_input_file, nrel_developer_key, root_url)
             
             reopt_input_file = @reopt_input_file
