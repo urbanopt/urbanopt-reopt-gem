@@ -72,16 +72,44 @@ module URBANopt # :nodoc:
 
         if File.exist?(@modelica_csv)
           modelica_data = CSV.read(@modelica_csv, headers: true)
-          # calculate total electric load for the building
-          total_electric_load_building = modelica_data.map do |row|
-            heating_power = row[:"heating_electric_power_#{building_id}"].to_f / 1000
-            pump_power = row[:"pump_power_#{building_id}"].to_f / 1000
-            ets_pump_power = row[:"ets_pump_power_#{building_id}"].to_f / 1000
-            heating_power + pump_power + ets_pump_power
+          heating_power = "heating_electric_power_#{building_id}"
+          cooling_power = "cooling_electric_power_#{building_id}"
+          pump_power = "pump_power_#{building_id}"
+          ets_pump_power = "ets_pump_power_#{building_id}"
+          heating_system_capacity = "heating_system_capacity_#{building_id}"
+          cooling_system_capacity = "cooling_system_capacity_#{building_id}"
+
+          heating_power_values = cooling_power_values = pump_power_values = ets_pump_power_values = []
+          total_electric_load_building = []
+          # Ensure the column exists
+          if modelica_data.headers.include?(heating_power)
+            heating_power_values = modelica_data[heating_power]
+          end
+          if modelica_data.headers.include?(cooling_power)
+            cooling_power_values = modelica_data[cooling_power]
+          end
+          if modelica_data.headers.include?(pump_power)
+            pump_power_values = modelica_data[pump_power]
+          end
+          if modelica_data.headers.include?(ets_pump_power)
+            ets_pump_power_values = modelica_data[ets_pump_power]
+          end 
+
+          total_electric_load_building = heating_power_values.zip(cooling_power_values, pump_power_values, ets_pump_power_values).map do |elements|
+            elements.map { |e| e.to_f / 1000 }.sum
           end
 
-          print(total_electric_load_building.size)
-          
+          peak_combined_heatpump_thermal_ton = 0
+
+          if modelica_data.headers.include?(heating_system_capacity)
+            heating_system_capacity_value = modelica_data[heating_system_capacity][0]
+          end
+          if modelica_data.headers.include?(cooling_system_capacity)
+            cooling_system_capacity_value = modelica_data[cooling_system_capacity][0]
+          end
+
+          peak_combined_heatpump_thermal_ton = ([heating_system_capacity_value.to_f.abs, cooling_system_capacity_value.to_f.abs].max)/3517
+
           # Store the result in reopt_inputs_building ElectricLoad
           reopt_inputs_building[:ElectricLoad][:loads_kw] = total_electric_load_building
 
@@ -93,7 +121,6 @@ module URBANopt # :nodoc:
           # Store the result in reopt_inputs_building SpaceHeatingLoad
           # Calculate total space heating load for building, This is not used in REopt calculation but required for formatting.
           reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = total_space_heating_load_mmbtu_per_hour
-
 
           domestic_hot_water = total_electric_load_building.map do |load|
             load * 0
@@ -134,7 +161,7 @@ module URBANopt # :nodoc:
           ghpghx_output[:outputs][:length_boreholes_ft] = 0
 
           #TODO : Update with actual value from modelica result
-          ghpghx_output[:outputs][:peak_combined_heatpump_thermal_ton] = 1.0
+          ghpghx_output[:outputs][:peak_combined_heatpump_thermal_ton] = peak_combined_heatpump_thermal_ton
           ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = total_electric_load_building.sum
           ghpghx_output[:outputs][:yearly_total_electric_consumption_series_kw] = total_electric_load_building
           ghpghx_output[:outputs][:yearly_heating_heatpump_electric_consumption_series_kw] = total_electric_load_building
@@ -230,25 +257,27 @@ module URBANopt # :nodoc:
 
           modelica_data = CSV.read(@modelica_csv, headers: true, header_converters: :symbol)
 
-          if ghp_id.include?('-')
-            # Note: For some reason when reading columns, '-' from the column headers are removed, whereas ghp_id has -
-            ghp_id_formatted = ghp_id.delete('-')
-            ghp_column = "electrical_power_consumed_#{ghp_id_formatted}".to_sym
+          electrical_power_consumed = modelica_data["electrical_power_consumed"]
+          electrical_power_consumed_kw = electrical_power_consumed.map { |e| e.to_f / 1000 }
+          # if ghp_id.include?('-')
+          #   # Note: For some reason when reading columns, '-' from the column headers are removed, whereas ghp_id has -
+          #   ghp_id_formatted = ghp_id.delete('-')
+          #   ghp_column = "electrical_power_consumed_#{ghp_id_formatted}".to_sym
 
-          else
-            # Note: For some reason when reading columns, '-' from the column headers are removed, whereas ghp_id has -
-            ghp_column = "electrical_power_consumed_#{ghp_id}".to_sym
-          end
+          # else
+          #   # Note: For some reason when reading columns, '-' from the column headers are removed, whereas ghp_id has -
+          #   ghp_column = "electrical_power_consumed_#{ghp_id}".to_sym
+          # end
 
-          # Ensure the column exists
-          unless modelica_data.headers.include?(ghp_column)
-            raise "Column #{ghp_column} does not exist in the CSV file."
-          end
+          # # Ensure the column exists
+          # unless modelica_data.headers.include?(ghp_column)
+          #   puts "Column #{ghp_column} does not exist in the CSV file."
+          # end
 
-          # Access values from the column
-          column_values = modelica_data.by_col[ghp_column]
+          # # Access values from the column
+          # column_values = modelica_data.by_col[ghp_column]
 
-          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] = column_values
+          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] = electrical_power_consumed_kw
 
         end
         
