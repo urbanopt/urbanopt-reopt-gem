@@ -40,6 +40,7 @@ module URBANopt # :nodoc:
             @reopt_output_file = reopt_output_file
             # initialize @@logger
             @@logger ||= URBANopt::REopt.reopt_logger
+            @@logger.level = Logger::INFO
         end
 
 
@@ -82,6 +83,9 @@ module URBANopt # :nodoc:
             uri = URI.parse(post_url)
             request = Net::HTTP::Post.new(uri)
             request.content_type = 'application/json'
+
+            # Add the JSON payload (assuming 'post' is the body data)
+            request.body = reopt_input_file.to_json
             
             # Send the HTTP request
             response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
@@ -108,18 +112,20 @@ module URBANopt # :nodoc:
             run_id
         end
 
-        def reopt_request(results_url, poll_interval = 5)
+        def reopt_request(results_url, poll_interval = 5, max_timeout = 300)
 
             key_error_count = 0
             key_error_threshold = 3
             status = "Optimizing..."
             @@logger.info("Polling #{results_url} for results with interval of #{poll_interval}...")
-            
+            resp_dict = {}
+            start_time = Time.now
+
             loop do
                 uri = URI.parse(results_url)
-                response = Net::HTTP.get_response(results_url)
+                response = Net::HTTP.get_response(uri)
                 resp_dict = JSON.parse(response.body)
-              
+
                 begin
                   status = resp_dict['status']
                 rescue KeyError
@@ -131,9 +137,17 @@ module URBANopt # :nodoc:
                   end
                 end
                 
-                break if status != "Optimizing..."
+                if status != "Optimizing..."
+                    break
+                end
+
+                if Time.now - start_time > max_timeout
+                    @@logger.info("Breaking polling loop due to max timeout of #{max_timeout} seconds exceeded.")
+                    break
+                end
                 
                 sleep(poll_interval)
+                
             end
             resp_dict
         end

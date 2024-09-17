@@ -228,7 +228,7 @@ module URBANopt # :nodoc:
         # GHP inputs
         reopt_inputs_district[:GHP] = {}  
         reopt_inputs_district[:GHP][:require_ghp_purchase] = 1
-        reopt_inputs_district[:GHP][:building_sqft] = 0
+        reopt_inputs_district[:GHP][:building_sqft] = 0.00001
         reopt_inputs_district[:GHP][:om_cost_per_sqft_year] = 0
         reopt_inputs_district[:GHP][:heatpump_capacity_sizing_factor_on_peak_load] = 1.0
   
@@ -255,7 +255,7 @@ module URBANopt # :nodoc:
         
         if File.exist?(@modelica_csv)
 
-          modelica_data = CSV.read(@modelica_csv, headers: true, header_converters: :symbol)
+          modelica_data = CSV.read(@modelica_csv, headers: true)
 
           electrical_power_consumed = modelica_data["electrical_power_consumed"]
           electrical_power_consumed_kw = electrical_power_consumed.map { |e| e.to_f / 1000 }
