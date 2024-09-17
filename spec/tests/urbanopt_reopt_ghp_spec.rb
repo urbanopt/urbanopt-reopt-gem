@@ -17,15 +17,10 @@ RSpec.describe URBANopt::REopt do
     system_parameter =  Pathname(__FILE__).dirname.parent / 'files' / 'system_parameter_1.json'
     reopt_ghp_assumption = File.join(Pathname.new(__FILE__).dirname.parent.parent, 'lib', 'urbanopt', 'reopt', 'reopt_ghp_files', 'reopt_ghp_assumption.json')
     schema =  File.join(Pathname.new(__FILE__).dirname.parent.parent, 'lib', 'urbanopt', 'reopt', 'reopt_schema', 'REopt-GHP-input.json')
-    
-    before(:all) do
-        # Load the JSON data before running the tests
-        @building_4_path = File.join(reopt_input_dir, 'GHP_building_4.json')        
-        @building_5_path = File.join(reopt_input_dir, 'GHP_building_5.json')
-        @ghp_path = File.join(reopt_input_dir, 'GHX_7932a208-dcb6-4d23-a46f-288896eaa1bc.json')
-        
-    end
+    nrel_developer_key = DEVELOPER_NREL_KEY
 
+    @run_id = nil
+    
     it 'can create an input building and GHP reports' do
 
         begin
@@ -74,23 +69,45 @@ RSpec.describe URBANopt::REopt do
         expect(ghp_data[:GHP][:ghpghx_responses][0][:outputs][:yearly_ghx_pump_electric_consumption_series_kw].size).to eq(8760)
     end
 
-    it 'can connect to the REopt API' do
+    it 'can connect to the REopt API and generate UUID' do
         
+        reopt_input_file_path = File.join(reopt_input_dir, 'GHP_building_4.json')
+        reopt_input_data = nil
+        File.open(reopt_input_file_path, 'r') do |f|
+            reopt_input_data = JSON.parse(f.read)
+        end
+        post_url = "https://developer.nrel.gov/api/reopt/stable/job/?api_key=#{nrel_developer_key}"
 
-        # #call the REopt API
+        # Parse the URL and prepare the HTTP request
+        uri = URI.parse(post_url)
+        request = Net::HTTP::Post.new(uri)
+        request.content_type = 'application/json'
 
-        # building_4_data = JSON.parse(File.read(@building_4_path), symbolize_names: true)
-        # reopt_output_file = File.join(reopt_ghp_output, "GHP_building_4_output.json")
+        # Add the JSON payload (assuming 'post' is the body data)
+        request.body = reopt_input_data.to_json
 
-        # api = URBANopt::REopt::REoptLiteGHPAPI.new(building_4_data, DEVELOPER_NREL_KEY, reopt_output_file, @localhost)
-        # # Act
-        # ok = api.check_connection(building_4_data)
+        # Send the HTTP request
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
+            http.request(request)
+        end
 
-        # # Assert
-        # expect(ok).to be true
+
+        expect(response).to be_a(Net::HTTPSuccess) 
+        run_id_dict = JSON.parse(response.body)
+        @run_id = run_id_dict['run_uuid']
+
+        expect(@run_id).not_to be_nil
     end
 
-    it 'can generate output as expected' do
+    it 'generates outputs as expected' do
+
+        output_building_4 = File.join(reopt_ghp_output, 'GHP_building_4_output.json')
+        output_building_4_data = nil
+        File.open(output_building_4, 'r') do |f|
+            output_building_4_data = JSON.parse(f.read, symbolize_names: true)
+            expect(output_building_4_data[:outputs][:Financial][:npv]).to_not be_nil
+            expect(output_building_4_data[:outputs][:Financial][:lcc]).to_not be_nil            
+        end
     end
 
 end
