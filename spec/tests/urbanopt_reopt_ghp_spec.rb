@@ -128,7 +128,7 @@ RSpec.describe URBANopt::REopt do
             output_building_4_data = JSON.parse(f.read, symbolize_names: true)
             expect(output_building_4_data[:outputs][:Financial][:npv]).to_not be_nil
             expect(output_building_4_data[:outputs][:Financial][:lcc]).to_not be_nil
-            expect(output_building_4_data[:messages][:errors]).to be_nil
+            expect(output_building_4_data[:messages][:errors]).to be_nil.or be_empty
         end
     end
 
