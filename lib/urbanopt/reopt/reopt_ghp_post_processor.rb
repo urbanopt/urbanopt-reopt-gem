@@ -147,7 +147,6 @@ module URBANopt # :nodoc:
           api = URBANopt::REopt::REoptLiteGHPAPI.new(reopt_input_data, DEVELOPER_NREL_KEY, reopt_output_file, @localhost)
           api.get_api_results()
 
-          puts "Created REopt LCCA output report for #{reopt_ghp_input_file_path}"
         end
 
       end
