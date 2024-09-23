@@ -50,16 +50,6 @@ module URBANopt # :nodoc:
           end
         end
 
-        # read feature json and csv report   
-        building_csv_path =  File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.csv")
-        # Check if CSV file exists before attempting to read it
-        if File.exist?(building_csv_path)
-          building_csv_data = CSV.read(building_csv_path, headers: true)
-          # Process the CSV data as needed
-          #reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = 
-        else
-          puts "CSV file not found: #{building_csv_path}"
-        end
         
         # read_modelica_result
         modelica_project = File.expand_path(modelica_result)
@@ -160,7 +150,6 @@ module URBANopt # :nodoc:
           ghpghx_output[:outputs][:number_of_boreholes] = 0 
           ghpghx_output[:outputs][:length_boreholes_ft] = 0
 
-          #TODO : Update with actual value from modelica result
           ghpghx_output[:outputs][:peak_combined_heatpump_thermal_ton] = peak_combined_heatpump_thermal_ton
           ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = total_electric_load_building.sum
           ghpghx_output[:outputs][:yearly_total_electric_consumption_series_kw] = total_electric_load_building
@@ -277,7 +266,7 @@ module URBANopt # :nodoc:
           # # Access values from the column
           # column_values = modelica_data.by_col[ghp_column]
 
-          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] = electrical_power_consumed_kw
+          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] ||= electrical_power_consumed_kw
 
         end
         
