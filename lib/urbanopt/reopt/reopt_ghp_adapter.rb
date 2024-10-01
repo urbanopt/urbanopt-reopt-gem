@@ -50,6 +50,44 @@ module URBANopt # :nodoc:
           end
         end
 
+        reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = []
+        # Read the default csv report
+        default_feature_report_path = File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.csv")
+        if File.exist?(default_feature_report_path)
+          timeseries_data = CSV.read(default_feature_report_path, headers: true)
+            
+          # Initialize the total kBtu sum
+          total_kbtu = 0.0
+
+          # Convert each value in "Heating:NaturalGas(kBtu)" to MMBtu and store in the array
+          timeseries_data.each do |row|
+            if row['Heating:NaturalGas(kBtu)'] # Ensure the value exists
+              kBtu_value = row['Heating:NaturalGas(kBtu)'].to_f # Convert to float
+              total_kbtu += kBtu_value # Sum kBtu values
+            end
+          end
+            # Check if the total kBtu is zero
+          if total_kbtu.zero?
+            # If zero, populate with 8760 values of 1.0 MMBtu (if you mean 1.0 for each hour)
+            reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [0.0001] * 8760
+          else
+            # If not zero, convert and append to the array
+            timeseries_data.each do |row|
+              if row['Heating:NaturalGas(kBtu)'] # Ensure the value exists
+                kBtu_value = row['Heating:NaturalGas(kBtu)'].to_f # Convert to float
+                mMBtu_value = kBtu_value / 1000 # Convert kBtu to MMBtu
+                reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] << mMBtu_value # Append to the array
+              end
+            end
+          end
+
+        else
+          # Calculate space heating load
+          reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [0.000001] * 8760
+          puts "Existing heating fuel cost was not taken into consideration in result calculations."
+        end
+
+
         
         # read_modelica_result
         modelica_project = File.expand_path(modelica_result)
@@ -103,14 +141,7 @@ module URBANopt # :nodoc:
           # Store the result in reopt_inputs_building ElectricLoad
           reopt_inputs_building[:ElectricLoad][:loads_kw] = total_electric_load_building
 
-          # Calculate space heating load
-          total_space_heating_load_mmbtu_per_hour = total_electric_load_building.map do |load|
-            load * 0.000003412 / 1000
-          end
 
-          # Store the result in reopt_inputs_building SpaceHeatingLoad
-          # Calculate total space heating load for building, This is not used in REopt calculation but required for formatting.
-          reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = total_space_heating_load_mmbtu_per_hour
 
           domestic_hot_water = total_electric_load_building.map do |load|
             load * 0
@@ -156,7 +187,7 @@ module URBANopt # :nodoc:
           ghpghx_output[:outputs][:yearly_heating_heatpump_electric_consumption_series_kw] = total_electric_load_building
           ghpghx_output[:outputs][:yearly_cooling_heatpump_electric_consumption_series_kw] = [0] * 8760
           
-          ghpghx_output[:inputs][:heating_thermal_load_mmbtu_per_hr] = total_space_heating_load_mmbtu_per_hour
+          ghpghx_output[:inputs][:heating_thermal_load_mmbtu_per_hr] = [0.001] * 8760
           ghpghx_output[:inputs][:cooling_thermal_load_ton] = [0] * 8760
       
           ghpghx_output_all = [ghpghx_output]
@@ -206,7 +237,7 @@ module URBANopt # :nodoc:
         end
 
         reopt_inputs_district[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [1]*8760
-        reopt_inputs_district[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = [0]*8760
+        reopt_inputs_district[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = [0.0000001]*8760
 
         reopt_inputs_district[:ElectricLoad] = {}
         reopt_inputs_district[:ElectricLoad][:loads_kw] = [0]*8760
@@ -271,7 +302,7 @@ module URBANopt # :nodoc:
         end
         
         
-        ghpghx_output[:outputs][:peak_combined_heatpump_thermal_ton] = 0
+        ghpghx_output[:outputs][:peak_combined_heatpump_thermal_ton] = 0.000000001
 
         ghpghx_output[:outputs][:heat_pump_configuration] = "WSHP"
         ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = 0

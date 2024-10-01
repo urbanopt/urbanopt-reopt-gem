@@ -76,7 +76,6 @@ module URBANopt # :nodoc:
       attr_accessor :run_dir, :system_parameter_input_hash, :reopt_ghp_assumptions_input_hash, :loop_order_input_hash, :modelica_result_input
   
       # # Create REopt input and output building report
-      # #todo : CHECK IF OUTPUT FILE NAME NEEDS TO BE ADDED IN ARGS, OR COLON AFTER REPORT VARIABLES
       def run_reopt_lcca(run_dir, system_parameter_hash: nil, reopt_ghp_assumptions_hash: nil, modelica_result: nil)
         
         adapter = URBANopt::REopt::REoptGHPAdapter.new
