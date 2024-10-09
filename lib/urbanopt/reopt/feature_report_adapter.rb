@@ -152,7 +152,7 @@ module URBANopt # :nodoc:
       # [*parameters:*]
       #
       # * +feature_report+ - _URBANopt::Reporting::DefaultReports::FeatureReport_ - FeatureReport to update from a \REopt response hash.
-      # * +reopt_output+ - _Hash_ - A reponse hash from the \REopt API to use in overwriting FeatureReport technology sizes, costs and dispatch strategies.
+      # * +reopt_output+ - _Hash_ - A response hash from the \REopt API to use in overwriting FeatureReport technology sizes, costs and dispatch strategies.
       # * +timeseries_csv_path+ - _String_ - Optional. The path to a file at which a new timeseries CSV will be written. If not provided a file is created based on the run_uuid of the \REopt optimization task.
       #
       # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport.

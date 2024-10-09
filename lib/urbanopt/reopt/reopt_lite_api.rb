@@ -111,7 +111,7 @@ module URBANopt # :nodoc:
             end
             tries = max_tries
           rescue StandardError => e
-            @@logger.warn("error from REopt API: #{e}")
+            @@logger.error("error from REopt API: #{e}")
             if tries + 1 < max_tries
               @@logger.debug('trying again...')
             else

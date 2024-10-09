@@ -2,13 +2,11 @@ name: REopt-gem CI
 
 on:
   workflow_dispatch:
-  # push:
+  push:
   schedule:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
     # 5:23 am UTC (11:23pm MDT the day before) every weekday night in MDT
     - cron: '23 5 * * 2-6'
-  pull_request:
-    types: [review_requested]
 
 env:
   # This env var should enforce develop branch of all dependencies
