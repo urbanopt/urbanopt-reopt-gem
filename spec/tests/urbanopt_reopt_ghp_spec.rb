@@ -108,27 +108,18 @@ RSpec.describe URBANopt::REopt do
 
     it 'generates outputs as expected' do
 
-        # TODO : Uncomment after GHX outputs are resolved
-        # Dir.foreach(reopt_ghp_output) do |file|
-        #     next if file == '.' || file == '..' # Skip current and parent directory references
-        #     file_path = File.join(reopt_ghp_output, file)
+        Dir.foreach(reopt_ghp_output) do |file|
+            next if file == '.' || file == '..' # Skip current and parent directory references
+            file_path = File.join(reopt_ghp_output, file)
           
-        #     if File.file?(file_path)
-        #         File.open(file_path, 'r') do |f|
-        #             file_data = JSON.parse(f.read, symbolize_names: true)
-        #             expect(file_data[:outputs][:Financial][:npv]).to_not be_nil
-        #             expect(file_data[:outputs][:Financial][:lcc]).to_not be_nil
-        #             expect(file_data[:messages][:errors]).to be_nil.or be_empty
-        #         end
-        #     end
-        # end
-        output_building_4 = File.join(reopt_ghp_output, 'GHP_building_4_output.json')
-        output_building_4_data = nil
-        File.open(output_building_4, 'r') do |f|
-            output_building_4_data = JSON.parse(f.read, symbolize_names: true)
-            expect(output_building_4_data[:outputs][:Financial][:npv]).to_not be_nil
-            expect(output_building_4_data[:outputs][:Financial][:lcc]).to_not be_nil
-            expect(output_building_4_data[:messages][:errors]).to be_nil.or be_empty
+            if File.file?(file_path)
+                File.open(file_path, 'r') do |f|
+                    file_data = JSON.parse(f.read, symbolize_names: true)
+                    expect(file_data[:outputs][:Financial][:npv]).to_not be_nil
+                    expect(file_data[:outputs][:Financial][:lcc]).to_not be_nil
+                    expect(file_data[:messages][:errors]).to be_nil.or be_empty
+                end
+            end
         end
     end
 
