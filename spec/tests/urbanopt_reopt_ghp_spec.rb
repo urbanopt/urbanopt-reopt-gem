@@ -26,9 +26,9 @@ RSpec.describe URBANopt::REopt do
     @run_id = nil
     before(:all) do
         # Load the JSON data before running the tests
-        @building_4_path = File.join(reopt_input_dir, 'GHP_building_4.json')
-        @building_5_path = File.join(reopt_input_dir, 'GHP_building_5.json')
-        @ghp_path = File.join(reopt_input_dir, 'GHX_7932a208-dcb6-4d23-a46f-288896eaa1bc.json')
+        @building_4_path = reopt_input_dir / 'GHP_building_4.json'
+        @building_5_path = reopt_input_dir / 'GHP_building_5.json'
+        @ghp_path = reopt_input_dir / 'GHX_7932a208-dcb6-4d23-a46f-288896eaa1bc.json'
 
     end
 
