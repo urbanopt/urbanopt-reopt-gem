@@ -39,7 +39,7 @@ RSpec.describe URBANopt::REopt do
         rescue StandardError
         end
         post_processor = URBANopt::REopt::REoptGHPPostProcessor.new(run_dir, system_parameter, modelica_result, reopt_ghp_assumption, DEVELOPER_NREL_KEY, localhost=false)
-        post_processor.run_reopt_lcca(run_dir)
+        post_processor.run_reopt_lcca()
         # output folder exist
         expect(Dir.exist?(File.join(reopt_input_dir)))
 

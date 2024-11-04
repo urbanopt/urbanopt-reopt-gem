@@ -28,7 +28,7 @@ module URBANopt # :nodoc:
         @system_parameter_hash = nil
         @modelica_result = nil
         @building_ids = nil
-        @run_dir = nil
+        @run_dir = run_dir
 
         if !reopt_ghp_assumptions.nil?
           @reopt_ghp_assumptions = reopt_ghp_assumptions
@@ -65,7 +65,7 @@ module URBANopt # :nodoc:
               end
             end
           end
-    
+
         end
 
         if !modelica_result.nil?
@@ -74,12 +74,12 @@ module URBANopt # :nodoc:
       end
 
       attr_accessor :run_dir, :system_parameter_input_hash, :reopt_ghp_assumptions_input_hash, :loop_order_input_hash, :modelica_result_input
-  
+
       # # Create REopt input and output building report
-      def run_reopt_lcca(run_dir, system_parameter_hash: nil, reopt_ghp_assumptions_hash: nil, modelica_result: nil)
-        
+      def run_reopt_lcca(system_parameter_hash: nil, reopt_ghp_assumptions_hash: nil, modelica_result: nil)
+
         adapter = URBANopt::REopt::REoptGHPAdapter.new
-        
+
         # if these arguments are specified, use them
         if !system_parameter_hash.nil?
           @system_parameter_input_hash = system_parameter_hash
@@ -95,7 +95,7 @@ module URBANopt # :nodoc:
         end
 
         # Create folder for REopt input files only if they dont exist
-        reopt_ghp_dir = File.join(run_dir, "reopt_ghp")
+        reopt_ghp_dir = File.join(@run_dir, "reopt_ghp")
         reopt_ghp_input = File.join(reopt_ghp_dir, "reopt_ghp_inputs")
         unless Dir.exist?(reopt_ghp_dir)
           FileUtils.mkdir_p(reopt_ghp_dir)
@@ -103,7 +103,7 @@ module URBANopt # :nodoc:
         unless Dir.exist?(reopt_ghp_input)
           FileUtils.mkdir_p(reopt_ghp_input)
         end
-        
+
         reopt_ghp_output = File.join(reopt_ghp_dir, "reopt_ghp_outputs")
         unless Dir.exist?(reopt_ghp_output)
           FileUtils.mkdir_p(reopt_ghp_output)
@@ -119,27 +119,27 @@ module URBANopt # :nodoc:
 
         building_ids.each do |building_id|
           # create REopt building input file for all buildings in loop order list
-          reopt_input_building = adapter.create_reopt_input_building(run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, building_id, @modelica_result_input)
+          reopt_input_building = adapter.create_reopt_input_building(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, building_id, @modelica_result_input)
         end
         ghp_ids.each do |ghp_id|
           # create REopt district input file
-          reopt_input_district = adapter.create_reopt_input_district(run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, ghp_id, @modelica_result_input)
+          reopt_input_district = adapter.create_reopt_input_district(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, ghp_id, @modelica_result_input)
         end
 
         Dir.foreach(reopt_ghp_input) do |input_file|
           # Skip '.' and '..' (current and parent directory entries)
           next if input_file == '.' || input_file == '..'
-          
+
           reopt_ghp_input_file_path = File.join(reopt_ghp_input, input_file)
 
           reopt_input_data = nil
-          
+
           File.open(reopt_ghp_input_file_path, 'r') do |f|
             reopt_input_data = JSON.parse(f.read)
           end
 
           base_name = File.basename(input_file, '.json')
-          
+
           # reopt_ghp_output_file
           reopt_output_file = File.join(reopt_ghp_output, "#{base_name}_output.json")
           #call the REopt API
@@ -149,7 +149,7 @@ module URBANopt # :nodoc:
         end
 
       end
-   
+
     end #REoptGHPPostProcessor
   end #REopt
 end #URBANopt
