@@ -15,9 +15,9 @@ require 'urbanopt/reopt/reopt_logger'
 module URBANopt # :nodoc:
   module REopt  # :nodoc:
     class REoptLiteGHPAPI
-              
+
         def initialize(reopt_input_file, nrel_developer_key = nil, reopt_output_file, use_localhost)
-            
+
             # Store developer key
             if [nil, '', '<insert your key here>'].include? nrel_developer_key
                 if [nil, '', '<insert your key here>'].include? DEVELOPER_NREL_KEY
@@ -34,7 +34,7 @@ module URBANopt # :nodoc:
             else
                 @root_url = "https://developer.nrel.gov/api/reopt/stable"
             end
-            # add REopt URL 
+            # add REopt URL
             @nrel_developer_key = nrel_developer_key
             @reopt_input_file = reopt_input_file
             @reopt_output_file = reopt_output_file
@@ -45,7 +45,7 @@ module URBANopt # :nodoc:
 
 
         def get_api_results(run_id=nil)
-            
+
             reopt_input_file = @reopt_input_file
             nrel_developer_key = @nrel_developer_key
             root_url = @root_url
@@ -71,14 +71,14 @@ module URBANopt # :nodoc:
         end
 
         def get_run_uuid(reopt_input_file, nrel_developer_key, root_url)
-            
+
             reopt_input_file = @reopt_input_file
             nrel_developer_key = @nrel_developer_key
             root_url = @root_url
             post_url = "#{root_url}/job/?api_key=#{nrel_developer_key}"
             puts "This is URL: #{post_url}"
             @@logger.info("Connecting to #{post_url}")
-  
+
             # Parse the URL and prepare the HTTP request
             uri = URI.parse(post_url)
             request = Net::HTTP::Post.new(uri)
@@ -86,7 +86,7 @@ module URBANopt # :nodoc:
 
             # Add the JSON payload (assuming 'post' is the body data)
             request.body = reopt_input_file.to_json
-            
+
             # Send the HTTP request
             response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
                 http.request(request)
@@ -100,7 +100,7 @@ module URBANopt # :nodoc:
             else
                 @@logger.info("Response OK from #{post_url}.")
                 run_id_dict = JSON.parse(response.body)
-                
+
                 begin
                     run_id = run_id_dict['run_uuid']
                 rescue KeyError
@@ -136,7 +136,7 @@ module URBANopt # :nodoc:
                     break
                   end
                 end
-                
+
                 if status != "Optimizing..."
                     break
                 end
@@ -145,9 +145,9 @@ module URBANopt # :nodoc:
                     @@logger.info("Breaking polling loop due to max timeout of #{max_timeout} seconds exceeded.")
                     break
                 end
-                
+
                 sleep(poll_interval)
-                
+
             end
             resp_dict
         end
@@ -159,10 +159,10 @@ module URBANopt # :nodoc:
     #   #
     #   # * +data+ - _Hash_ - Default \REopt formatted post containing at least all the required parameters.
     #   #
-    #   # [*return:*] _Bool_ - Returns true if the post succeeeds. Otherwise returns false.
+    #   # [*return:*] _Bool_ - Returns true if the post succeeds. Otherwise returns false.
     #   ##
     #   def check_connection(data)
-    #     @uri_submit = URI.parse(@root_url) 
+    #     @uri_submit = URI.parse(@root_url)
     #     header = { 'Content-Type' => 'application/json' }
     #     http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
     #     puts http
