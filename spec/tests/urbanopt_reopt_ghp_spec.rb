@@ -16,7 +16,8 @@ RSpec.describe URBANopt::REopt do
     modelica_result = Pathname(__FILE__).dirname.parent / 'files' / 'modelica_4'
     system_parameter =  Pathname(__FILE__).dirname.parent / 'files' / 'system_parameter_1.json'
     reopt_ghp_assumption = File.join(Pathname.new(__FILE__).dirname.parent.parent, 'lib', 'urbanopt', 'reopt', 'reopt_ghp_files', 'reopt_ghp_assumption.json')
-    schema =  File.join(Pathname.new(__FILE__).dirname.parent.parent, 'lib', 'urbanopt', 'reopt', 'reopt_schema', 'REopt-GHP-input.json')
+    schema_path = File.join(Pathname.new(__FILE__).dirname.parent.parent, 'lib', 'urbanopt', 'reopt', 'reopt_schema', 'REopt-GHP-input.json')
+    schema =  JSON.parse(File.read(schema_path))
     nrel_developer_key = DEVELOPER_NREL_KEY
 
     @run_id = nil
