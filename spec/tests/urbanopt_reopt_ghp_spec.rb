@@ -11,17 +11,12 @@ RSpec.describe URBANopt::REopt do
     run_dir = Pathname(__FILE__).dirname.parent / 'files' / 'run' / 'baseline_scenario_ghe'
     spec_files_dir = Pathname(__FILE__).dirname.parent / 'files'
     source_lib = Pathname(__FILE__).dirname.parent.parent / 'lib'
-
     modelica_result = spec_files_dir / 'modelica_4'
     system_parameter =  spec_files_dir / 'system_parameter_1.json'
     reopt_ghp_assumption = source_lib / 'urbanopt' / 'reopt' / 'reopt_ghp_files' / 'reopt_ghp_assumption.json'
-    schema_path = source_lib / 'urbanopt' / 'reopt' / 'reopt_schema' / 'REopt-GHP-input.json'
-    schema =  JSON.parse(File.read(schema_path))
-    nrel_developer_key = DEVELOPER_NREL_KEY
+
     reopt_input_dir = run_dir / 'reopt_ghp' / 'reopt_ghp_inputs'
     reopt_ghp_output = run_dir / 'reopt_ghp' / 'reopt_ghp_outputs'
-
-    schema =  source_lib / 'urbanopt' / 'reopt' / 'reopt_schema' / 'REopt-GHP-input.json'
 
     @run_id = nil
     before(:all) do
@@ -33,7 +28,6 @@ RSpec.describe URBANopt::REopt do
     end
 
     it 'can create an input building and GHP reports' do
-
         begin
             FileUtils.rm_rf(scenario_dir / 'reopt_input_dir')
         rescue StandardError
@@ -52,6 +46,8 @@ RSpec.describe URBANopt::REopt do
     end
 
     it 'can validate the REopt input files' do
+        schema_path = source_lib / 'urbanopt' / 'reopt' / 'reopt_schema' / 'REopt-GHP-input.json'
+        schema =  JSON.parse(File.read(schema_path))
 
         building_4_data = JSON.parse(File.read(@building_4_path), symbolize_names: true)
         validation_errors = JSON::Validator.fully_validate(schema, building_4_data)
