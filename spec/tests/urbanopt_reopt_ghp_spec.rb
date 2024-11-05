@@ -10,9 +10,9 @@ require 'json-schema'
 RSpec.describe URBANopt::REopt do
     run_dir = Pathname(__FILE__).dirname.parent / 'files' / 'run' / 'baseline_scenario_ghe'
     spec_files_dir = Pathname(__FILE__).dirname.parent / 'files'
-    source_lib = Pathname(__FILE__).dirname.parent.parent / 'lib'
     modelica_result = spec_files_dir / 'modelica_4'
     system_parameter =  spec_files_dir / 'system_parameter_1.json'
+    source_lib = Pathname(__FILE__).dirname.parent.parent / 'lib'
     reopt_ghp_assumption = source_lib / 'urbanopt' / 'reopt' / 'reopt_ghp_files' / 'reopt_ghp_assumption.json'
 
     reopt_input_dir = run_dir / 'reopt_ghp' / 'reopt_ghp_inputs'
@@ -29,7 +29,7 @@ RSpec.describe URBANopt::REopt do
 
     it 'can create an input building and GHP reports' do
         begin
-            FileUtils.rm_rf(scenario_dir / 'reopt_input_dir')
+            FileUtils.rm_rf(run_dir / 'reopt_ghp')
         rescue StandardError
         end
         post_processor = URBANopt::REopt::REoptGHPPostProcessor.new(run_dir, system_parameter, modelica_result, reopt_ghp_assumption, DEVELOPER_NREL_KEY, localhost=false)
