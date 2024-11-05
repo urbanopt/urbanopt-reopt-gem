@@ -16,7 +16,7 @@
 /lib/measures/test_results
 /lib/measures/.rubocop*
 # test files
-spec/files/run/reopt_ghp
+spec/files/run/baseline_scenario_ghe/reopt_ghp
 
 developer_nrel_key.rb
 # rspec failure tracking
