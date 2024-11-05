@@ -226,6 +226,7 @@ RSpec.describe URBANopt::REopt do
     FileUtils.rm_rf(scenario_dir / 'test__')
     FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
     FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports')
+    FileUtils.rm_rf(scenario_dir / 'scenario_report_multiPV_reopt_run')
   end
 
   it 'can process a set of feature reports' do
