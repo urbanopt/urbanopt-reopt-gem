@@ -9,7 +9,7 @@ require 'json-schema'
 
 RSpec.describe URBANopt::REopt do
     
-    run_dir = Pathname(__FILE__).dirname.parent / 'run' / 'baseline_scenario_ghe'
+    run_dir = Pathname(__FILE__).dirname.parent / 'files' / 'run' / 'baseline_scenario_ghe'
     reopt_input_dir = File.join(run_dir, 'reopt_ghp', 'reopt_ghp_inputs')
     reopt_ghp_output = File.join(run_dir, 'reopt_ghp', 'reopt_ghp_outputs')
 
