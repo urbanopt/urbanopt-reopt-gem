@@ -86,8 +86,6 @@ module URBANopt # :nodoc:
           reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [0.000001] * 8760
           puts "Existing heating fuel cost was not taken into consideration in result calculations."
         end
-
-
         
         # read_modelica_result
         modelica_project = File.expand_path(modelica_result)
@@ -142,7 +140,6 @@ module URBANopt # :nodoc:
           reopt_inputs_building[:ElectricLoad][:loads_kw] = total_electric_load_building
 
 
-
           domestic_hot_water = total_electric_load_building.map do |load|
             load * 0
           end
@@ -162,7 +159,7 @@ module URBANopt # :nodoc:
             File.open(building_json_path, 'r') do |file|
               building_json_data = JSON.parse(file.read, symbolize_names: true)
               reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:floor_area_sqft]
-            end 
+            end
           else
             puts "File not found: #{building_json_path}"
           end
@@ -240,8 +237,10 @@ module URBANopt # :nodoc:
         reopt_inputs_district[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = [0.0000001]*8760
 
         reopt_inputs_district[:ElectricLoad] = {}
-        reopt_inputs_district[:ElectricLoad][:loads_kw] = [0]*8760
-
+        
+        # TEMPORARY
+        #reopt_inputs_district[:ElectricLoad][:loads_kw] = [0.00001]*8760
+        
         reopt_inputs_district[:ExistingBoiler] = {}
         reopt_inputs_district[:ExistingBoiler][:fuel_cost_per_mmbtu] = 13.5
 
@@ -267,9 +266,9 @@ module URBANopt # :nodoc:
           if ghe_specific_param[:ghe_id] = ghp_id
             number_of_boreholes = ghe_specific_param[:borehole][:number_of_boreholes]
             length_of_boreholes = ghe_specific_param[:borehole][:length_of_boreholes]
-            #add these to inputs
             ghpghx_output[:outputs][:number_of_boreholes] = number_of_boreholes
-            ghpghx_output[:outputs][:length_boreholes_ft] = length_of_boreholes
+            # convert meters to feet
+            ghpghx_output[:outputs][:length_boreholes_ft] = (length_of_boreholes)*3.28084
           end
         end
         
@@ -297,15 +296,24 @@ module URBANopt # :nodoc:
           # # Access values from the column
           # column_values = modelica_data.by_col[ghp_column]
 
-          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] ||= electrical_power_consumed_kw
+          # TEMPORARY
 
+          #ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] ||= electrical_power_consumed_kw
+          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] ||= [0.00001]*8760
+          
+          ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = 0
+          #ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = electrical_power_consumed_kw.sum
+          # this should be divided by 1000 for kw
+          reopt_inputs_district[:ElectricLoad][:loads_kw]||= electrical_power_consumed_kw
+
+        else
+          ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = 0
         end
         
         
         ghpghx_output[:outputs][:peak_combined_heatpump_thermal_ton] = 0.000000001
 
         ghpghx_output[:outputs][:heat_pump_configuration] = "WSHP"
-        ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = 0
         ghpghx_output[:outputs][:yearly_total_electric_consumption_series_kw] = [0] * 8760
         ghpghx_output[:outputs][:yearly_heating_heatpump_electric_consumption_series_kw] = [0] * 8760
         ghpghx_output[:outputs][:yearly_cooling_heatpump_electric_consumption_series_kw] = [0] * 8760
