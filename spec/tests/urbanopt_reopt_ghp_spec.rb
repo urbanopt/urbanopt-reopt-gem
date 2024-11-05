@@ -35,14 +35,14 @@ RSpec.describe URBANopt::REopt do
         post_processor = URBANopt::REopt::REoptGHPPostProcessor.new(run_dir, system_parameter, modelica_result, reopt_ghp_assumption, DEVELOPER_NREL_KEY, localhost=false)
         post_processor.run_reopt_lcca()
         # output folder exist
-        expect(Dir.exist?(File.join(reopt_input_dir)))
+        expect(reopt_input_dir.directory?)
 
         # expect building file exists
-        expect(File.exist?(File.join(reopt_input_dir, 'GHP_building_4.json')))
-        expect(File.exist?(File.join(reopt_input_dir, 'GHP_building_5.json')))
+        expect((reopt_input_dir / 'GHP_building_4.json').file?)
+        expect((reopt_input_dir / 'GHP_building_5.json').file?)
 
         # expect ghp file exists
-        expect(File.exist?(File.join(reopt_input_dir, 'GHX_7932a208-dcb6-4d23-a46f-288896eaa1bc.json')))
+        expect((reopt_input_dir / 'GHX_7932a208-dcb6-4d23-a46f-288896eaa1bc.json').file?)
     end
 
     it 'can validate the REopt input files' do
@@ -78,7 +78,7 @@ RSpec.describe URBANopt::REopt do
 
     it 'can connect to the REopt API and generate UUID' do
 
-        reopt_input_file_path = File.join(reopt_input_dir, 'GHP_building_4.json')
+        reopt_input_file_path = reopt_input_dir / 'GHP_building_4.json'
         reopt_input_data = nil
         File.open(reopt_input_file_path, 'r') do |f|
             reopt_input_data = JSON.parse(f.read)
@@ -110,7 +110,7 @@ RSpec.describe URBANopt::REopt do
 
         Dir.foreach(reopt_ghp_output) do |file|
             next if file == '.' || file == '..' # Skip current and parent directory references
-            file_path = File.join(reopt_ghp_output, file)
+            file_path = reopt_ghp_output / file
 
             if File.file?(file_path)
                 File.open(file_path, 'r') do |f|
