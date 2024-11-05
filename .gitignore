@@ -30,4 +30,3 @@ developer_nrel_key.rb
 lib/measures/.rubocop.yml
 lib/measures/test_results/*
 lib/measures/*/tests/output/*
-
