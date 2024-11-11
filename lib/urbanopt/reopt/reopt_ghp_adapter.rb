@@ -10,9 +10,13 @@ module URBANopt # :nodoc:
       def initialize
         # initialize @@logger
         @@logger ||= URBANopt::REopt.reopt_logger
+        # Define class variable 
+        @@hours_in_year = 8760
       end
 
       def create_reopt_input_building(run_dir, system_parameter_hash, reopt_ghp_assumptions_hash, building_id, modelica_result)
+
+        # Define variables
         reopt_inputs_building = {}
         if !reopt_ghp_assumptions_hash.nil?
           reopt_inputs_building = reopt_ghp_assumptions_hash
@@ -68,8 +72,8 @@ module URBANopt # :nodoc:
           end
             # Check if the total kBtu is zero
           if total_kbtu.zero?
-            # If zero, populate with 8760 values of 1.0 MMBtu (if you mean 1.0 for each hour)
-            reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [0.0001] * 8760
+            # If zero, populate with hourly values meet reopts formatting requirements
+            reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [0.000001] * @@hours_in_year
           else
             # If not zero, convert and append to the array
             timeseries_data.each do |row|
@@ -83,9 +87,10 @@ module URBANopt # :nodoc:
 
         else
           # Calculate space heating load
-          reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [0.000001] * 8760
+          reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [0.000001] * @@hours_in_year
           puts "Existing heating fuel cost was not taken into consideration in result calculations."
         end
+
 
         # read_modelica_result
         modelica_project = File.expand_path(modelica_result)
@@ -122,6 +127,7 @@ module URBANopt # :nodoc:
           end
 
           total_electric_load_building = heating_power_values.zip(cooling_power_values, pump_power_values, ets_pump_power_values).map do |elements|
+            # Convert watts to kilowatts
             elements.map { |e| e.to_f / 1000 }.sum
           end
 
@@ -176,7 +182,7 @@ module URBANopt # :nodoc:
           ghpghx_output[:inputs] = {}
           ghpghx_output[:outputs][:heat_pump_configuration] = "WSHP"
           # This is not used in REopt calculation but required for formatting.
-          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] = [0] * 8760
+          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] = [0] * @@hours_in_year
           ghpghx_output[:outputs][:number_of_boreholes] = 0
           ghpghx_output[:outputs][:length_boreholes_ft] = 0
 
@@ -184,10 +190,11 @@ module URBANopt # :nodoc:
           ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = total_electric_load_building.sum
           ghpghx_output[:outputs][:yearly_total_electric_consumption_series_kw] = total_electric_load_building
           ghpghx_output[:outputs][:yearly_heating_heatpump_electric_consumption_series_kw] = total_electric_load_building
-          ghpghx_output[:outputs][:yearly_cooling_heatpump_electric_consumption_series_kw] = [0] * 8760
-
-          ghpghx_output[:inputs][:heating_thermal_load_mmbtu_per_hr] = [0.001] * 8760
-          ghpghx_output[:inputs][:cooling_thermal_load_ton] = [0] * 8760
+          ghpghx_output[:outputs][:yearly_cooling_heatpump_electric_consumption_series_kw] = [0] * @@hours_in_year
+          # This is not used in REopt calculation but required for formatting.
+          ghpghx_output[:inputs][:heating_thermal_load_mmbtu_per_hr] = [0.0001] * @@hours_in_year
+          # This is not used in REopt calculation but required for formatting.
+          ghpghx_output[:inputs][:cooling_thermal_load_ton] = [0] * @@hours_in_year
 
           ghpghx_output_all = [ghpghx_output]
           reopt_inputs_building[:GHP][:ghpghx_responses] = {}
@@ -235,13 +242,14 @@ module URBANopt # :nodoc:
 
         end
 
-        reopt_inputs_district[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [1]*8760
-        reopt_inputs_district[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = [0.0000001]*8760
+        # This is not used in REopt calculation but required for formatting.
+        reopt_inputs_district[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = [0.000001]*@@hours_in_year
+        # This is not used in REopt calculation but required for formatting.
+        reopt_inputs_district[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = [0.0000001]*@@hours_in_year
 
         reopt_inputs_district[:ElectricLoad] = {}
-
-        # TEMPORARY
-        #reopt_inputs_district[:ElectricLoad][:loads_kw] = [0.00001]*8760
+        #required for reopt formatting
+        reopt_inputs_district[:ElectricLoad][:loads_kw] = [0.00001]*@@hours_in_year
 
         reopt_inputs_district[:ExistingBoiler] = {}
         reopt_inputs_district[:ExistingBoiler][:fuel_cost_per_mmbtu] = 13.5
@@ -258,8 +266,8 @@ module URBANopt # :nodoc:
         ghpghx_output[:outputs] = {}
         ghpghx_output[:inputs] = {}
 
-        ghpghx_output[:inputs][:heating_thermal_load_mmbtu_per_hr] = [0]*8760
-        ghpghx_output[:inputs][:cooling_thermal_load_ton] = [0] * 8760
+        ghpghx_output[:inputs][:heating_thermal_load_mmbtu_per_hr] = [0]*@@hours_in_year
+        ghpghx_output[:inputs][:cooling_thermal_load_ton] = [0] * @@hours_in_year
 
 
         # Read GHX sizes from system parameter hash
@@ -279,6 +287,7 @@ module URBANopt # :nodoc:
           modelica_data = CSV.read(@modelica_csv, headers: true)
 
           electrical_power_consumed = modelica_data["electrical_power_consumed"]
+          # Convert watts to kilowatts
           electrical_power_consumed_kw = electrical_power_consumed.map { |e| e.to_f / 1000 }
           # if ghp_id.include?('-')
           #   # Note: For some reason when reading columns, '-' from the column headers are removed, whereas ghp_id has -
@@ -298,28 +307,19 @@ module URBANopt # :nodoc:
           # # Access values from the column
           # column_values = modelica_data.by_col[ghp_column]
 
-          # TEMPORARY
-
-          #ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] ||= electrical_power_consumed_kw
-          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] ||= [0.00001]*8760
-
-          ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = 0
-          #ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = electrical_power_consumed_kw.sum
-          # this should be divided by 1000 for kw
-          reopt_inputs_district[:ElectricLoad][:loads_kw]||= electrical_power_consumed_kw
-
+          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] = electrical_power_consumed_kw
         else
-          ghpghx_output[:outputs][:yearly_total_electric_consumption_kwh] = 0
+          ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] = [0.000000001]*@@hours_in_year
         end
 
-
+        # This is not used in REopt calculation but required for formatting.
         ghpghx_output[:outputs][:peak_combined_heatpump_thermal_ton] = 0.000000001
 
         ghpghx_output[:outputs][:heat_pump_configuration] = "WSHP"
-        ghpghx_output[:outputs][:yearly_total_electric_consumption_series_kw] = [0] * 8760
-        ghpghx_output[:outputs][:yearly_heating_heatpump_electric_consumption_series_kw] = [0] * 8760
-        ghpghx_output[:outputs][:yearly_cooling_heatpump_electric_consumption_series_kw] = [0] * 8760
-        ghpghx_output[:outputs][:yearly_total_electric_consumption_series_kw] = [0] * 8760
+        # Required for REpot formatting
+        ghpghx_output[:outputs][:yearly_total_electric_consumption_series_kw] = [0.00001] * @@hours_in_year
+        ghpghx_output[:outputs][:yearly_heating_heatpump_electric_consumption_series_kw] = [0] * @@hours_in_year
+        ghpghx_output[:outputs][:yearly_cooling_heatpump_electric_consumption_series_kw] = [0] * @@hours_in_year
 
         ghpghx_output_all = [ghpghx_output, ghpghx_output]
         reopt_inputs_district[:GHP][:ghpghx_responses] = ghpghx_output_all
