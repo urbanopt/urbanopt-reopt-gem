@@ -30,9 +30,9 @@ module URBANopt # :nodoc:
 
             @use_localhost = use_localhost
             if @use_localhost
-                @root_url = "http://localhost:8000/stable"
+                @root_url = "http://localhost:8000/v3"
             else
-                @root_url = "https://developer.nrel.gov/api/reopt/stable"
+                @root_url = "https://developer.nrel.gov/api/reopt/v3"
             end
             # add REopt URL
             @nrel_developer_key = nrel_developer_key
@@ -151,37 +151,6 @@ module URBANopt # :nodoc:
             end
             resp_dict
         end
-
-    #   # Checks if a optimization task can be submitted to the \REopt API
-    #   ##
-    #   #
-    #   # [*parameters:*]
-    #   #
-    #   # * +data+ - _Hash_ - Default \REopt formatted post containing at least all the required parameters.
-    #   #
-    #   # [*return:*] _Bool_ - Returns true if the post succeeds. Otherwise returns false.
-    #   ##
-    #   def check_connection(data)
-    #     @uri_submit = URI.parse(@root_url)
-    #     header = { 'Content-Type' => 'application/json' }
-    #     http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
-    #     puts http
-    #     if !@use_localhost
-    #       http.use_ssl = true
-    #     end
-
-    #     post_request = Net::HTTP::Post.new(@uri_submit, header)
-    #     post_request.body = ::JSON.generate(data, allow_nan: true)
-
-    #     # Send the request
-    #     response = make_request(http, post_request)
-
-    #     if !response.is_a?(Net::HTTPSuccess)
-    #       @@logger.error('Check_connection Failed')
-    #       raise 'Check_connection Failed'
-    #     end
-    #     return true
-    #   end
 
     end
   end
