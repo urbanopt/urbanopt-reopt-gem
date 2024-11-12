@@ -67,7 +67,7 @@ RSpec.describe URBANopt::REopt do
         building_4_data = JSON.parse(File.read(@building_4_path), symbolize_names: true)
 
         expect(building_4_data[:Site][:latitude]).to_not be_nil
-        expect(building_4_data[:ElectricLoad][:loads_kw].to_not be_empty
+        expect(building_4_data[:ElectricLoad][:loads_kw]).to_not be_empty
         expect(building_4_data[:ElectricLoad][:loads_kw].size).to eq(8760)
         expect(building_4_data[:ElectricTariff][:urdb_label]).to_not be_nil
 
