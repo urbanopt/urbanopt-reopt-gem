@@ -103,6 +103,46 @@
               }
             }
           },
+          "Financial_GHP": {
+            "type": "object",
+            "properties": {
+              "lcc": {
+                "type": "number",
+                "description": "Optimal lifecycle cost for GHP",
+                "units": "dollars"
+              },
+              "net_present_cost": {
+                "type": "number",
+                "description": "",
+                "units": "dollars"
+              },
+              "lifecycle_om_costs_before_tax_bau": {
+                "type": "number",
+                "description": "",
+                "units": "dollars"
+              },
+              "lifecycle_om_costs_after_tax": {
+                "type": "number",
+                "description": "",
+                "units": "$"
+              },
+              "year_one_om_costs_before_tax": {
+                "type": "number",
+                "description": "",
+                "units": "$"
+              },
+              "lifecycle_generation_tech_capital_costs": {
+                "type": "number",
+                "description": "",
+                "units": "$"
+              },
+              "lifecycle_offgrid_other_annual_costs_after_tax": {
+                "type": "number",
+                "description": "",
+                "units": "$"
+              }
+            }
+          },
           "PV": {
             "type": "object",
             "properties": {
