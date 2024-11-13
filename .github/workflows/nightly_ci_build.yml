@@ -19,17 +19,16 @@ jobs:
     # https://github.com/rbenv/ruby-build/discussions/1940
     runs-on: ubuntu-latest
     container:
-      image: docker://nrel/openstudio:3.8.0
+      image: docker://nrel/openstudio:dev-3.9.0-rc3
     steps:
       - uses: actions/checkout@v4
       - name: set git config options
         shell: bash
-        run: |
-          git config --global --add safe.directory '*'
+        run: git config --global --add safe.directory '*'
       - name: Update gems
         run: |
           bundle install
-          bundle exec certified-update
+          bundle update
       - name: Run Rspec
         run: bundle exec rspec
       - name: Coveralls
