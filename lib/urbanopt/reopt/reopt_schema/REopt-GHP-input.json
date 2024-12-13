@@ -2,10 +2,16 @@
     "Site": {
         "latitude": {
             "type": "float",
+            "min": -90,
+            "max": 90,
+            "description": "The approximate latitude of the site in decimal degrees.",
             "required": true
         },
         "longitude": {
             "type": "float",
+            "min": -180,
+            "max": 180,
+            "description": "The approximate longitude of the site in decimal degrees.",
             "required": true
         }
     },
@@ -13,27 +19,28 @@
         "fuel_loads_mmbtu_per_hour": {
             "type": "array",
             "required": true,
-            "description": "8760 timeseries",
-            "note": "This parameter is required to run REopt's GHP module but is not used to calculate URBANopt's GHP system LCCA. Users can set this to small numbers in GHP scenario"
+            "description": "This is the fuel energy consumption for space heating at the individual building level. This is used in the business as usual LCCA analysis in the GHP iteration and is an 8760 timeseries.",
+            "note": "This parameter is required to run REopt's GHP module as per the REopt formatting requirements, but is not used to calculate URBANopt's GHP system LCCA. Users can set this to values close to 0 in the GHP scenario"
         }
     },
     "DomesticHotWaterLoad": {
         "fuel_loads_mmbtu_per_hour": {
             "type": "array",
             "required": true,
-            "description": "8760 timeseries, if GHP not providing DHW set to zeros"
+            "description": "This is the fuel consumption for the ground source heat pump (GHP) in mmbtu/hour to provide domestic hot water in the buildings. This is used in the LCCA calculation in the GHP iteration. It is an 8760 timeseries, if GHP does not provide DHW set to zeros."
         }
     },
     "ElectricLoad": {
         "load_kw": {
             "type": "array",
             "required": true,
-            "description": "8760 timeseries",
+            "description": "This is the electric load (in kW) at the building level for the GHP scenario. It is the total of secondary pump electric power, heat pump electric power and ETS pump power determined from the modelica model. This is used in the LCCA calculation in the GHP iteration.",
             "note": "15 min interval data do not work in GHP module. Please make sure all timeseries are 8760"
         }
     },
     "ElectricTarriff": {
         "urdb_label": "string",
+        "description": "Label attribute of utility rate structure from https://openei.org/services/doc/rest/util_rates/?version=3",
         "required": true
     },
     "GHP": {
@@ -44,9 +51,9 @@
         },
         "building_sqft": {
             "type": "float",
-            "requierd": true,
-            "description": "to calculate cost of hydronic loop",
-            "note": "for the GHX iteration, set building_sqft to a number close to 0 but not exactly 0"
+            "required": true,
+            "description": "This is the building footprint area (in sq.ft.) used to calculate cost of hydronic loop. This is used in the LCCA calculation in the GHP iteration.",
+            "note": "For the GHX iteration, set building_sqft to a number close to 0 but not exactly 0"
         },
         "heatpump_capacity_sizing_factor_on_peak_load": {
             "type": "float",
@@ -63,29 +70,31 @@
                 "peak_combined_heatpump_thermal_ton": {
                     "type": "float",
                     "required": true,
-                    "description": "size of GHP in ton",
-                    "note": "in the GHX iteration, set this value to a number close to 0 but NOT exactly 0S"
+                    "description": "This is the maximum value out of the GHP heating and cooling capacity (size in ton) determined from the Modelica model. This is used in the LCCA calculation in the GHP iteration.",
+                    "note": "in the GHX iteration, set this value to a number close to 0 but NOT exactly 0."
                 },
                 "number_of_boreholes": {
-                    "type": "int",
+                    "type": "integer",
                     "required": true,
+                    "description": "Number of boreholes on the site, determined from Thermal Network sizing and stored in the system parameter file. This is used in the LCCA calculation in the GHX iteration.",
                     "note": "in the GHP iteration, set this value to 0"    
                 },
                 "length_boreholes_ft": {
                     "type": "float",
                     "required": true,
+                    "description": "The length of the borehole (in feet), determined from Thermal Network sizing. This is used in the LCCA calculation in the GHX iteration.",
                     "note": "in the GHP iteration, set this value to 0"
                 },
                 "yearly_total_electric_consumption_series_kw": {
                     "type": "array",
                     "required": true,
-                    "description": "8760 timeseries of building total electric consumption",
+                    "description": "8760 timeseries of building total electric consumption. It is the total of secondary pump electric power, heat pump electric power and ETS pump power determined from the modelica model. This is used in the LCCA calculation in the GHP iteration.",
                     "note": "in the GHX iteration, set this value to a number close to 0 but not exactly 0"
                 },
                 "yearly_ghx_pump_electric_consumption_series_kw": {
                     "type": "array",
                     "required": true,
-                    "description": "8760 timeseries of ghx's total electric consumption",
+                    "description": "8760 timeseries of ghx's total electric consumption. It is the district pump power (in kW), calculated from the modelica model. This is used in the LCCA calculation in the GHX iteration.",
                     "note": "in the GHP iteration, set this value to 0"
                 }
             },
@@ -105,44 +114,56 @@
         "installed_cost_heatpump_per_ton": {
             "type": "float",
             "required": false,
-            "description": "installation cost per unit (ton) of GHP"
+            "description": "This is the installation cost per unit of GHP ($/ton). This value can be incorporated into the REopt GHP assumption file for use in the URBANopt GHP LCCA iteration. A default value is used if no value is provided."
         },
         "installed_cost_ghx_per_ft": {
             "type": "float",
             "required": false,
-            "description": "installation cost per unit (ft) of GHX"
+            "description": "This is the installation cost per unit of GHX ($/ft). This value can be incorporated into the REopt GHP assumption file for use in the URBANopt GHX LCCA iteration. A default value is used if no value is provided."
         },
         "installed_cost_building_hydronic_loop_per_sqft": {
             "type": "float",
             "required": false,
-            "description": "installation cost per sqft of building hydronic loop"
+            "description": "This is the installation cost for building hydronic loop per sqft of building footprint area ($/sqft). This value can be incorporated into the REopt GHP assumption file for use in the URBANopt GHP LCCA iteration. A default value is used if no value is provided."
         },
         "om_cost_per_sqft_year": {
             "type": "float",
             "required": false,
-            "description": "if not specified, the value is -$0.51, capturing saving from HVAC operation. Recommended setting at 0"
+            "description": "This is the operations and maintenance cost ($/sqft). The default value if not specified, is -$0.51, capturing saving from HVAC operation. Recommended setting at 0"
         },
         "macrs_bonus_fraction": {
             "type": "float",
             "required": false,
-            "description": "Percentage of macrs benefits for GHP. Value between 0 and 1"
+            "minimum": 0,
+            "maximum": 1,
+            "description": "This is the percentage of MACRS (Modified Accelarated Cost Recovery System) benefits for GHP. Value is between 0 and 1"
         },
         "macrs_itc_reduction": {
             "type": "float",
             "required": false,
-            "description": "Percentage of macrs benefits for GHP. Value between 0 and 1"
+            "minimum": 0,
+            "maximum": 1,
+            "description": "This is the percentage of MACRS (Modified Accelarated Cost Recovery System) benefits for GHP. Value is between 0 and 1"
         },
         "federal_itc_fraction": {
             "type": "float",
             "required": false,
-            "description": "Percentage of ITC benefits for GHP. Value between 0 and 1"
+            "minimum": 0,
+            "maximum": 1,
+            "description": "This is the percentage of ITC (Investment Tax Credit) benefits for GHP. Value is between 0 and 1"
+        },
+        "avoided_capex_by_ghp_present_value": {
+            "type": "float",
+            "required": false,
+            "description": "Account for expenses avoided by addition of GHP",
+            "note": "Required to capture the avoided capital cost of the BAU system when switching to GHP. Use this to accurately calculate NPV"
         }
     },
     "ExistingBoiler": {
         "fuel_cost_per_mmbtu": {
             "type": "float",
             "required": true,
-            "description": "to calculate BAU cost, and required for formatting in GHP scenario"
+            "description": "This is the fuel cost per mmbtu for an existing boiler ($/mmbtu). This is used in the LCCA calculation for the business as usual cost. This is required for formatting in GHP scenario."
         }
     }
 }

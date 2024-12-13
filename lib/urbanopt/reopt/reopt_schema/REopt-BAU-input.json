@@ -1,0 +1,63 @@
+{
+    "Site": {
+        "latitude": {
+            "type": "float",
+            "min": -90,
+            "max": 90,
+            "description": "The approximate latitude of the site in decimal degrees.",
+            "required": true
+        },
+        "longitude": {
+            "type": "float",
+            "min": -180,
+            "max": 180,
+            "description": "The approximate longitude of the site in decimal degrees.",
+            "required": true
+        }
+    },
+    "SpaceHeatingLoad": {
+        "fuel_loads_mmbtu_per_hour": {
+            "type": "array",
+            "required": true,
+            "description": "This is the fuel energy consumption for space heating at the individual building level. This is used in the business as usual (BAU) LCCA analysis in the GHP module to calculate BAU bills. These are 8760 hourly timeseries values.",
+            "note": "This parameter is required to run REopt's BAU for GHP module. If there is no fuel based heating in BAU, add values close to 0."
+        }
+    },
+    "DomesticHotWaterLoad": {
+        "fuel_loads_mmbtu_per_hour": {
+            "type": "array",
+            "required": false,
+            "description": "This is the fuel enegry consumption for providing domestic hot water at the individual building level. This is used in the business as usual (BAU) LCCA analysis in the GHP module. These are 8760 hourly timeseries values.",
+            "note": "Only required if BAU system has DHW load and uses fuel for this load. If BAU system has no DHW load, or does not use fuel for DHW heating, set to values close to zeros. If BAU system uses electricity for DHW, please add this electric DHW load to ElectricLoad"
+
+        }
+    },
+    "CoolingLoad":{
+        "fuel_loads_mmbtu_per_hour": {
+            "type": "array",
+            "required": true,
+            "description": "This is the fuel energy consumption for space cooling at the individual building level. This is used in the business as usual (BAU) LCCA analysis in the GHP module to calculate BAU bills. These are 8760 hourly timeseries values.",
+            "note": "Only required if BAU system uses fuel for cooling. If BAU system uses electricity for cooling (AC), please add this load to ElectricLoad defined below. If BAU system has no cooling load, set to values close to zeros."
+        }
+    },
+    "ElectricLoad": {
+        "load_kw": {
+            "type": "array",
+            "required": true,
+            "description": "8760 timeseries",
+            "note": "This is the electric load profile for heating and cooling in the BAU scenario (kW). It is an hourly timeseries load profile with 8760 values. If there is no electricity based heating or cooling in BAU, set these values close to 0."
+        }
+    },
+    "ElectricTarriff": {
+        "urdb_label": "string",
+        "required": true,
+        "description": "Label attribute of utility rate structure from https://openei.org/services/doc/rest/util_rates/?version=3."
+    },
+    "ExistingBoiler": {
+        "fuel_cost_per_mmbtu": {
+            "type": "float",
+            "required": false,
+            "description": "Only required if BAU system use fuel for heating. In this case, fuel cost needs to be specified"
+        }
+    }
+}
