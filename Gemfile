@@ -17,7 +17,7 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # if allow_local && File.exist?('../OpenStudio-extension-gem')
 #   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'
 # elsif allow_local
-gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'bundler-hack'
+#  gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'bundler-hack'
 # else
 # gem 'openstudio-extension', '~> 0.8.1'
 # end
