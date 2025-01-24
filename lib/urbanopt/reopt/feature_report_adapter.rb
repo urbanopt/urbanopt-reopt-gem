@@ -41,9 +41,9 @@ module URBANopt # :nodoc:
         else
           @@logger.info('Using default REopt assumptions')
           reopt_inputs = {
-            Settings:{},
+            Settings: {},
             Site: {},
-            Financial:{},
+            Financial: {},
             ElectricTariff: {
               monthly_demand_rates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
               monthly_energy_rates: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
@@ -158,7 +158,6 @@ module URBANopt # :nodoc:
       # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport.
       ##
       def update_feature_report(feature_report, reopt_output, timeseries_csv_path = nil, resilience_stats = nil)
-
         # Check if the \REopt response is valid
         if reopt_output['status'] != 'optimal'
           @@logger.error("ERROR cannot update Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal")
@@ -439,7 +438,7 @@ module URBANopt # :nodoc:
           x[$storage_to_grid_col] = $storage_to_grid[i] || 0 if defined?(storage)
           x[$storage_soc_col] = $storage_soc[i] || 0 if defined?(storage)
           x[$generator_total_col] = $generator_total[i] || 0 if defined?(generator)
-          x[$generator_to_battery_col] = $generator_to_battery[i] || 0 if (defined?(generator) && defined?(storage))
+          x[$generator_to_battery_col] = $generator_to_battery[i] || 0 if defined?(generator) && defined?(storage)
           x[$generator_to_load_col] = $generator_to_load[i] || 0 if defined?(generator)
           x[$generator_to_grid_col] = $generator_to_grid[i] || 0 if defined?(generator)
           x[$pv_total_col] = $pv_total[i] || 0
@@ -447,7 +446,7 @@ module URBANopt # :nodoc:
           x[$pv_to_load_col] = $pv_to_load[i] || 0
           x[$pv_to_grid_col] = $pv_to_grid[i] || 0
           x[$wind_total_col] = $wind_total[i] || 0 if defined?(wind)
-          x[$wind_to_battery_col] = $wind_to_battery[i] || 0 if (defined?(wind) && defined?(storage))
+          x[$wind_to_battery_col] = $wind_to_battery[i] || 0 if defined?(wind) && defined?(storage)
           x[$wind_to_load_col] = $wind_to_load[i] || 0 if defined?(wind)
           x[$wind_to_grid_col] = $wind_to_grid[i] || 0 if defined?(wind)
           return x
