@@ -2,6 +2,7 @@
 # URBANopt (tm), Copyright (c) Alliance for Sustainable Energy, LLC.
 # See also https://github.com/urbanopt/urbanopt-reopt-gem/blob/develop/LICENSE.md
 # *********************************************************************************
+
 require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
 require 'json-schema'
