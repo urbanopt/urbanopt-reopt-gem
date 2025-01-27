@@ -13,7 +13,6 @@ require 'fileutils'
 module URBANopt # :nodoc:
   module REopt # :nodoc:
     class REoptGHPPostProcessor
-
       def initialize(run_dir, system_parameter, modelica_result, reopt_ghp_assumptions = nil, nrel_developer_key = nil, localhost)
         # initialize @@logger
         @@logger ||= URBANopt::REopt.reopt_logger
@@ -42,11 +41,11 @@ module URBANopt # :nodoc:
           File.open(system_parameter, 'r') do |file|
             @system_parameter_input_hash = JSON.parse(file.read, symbolize_names: true)
           end
-          #Determine loop order
+          # Determine loop order
           loop_order = File.join(File.dirname(system_parameter), '_loop_order.json')
           if File.exist?(loop_order)
             File.open(loop_order, 'r') do |file|
-              loop_order_input= JSON.parse(file.read, symbolize_names: true)
+              loop_order_input = JSON.parse(file.read, symbolize_names: true)
               # Check the type of the parsed data
               if loop_order_input.is_a?(Array)
                 @loop_order_input_hash = loop_order_input
@@ -61,7 +60,7 @@ module URBANopt # :nodoc:
                   puts "GHE IDs in group: #{item[:list_ghe_ids_in_group].inspect}"
                 end
               else
-                puts "Unexpected JSON structure"
+                puts 'Unexpected JSON structure'
               end
             end
           end
@@ -77,7 +76,6 @@ module URBANopt # :nodoc:
 
       # # Create REopt input and output building report
       def run_reopt_lcca(system_parameter_hash: nil, reopt_ghp_assumptions_hash: nil, modelica_result: nil)
-
         adapter = URBANopt::REopt::REoptGHPAdapter.new
 
         # if these arguments are specified, use them
@@ -89,14 +87,13 @@ module URBANopt # :nodoc:
           @reopt_ghp_assumptions_input_hash = reopt_ghp_assumptions_hash
         end
 
-
         if !modelica_result.nil?
           @modelica_result_input = modelica_result
         end
 
         # Create folder for REopt input files only if they dont exist
-        reopt_ghp_dir = File.join(@run_dir, "reopt_ghp")
-        reopt_ghp_input = File.join(reopt_ghp_dir, "reopt_ghp_inputs")
+        reopt_ghp_dir = File.join(@run_dir, 'reopt_ghp')
+        reopt_ghp_input = File.join(reopt_ghp_dir, 'reopt_ghp_inputs')
         unless Dir.exist?(reopt_ghp_dir)
           FileUtils.mkdir_p(reopt_ghp_dir)
         end
@@ -104,7 +101,7 @@ module URBANopt # :nodoc:
           FileUtils.mkdir_p(reopt_ghp_input)
         end
 
-        reopt_ghp_output = File.join(reopt_ghp_dir, "reopt_ghp_outputs")
+        reopt_ghp_output = File.join(reopt_ghp_dir, 'reopt_ghp_outputs')
         unless Dir.exist?(reopt_ghp_output)
           FileUtils.mkdir_p(reopt_ghp_output)
         end
@@ -142,14 +139,11 @@ module URBANopt # :nodoc:
 
           # reopt_ghp_output_file
           reopt_output_file = File.join(reopt_ghp_output, "#{base_name}_output.json")
-          #call the REopt API
+          # call the REopt API
           api = URBANopt::REopt::REoptLiteGHPAPI.new(reopt_input_data, DEVELOPER_NREL_KEY, reopt_output_file, @localhost)
-          api.get_api_results()
-
+          api.get_api_results
         end
-
       end
-
-    end #REoptGHPPostProcessor
-  end #REopt
-end #URBANopt
+    end # REoptGHPPostProcessor
+  end # REopt
+end # URBANopt

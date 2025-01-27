@@ -33,7 +33,6 @@ module URBANopt # :nodoc:
         end
         @nrel_developer_key = nrel_developer_key
         @localhost = localhost
-        @reopt_base_post = { ElectricTariff: {}, ElectricLoad: {}, Wind: { max_kw: 0 } }
 
         @scenario_reopt_default_output_file = nil
         @scenario_timeseries_default_output_file = nil
