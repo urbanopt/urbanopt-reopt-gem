@@ -17,7 +17,7 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # if allow_local && File.exist?('../OpenStudio-extension-gem')
 #   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'
 # elsif allow_local
-#  gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'bundler-hack'
+# gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'develop'
 # else
 # gem 'openstudio-extension', '~> 0.8.1'
 # end
@@ -43,17 +43,17 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 #   gem 'openstudio-model-articulation', '0.1.0'
 # end
 
-# if allow_local && File.exist?('../urbanopt-scenario-gem')
-#  gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
-# elsif allow_local
-gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'os39'
-# end
+if allow_local && File.exist?('../urbanopt-scenario-gem')
+  gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
+elsif allow_local
+  gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'develop'
+end
 
 # Temporary! Remove this once reporting-gem is merged/released
-gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'os39'
+# gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'develop'
 
-# if allow_local && File.exists?('../urbanopt-geojson-gem')
-#   gem 'urbanopt-geojson', path: '../urbanopt-geojson-gem'
-# elsif allow_local
-#   gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'develop'
-# end
+if allow_local && File.exist?('../urbanopt-geojson-gem')
+  gem 'urbanopt-geojson', path: '../urbanopt-geojson-gem'
+elsif allow_local
+  gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'develop'
+end

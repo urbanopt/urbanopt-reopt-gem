@@ -10,7 +10,7 @@ module URBANopt # :nodoc:
       def initialize
         # initialize @@logger
         @@logger ||= URBANopt::REopt.reopt_logger
-        # Define class variable 
+        # Define class variable
         @@hours_in_year = 8760
       end
 
@@ -247,7 +247,8 @@ module URBANopt # :nodoc:
         # This is not used in REopt calculation but required for formatting.
         reopt_inputs_district[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = [0.0000001]*@@hours_in_year
 
-        reopt_inputs_district[:ElectricLoad] = {}
+        # Adding year for ElectricLoad so district electric load can be calculated with REopt API v3.11
+        reopt_inputs_district[:ElectricLoad] = {:year => 2017}
         #required for reopt formatting
         reopt_inputs_district[:ElectricLoad][:loads_kw] = [0.00001]*@@hours_in_year
 

@@ -25,10 +25,10 @@ Gem::Specification.new do |spec|
   # It would be nice to be able to use newer patches of Ruby 3.2, which would require os-extension to relax its dependency on bundler.
   spec.required_ruby_version = '3.2.2'
 
-  # spec.add_dependency 'openstudio-extension', '~> 0.8.2'
+  spec.add_dependency 'openstudio-extension', '~> 0.8.3'
   # Matrix is in stdlib, but needs to be specifically added here for compatibility with Ruby 3.2
   spec.add_dependency 'matrix', '~> 0.4.2'
-  # spec.add_dependency 'urbanopt-scenario', '~> 0.12.0'
+  spec.add_dependency 'urbanopt-scenario', '~> 1.0.0'
 
   spec.add_development_dependency 'rspec', '~> 3.13'
   spec.add_development_dependency 'simplecov', '~> 0.22.0'
