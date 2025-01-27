@@ -1,12 +1,29 @@
 # URBANopt REopt Gem
 
+## Version 1.0.0
+
+## What's Changed
+
+* Upgrade to OpenStudio 3.9 and Ruby 3.2.2 by @vtnate in https://github.com/urbanopt/urbanopt-reopt-gem/pull/155
+* Updates for REopt v3.11 by @vtnate in https://github.com/urbanopt/urbanopt-reopt-gem/pull/157
+
+### Other Changes
+
+* expose error messages for certificate verify failed by @kflemin in https://github.com/urbanopt/urbanopt-reopt-gem/pull/151
+* REopt GHP LCCA Analysis by @tanushree04 in https://github.com/urbanopt/urbanopt-reopt-gem/pull/153
+
+**Full Changelog**: https://github.com/urbanopt/urbanopt-reopt-gem/compare/v0.12.0...v1.0.0
+
 ## Version 0.12.0
+
 Date Range: 01/11/24 - 05/06/24
+
 * Use Reopt v3 by @vtnate in https://github.com/urbanopt/urbanopt-reopt-gem/pull/149
 
 **Full Changelog**: https://github.com/urbanopt/urbanopt-reopt-gem/compare/v0.11.0...v0.12.0
 
 ## Version 0.11.0
+
 Date Range: 07/06/23 - 01/11/24
 
 * Use different error messages in different places by @vtnate in https://github.com/urbanopt/urbanopt-reopt-gem/pull/145
@@ -17,6 +34,7 @@ Date Range: 07/06/23 - 01/11/24
 **Full Changelog**: https://github.com/urbanopt/urbanopt-reopt-gem/compare/v0.10.0...v0.11.0
 
 ## Version 0.10.0
+
 Date Range: 12/13/22 - 7/6/23
 
 - Update dependencies for OpenStudio 3.6.1

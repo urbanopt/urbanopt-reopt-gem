@@ -1,0 +1,148 @@
+{
+    "Site": {
+        "latitude": {
+            "type": "float",
+            "required": true
+        },
+        "longitude": {
+            "type": "float",
+            "required": true
+        }
+    },
+    "SpaceHeatingLoad": {
+        "fuel_loads_mmbtu_per_hour": {
+            "type": "array",
+            "required": true,
+            "description": "8760 timeseries",
+            "note": "This parameter is required to run REopt's GHP module but is not used to calculate URBANopt's GHP system LCCA. Users can set this to small numbers in GHP scenario"
+        }
+    },
+    "DomesticHotWaterLoad": {
+        "fuel_loads_mmbtu_per_hour": {
+            "type": "array",
+            "required": true,
+            "description": "8760 timeseries, if GHP not providing DHW set to zeros"
+        }
+    },
+    "ElectricLoad": {
+        "load_kw": {
+            "type": "array",
+            "required": true,
+            "description": "8760 timeseries",
+            "note": "15 min interval data do not work in GHP module. Please make sure all timeseries are 8760"
+        }
+    },
+    "ElectricTarriff": {
+        "urdb_label": "string",
+        "required": true
+    },
+    "GHP": {
+        "require_ghp_purchase": {
+            "type": "boolean",
+            "required": true,
+            "description": "choices of 0 or 1. Always set at 1 for URBANopt's LCCA"
+        },
+        "building_sqft": {
+            "type": "float",
+            "required": true,
+            "description": "to calculate cost of hydronic loop",
+            "note": "for the GHX iteration, set building_sqft to a number close to 0 but not exactly 0"
+        },
+        "heatpump_capacity_sizing_factor_on_peak_load": {
+            "type": "float",
+            "required": true,
+            "description": "always set to 1"
+        },
+        "ghpghx_responses":{
+            "outputs": {
+                "heat_pump_configuration": {
+                    "type": "string",
+                    "required": true,
+                    "description": "set as WSHP"
+                },
+                "peak_combined_heatpump_thermal_ton": {
+                    "type": "float",
+                    "required": true,
+                    "description": "size of GHP in ton",
+                    "note": "in the GHX iteration, set this value to a number close to 0 but NOT exactly 0S"
+                },
+                "number_of_boreholes": {
+                    "type": "int",
+                    "required": true,
+                    "note": "in the GHP iteration, set this value to 0"
+                },
+                "length_boreholes_ft": {
+                    "type": "float",
+                    "required": true,
+                    "note": "in the GHP iteration, set this value to 0"
+                },
+                "yearly_total_electric_consumption_series_kw": {
+                    "type": "array",
+                    "required": true,
+                    "description": "8760 timeseries of building total electric consumption",
+                    "note": "in the GHX iteration, set this value to a number close to 0 but not exactly 0"
+                },
+                "yearly_ghx_pump_electric_consumption_series_kw": {
+                    "type": "array",
+                    "required": true,
+                    "description": "8760 timeseries of ghx's total electric consumption",
+                    "note": "in the GHP iteration, set this value to 0"
+                }
+            },
+            "inputs": {
+                "heating_thermal_load_mmbtu_per_hr": {
+                    "type": "array",
+                    "required": true,
+                    "description": "not used for URBANopt's GHP LCCA but required for formatting, set to number close to 0"
+                },
+                "cooling_thermal_load_ton": {
+                    "type": "array",
+                    "required": true,
+                    "description": "not used for URBANopt's GHP LCCA but required for formatting, can set as zeros"
+                }
+            }
+        },
+        "installed_cost_heatpump_per_ton": {
+            "type": "float",
+            "required": false,
+            "description": "installation cost per unit (ton) of GHP"
+        },
+        "installed_cost_ghx_per_ft": {
+            "type": "float",
+            "required": false,
+            "description": "installation cost per unit (ft) of GHX"
+        },
+        "installed_cost_building_hydronic_loop_per_sqft": {
+            "type": "float",
+            "required": false,
+            "description": "installation cost per sqft of building hydronic loop"
+        },
+        "om_cost_per_sqft_year": {
+            "type": "float",
+            "required": false,
+            "description": "if not specified, the value is -$0.51, capturing saving from HVAC operation. Recommended setting at 0"
+        },
+        "macrs_bonus_fraction": {
+            "type": "float",
+            "required": false,
+            "description": "Percentage of macrs benefits for GHP. Value between 0 and 1"
+        },
+        "macrs_itc_reduction": {
+            "type": "float",
+            "required": false,
+            "description": "Percentage of macrs benefits for GHP. Value between 0 and 1"
+        },
+        "federal_itc_fraction": {
+            "type": "float",
+            "required": false,
+            "description": "Percentage of ITC benefits for GHP. Value between 0 and 1"
+        }
+    },
+    "ExistingBoiler": {
+        "fuel_cost_per_mmbtu": {
+            "type": "float",
+            "required": true,
+            "description": "to calculate BAU cost, and required for formatting in GHP scenario"
+        }
+    }
+}

@@ -30,7 +30,8 @@
   "ElectricLoad": {
     "critical_loads_kw_is_net": false,
     "critical_load_fraction": 0,
-    "loads_kw_is_net": true
+    "loads_kw_is_net": true,
+    "year": 2017
   },
   "PV": {
     "name": "Roof - South Face",

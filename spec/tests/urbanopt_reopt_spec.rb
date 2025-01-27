@@ -5,9 +5,6 @@
 
 require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
-require 'certified'
-require 'fileutils'
-require 'pathname'
 
 RSpec.describe URBANopt::REopt do
   scenario_dir = Pathname(__FILE__).dirname.parent / 'run' / 'example_scenario'
@@ -149,11 +146,15 @@ RSpec.describe URBANopt::REopt do
     reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, nil, DEVELOPER_NREL_KEY)
 
     # Act
-    feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, reopt_output_file: reopt_output_file, timeseries_csv_path: timeseries_output_file, save_name: 'feature_report_reopt')
-    feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_output_file: reopt_output_file, timeseries_csv_path: timeseries_output_file, save_name: 'feature_report_reopt1')
+    feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, reopt_output_file: reopt_output_file, timeseries_csv_path: timeseries_output_file, save_name: 'feature_report_reopt1')
     feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, timeseries_csv_path: timeseries_output_file, save_name: 'feature_report_reopt2')
     feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, reopt_output_file: reopt_output_file, save_name: 'feature_report_reopt3')
-    feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, save_name: 'feature_report_reopt4')
+
+    # Assert
+    # Assume that file size over 7kb means data was written correctly. Test file is expected to be about 10kb
+    expect((File.size(feature_report_dir / 'feature_reports' / 'feature_report_reopt1.json').to_f / 1024) > 7)
+    expect((File.size(feature_report_dir / 'feature_reports' / 'feature_report_reopt2.json').to_f / 1024) > 7)
+    expect((File.size(feature_report_dir / 'feature_reports' / 'feature_report_reopt3.json').to_f / 1024) > 7)
 
     # Cleanup
     FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
@@ -229,6 +230,7 @@ RSpec.describe URBANopt::REopt do
     FileUtils.rm_rf(scenario_dir / 'test__')
     FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
     FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports')
+    FileUtils.rm_rf(scenario_dir / 'scenario_report_multiPV_reopt_run.json')
   end
 
   it 'can process a set of feature reports' do
