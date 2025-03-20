@@ -13,7 +13,7 @@ module URBANopt # :nodoc:
         # Define class variables 
         @@hours_in_year = 8760
         @@nat_gas_dollars_per_mmbtu = 13.5
-
+        @@year_of_simulation = 2023
         @@small_multiplier = [0.00001]
 
       end
@@ -32,9 +32,6 @@ module URBANopt # :nodoc:
             SpaceHeatingLoad: {},
             DomesticHotWaterLoad: {},
             ElectricLoad: {},
-            ElectricTariff: {
-              urdb_label: ""
-            },
             GHP: {},
             ExistingBoiler: {}
           }
@@ -42,7 +39,7 @@ module URBANopt # :nodoc:
 
         # The URDB label is required to be specified in the input assumption file
         if reopt_inputs_building[:ElectricTariff][:urdb_label].nil? || reopt_inputs_building[:ElectricTariff][:urdb_label].empty?
-          raise "Missing value for urdb_label - this is a required input"
+         raise "Missing value for urdb_label - this is a required input"
         end
 
         scenario_json_path = File.join(run_dir, "default_scenario_report.json")
@@ -147,7 +144,7 @@ module URBANopt # :nodoc:
 
           # Store the result in reopt_inputs_building ElectricLoad
           reopt_inputs_building[:ElectricLoad][:loads_kw] = total_electric_load_building
-          reopt_inputs_building[:ElectricLoad][:year] = 2023
+          reopt_inputs_building[:ElectricLoad][:year] = @@year_of_simulation
 
           domestic_hot_water = total_electric_load_building.map do |load|
             load * 0
@@ -241,7 +238,7 @@ module URBANopt # :nodoc:
         # The URDB label is required to be specified in the input assumption file
         if reopt_inputs_district[:ElectricTariff][:urdb_label].nil? || reopt_inputs_district[:ElectricTariff][:urdb_label].empty?
 
-          raise "Missing value for urdb_label - this is a required input"
+         raise "Missing value for urdb_label - this is a required input"
 
         end
         # populate with near zero hourly values to meet reopts formatting requirements
@@ -255,7 +252,7 @@ module URBANopt # :nodoc:
         # populate with near zero hourly values to meet reopts formatting requirements
         # This is not used in REopt calculation but required for formatting.
         reopt_inputs_district[:ElectricLoad][:loads_kw] = @@small_multiplier*@@hours_in_year
-        reopt_inputs_district[:ElectricLoad][:year] = 2023
+        reopt_inputs_district[:ElectricLoad][:year] = @@year_of_simulation
 
         reopt_inputs_district[:ExistingBoiler] = {}
         reopt_inputs_district[:ExistingBoiler][:fuel_cost_per_mmbtu] = @@nat_gas_dollars_per_mmbtu
@@ -427,7 +424,7 @@ module URBANopt # :nodoc:
           reopt_inputs_building_bau[:CoolingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
           
           total_kwh_load = total_kwh_heating + total_kwh_cooling
-          reopt_inputs_building_bau[:ElectricLoad][:year] = 2023
+          reopt_inputs_building_bau[:ElectricLoad][:year] = @@year_of_simulation
 
           # Check if the total kwh is zero
           if total_kwh_load.zero?
