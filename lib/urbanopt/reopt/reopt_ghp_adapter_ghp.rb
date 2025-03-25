@@ -103,12 +103,21 @@ module URBANopt # :nodoc:
 
         if File.exist?(@modelica_csv)
           modelica_data = CSV.read(@modelica_csv, headers: true)
-          heating_power = "heating_electric_power_#{building_id}"
-          cooling_power = "cooling_electric_power_#{building_id}"
+          heating_power_header = modelica_data.headers.select{ |h| h.to_s.start_with?("heating_electric_power") }
+          prefix = ""
+          
+          if heating_power_header[0].split("_")[-1].include? ("B")
+            prefix = "B"
+          else
+            prefix = ""
+          end
+
+          heating_power = "heating_electric_power_#{prefix}#{building_id}"
+          cooling_power = "cooling_electric_power_#{prefix}#{building_id}"
+          ets_pump_power = "ets_pump_power_#{prefix}#{building_id}"
+          heating_system_capacity = "heating_system_capacity_#{prefix}#{building_id}"
+          cooling_system_capacity = "cooling_system_capacity_#{prefix}#{building_id}"
           pump_power = "pump_power_#{building_id}"
-          ets_pump_power = "ets_pump_power_#{building_id}"
-          heating_system_capacity = "heating_system_capacity_#{building_id}"
-          cooling_system_capacity = "cooling_system_capacity_#{building_id}"
 
           heating_power_values = cooling_power_values = pump_power_values = ets_pump_power_values = []
           total_electric_load_building = []
@@ -138,7 +147,7 @@ module URBANopt # :nodoc:
           if modelica_data.headers.include?(cooling_system_capacity)
             cooling_system_capacity_value = modelica_data[cooling_system_capacity][0]
           end
-
+          
           watts_per_ton_cooling_capacity = 3517
           peak_combined_heatpump_thermal_ton = ([heating_system_capacity_value.to_f.abs, cooling_system_capacity_value.to_f.abs].max) / watts_per_ton_cooling_capacity
 
@@ -421,7 +430,7 @@ module URBANopt # :nodoc:
           # Populate with near zero hourly values to meet reopts formatting requirements
 
           reopt_inputs_building_bau[:CoolingLoad] = {}
-          reopt_inputs_building_bau[:CoolingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+          reopt_inputs_building_bau[:CoolingLoad][:thermal_loads_ton] = @@small_multiplier * @@hours_in_year
           
           total_kwh_load = total_kwh_heating + total_kwh_cooling
           reopt_inputs_building_bau[:ElectricLoad][:year] = @@year_of_simulation
