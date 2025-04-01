@@ -121,8 +121,8 @@ module URBANopt # :nodoc:
           # create REopt building input file for all buildings in loop order list in GHP scenario
           reopt_input_building = adapter.create_reopt_input_building_ghp(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, building_id, @modelica_result_input)
           # TODO UNCOMMENT FOR BAU
-          # create REopt building input file for all buildings in loop order list in BAU scenario
-          #reopt_input_building_bau = adapter.create_reopt_input_building_bau(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, building_id, @modelica_result_input)
+          #create REopt building input file for all buildings in loop order list in BAU scenario
+          reopt_input_building_bau = adapter.create_reopt_input_building_bau(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, building_id, @modelica_result_input)
         end
         ghp_ids.each do |ghp_id|
           # create REopt district input file
