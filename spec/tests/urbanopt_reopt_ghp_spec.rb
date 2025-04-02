@@ -2,6 +2,7 @@
 # URBANopt (tm), Copyright (c) Alliance for Sustainable Energy, LLC.
 # See also https://github.com/urbanopt/urbanopt-reopt-gem/blob/develop/LICENSE.md
 # *********************************************************************************
+
 require_relative '../spec_helper'
 require_relative '../../developer_nrel_key'
 require 'json-schema'
@@ -67,6 +68,7 @@ RSpec.describe URBANopt::REopt do
         building_4_data = JSON.parse(File.read(@building_4_path), symbolize_names: true)
 
         expect(building_4_data[:Site][:latitude]).to_not be_nil
+        expect(building_4_data[:ElectricLoad][:year]).to_not be_nil
         expect(building_4_data[:ElectricLoad][:loads_kw]).to_not be_empty
         expect(building_4_data[:ElectricLoad][:loads_kw].size).to eq(8760)
         expect(building_4_data[:ElectricTariff][:urdb_label]).to_not be_nil
@@ -83,7 +85,7 @@ RSpec.describe URBANopt::REopt do
         File.open(reopt_input_file_path, 'r') do |f|
             reopt_input_data = JSON.parse(f.read)
         end
-        post_url = "https://developer.nrel.gov/api/reopt/stable/job/?api_key=#{DEVELOPER_NREL_KEY}"
+        post_url = "https://developer.nrel.gov/api/reopt/v3/job/?api_key=#{DEVELOPER_NREL_KEY}"
 
         # Parse the URL and prepare the HTTP request
         uri = URI.parse(post_url)

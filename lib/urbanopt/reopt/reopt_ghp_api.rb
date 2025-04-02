@@ -8,7 +8,6 @@ require 'openssl'
 require 'uri'
 require 'json'
 require 'securerandom'
-require 'certified'
 require_relative '../../../developer_nrel_key'
 require 'urbanopt/reopt/reopt_logger'
 

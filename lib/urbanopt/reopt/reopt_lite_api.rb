@@ -8,7 +8,6 @@ require 'openssl'
 require 'uri'
 require 'json'
 require 'securerandom'
-require 'certified'
 require_relative '../../../developer_nrel_key'
 require 'urbanopt/reopt/reopt_logger'
 
@@ -116,7 +115,7 @@ module URBANopt # :nodoc:
             if tries + 1 < max_tries
               @@logger.debug('trying again...')
             else
-              @@logger.debug('max tries reached!')
+              @@logger.warn('max tries reached!')
               return result
             end
             tries += 1

@@ -43,9 +43,9 @@ module URBANopt # :nodoc:
         else
           @@logger.info('Using default REopt assumptions')
           reopt_inputs = {
-            Settings:{},
+            Settings: {},
             Site: {},
-            Financial:{},
+            Financial: {},
             ElectricTariff: {
               monthly_demand_rates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
               monthly_energy_rates: [0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13]
@@ -277,12 +277,8 @@ module URBANopt # :nodoc:
           wind = reopt_output['outputs']['Wind']
           # find size_class
           size_class = nil
-          if reopt_output['inputs']['Wind']['size_class']
-            size_class = reopt_output['inputs']['Wind']['size_class']
-          else
-            size_class = 'commercial' # default
-          end
-          scenario_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0), size_class: size_class, average_yearly_energy_produced_kwh: (wind['average_yearly_energy_produced_kwh'] || 0) })
+          size_class = reopt_output['inputs']['Wind']['size_class'] || 'commercial'
+          scenario_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0), size_class:, average_yearly_energy_produced_kwh: (wind['average_yearly_energy_produced_kwh'] || 0) })
         end
 
         if reopt_output['outputs'].key?('Generator')
@@ -491,7 +487,7 @@ module URBANopt # :nodoc:
           data[$storage_to_grid_col] = $storage_to_grid[idx] || 0 if defined?(storage)
           data[$storage_soc_col] = $storage_soc[idx] || 0 if defined?(storage)
           data[$generator_total_col] = $generator_total[idx] || 0 if defined?(generator)
-          data[$generator_to_battery_col] = $generator_to_battery[idx] || 0 if (defined?(generator) && defined?(storage))
+          data[$generator_to_battery_col] = $generator_to_battery[idx] || 0 if defined?(generator) && defined?(storage)
           data[$generator_to_load_col] = $generator_to_load[idx] || 0 if defined?(generator)
           data[$generator_to_grid_col] = $generator_to_grid[idx] || 0 if defined?(generator)
           data[$pv_total_col] = $pv_total[idx] || 0
@@ -499,7 +495,7 @@ module URBANopt # :nodoc:
           data[$pv_to_load_col] = $pv_to_load[idx] || 0
           data[$pv_to_grid_col] = $pv_to_grid[idx] || 0
           data[$wind_total_col] = $wind_total[idx] || 0 if defined?(wind)
-          data[$wind_to_battery_col] = $wind_to_battery[idx] || 0 if (defined?(wind) && defined?(storage))
+          data[$wind_to_battery_col] = $wind_to_battery[idx] || 0 if defined?(wind) && defined?(storage)
           data[$wind_to_load_col] = $wind_to_load[idx] || 0 if defined?(wind)
           data[$wind_to_grid_col] = $wind_to_grid[idx] || 0 if defined?(wind)
           return data

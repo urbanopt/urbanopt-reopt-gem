@@ -1,6 +1,6 @@
 # REopt Lite Outputs Schema
 
-When the gem calls the REopt Lite APUI it recieves the following complete set of results described in the data dictionary below. Only those needed to update a Feature or Scenario Report's distributed_generation attibute set and timeseries CSV are pulled from the reponse and transferred to the Feature or Scenario Report. You may choose to modify the code to include more or less of the full REopt Lite response.
+When the gem calls the REopt Lite APUI it receives the following complete set of results described in the data dictionary below. Only those needed to update a Feature or Scenario Report's distributed_generation attribute set and timeseries CSV are pulled from the response and transferred to the Feature or Scenario Report. You may choose to modify the code to include more or less of the full REopt Lite response.
 
 ## Data Dictionary
 <ReoptOutputSchema />
