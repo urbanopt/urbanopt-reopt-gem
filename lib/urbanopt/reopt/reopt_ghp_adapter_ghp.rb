@@ -14,6 +14,7 @@ module URBANopt # :nodoc:
         @@hours_in_year = 8760
         @@nat_gas_dollars_per_mmbtu = 13.5
         @@year_of_simulation = 2023
+        @@year_of_simulation = 2023
         @@small_multiplier = [0.00001]
 
       end
@@ -391,7 +392,8 @@ module URBANopt # :nodoc:
           timeseries_data = CSV.read(default_feature_report_path, headers: true)
 
           # Initialize the total kBtu sum
-          total_kbtu = 0.0
+          heating_kbtu = 0.0
+          cooling_kbtu = 0.0
           total_kwh_heating = 0.0
           total_kwh_cooling = 0.0
 
@@ -399,8 +401,12 @@ module URBANopt # :nodoc:
           # Convert each value in "Heating:NaturalGas(kBtu)" to MMBtu and store in the array
           timeseries_data.each do |row|
             if row['Heating:NaturalGas(kBtu)'] # Ensure the value exists
-              kBtu_value = row['Heating:NaturalGas(kBtu)'].to_f # Convert to float
-              total_kbtu += kBtu_value # Sum kBtu values
+              heating_kBtu_value = row['Heating:NaturalGas(kBtu)'].to_f # Convert to float
+              heating_kbtu += heating_kBtu_value # Sum kBtu values
+            end
+            if row.headers.include?('Cooling:NaturalGas(kBtu)') && row['Cooling:NaturalGas(kBtu)']
+              cooling_kBtu_value = row['Cooling:NaturalGas(kBtu)'].to_f # Convert to float
+              cooling_kbtu += cooling_kBtu_value
             end
             if row['Heating:Electricity(kWh)']
               heating_value = row['Heating:Electricity(kWh)'].to_f # Convert to float
@@ -411,8 +417,8 @@ module URBANopt # :nodoc:
               total_kwh_cooling += cooling_value # Sum cooling values
             end
           end
-          # Check if the total kBtu is zero
-          if total_kbtu.zero?
+          # Check if the heating  kBtu is zero
+          if heating_kbtu.zero?
             # If zero, populate with near zero hourly values to meet reopts formatting requirements
             reopt_inputs_building_bau[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
           else
@@ -427,11 +433,25 @@ module URBANopt # :nodoc:
             # Add fuel cost for existing boiler
             reopt_inputs_building_bau[:ExistingBoiler][:fuel_cost_per_mmbtu] = @@nat_gas_dollars_per_mmbtu
           end
-          # Populate with near zero hourly values to meet reopts formatting requirements
 
+          # Add fuel load values for cooling
           reopt_inputs_building_bau[:CoolingLoad] = {}
-          reopt_inputs_building_bau[:CoolingLoad][:thermal_loads_ton] = @@small_multiplier * @@hours_in_year
-          
+          if cooling_kbtu.zero?
+            # If zero, populate with near zero hourly values to meet reopts formatting requirements
+            reopt_inputs_building_bau[:CoolingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+          else
+            # If not zero, convert and append to the array
+            timeseries_data.each do |row|
+              if row['Cooling:NaturalGas(kBtu)'] # Ensure the value exists
+                kBtu_value = row['Cooling:NaturalGas(kBtu)'].to_f # Convert to float
+                mMBtu_value = kBtu_value / 1000 # Convert kBtu to MMBtu
+                reopt_inputs_building_bau[:CoolingLoad][:fuel_loads_mmbtu_per_hour] << mMBtu_value # Append to the array
+              end
+            end
+            # Add fuel cost for existing chiller
+            reopt_inputs_building_bau[:ExistingChiller][:fuel_cost_per_mmbtu] = @@nat_gas_dollars_per_mmbtu
+          end
+
           total_kwh_load = total_kwh_heating + total_kwh_cooling
           reopt_inputs_building_bau[:ElectricLoad][:year] = @@year_of_simulation
 
