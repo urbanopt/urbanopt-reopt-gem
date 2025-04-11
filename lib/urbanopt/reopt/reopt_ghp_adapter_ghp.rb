@@ -438,14 +438,14 @@ module URBANopt # :nodoc:
           reopt_inputs_building_bau[:CoolingLoad] = {}
           if cooling_kbtu.zero?
             # If zero, populate with near zero hourly values to meet reopts formatting requirements
-            reopt_inputs_building_bau[:CoolingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+            reopt_inputs_building_bau[:CoolingLoad][:thermal_loads_ton] = @@small_multiplier * @@hours_in_year
           else
             # If not zero, convert and append to the array
             timeseries_data.each do |row|
               if row['Cooling:NaturalGas(kBtu)'] # Ensure the value exists
                 kBtu_value = row['Cooling:NaturalGas(kBtu)'].to_f # Convert to float
-                mMBtu_value = kBtu_value / 1000 # Convert kBtu to MMBtu
-                reopt_inputs_building_bau[:CoolingLoad][:fuel_loads_mmbtu_per_hour] << mMBtu_value # Append to the array
+                ton_value = kBtu_value / 12 # Convert kBtu to ton
+                reopt_inputs_building_bau[:CoolingLoad][:thermal_loads_ton] << ton_value # Append to the array
               end
             end
             # Add fuel cost for existing chiller
