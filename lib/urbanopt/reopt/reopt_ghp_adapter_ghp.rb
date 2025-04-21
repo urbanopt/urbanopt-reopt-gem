@@ -357,7 +357,6 @@ module URBANopt # :nodoc:
           reopt_inputs_building_bau = {
             Site: {},
             SpaceHeatingLoad: {},
-            CoolingLoad: {},
             DomesticHotWaterLoad: {},
             ElectricLoad: {},
             ElectricTariff: {
@@ -434,12 +433,16 @@ module URBANopt # :nodoc:
             reopt_inputs_building_bau[:ExistingBoiler][:fuel_cost_per_mmbtu] = @@nat_gas_dollars_per_mmbtu
           end
 
-          # Add fuel load values for cooling
-          reopt_inputs_building_bau[:CoolingLoad] = {}
-          if cooling_kbtu.zero?
-            # If zero, populate with near zero hourly values to meet reopts formatting requirements
-            reopt_inputs_building_bau[:CoolingLoad][:thermal_loads_ton] = @@small_multiplier * @@hours_in_year
-          else
+
+          # if cooling_kbtu.zero?
+          #   # If zero, populate with near zero hourly values to meet reopts formatting requirements
+          #   reopt_inputs_building_bau[:CoolingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+          # else
+
+          # if there is cooling through natural gas it needs to be added to coolingload. If there is electricity based cooling, it is included in electric load
+          if !cooling_kbtu.zero?
+            # Add fuel load values for cooling
+            reopt_inputs_building_bau[:CoolingLoad] = {}
             # If not zero, convert and append to the array
             timeseries_data.each do |row|
               if row['Cooling:NaturalGas(kBtu)'] # Ensure the value exists
