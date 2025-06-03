@@ -6,6 +6,7 @@
 require 'bundler/setup'
 require 'urbanopt/reopt/reopt_logger'
 require 'urbanopt/reopt/reopt_ghp_api'
+require 'urbanopt/reopt/reopt_ghp_result'
 require 'csv'
 require 'json'
 require 'fileutils'
@@ -145,12 +146,11 @@ module URBANopt # :nodoc:
           api = URBANopt::REopt::REoptLiteGHPAPI.new(reopt_input_data, DEVELOPER_NREL_KEY, reopt_output_file, @localhost)
           api.get_api_results
 
-          ## POST PROCESS RESULTS
-          ghp_results = URBANopt::REopt::REoptGHPResult.new
-
-          results = ghp_results.result_calculate(reopt_ghp_dir)
-
         end
+
+        ## POST PROCESS RESULTS
+        ghp_results = URBANopt::REopt::REoptGHPResult.new
+        results = ghp_results.result_calculate(reopt_ghp_dir)
       end
 
     end # REoptGHPPostProcessor

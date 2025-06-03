@@ -30,12 +30,15 @@ module URBANopt # :nodoc:
             lcc_bau = 0
             lcc_ghp = 0
             lcc_net = 0
-            lifecycle_capital_costs_bau = 0
-            lifecycle_capital_costs_ghp = 0
-            lifecycle_capital_costs_net = 0
+            # lifecycle_capital_costs_bau = 0
+            # lifecycle_capital_costs_ghp = 0
+            # lifecycle_capital_costs_net = 0
             initial_capital_costs_bau = 0
             initial_capital_costs_ghp = 0
             initial_capital_costs_net = 0
+            initial_capital_costs_after_incentives_bau = 0
+            initial_capital_costs_after_incentives_ghp = 0
+            initial_capital_costs_after_incentives_net = 0
             lifecycle_elecbill_after_tax_bau = 0
             lifecycle_elecbill_after_tax_ghp = 0
             lifecycle_elecbill_after_tax_net = 0
@@ -47,8 +50,10 @@ module URBANopt # :nodoc:
                     bau_file = JSON.parse(File.read(file), symbolize_names: true)
                     lcc = bau_file[:outputs][:Financial][:lcc]
                     lcc_bau += lcc
-                    lifecycle_capital_costs = bau_file[:outputs][:Financial][:lifecycle_capital_costs]
-                    lifecycle_capital_costs_bau += lifecycle_capital_costs
+                    initial_capital_costs = bau_file[:outputs][:Financial][:initial_capital_costs]
+                    initial_capital_costs_bau += initial_capital_costs
+                    initial_capital_costs_after_incentives = bau_file[:outputs][:Financial][:initial_capital_costs_after_incentives]
+                    initial_capital_costs_after_incentives_bau += initial_capital_costs_after_incentives
                     lifecycle_elecbill_after_tax = bau_file[:outputs][:Financial][:lifecycle_elecbill_after_tax_bau]
                     lifecycle_elecbill_after_tax_bau += lifecycle_elecbill_after_tax
                     npv = bau_file[:outputs][:Financial][:npv]
@@ -60,8 +65,10 @@ module URBANopt # :nodoc:
                     ghp_file = JSON.parse(File.read(file), symbolize_names: true)
                     lcc = ghp_file[:outputs][:Financial][:lcc]
                     lcc_ghp += lcc
-                    lifecycle_capital_costs = ghp_file[:outputs][:Financial][:lifecycle_capital_costs]
-                    lifecycle_capital_costs_ghp += lifecycle_capital_costs
+                    initial_capital_costs = ghp_file[:outputs][:Financial][:initial_capital_costs]
+                    initial_capital_costs_ghp += initial_capital_costs
+                    initial_capital_costs_after_incentives = ghp_file[:outputs][:Financial][:initial_capital_costs_after_incentives]
+                    initial_capital_costs_after_incentives_ghp += initial_capital_costs_after_incentives
                     lifecycle_elecbill_after_tax = ghp_file[:outputs][:Financial][:lifecycle_elecbill_after_tax]
                     lifecycle_elecbill_after_tax_ghp += lifecycle_elecbill_after_tax || 0
                     npv = ghp_file[:outputs][:Financial][:npv]
@@ -72,11 +79,11 @@ module URBANopt # :nodoc:
             # Calculations for net costs
             lcc_net = lcc_ghp - lcc_bau
             initial_capital_costs_net = initial_capital_costs_ghp - initial_capital_costs_bau
+            initial_capital_costs_after_incentives_net = initial_capital_costs_after_incentives_ghp - initial_capital_costs_after_incentives_bau
             lifecycle_elecbill_after_tax_net = lifecycle_elecbill_after_tax_ghp - lifecycle_elecbill_after_tax_bau
             npv_net = npv_ghp - npv_bau
-            lifecycle_capital_costs_net = lifecycle_capital_costs_ghp - lifecycle_capital_costs_bau
 
-            result_data = {"lcc_bau": lcc_bau, "lcc_ghp": lcc_ghp, "lcc_net": lcc_net,  "lifecycle_capital_costs_bau": lifecycle_capital_costs_bau, "lifecycle_capital_costs_ghp": lifecycle_capital_costs_ghp, "lifecycle_capital_costs_net": lifecycle_capital_costs_net, "lifecycle_elecbill_after_tax_bau": lifecycle_elecbill_after_tax_bau, "lifecycle_elecbill_after_tax_ghp": lifecycle_elecbill_after_tax_ghp, "lifecycle_elecbill_after_tax_net": lifecycle_elecbill_after_tax_net, "npv_bau": npv_bau, "npv_ghp": npv_ghp, "npv_net": npv_net}
+            result_data = {"lcc_bau": lcc_bau, "lcc_ghp": lcc_ghp, "lcc_net": lcc_net,  "initial_capital_costs_bau": initial_capital_costs_bau, "initial_capital_costs_ghp": initial_capital_costs_ghp, "initial_capital_costs_net": initial_capital_costs_net, "initial_capital_costs_after_incentives_bau": initial_capital_costs_after_incentives_bau, "initial_capital_costs_after_incentives_ghp": initial_capital_costs_after_incentives_ghp, "initial_capital_costs_after_incentives_net": initial_capital_costs_after_incentives_net, "lifecycle_elecbill_after_tax_bau": lifecycle_elecbill_after_tax_bau, "lifecycle_elecbill_after_tax_ghp": lifecycle_elecbill_after_tax_ghp, "lifecycle_elecbill_after_tax_net": lifecycle_elecbill_after_tax_net, "npv_bau": npv_bau, "npv_ghp": npv_ghp, "npv_net": npv_net}
             # Write the JSON string to a file
             File.open(File.join(reopt_ghp_dir, "reopt_ghp_result_summary.json"), "w") do |file|
                 file.write(JSON.pretty_generate(result_data))
