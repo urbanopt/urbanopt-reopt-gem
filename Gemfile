@@ -16,8 +16,6 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 
 # Temporary! Remove this once reporting-gem is merged/released
 gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'faraday'
-# Delete this once testing is complete!
-gem 'bcl', github: 'NREL/bcl-gem', branch: 'faraday'
 #
 # if allow_local && File.exist?('../OpenStudio-extension-gem')
 #   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'
