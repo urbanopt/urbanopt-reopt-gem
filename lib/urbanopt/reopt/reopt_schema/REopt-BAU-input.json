@@ -58,6 +58,28 @@
             "type": "float",
             "required": false,
             "description": "Only required if BAU system use fuel for heating. In this case, fuel cost needs to be specified"
+        },
+        "installed_cost_per_mmbtu_per_hour": {
+            "type": "float",
+            "required": false,
+            "description": "Capital cost of ExistingBoiler. Include if counting the capital cost of upgrading ExistingBoiler in the BAU system in NPV calculation. Default is $56,000/MMBtu (EIA). Note: this option can only be called from the API after July 2, 2025"
+        }
+    },
+    "ElectricHeater": {
+        "installed_cost_per_mmbtu_per_hour": {
+            "type": "float",
+            "required": false,
+            "description": "Capital cost of ElectricHeater/Electric furnace. Include if BAU system use electric heater/electric furnace for heating and if counting capital cost of upgrading electric heater/furnace in the BAU system in NPV calculation. Default value is $59,412/MMBtu (EIA)"
+        },
+        "can_serve_space_heating": {
+            "type": "bool",
+            "required": false,
+            "description": "true if electric heater can serve space heating load in the BAU system"
+        },
+        "can_serve_dhw": {
+            "type": "bool",
+            "required": false,
+            "description": "true if electric heater can serve water heating load in the BAU system"
         }
     }
 }
