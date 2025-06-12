@@ -20,7 +20,7 @@ gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'fa
 # if allow_local && File.exist?('../OpenStudio-extension-gem')
 #   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'
 # elsif allow_local
-gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'faraday'
+# gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'faraday'
 # else
 # gem 'openstudio-extension', '~> 0.8.1'
 # end
