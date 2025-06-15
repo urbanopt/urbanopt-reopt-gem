@@ -165,6 +165,17 @@ module URBANopt # :nodoc:
 
           # Add GHP Fields
           reopt_inputs_building[:GHP] = {}
+
+          # Add avoided capital cost of all buildings
+          if reopt_inputs_building[:features] && !reopt_inputs_building[:features].empty?
+            # Find the feature matching this building_id
+            matching_feature = reopt_inputs_building[:features].find { |feature| feature[:feature_id] == building_id.to_i}
+
+            if matching_feature
+              # Set avoided capex value into GHP block
+              reopt_inputs_building[:GHP][:avoided_capex_by_ghp_present_value] = matching_feature[:avoided_capex_by_ghp_present_value]
+            end
+          end
           # REopt default
           reopt_inputs_building[:GHP][:require_ghp_purchase] = 1
           reopt_inputs_building[:GHP][:om_cost_per_sqft_year] = 0
@@ -473,7 +484,6 @@ module URBANopt # :nodoc:
               total_value_kwh << total # Append to the array
               reopt_inputs_building_bau[:ElectricLoad][:loads_kw] = total_value_kwh
             end
-
           end
 
         end
