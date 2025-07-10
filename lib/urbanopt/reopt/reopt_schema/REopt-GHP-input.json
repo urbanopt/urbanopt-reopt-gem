@@ -20,7 +20,7 @@
             "type": "array",
             "required": true,
             "description": "This is the fuel energy consumption for space heating at the individual building level. This is used in the business as usual LCCA analysis in the GHP iteration and is an 8760 timeseries.",
-            "note": "This parameter is required to run REopt's GHP module as per the REopt formatting requirements, but is not used to calculate URBANopt's GHP system LCCA. Users can set this to values close to 0 in the GHP scenario"
+            "note": "This parameter is required to run REopt's GHP module as per the REopt formatting requirements, but is not used to calculate URBANopt's GHP system LCCA. Users can set this to values close to 0 (but have to be > 0) in the GHP scenario"
         }
     },
     "DomesticHotWaterLoad": {
@@ -34,14 +34,39 @@
         "load_kw": {
             "type": "array",
             "required": true,
-            "description": "This is the electric load (in kW) at the building level for the GHP scenario. It is the total of secondary pump electric power, heat pump electric power and ETS pump power determined from the modelica model. This is used in the LCCA calculation in the GHP iteration.",
+            "description": "This is the electric load (in kW) at the building level, and the GHX electric consumption series for the GHP scenario. For building iternations, it is the total of secondary pump electric power, heat pump electric power and ETS pump power determined from the modelica model. For GHX iteration, it is the GHX electric consumption series. This is used in the LCCA calculation in all the GHP and GHX iterations.",
             "note": "15 min interval data do not work in GHP module. Please make sure all timeseries are 8760"
         }
     },
     "ElectricTarriff": {
+        "description": "There are a few main options to define electric tariff in REopt - 1) urdb_label, Label attribute of utility rate structure from https://openei.org/services/doc/rest/util_rates/?version=3; 2) flat rate (blended_annual_energy_rate), 3) custom json file. One of them is required.",
         "urdb_label": "string",
-        "description": "Label attribute of utility rate structure from https://openei.org/services/doc/rest/util_rates/?version=3",
+        "blended_annual_energy_rate": "float",
+        "urdb_response": "json",
         "required": true
+    },
+    "Financial": {
+        "owner_discount_rate_fraction": {
+            "type": "float",
+            "description": "Option to change owner's discount rate",
+            "required": false
+        },
+        "owner_tax_rate_fraction": {
+            "type": "float",
+            "description": "Option to change owner's tax rate",
+            "required": false
+        },
+        "elec_cost_escalation_rate_fraction": {
+            "type": "float",
+            "description": "Option to change electricity cost escalation rate",
+            "required": false
+        },
+        "om_cost_escalation_rate_fraction": {
+            "type": "float",
+            "description": "Option to change O&M cost escalation rate",
+            "required": false
+        }
+
     },
     "GHP": {
         "require_ghp_purchase": {
@@ -53,7 +78,7 @@
             "type": "float",
             "required": true,
             "description": "This is the building footprint area (in sq.ft.) used to calculate cost of hydronic loop. This is used in the LCCA calculation in the GHP iteration.",
-            "note": "For the GHX iteration, set building_sqft to a number close to 0 but not exactly 0"
+            "note": "For the GHX iteration, set building_sqft to a number to 0"
         },
         "heatpump_capacity_sizing_factor_on_peak_load": {
             "type": "float",
@@ -70,8 +95,8 @@
                 "peak_combined_heatpump_thermal_ton": {
                     "type": "float",
                     "required": true,
-                    "description": "This is the maximum value out of the GHP heating and cooling capacity (size in ton) determined from the Modelica model. This is used in the LCCA calculation in the GHP iteration.",
-                    "note": "in the GHX iteration, set this value to a number close to 0 but NOT exactly 0."
+                    "description": "This is the maximum value out of the GHP heating and cooling capacity (size in ton) determined from the Modelica model. This is the size of GHP used in the GHP lifecycle capital cost calculation in the GHP iteration.",
+                    "note": "in the GHX iteration, set this value to a number close to 0 but NOT exactly 0 (important)."
                 },
                 "number_of_boreholes": {
                     "type": "integer",
@@ -88,14 +113,12 @@
                 "yearly_total_electric_consumption_series_kw": {
                     "type": "array",
                     "required": true,
-                    "description": "8760 timeseries of building total electric consumption. It is the total of secondary pump electric power, heat pump electric power and ETS pump power determined from the modelica model. This is used in the LCCA calculation in the GHP iteration.",
-                    "note": "in the GHX iteration, set this value to a number close to 0 but not exactly 0"
+                    "description": "8760 timeseries of building total electric consumption. Set to 0 for all GHP and GHX iterations"
                 },
                 "yearly_ghx_pump_electric_consumption_series_kw": {
                     "type": "array",
                     "required": true,
-                    "description": "8760 timeseries of ghx's total electric consumption. It is the district pump power (in kW), calculated from the modelica model. This is used in the LCCA calculation in the GHX iteration.",
-                    "note": "in the GHP iteration, set this value to 0"
+                    "description": "8760 timeseries of ghx's total electric consumption. Set to 0 for all GHP and GHX iterations"
                 }
             },
             "inputs": {
@@ -129,7 +152,7 @@
         "om_cost_per_sqft_year": {
             "type": "float",
             "required": false,
-            "description": "This is the operations and maintenance cost ($/sqft). The default value if not specified, is -$0.51, capturing saving from HVAC operation. Recommended setting at 0"
+            "description": "This is the operations and maintenance cost ($/sqft). The default value if not specified, is -$0.51, capturing saving from HVAC operation. Recommended setting at 0 but setting at default can be important to see positive NPV"
         },
         "macrs_bonus_fraction": {
             "type": "float",
