@@ -25,7 +25,9 @@ RSpec.describe URBANopt::REopt do
         @building_4_path = reopt_input_dir / 'GHP_building_4.json'
         @building_5_path = reopt_input_dir / 'GHP_building_5.json'
         @ghp_path = reopt_input_dir / 'GHX_7932a208-dcb6-4d23-a46f-288896eaa1bc.json'
-
+        # Load the BAU JSON data before running the tests
+        @building_BAU_4_path = reopt_input_dir / 'BAU_building_4.json'
+        @building_BAU_5_path = reopt_input_dir / 'BAU_building_5.json'
     end
 
     it 'can create an input building and GHP reports' do
@@ -46,12 +48,17 @@ RSpec.describe URBANopt::REopt do
         expect((reopt_input_dir / 'GHX_7932a208-dcb6-4d23-a46f-288896eaa1bc.json').file?)
     end
 
-    it 'can validate the REopt input files' do
+    it 'can validate the REopt GHP input files' do
         schema_path = source_lib / 'urbanopt' / 'reopt' / 'reopt_schema' / 'REopt-GHP-input.json'
         schema =  JSON.parse(File.read(schema_path))
 
         building_4_data = JSON.parse(File.read(@building_4_path), symbolize_names: true)
         validation_errors = JSON::Validator.fully_validate(schema, building_4_data)
+        if validation_errors.any?
+            puts "Validation errors for building_4_data:"
+            validation_errors.each { |err| puts "- #{err}" }
+        end
+        
         expect(validation_errors).to be_empty
 
         building_5_data = JSON.parse(File.read(@building_5_path), symbolize_names: true)
@@ -60,6 +67,20 @@ RSpec.describe URBANopt::REopt do
 
         ghp_data = JSON.parse(File.read(@ghp_path), symbolize_names: true)
         validation_errors = JSON::Validator.fully_validate(schema, ghp_data)
+        expect(validation_errors).to be_empty
+
+    end
+
+    it 'can validate the REopt BAU input files' do
+        schema_path = source_lib / 'urbanopt' / 'reopt' / 'reopt_schema' / 'REopt-BAU-input.json'
+        schema =  JSON.parse(File.read(schema_path))
+
+        building_4_BAU_data = JSON.parse(File.read(@building_BAU_4_path), symbolize_names: true)
+        validation_errors = JSON::Validator.fully_validate(schema, building_4_BAU_data)
+        expect(validation_errors).to be_empty
+
+        building_5_BAU_data = JSON.parse(File.read(@building_BAU_5_path), symbolize_names: true)
+        validation_errors = JSON::Validator.fully_validate(schema, building_5_BAU_data)
         expect(validation_errors).to be_empty
 
     end

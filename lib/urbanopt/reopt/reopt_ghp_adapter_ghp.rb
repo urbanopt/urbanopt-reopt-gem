@@ -185,7 +185,7 @@ module URBANopt # :nodoc:
           if File.exist?(building_json_path)
             File.open(building_json_path, 'r') do |file|
               building_json_data = JSON.parse(file.read, symbolize_names: true)
-              reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:floor_area_sqft]
+              reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:floor_area_sqft].to_f
             end
           else
             puts "File not found: #{building_json_path}"
@@ -281,7 +281,7 @@ module URBANopt # :nodoc:
         # GHP inputs
         reopt_inputs_district[:GHP] = {}
         reopt_inputs_district[:GHP][:require_ghp_purchase] = 1
-        reopt_inputs_district[:GHP][:building_sqft] = format('%.8f', @@small_multiplier[0])
+        reopt_inputs_district[:GHP][:building_sqft] = format('%.8f', @@small_multiplier[0]).to_f
         reopt_inputs_district[:GHP][:om_cost_per_sqft_year] = 0
         reopt_inputs_district[:GHP][:heatpump_capacity_sizing_factor_on_peak_load] = 1.0
 
