@@ -37,6 +37,7 @@ module URBANopt # :nodoc:
         scenario_id = scenario_report.id.delete ' '
         description = "scenario_report_#{name}_#{scenario_id}"
 
+        puts "hello2"
         # Create base REpopt post
         if !reopt_assumptions_json.nil?
           reopt_inputs = reopt_assumptions_json
@@ -96,6 +97,10 @@ module URBANopt # :nodoc:
           reopt_inputs[:Site][:roof_squarefeet] = scenario_report.program.roof_area_sqft[:available_roof_area_sqft]
         end
 
+        reopt_inputs[:Outage] = {}
+        reopt_inputs[:Outage][:max_outage_duration] = 24
+
+        puts "hello3"
         begin
           if reopt_inputs[:Site][:land_acres].nil? && !community_photovoltaic[0][:properties][:footprint_area].nil?
             reopt_inputs[:Site][:land_acres] = community_photovoltaic[0][:properties][:footprint_area] * 1.0 / 43560 # acres/sqft
