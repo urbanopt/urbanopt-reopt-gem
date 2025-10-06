@@ -14,47 +14,44 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # Uncomment the extension, common measures, core gems if you need to test local development versions. Otherwise
 # these are included in the model articulation and urbanopt gems
 
-# Temporary! Remove this once reporting-gem is merged/released
-gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'faraday'
-#
 # if allow_local && File.exist?('../OpenStudio-extension-gem')
 #   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'
 # elsif allow_local
-# gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'faraday'
+#   gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'faraday'
 # else
-# gem 'openstudio-extension', '~> 0.8.1'
+#   gem 'openstudio-extension', '~> 0.8.1'
 # end
 #
 # if allow_local && File.exist?('../openstudio-common-measures-gem')
 #   gem 'openstudio-common-measures', path: '../openstudio-common-measures-gem'
 # elsif allow_local
-  # gem 'openstudio-common-measures', github: 'NREL/openstudio-common-measures-gem', branch: 'faraday'
+#   gem 'openstudio-common-measures', github: 'NREL/openstudio-common-measures-gem', branch: 'faraday'
 # else
-  gem 'openstudio-common-measures', '0.12.3'
+#  gem 'openstudio-common-measures', '0.12.3'
 # end
 #
 # if allow_local && File.exist?('../urbanopt-core-gem')
 #   gem 'urbanopt-core', path: '../urbanopt-core-gem'
 # elsif allow_local
-  gem 'urbanopt-core', github: 'URBANopt/urbanopt-core-gem', branch: 'faraday'
+#   gem 'urbanopt-core', github: 'URBANopt/urbanopt-core-gem', branch: 'faraday'
 # end
 #
 # if allow_local && File.exist?('../openstudio-model-articulation-gem')
 #   gem 'openstudio-model-articulation', path: '../openstudio-model-articulation-gem'
 # elsif allow_local
-  # gem 'openstudio-model-articulation', github: 'NREL/openstudio-model-articulation-gem', branch: 'faraday'
+#   gem 'openstudio-model-articulation', github: 'NREL/openstudio-model-articulation-gem', branch: 'faraday'
 # else
-  gem 'openstudio-model-articulation', '0.12.2'
+#  gem 'openstudio-model-articulation', '0.12.2'
 # end
 
 # if allow_local && File.exist?('../urbanopt-scenario-gem')
 #   gem 'urbanopt-scenario', path: '../urbanopt-scenario-gem'
 # elsif allow_local
-  gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'faraday'
+#   gem 'urbanopt-scenario', github: 'URBANopt/urbanopt-scenario-gem', branch: 'faraday'
 # end
 
 # if allow_local && File.exist?('../urbanopt-geojson-gem')
 #   gem 'urbanopt-geojson', path: '../urbanopt-geojson-gem'
 # elsif allow_local
-  gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'faraday'
+#   gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'faraday'
 # end
