@@ -211,14 +211,15 @@ module URBANopt # :nodoc:
         scenario_report.distributed_generation.year_one_bill_before_tax_bau = reopt_output['outputs']['ElectricTariff']['year_one_bill_before_tax_bau'] || 0
         scenario_report.distributed_generation.lifecycle_demand_cost_after_tax_bau = reopt_output['outputs']['ElectricTariff']['lifecycle_demand_cost_after_tax_bau'] || 0
         scenario_report.distributed_generation.lifecycle_energy_cost_after_tax_bau = reopt_output['outputs']['ElectricTariff']['lifecycle_energy_cost_after_tax_bau'] || 0
-        if !resilience_stats.nil?
-          scenario_report.distributed_generation.resilience_hours_min = resilience_stats['resilience_hours_min']
-          scenario_report.distributed_generation.resilience_hours_max = resilience_stats['resilience_hours_max']
-          scenario_report.distributed_generation.resilience_hours_avg = resilience_stats['resilience_hours_avg']
-          scenario_report.distributed_generation.probs_of_surviving = resilience_stats['probs_of_surviving']
-          scenario_report.distributed_generation.probs_of_surviving_by_month = resilience_stats['probs_of_surviving_by_month']
-          scenario_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']
-        end
+        # Commented out since these fields do not exist in the new ERP capability, and the ERP outputs are reported to the Scenario Resilience Report
+        # if !resilience_stats.nil?
+        #   scenario_report.distributed_generation.resilience_hours_min = resilience_stats['resilience_hours_min']
+        #   scenario_report.distributed_generation.resilience_hours_max = resilience_stats['resilience_hours_max']
+        #   scenario_report.distributed_generation.resilience_hours_avg = resilience_stats['resilience_hours_avg']
+        #   scenario_report.distributed_generation.probs_of_surviving = resilience_stats['probs_of_surviving']
+        #   scenario_report.distributed_generation.probs_of_surviving_by_month = resilience_stats['probs_of_surviving_by_month']
+        #   scenario_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']
+        # end
 
         if reopt_output['outputs']['PV'].is_a?(Hash)
           reopt_output['outputs']['PV'] = [reopt_output['outputs']['PV']]

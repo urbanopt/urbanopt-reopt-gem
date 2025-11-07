@@ -28,8 +28,12 @@ module URBANopt # :nodoc:
       def initialize(nrel_developer_key = nil, use_localhost = false)
         @use_localhost = use_localhost
         if @use_localhost
+          #TODO: shouldnt this be http://127.0.0.1:8000/v3/job/'
           @uri_submit = URI.parse('http//:127.0.0.1:8000/v3/job/')
-          @uri_submit_outagesimjob = URI.parse('http//:127.0.0.1:8000/v3/outagesimjob/')
+          # TO DO: This needs to be updated
+          #@uri_submit_outagesimjob = URI.parse('http//:127.0.0.1:8000/v3/outagesimjob/')
+          @uri_submit_outagesimjob = URI.parse('http://127.0.0.1:8000/v3/erp/')
+
         else
           if [nil, '', '<insert your key here>'].include? nrel_developer_key
             if [nil, '', '<insert your key here>'].include? DEVELOPER_NREL_KEY
@@ -40,7 +44,9 @@ module URBANopt # :nodoc:
           end
           @nrel_developer_key = nrel_developer_key
           @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v3/job?api_key=#{@nrel_developer_key}")
-          @uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v3/outagesimjob?api_key=#{@nrel_developer_key}")
+          ## TO DO : this needs to be updated
+          #@uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v3/outagesimjob?api_key=#{@nrel_developer_key}")
+          @uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v3/erp?api_key=#{@nrel_developer_key}")
           # initialize @@logger
           @@logger ||= URBANopt::REopt.reopt_logger
         end
@@ -76,10 +82,10 @@ module URBANopt # :nodoc:
       ##
       def uri_resilience(run_uuid) # :nodoc:
         if @use_localhost
-          return URI.parse("http://127.0.0.1:8000/v3/job/#{run_uuid}/resilience_stats")
+          return URI.parse("http://127.0.0.1:8000/v3/erp/#{run_uuid}/results")
         end
 
-        return URI.parse("https://developer.nrel.gov/api/reopt/v3/job/#{run_uuid}/resilience_stats?api_key=#{@nrel_developer_key}")
+        return URI.parse("https://developer.nrel.gov/api/reopt/v3/erp/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
       end
 
       def make_request(http, req, max_tries = 3)
@@ -167,7 +173,7 @@ module URBANopt # :nodoc:
       #
       # [*return:*] _Bool_ - Returns true if the post succeeds. Otherwise returns false.
       ##
-      def resilience_request(run_uuid, filename)
+      def resilience_request(run_uuid, filename, reopt_input, erp_assumptions_file)
         if File.directory? filename
           if run_uuid.nil?
             run_uuid = 'error'
@@ -176,23 +182,79 @@ module URBANopt # :nodoc:
             run_uuid = "error#{SecureRandom.uuid}"
           end
           filename = File.join(filename, "#{run_uuid}_resilience.json")
+          # Save the REopt resilience results to a file
           @@logger.info("REopt results saved to #{filename}")
         end
 
-        # Submit Job
-        @@logger.info("Submitting Resilience Statistics job for #{run_uuid}")
+        # Add info message to logger
+        @@logger.info("Submitting Resilience Statistics job for #{run_uuid}")  
+        
+        # Format HTTP request
         header = { 'Content-Type' => 'application/json' }
         http = Net::HTTP.new(@uri_submit_outagesimjob.host, @uri_submit_outagesimjob.port)
         if !@use_localhost
           http.use_ssl = true
         end
+        
+        # POST to erp endpoint
         post_request = Net::HTTP::Post.new(@uri_submit_outagesimjob, header)
-        post_request.body = ::JSON.generate({ 'run_uuid' => run_uuid, 'bau' => false }, allow_nan: true)
+        post = erp_assumptions_file
+        post["reopt_run_uuid"] = run_uuid
+        
+        post_request.body = ::JSON.generate(post, allow_nan: true)
+
+        # Send the request
         submit_response = make_request(http, post_request)
+        if !submit_response.is_a?(Net::HTTPSuccess)
+          @@logger.error('make_request Failed')
+          raise 'REopt connection Failed'
+        end
         @@logger.debug(submit_response.body)
 
-        # Fetch Results
-        uri = uri_resilience(run_uuid)
+        # Get <erp_run_uuid>
+        erp_run_uuid = JSON.parse(submit_response.body, allow_nan: true)['run_uuid']
+        
+        #TODO UNCOMMENT
+        # if File.directory? filename
+        #   if erp_run_uuid.nil?
+        #     erp_run_uuid = 'error'
+        #   end
+        #   if erp_run_uuid.downcase.include? 'error'
+        #     erp_run_uuid = "error#{SecureRandom.uuid}"
+        #   end
+        #   filename = File.join(filename, "#{description}_#{erp_run_uuid}.json")
+        #   @@logger.info("REopt ERP results saved to #{filename}")
+        # end
+
+        # text = JSON.parse(response.body, allow_nan: true)
+        # if response.code != '201'
+        #   File.open(filename, 'w+') do |f|
+        #     f.puts(JSON.pretty_generate(text))
+        #   end
+        #   raise "Error in REopt optimization post - see #{filename}"
+        # end
+        
+        if File.directory? filename
+          if erp_run_uuid.nil?
+            erp_run_uuid = 'error'
+          end
+          if erp_run_uuid.downcase.include? 'error'
+            erp_run_uuid = "error#{SecureRandom.uuid}"
+          end
+          filename = File.join(filename, "#{description}_#{erp_run_uuid}.json")
+          @@logger.info("REopt ERP results saved to #{filename}")
+        end
+
+        text = JSON.parse(submit_response.body, allow_nan: true)
+        if submit_response.code != '201'
+          File.open(filename, 'w+') do |f|
+            f.puts(JSON.pretty_generate(text))
+          end
+          raise "Error in REopt optimization post - see #{filename}"
+        end
+
+        # Fetch Results, pass on <erp_run_uuid>
+        uri = uri_resilience(erp_run_uuid)
         http = Net::HTTP.new(uri.host, uri.port)
         if !@use_localhost
           http.use_ssl = true
@@ -305,7 +367,7 @@ module URBANopt # :nodoc:
           response = make_request(http, get_request)
 
           data = JSON.parse(response.body, allow_nan: true)
-
+          
           if !data['outputs']['PV']
             pv_sizes = 0
             sizes = 0
@@ -379,6 +441,9 @@ module URBANopt # :nodoc:
         @@logger.info('REopt optimization complete and processed')
 
         data = JSON.parse(response.body, allow_nan: true)
+        File.open("reopt_output_data_raw.json", 'w+') do |file|
+          file.puts JSON.pretty_generate(data)
+        end
         text = JSON.pretty_generate(data)
         begin
           File.open(filename, 'w+') do |f|
@@ -389,7 +454,10 @@ module URBANopt # :nodoc:
         end
 
         if status == 'optimal'
-          return data
+          return {
+            'data' => data,
+            'run_uuid' => run_uuid
+          }
         end
 
         error_message = data['messages']['error']

@@ -24,7 +24,7 @@ module URBANopt # :nodoc:
       # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt API running on localhost. Default is false, such that the production version of \REopt is accessed.
       # * +nrel_developer_key+ - _String_ - API used to access the \REopt APi. Required only if +localhost+ is false. Obtain from https://developer.nrel.gov/signup/
       ##
-      def initialize(scenario_report, scenario_reopt_assumptions_file = nil, reopt_feature_assumptions = [], nrel_developer_key = nil, localhost = false)
+      def initialize(scenario_report, scenario_reopt_assumptions_file = nil, reopt_feature_assumptions = [], nrel_developer_key = nil, localhost = false, erp_assumptions_file = nil)
         # initialize @@logger
         @@logger ||= URBANopt::REopt.reopt_logger
 
@@ -75,9 +75,17 @@ module URBANopt # :nodoc:
             @feature_reports_reopt_default_assumption_hashes << JSON.parse(File.open(file, 'r').read, symbolize_names: true)
           end
         end
+
+        if !erp_assumptions_file.nil?
+          @erp_assumptions_file = erp_assumptions_file
+          File.open(erp_assumptions_file, 'r') do |file|
+            @scenario_erp_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
+          end
+        end
+
       end
 
-      attr_accessor :scenario_reopt_default_assumptions_hash, :scenario_reopt_default_output_file, :scenario_timeseries_default_output_file, :feature_reports_reopt_default_assumption_hashes, :feature_reports_reopt_default_output_files, :feature_reports_timeseries_default_output_files
+      attr_accessor :scenario_reopt_default_assumptions_hash, :scenario_reopt_default_output_file, :scenario_timeseries_default_output_file, :feature_reports_reopt_default_assumption_hashes, :feature_reports_reopt_default_output_files, :feature_reports_timeseries_default_output_files, :erp_assumptions_file
 
       ##
       # Updates a FeatureReport based on an optional set of \REopt optimization assumptions.
@@ -103,6 +111,7 @@ module URBANopt # :nodoc:
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
         @@logger.debug("REOpt output file: #{reopt_output_file}")
         if run_resilience
+          # get run UUID from the reopt output
           run_uuid = reopt_output['outputs']['run_uuid']
           if File.directory? reopt_output_file
             resilience_stats = api.resilience_request(run_uuid, reopt_output_file)
@@ -132,7 +141,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _String_ - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
-      def run_scenario_report(scenario_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: false, community_photovoltaic: nil)
+      def run_scenario_report(scenario_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: false, community_photovoltaic: nil, erp_assumptions_file: nil)
         @save_assumptions_filepath = false
         if !reopt_assumptions_hash.nil?
           @scenario_reopt_default_assumptions_hash = reopt_assumptions_hash
@@ -145,26 +154,47 @@ module URBANopt # :nodoc:
         if !timeseries_csv_path.nil?
           @scenario_timeseries_default_output_file = timeseries_csv_path
         end
-
+        if !erp_assumptions_file.nil?
+          @erp_assumptions_file = erp_assumptions_file
+          File.open(erp_assumptions_file, 'r') do |file|
+            @scenario_erp_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
+          end
+        end
         api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
         adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
+        # save output TC Temporary debug code to see the reopt input assumptions
+        File.write("scenario_reopt_default_assumptions_hash.json", JSON.pretty_generate( @scenario_reopt_default_assumptions_hash, allow_nan: true)) 
         reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash, community_photovoltaic)
-        reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)
+        
+        # TC Temporary debug code to see the reopt input
+        File.write("reopt_input.json", JSON.pretty_generate(reopt_input, allow_nan: true))
+        
+        reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)['data']
+        
+        # save output TC Temporary debug code to see the reopt output
+        File.write("reopt_output.json", JSON.pretty_generate(reopt_output, allow_nan: true))
 
+        run_uuid = reopt_output['run_uuid']
+        # if run resilience is set to true by user, then we will run the resilience request
         if run_resilience
-          run_uuid = reopt_output['outputs']['run_uuid']
+          # get run UUID from the reopt output
+          puts "this is run id #{run_uuid}"
+
+          # # temporary pass in new file for now
+
           if File.directory? @scenario_reopt_default_output_file
-            resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file)
+            resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file, reopt_input, @scenario_erp_default_assumptions_hash)
           else
-            resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file.sub('.json', '_resilience.json'))
+            resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file.sub('.json', '_resilience.json'), reopt_input, @scenario_erp_default_assumptions_hash)
           end
         else
           resilience_stats = nil
         end
+        # save output TC Temporary debug code to see the reopt output
+        File.write("reopt_output_resilience.json", JSON.pretty_generate(resilience_stats, allow_nan: true))
 
         result = adapter.update_scenario_report(scenario_report, reopt_output, @scenario_timeseries_default_output_file, resilience_stats)
-        # can you save the assumptions file path that was used?
         if @save_assumptions_filepath && @scenario_reopt_assumptions_file
           result.distributed_generation.reopt_assumptions_file_path = @scenario_reopt_assumptions_file
         end
@@ -187,7 +217,7 @@ module URBANopt # :nodoc:
       # * +timeseries_csv_path+ - _Array_ - Optional. A array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the feature_reports array.
       #
       # [*return:*] _Array_ Returns an array of updated _URBANopt::Scenario::DefaultReports::FeatureReport_ objects
-      def run_feature_reports(feature_reports:, reopt_assumptions_hashes: [], reopt_output_files: [], timeseries_csv_paths: [], save_names: nil, run_resilience: false, keep_existing_output: false, groundmount_photovoltaic: nil)
+      def run_feature_reports(feature_reports:, reopt_assumptions_hashes: [], reopt_output_files: [], timeseries_csv_paths: [], save_names: nil, run_resilience: false, keep_existing_output: false, groundmount_photovoltaic: nil, erp_assumptions_file: nil)
         if !reopt_assumptions_hashes.empty?
           @feature_reports_reopt_default_assumption_hashes = reopt_assumptions_hashes
         end
@@ -211,6 +241,13 @@ module URBANopt # :nodoc:
             @feature_reports_timeseries_default_output_files << File.join(fr.directory_name, "feature_report_#{fr.id}_timeseries.csv")
           end
         end
+        # TC Temporary debug code to see the reopt input
+        if !erp_assumptions_file.empty?
+          @erp_assumptions_file = erp_assumptions_file
+          File.open(erp_assumptions_file, 'r') do |file|
+            @feature_erp_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
+          end
+        end
 
         api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
         feature_adapter = URBANopt::REopt::FeatureReportAdapter.new
@@ -220,13 +257,19 @@ module URBANopt # :nodoc:
           if !(keep_existing_output && output_exists(@feature_reports_reopt_default_output_files[idx]))
             begin
               reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx], groundmount_photovoltaic)
-              reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])
+                            
+              # TC Temporary debug code to see the reopt input
+              File.write("reopt_input_#{idx}.json", JSON.pretty_generate(reopt_input, allow_nan: true))
+              reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])['data']
+              # TC Temporary debug code to see the reopt input
+              File.write("reopt_output_#{idx}.json", JSON.pretty_generate(reopt_output, allow_nan: true))
+
               if run_resilience
-                run_uuid = reopt_output['outputs']['run_uuid']
+                run_uuid = reopt_output['run_uuid']
                 if File.directory? @feature_reports_reopt_default_output_files[idx]
-                  resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx])
+                  resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx], reopt_input, @feature_erp_default_assumptions_hash)
                 else
-                  resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx].sub('.json', '_resilience.json'))
+                  resilience_stats = api.resilience_request(run_uuid, @feature_reports_reopt_default_output_files[idx].sub('.json', '_resilience.json'), reopt_input, @feature_erp_default_assumptions_hash)
                 end
               else
                 resilience_stats = nil
@@ -281,8 +324,8 @@ module URBANopt # :nodoc:
       # * +feature_report_timeseries_csv_paths+ - _Array_ - Optional. An array of paths to files at which the new timeseries CSV for the FeatureReports will be saved. The number and order of the paths should match the array in ScenarioReport.feature_reports.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ - Returns an updated ScenarioReport
-      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes: [], reopt_output_files: [], feature_report_timeseries_csv_paths: [], save_names_feature_reports: nil, save_name_scenario_report: nil, run_resilience: false, keep_existing_output: false, groundmount_photovoltaic: nil)
-        new_feature_reports = run_feature_reports(feature_reports: scenario_report.feature_reports, reopt_assumptions_hashes: reopt_assumptions_hashes, reopt_output_files: reopt_output_files, timeseries_csv_paths: feature_report_timeseries_csv_paths, save_names: save_names_feature_reports, run_resilience: run_resilience, keep_existing_output: keep_existing_output, groundmount_photovoltaic: groundmount_photovoltaic)
+      def run_scenario_report_features(scenario_report:, reopt_assumptions_hashes: [], reopt_output_files: [], feature_report_timeseries_csv_paths: [], save_names_feature_reports: nil, save_name_scenario_report: nil, run_resilience: false, keep_existing_output: false, groundmount_photovoltaic: nil, erp_assumptions_file: nil)
+        new_feature_reports = run_feature_reports(feature_reports: scenario_report.feature_reports, reopt_assumptions_hashes: reopt_assumptions_hashes, reopt_output_files: reopt_output_files, timeseries_csv_paths: feature_report_timeseries_csv_paths, save_names: save_names_feature_reports, run_resilience: run_resilience, keep_existing_output: keep_existing_output, groundmount_photovoltaic: groundmount_photovoltaic, erp_assumptions_file: erp_assumptions_file)
 
         # only do this if you have run feature reports
         new_scenario_report = URBANopt::Reporting::DefaultReports::ScenarioReport.new
