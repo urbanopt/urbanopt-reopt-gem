@@ -28,10 +28,7 @@ module URBANopt # :nodoc:
       def initialize(nrel_developer_key = nil, use_localhost = false)
         @use_localhost = use_localhost
         if @use_localhost
-          #TODO: shouldnt this be http://127.0.0.1:8000/v3/job/'
           @uri_submit = URI.parse('http//:127.0.0.1:8000/v3/job/')
-          # TO DO: This needs to be updated
-          #@uri_submit_outagesimjob = URI.parse('http//:127.0.0.1:8000/v3/outagesimjob/')
           @uri_submit_outagesimjob = URI.parse('http://127.0.0.1:8000/v3/erp/')
 
         else
@@ -44,8 +41,6 @@ module URBANopt # :nodoc:
           end
           @nrel_developer_key = nrel_developer_key
           @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v3/job?api_key=#{@nrel_developer_key}")
-          ## TO DO : this needs to be updated
-          #@uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v3/outagesimjob?api_key=#{@nrel_developer_key}")
           @uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v3/erp?api_key=#{@nrel_developer_key}")
           # initialize @@logger
           @@logger ||= URBANopt::REopt.reopt_logger
@@ -214,25 +209,6 @@ module URBANopt # :nodoc:
         # Get <erp_run_uuid>
         erp_run_uuid = JSON.parse(submit_response.body, allow_nan: true)['run_uuid']
         
-        #TODO UNCOMMENT
-        # if File.directory? filename
-        #   if erp_run_uuid.nil?
-        #     erp_run_uuid = 'error'
-        #   end
-        #   if erp_run_uuid.downcase.include? 'error'
-        #     erp_run_uuid = "error#{SecureRandom.uuid}"
-        #   end
-        #   filename = File.join(filename, "#{description}_#{erp_run_uuid}.json")
-        #   @@logger.info("REopt ERP results saved to #{filename}")
-        # end
-
-        # text = JSON.parse(response.body, allow_nan: true)
-        # if response.code != '201'
-        #   File.open(filename, 'w+') do |f|
-        #     f.puts(JSON.pretty_generate(text))
-        #   end
-        #   raise "Error in REopt optimization post - see #{filename}"
-        # end
         
         if File.directory? filename
           if erp_run_uuid.nil?
@@ -441,9 +417,6 @@ module URBANopt # :nodoc:
         @@logger.info('REopt optimization complete and processed')
 
         data = JSON.parse(response.body, allow_nan: true)
-        File.open("reopt_output_data_raw.json", 'w+') do |file|
-          file.puts JSON.pretty_generate(data)
-        end
         text = JSON.pretty_generate(data)
         begin
           File.open(filename, 'w+') do |f|

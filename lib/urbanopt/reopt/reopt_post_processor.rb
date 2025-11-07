@@ -163,25 +163,13 @@ module URBANopt # :nodoc:
         api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
         adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
-        # save output TC Temporary debug code to see the reopt input assumptions
-        File.write("scenario_reopt_default_assumptions_hash.json", JSON.pretty_generate( @scenario_reopt_default_assumptions_hash, allow_nan: true)) 
         reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash, community_photovoltaic)
-        
-        # TC Temporary debug code to see the reopt input
-        File.write("reopt_input.json", JSON.pretty_generate(reopt_input, allow_nan: true))
         
         reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)['data']
         
-        # save output TC Temporary debug code to see the reopt output
-        File.write("reopt_output.json", JSON.pretty_generate(reopt_output, allow_nan: true))
-
         run_uuid = reopt_output['run_uuid']
         # if run resilience is set to true by user, then we will run the resilience request
         if run_resilience
-          # get run UUID from the reopt output
-          puts "this is run id #{run_uuid}"
-
-          # # temporary pass in new file for now
 
           if File.directory? @scenario_reopt_default_output_file
             resilience_stats = api.resilience_request(run_uuid, @scenario_reopt_default_output_file, reopt_input, @scenario_erp_default_assumptions_hash)
@@ -191,9 +179,7 @@ module URBANopt # :nodoc:
         else
           resilience_stats = nil
         end
-        # save output TC Temporary debug code to see the reopt output
-        File.write("reopt_output_resilience.json", JSON.pretty_generate(resilience_stats, allow_nan: true))
-
+        
         result = adapter.update_scenario_report(scenario_report, reopt_output, @scenario_timeseries_default_output_file, resilience_stats)
         if @save_assumptions_filepath && @scenario_reopt_assumptions_file
           result.distributed_generation.reopt_assumptions_file_path = @scenario_reopt_assumptions_file
@@ -241,7 +227,6 @@ module URBANopt # :nodoc:
             @feature_reports_timeseries_default_output_files << File.join(fr.directory_name, "feature_report_#{fr.id}_timeseries.csv")
           end
         end
-        # TC Temporary debug code to see the reopt input
         if !erp_assumptions_file.empty?
           @erp_assumptions_file = erp_assumptions_file
           File.open(erp_assumptions_file, 'r') do |file|
@@ -258,11 +243,7 @@ module URBANopt # :nodoc:
             begin
               reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx], groundmount_photovoltaic)
                             
-              # TC Temporary debug code to see the reopt input
-              File.write("reopt_input_#{idx}.json", JSON.pretty_generate(reopt_input, allow_nan: true))
               reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])['data']
-              # TC Temporary debug code to see the reopt input
-              File.write("reopt_output_#{idx}.json", JSON.pretty_generate(reopt_output, allow_nan: true))
 
               if run_resilience
                 run_uuid = reopt_output['run_uuid']
