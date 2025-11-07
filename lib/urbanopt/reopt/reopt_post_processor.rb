@@ -109,6 +109,7 @@ module URBANopt # :nodoc:
           reopt_output_file = File.join(feature_report.directory_name, 'reopt')
         end
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
+        reopt_output = reopt_output['data'] || reopt_output
         @@logger.debug("REOpt output file: #{reopt_output_file}")
         if run_resilience
           # get run UUID from the reopt output
@@ -166,7 +167,8 @@ module URBANopt # :nodoc:
         reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash, community_photovoltaic)
         
         reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)['data']
-        
+        reopt_output = reopt_output['data'] || reopt_output
+    
         run_uuid = reopt_output['run_uuid']
         # if run resilience is set to true by user, then we will run the resilience request
         if run_resilience
@@ -227,7 +229,7 @@ module URBANopt # :nodoc:
             @feature_reports_timeseries_default_output_files << File.join(fr.directory_name, "feature_report_#{fr.id}_timeseries.csv")
           end
         end
-        if !erp_assumptions_file.empty?
+        if erp_assumptions_file && !erp_assumptions_file.empty?
           @erp_assumptions_file = erp_assumptions_file
           File.open(erp_assumptions_file, 'r') do |file|
             @feature_erp_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
@@ -243,8 +245,9 @@ module URBANopt # :nodoc:
             begin
               reopt_input = feature_adapter.reopt_json_from_feature_report(feature_report, @feature_reports_reopt_default_assumption_hashes[idx], groundmount_photovoltaic)
                             
-              reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])['data']
-
+              reopt_output = api.reopt_request(reopt_input, @feature_reports_reopt_default_output_files[idx])
+              reopt_output = reopt_output['data'] || reopt_output
+              
               if run_resilience
                 run_uuid = reopt_output['run_uuid']
                 if File.directory? @feature_reports_reopt_default_output_files[idx]
