@@ -30,14 +30,3 @@ developer_nrel_key.rb
 lib/measures/.rubocop.yml
 lib/measures/test_results/*
 lib/measures/*/tests/output/*
-
-# TEMPORARY
-balanced_scenario_5_3
-unbalanced_scenario_5_3
-test_reopt_1.rb
-test_reopt_balanced_load_ny_basecomparison.rb
-test_reopt_balanced_load_ny.rb
-test_reopt_balanced_load.rb
-test_reopt_demo.rb
-test_reopt_unbalanced_load_ny.rb
-reopt_ghp_result_summary.json

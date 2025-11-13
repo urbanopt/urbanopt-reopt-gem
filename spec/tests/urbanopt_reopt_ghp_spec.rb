@@ -16,6 +16,7 @@ RSpec.describe URBANopt::REopt do
     source_lib = Pathname(__FILE__).dirname.parent.parent / 'lib'
     reopt_ghp_assumption = source_lib / 'urbanopt' / 'reopt' / 'reopt_ghp_files' / 'reopt_ghp_assumption.json'
 
+    reopt_ghp = run_dir / 'reopt_ghp'
     reopt_input_dir = run_dir / 'reopt_ghp' / 'reopt_ghp_inputs'
     reopt_ghp_output = run_dir / 'reopt_ghp' / 'reopt_ghp_outputs'
 
@@ -121,7 +122,6 @@ RSpec.describe URBANopt::REopt do
             http.request(request)
         end
 
-
         expect(response).to be_a(Net::HTTPSuccess)
         run_id_dict = JSON.parse(response.body)
         @run_id = run_id_dict['run_uuid']
@@ -132,18 +132,31 @@ RSpec.describe URBANopt::REopt do
     it 'generates outputs as expected' do
 
         Dir.foreach(reopt_ghp_output) do |file|
-            next if file == '.' || file == '..' # Skip current and parent directory references
+            next if file == '.' || file == '..'
             file_path = reopt_ghp_output / file
+            next unless File.file?(file_path)
 
-            if File.file?(file_path)
-                File.open(file_path, 'r') do |f|
-                    file_data = JSON.parse(f.read, symbolize_names: true)
-                    expect(file_data[:outputs][:Financial][:npv]).to_not be_nil
-                    expect(file_data[:outputs][:Financial][:lcc]).to_not be_nil
-                    expect(file_data[:messages][:errors]).to be_nil.or be_empty
-                end
+            File.open(file_path, 'r') do |f|
+                file_data = JSON.parse(f.read, symbolize_names: true)
+                expect(file_data[:outputs][:Financial][:npv]).to_not be_nil
+                expect(file_data[:outputs][:Financial][:lcc]).to_not be_nil
+                expect(file_data[:messages][:errors]).to be_nil.or be_empty
             end
         end
     end
+
+    it 'generates a non-empty LCCA summary for BAU and GHP' do
+        summary_path = reopt_ghp / 'reopt_ghp_result_summary.json'
+        expect(summary_path.file?).to be true
+
+        summary = JSON.parse(File.read(summary_path), symbolize_names: true)
+        expect(summary).to_not be_empty
+
+        expect(summary[:lcc][:lcc_net]).to_not be_nil
+        expect(summary[:lifecycle_capital_cost][:ghp_total]).to_not be_nil
+        expect(summary[:npv][:net]).to_not be_nil
+        expect(summary[:lifecycle_elecbill_after_tax].keys).to include(:bau_total, :ghp_total)
+    end
+
 
 end
