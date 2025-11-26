@@ -163,6 +163,41 @@ module URBANopt # :nodoc:
           # This is not used in REopt calculation but required for formatting.
           reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = domestic_hot_water
 
+          # Add GHP Fields
+          reopt_inputs_building[:GHP] = {}
+
+          # Add avoided capital cost of all buildings
+          if reopt_inputs_building[:features] && !reopt_inputs_building[:features].empty?
+            # Find the feature matching this building_id
+            matching_feature = reopt_inputs_building[:features].find { |feature| feature[:feature_id] == building_id.to_i}
+
+            if matching_feature
+              # Set avoided capex value into GHP block
+              reopt_inputs_building[:GHP][:avoided_capex_by_ghp_present_value] = matching_feature[:avoided_capex_by_ghp_present_value]
+            end
+          end
+          # REopt default
+          reopt_inputs_building[:GHP][:require_ghp_purchase] = 1
+          reopt_inputs_building[:GHP][:om_cost_per_sqft_year] = 0
+          reopt_inputs_building[:GHP][:heatpump_capacity_sizing_factor_on_peak_load] = 1.0
+          # Add the floor area
+          building_json_path = File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.json")
+
+          if File.exist?(building_json_path)
+            puts building_json_path
+            File.open(building_json_path, 'r') do |file|
+              building_json_data = JSON.parse(file.read, symbolize_names: true)
+              reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:footprint_area_sqft].to_f
+            end
+          else
+            puts "File not found: #{building_json_path}"
+          end
+
+          # Add existing boiler fuel cost
+          # TODO : Add this as optional user input
+          # Cost of Natural Gas in $/mmbtu as per REopt Defaults
+          reopt_inputs_building[:ExistingBoiler][:fuel_cost_per_mmbtu] = @@nat_gas_dollars_per_mmbtu
+
           # Add ghpghx_responses
           ghpghx_output = {}
           ghpghx_output[:outputs] = {}
@@ -189,41 +224,6 @@ module URBANopt # :nodoc:
           reopt_inputs_building[:GHP][:ghpghx_responses] = ghpghx_output_all
 
         end
-
-        # Add GHP Fields
-        reopt_inputs_building[:GHP] = {}
-
-        # Add avoided capital cost of all buildings
-        if reopt_inputs_building[:features] && !reopt_inputs_building[:features].empty?
-          # Find the feature matching this building_id
-          matching_feature = reopt_inputs_building[:features].find { |feature| feature[:feature_id] == building_id.to_i}
-
-          if matching_feature
-            # Set avoided capex value into GHP block
-            reopt_inputs_building[:GHP][:avoided_capex_by_ghp_present_value] = matching_feature[:avoided_capex_by_ghp_present_value]
-          end
-        end
-        # REopt default
-        reopt_inputs_building[:GHP][:require_ghp_purchase] = 1
-        reopt_inputs_building[:GHP][:om_cost_per_sqft_year] = 0
-        reopt_inputs_building[:GHP][:heatpump_capacity_sizing_factor_on_peak_load] = 1.0
-        # Add the floor area
-        building_json_path = File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.json")
-
-        if File.exist?(building_json_path)
-          puts building_json_path
-          File.open(building_json_path, 'r') do |file|
-            building_json_data = JSON.parse(file.read, symbolize_names: true)
-            reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:footprint_area_sqft].to_f
-          end
-        else
-          puts "File not found: #{building_json_path}"
-        end
-
-        # Add existing boiler fuel cost
-        # TODO : Add this as optional user input
-        # Cost of Natural Gas in $/mmbtu as per REopt Defaults
-        reopt_inputs_building[:ExistingBoiler][:fuel_cost_per_mmbtu] = @@nat_gas_dollars_per_mmbtu
 
         #save output report in reopt_ghp directory
         reopt_ghp_dir = File.join(run_dir, "reopt_ghp", "reopt_ghp_inputs")
