@@ -209,15 +209,11 @@ module URBANopt # :nodoc:
         reopt_inputs_building[:GHP][:heatpump_capacity_sizing_factor_on_peak_load] = 1.0
         # Add the floor area
         building_json_path = File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.json")
-        puts "6hello"
-        puts building_json_path
 
         if File.exist?(building_json_path)
           puts building_json_path
           File.open(building_json_path, 'r') do |file|
             building_json_data = JSON.parse(file.read, symbolize_names: true)
-            puts "5hello"
-            puts building_json_data[:program][:footprint_area_sqft].to_f
             reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:footprint_area_sqft].to_f
           end
         else
@@ -301,7 +297,6 @@ module URBANopt # :nodoc:
 
 
         # Read GHX sizes from system parameter hash
-        #ghe_specific_params = system_parameter_hash[:district_system][:fifth_generation][:ghe_parameters][:borefields]
         ghe_specific_params = system_parameter_hash[:district_system][:fifth_generation][:ghe_parameters][:borefields]
         
         ghe_specific_params.each do |ghe|
