@@ -163,39 +163,6 @@ module URBANopt # :nodoc:
           # This is not used in REopt calculation but required for formatting.
           reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = domestic_hot_water
 
-          # Add GHP Fields
-          reopt_inputs_building[:GHP] = {}
-
-          # Add avoided capital cost of all buildings
-          if reopt_inputs_building[:features] && !reopt_inputs_building[:features].empty?
-            # Find the feature matching this building_id
-            matching_feature = reopt_inputs_building[:features].find { |feature| feature[:feature_id] == building_id.to_i}
-
-            if matching_feature
-              # Set avoided capex value into GHP block
-              reopt_inputs_building[:GHP][:avoided_capex_by_ghp_present_value] = matching_feature[:avoided_capex_by_ghp_present_value]
-            end
-          end
-          # REopt default
-          reopt_inputs_building[:GHP][:require_ghp_purchase] = 1
-          reopt_inputs_building[:GHP][:om_cost_per_sqft_year] = 0
-          reopt_inputs_building[:GHP][:heatpump_capacity_sizing_factor_on_peak_load] = 1.0
-          # Add the floor area
-          building_json_path = File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.json")
-          if File.exist?(building_json_path)
-            File.open(building_json_path, 'r') do |file|
-              building_json_data = JSON.parse(file.read, symbolize_names: true)
-              reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:floor_area_sqft].to_f
-            end
-          else
-            puts "File not found: #{building_json_path}"
-          end
-
-          # Add existing boiler fuel cost
-          # TODO : Add this as optional user input
-          # Cost of Natural Gas in $/mmbtu as per REopt Defaults
-          reopt_inputs_building[:ExistingBoiler][:fuel_cost_per_mmbtu] = @@nat_gas_dollars_per_mmbtu
-
           # Add ghpghx_responses
           ghpghx_output = {}
           ghpghx_output[:outputs] = {}
@@ -222,6 +189,45 @@ module URBANopt # :nodoc:
           reopt_inputs_building[:GHP][:ghpghx_responses] = ghpghx_output_all
 
         end
+
+        # Add GHP Fields
+        reopt_inputs_building[:GHP] = {}
+
+        # Add avoided capital cost of all buildings
+        if reopt_inputs_building[:features] && !reopt_inputs_building[:features].empty?
+          # Find the feature matching this building_id
+          matching_feature = reopt_inputs_building[:features].find { |feature| feature[:feature_id] == building_id.to_i}
+
+          if matching_feature
+            # Set avoided capex value into GHP block
+            reopt_inputs_building[:GHP][:avoided_capex_by_ghp_present_value] = matching_feature[:avoided_capex_by_ghp_present_value]
+          end
+        end
+        # REopt default
+        reopt_inputs_building[:GHP][:require_ghp_purchase] = 1
+        reopt_inputs_building[:GHP][:om_cost_per_sqft_year] = 0
+        reopt_inputs_building[:GHP][:heatpump_capacity_sizing_factor_on_peak_load] = 1.0
+        # Add the floor area
+        building_json_path = File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.json")
+        puts "6hello"
+        puts building_json_path
+
+        if File.exist?(building_json_path)
+          puts building_json_path
+          File.open(building_json_path, 'r') do |file|
+            building_json_data = JSON.parse(file.read, symbolize_names: true)
+            puts "5hello"
+            puts building_json_data[:program][:footprint_area_sqft].to_f
+            reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:footprint_area_sqft].to_f
+          end
+        else
+          puts "File not found: #{building_json_path}"
+        end
+
+        # Add existing boiler fuel cost
+        # TODO : Add this as optional user input
+        # Cost of Natural Gas in $/mmbtu as per REopt Defaults
+        reopt_inputs_building[:ExistingBoiler][:fuel_cost_per_mmbtu] = @@nat_gas_dollars_per_mmbtu
 
         #save output report in reopt_ghp directory
         reopt_ghp_dir = File.join(run_dir, "reopt_ghp", "reopt_ghp_inputs")
@@ -295,15 +301,40 @@ module URBANopt # :nodoc:
 
 
         # Read GHX sizes from system parameter hash
-        ghe_specific_params = system_parameter_hash[:district_system][:fifth_generation][:ghe_parameters][:ghe_specific_params]
-        ghe_specific_params.each do |ghe_specific_param|
-          if ghe_specific_param[:ghe_id] = ghp_id
-            number_of_boreholes = ghe_specific_param[:borehole][:number_of_boreholes]
-            length_of_boreholes = ghe_specific_param[:borehole][:length_of_boreholes]
-            ghpghx_output[:outputs][:number_of_boreholes] = number_of_boreholes
+        #ghe_specific_params = system_parameter_hash[:district_system][:fifth_generation][:ghe_parameters][:borefields]
+        ghe_specific_params = system_parameter_hash[:district_system][:fifth_generation][:ghe_parameters][:borefields]
+        
+        ghe_specific_params.each do |ghe|
+          if ghe[:ghe_id] == ghp_id
+            unless ghe[:pre_designed_borefield]
+              if ghe[:autosized_rectangle_borefield]
+                borefield = ghe[:autosized_rectangle_borefield]
+
+              elsif ghe[:autosized_rectangle_constrained_borefield]
+                borefield = ghe[:autosized_rectangle_constrained_borefield]
+
+              elsif ghe[:autosized_birectangle_borefield]
+                borefield = ghe[:autosized_birectangle_borefield]
+
+              elsif ghe[:autosized_birectangle_constrained_borefield]
+                borefield = ghe[:autosized_birectangle_constrained_borefield]
+
+              elsif ghe[:autosized_bizoned_rectangle_borefield]
+                borefield = ghe[:autosized_bizoned_rectangle_borefield]
+
+              elsif ghe[:autosized_near_square_borefield]
+                borefield = ghe[:autosized_near_square_borefield]
+
+              elsif ghe[:autosized_rowwise_borefield]
+                borefield = ghe[:autosized_rowwise_borefield]
+              end
+            end
+
+            ghpghx_output[:outputs][:number_of_boreholes] = borefield[:number_of_boreholes]
             # convert meters to feet by multiplying with 3.28084
-            ghpghx_output[:outputs][:length_boreholes_ft] = (length_of_boreholes)*3.28084
-          end
+            ghpghx_output[:outputs][:length_boreholes_ft] = (borefield[:borehole_length])*3.28084
+
+          end    
         end
 
         if File.exist?(@modelica_csv)
