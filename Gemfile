@@ -56,4 +56,4 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 #   gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'faraday'
 # end
 
-gem 'urbanopt-reporting', path: '../urbanopt-reporting-gem'
+gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'reopt-cost-analysis'
