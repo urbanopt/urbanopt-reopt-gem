@@ -6,6 +6,7 @@
 require 'bundler/setup'
 require 'urbanopt/reopt/reopt_logger'
 require 'urbanopt/reopt/reopt_ghp_api'
+require 'urbanopt/reopt/reopt_ghp_result'
 require 'csv'
 require 'json'
 require 'fileutils'
@@ -115,12 +116,14 @@ module URBANopt # :nodoc:
         end
 
         building_ids.each do |building_id|
-          # create REopt building input file for all buildings in loop order list
-          reopt_input_building = adapter.create_reopt_input_building(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, building_id, @modelica_result_input)
+          # create REopt building input file for all buildings in loop order list in GHP scenario
+          reopt_input_building = adapter.create_reopt_input_building_ghp(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, building_id, @modelica_result_input)
+          #create REopt building input file for all buildings in loop order list in BAU scenario
+          reopt_input_building_bau = adapter.create_reopt_input_building_bau(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, building_id, @modelica_result_input)
         end
         ghp_ids.each do |ghp_id|
           # create REopt district input file
-          reopt_input_district = adapter.create_reopt_input_district(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, ghp_id, @modelica_result_input)
+          reopt_input_district = adapter.create_reopt_input_district_ghp(@run_dir, @system_parameter_input_hash, @reopt_ghp_assumptions_input_hash, ghp_id, @modelica_result_input)
         end
 
         Dir.foreach(reopt_ghp_input) do |input_file|
@@ -142,8 +145,14 @@ module URBANopt # :nodoc:
           # call the REopt API
           api = URBANopt::REopt::REoptLiteGHPAPI.new(reopt_input_data, DEVELOPER_NREL_KEY, reopt_output_file, @localhost)
           api.get_api_results
+
         end
+
+        ## POST PROCESS RESULTS
+        ghp_results = URBANopt::REopt::REoptGHPResult.new
+        results = ghp_results.result_calculate(reopt_ghp_dir)
       end
+
     end # REoptGHPPostProcessor
   end # REopt
 end # URBANopt
