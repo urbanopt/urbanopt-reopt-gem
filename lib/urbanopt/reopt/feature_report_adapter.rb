@@ -1,5 +1,5 @@
 # *********************************************************************************
-# URBANopt (tm), Copyright (c) Alliance for Sustainable Energy, LLC.
+# URBANopt (tm), Copyright (c) Alliance for Energy Innovation, LLC.
 # See also https://github.com/urbanopt/urbanopt-reopt-gem/blob/develop/LICENSE.md
 # *********************************************************************************
 
@@ -182,15 +182,13 @@ module URBANopt # :nodoc:
         feature_report.distributed_generation.year_one_bill_before_tax_bau = reopt_output['outputs']['ElectricTariff']['year_one_bill_before_tax_bau'] || 0
         feature_report.distributed_generation.lifecycle_demand_cost_after_tax_bau = reopt_output['outputs']['ElectricTariff']['lifecycle_demand_cost_after_tax_bau'] || 0
         feature_report.distributed_generation.lifecycle_energy_cost_after_tax_bau = reopt_output['outputs']['ElectricTariff']['lifecycle_energy_cost_after_tax_bau'] || 0
-        # These are commented out since these fields do not exist in the new ERP capability. And we are reporting ERP outputs in the resilience report.
-        # if !resilience_stats.nil?
-        #   feature_report.distributed_generation.resilience_hours_min = resilience_stats['resilience_hours_min']
-        #   feature_report.distributed_generation.resilience_hours_max = resilience_stats['resilience_hours_max']
-        #   feature_report.distributed_generation.resilience_hours_avg = resilience_stats['resilience_hours_avg']
-        #   feature_report.distributed_generation.probs_of_surviving = resilience_stats['probs_of_surviving']
-        #   feature_report.distributed_generation.probs_of_surviving_by_month = resilience_stats['probs_of_surviving_by_month']
-        #   feature_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']
-        # end
+
+        # Additional Cost Analysis Fields (includes NPV already added above)
+        feature_report.distributed_generation.initial_capital_costs = reopt_output['outputs']['Financial']['initial_capital_costs']
+        feature_report.distributed_generation.initial_capital_costs_after_incentives = reopt_output['outputs']['Financial']['initial_capital_costs_after_incentives']
+        feature_report.distributed_generation.lifecycle_capital_costs = reopt_output['outputs']['Financial']['lifecycle_capital_costs']
+        feature_report.distributed_generation.lifecycle_fuel_costs_after_tax = reopt_output['outputs']['Financial']['lifecycle_fuel_costs_after_tax']
+        feature_report.distributed_generation.lifecycle_elecbill_after_tax = reopt_output['outputs']['Financial']['lifecycle_elecbill_after_tax']
 
         if reopt_output['outputs']['PV'].is_a?(Hash)
           reopt_output['outputs']['PV'] = [reopt_output['outputs']['PV']]

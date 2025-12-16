@@ -124,17 +124,15 @@
           "max_eft": 35.0,
           "min_eft": 5.0
         },
-        "ghe_specific_params": [
+        "borefields": [
           {
             "ghe_id": "7932a208-dcb6-4d23-a46f-288896eaa1bc",
-            "ghe_geometric_params": {
+            "autosized_rectangle_borefield": {
               "length_of_ghe": 113.46543484483091,
-              "width_of_ghe": 99.03456515516909
-            },
-            "borehole": {
+              "width_of_ghe": 99.03456515516909,
               "buried_depth": 2.0,
               "diameter": 0.15,
-              "length_of_boreholes": 127.09096635889233,
+              "borehole_length": 127.09096635889233,
               "number_of_boreholes": 65
             }
           }

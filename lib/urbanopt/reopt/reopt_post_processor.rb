@@ -1,5 +1,5 @@
 # *********************************************************************************
-# URBANopt (tm), Copyright (c) Alliance for Sustainable Energy, LLC.
+# URBANopt (tm), Copyright (c) Alliance for Energy Innovation, LLC.
 # See also https://github.com/urbanopt/urbanopt-reopt-gem/blob/develop/LICENSE.md
 # *********************************************************************************
 
@@ -109,8 +109,7 @@ module URBANopt # :nodoc:
           reopt_output_file = File.join(feature_report.directory_name, 'reopt')
         end
         reopt_output = api.reopt_request(reopt_input, reopt_output_file)
-        reopt_output = reopt_output['data'] || reopt_output
-        @@logger.debug("REOpt output file: #{reopt_output_file}")
+
         if run_resilience
           # get run UUID from the reopt output
           run_uuid = reopt_output['outputs']['run_uuid']
@@ -138,7 +137,7 @@ module URBANopt # :nodoc:
       #
       # * +feature_report+ - _URBANopt::Reporting::DefaultReports::ScenarioReport_ -  ScenarioReport which will be used in creating and then updated by a \REopt opimization response.
       # * +reopt_assumptions_hash+ - _Hash_ - Optional. A \REopt formatted hash containing default parameters (i.e. utility rate, escalation rate) which will be updated by the ScenarioReport (i.e. location, roof availability)
-      # * +reopt_output_file+ - _String_ - Optional. Path to a file at which REpopt responses will be saved.
+      # * +reopt_output_file+ - _String_ - Optional. Path to a file at which REopt responses will be saved.
       # * +timeseries_csv_path+ - _String_ - Optional. Path to a file at which the new timeseries CSV for the ScenarioReport will be saved.
       #
       # [*return:*] _URBANopt::Scenario::DefaultReports::ScenarioReport_ Returns an updated ScenarioReport
@@ -165,12 +164,26 @@ module URBANopt # :nodoc:
         adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
         reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash, community_photovoltaic)
+<<<<<<< HEAD
         
         reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)['data']
         reopt_output = reopt_output['data'] || reopt_output
     
         run_uuid = reopt_output['run_uuid']
         # if run resilience is set to true by user, then we will run the resilience request
+=======
+        # Save inputs file (just in case)
+        # Get the directory of the output file
+        input_save_dir = File.dirname(@scenario_reopt_default_output_file)
+        input_save_path = File.join(input_save_dir, "reopt_input.json")
+        File.open(input_save_path, 'w') do |f|
+          f.write(JSON.pretty_generate(reopt_input))
+        end
+        @@logger.info("Saving REopt inputs to for inspection: #{input_save_path}.")
+
+        reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)
+
+>>>>>>> develop
         if run_resilience
 
           if File.directory? @scenario_reopt_default_output_file
