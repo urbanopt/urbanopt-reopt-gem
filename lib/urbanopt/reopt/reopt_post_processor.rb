@@ -164,14 +164,7 @@ module URBANopt # :nodoc:
         adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
         reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash, community_photovoltaic)
-<<<<<<< HEAD
         
-        reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)['data']
-        reopt_output = reopt_output['data'] || reopt_output
-    
-        run_uuid = reopt_output['run_uuid']
-        # if run resilience is set to true by user, then we will run the resilience request
-=======
         # Save inputs file (just in case)
         # Get the directory of the output file
         input_save_dir = File.dirname(@scenario_reopt_default_output_file)
@@ -182,8 +175,11 @@ module URBANopt # :nodoc:
         @@logger.info("Saving REopt inputs to for inspection: #{input_save_path}.")
 
         reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)
+        reopt_output = api.reopt_request(reopt_input, @scenario_reopt_default_output_file)['data']
+    
+        run_uuid = reopt_output['run_uuid']
+        # if run resilience is set to true by user, then we will run the resilience request
 
->>>>>>> develop
         if run_resilience
 
           if File.directory? @scenario_reopt_default_output_file
