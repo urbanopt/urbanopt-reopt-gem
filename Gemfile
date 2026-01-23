@@ -17,7 +17,7 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # if allow_local && File.exist?('../OpenStudio-extension-gem')
 #   gem 'openstudio-extension', path: '../OpenStudio-extension-gem'
 # elsif allow_local
-#   gem 'openstudio-extension', github: 'NREL/OpenStudio-extension-gem', branch: 'faraday'
+#   gem 'openstudio-extension', github: 'NatLabRockies/OpenStudio-extension-gem', branch: 'faraday'
 # else
 #   gem 'openstudio-extension', '~> 0.8.1'
 # end
@@ -25,7 +25,7 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # if allow_local && File.exist?('../openstudio-common-measures-gem')
 #   gem 'openstudio-common-measures', path: '../openstudio-common-measures-gem'
 # elsif allow_local
-#   gem 'openstudio-common-measures', github: 'NREL/openstudio-common-measures-gem', branch: 'faraday'
+#   gem 'openstudio-common-measures', github: 'NatLabRockies/openstudio-common-measures-gem', branch: 'faraday'
 # else
 #  gem 'openstudio-common-measures', '0.12.3'
 # end
@@ -39,7 +39,7 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 # if allow_local && File.exist?('../openstudio-model-articulation-gem')
 #   gem 'openstudio-model-articulation', path: '../openstudio-model-articulation-gem'
 # elsif allow_local
-#   gem 'openstudio-model-articulation', github: 'NREL/openstudio-model-articulation-gem', branch: 'faraday'
+#   gem 'openstudio-model-articulation', github: 'NatLabRockies/openstudio-model-articulation-gem', branch: 'faraday'
 # else
 #  gem 'openstudio-model-articulation', '0.12.2'
 # end
@@ -56,4 +56,5 @@ allow_local = ENV['FAVOR_LOCAL_GEMS']
 #   gem 'urbanopt-geojson', github: 'URBANopt/urbanopt-geojson-gem', branch: 'faraday'
 # end
 
-gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'develop'
+gem 'urbanopt-reporting', github: 'URBANopt/urbanopt-reporting-gem', branch: 'add-error-logging'
+# gem 'urbanopt-reporting', path: '../urbanopt-reporting-gem'

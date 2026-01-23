@@ -22,7 +22,7 @@ module URBANopt # :nodoc:
                 if [nil, '', '<insert your key here>'].include? DEVELOPER_NREL_KEY
                     raise 'A developer.nrel.gov API key is required. Please see https://developer.nrel.gov/signup/ then update the file urbanopt-reopt-gem/developer_nrel_key.rb'
                 else
-                    #Store the NREL developer key
+                    #Store the NLR developer key
                     nrel_developer_key = DEVELOPER_NREL_KEY
                 end
             end

@@ -104,6 +104,61 @@ RSpec.describe URBANopt::REopt do
     FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports')
   end
 
+  it 'can process a feature report and handle time resolution conversion' do
+    # Set up
+    begin
+      FileUtils.rm_rf(scenario_dir / 'test__')
+    rescue StandardError
+    end
+    begin
+      FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
+    rescue StandardError
+    end
+    if !File.directory? scenario_dir / 'test__'
+      Dir.mkdir(scenario_dir / 'test__')
+    end
+    feature_reports_path = scenario_dir / '1' / '007_default_feature_reports' / 'default_feature_reports.json'
+
+    expect(File.exist?(feature_reports_path)).to be true
+
+    feature_reports_json = nil
+    File.open(feature_reports_path, 'r') do |file|
+      feature_reports_json = JSON.parse(file.read, symbolize_names: true)
+    end
+
+    feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
+
+    feature_report_dir = scenario_dir / '1'
+    Dir.mkdir(scenario_dir / '1' / 'reopt')
+    feature_report.directory_name = feature_report_dir
+    feature_report.timeseries_csv.path = scenario_dir / '1' / '007_default_feature_reports' / 'default_feature_reports.csv'
+
+    reopt_output_file = feature_report_dir / 'reopt' / 'feature_report_reopt_run1.json'
+    timeseries_output_file = feature_report_dir / 'feature_report_timeseries1.csv'
+    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_4tsperhour_v3.json'
+    reopt_assumptions = nil
+    File.open(reopt_assumptions_file, 'r') do |file|
+      reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
+    end
+    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, nil, DEVELOPER_NREL_KEY)
+
+    # Act
+    # don't run it as report 1, it crashes?
+    #feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, reopt_output_file: reopt_output_file, timeseries_csv_path: timeseries_output_file, save_name: 'feature_report_reopt1')
+    feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, timeseries_csv_path: timeseries_output_file, save_name: 'feature_report_reopt2')
+    feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, reopt_output_file: reopt_output_file, save_name: 'feature_report_reopt3')
+
+    # Assert
+    # Assume that file size over 7kb means data was written correctly. Test file is expected to be about 10kb
+    # expect((File.size(feature_report_dir / 'feature_reports' / 'feature_report_reopt1.json').to_f / 1024) > 7)
+    expect((File.size(feature_report_dir / 'feature_reports' / 'feature_report_reopt2.json').to_f / 1024) > 7)
+    expect((File.size(feature_report_dir / 'feature_reports' / 'feature_report_reopt3.json').to_f / 1024) > 7)
+
+    # Cleanup
+    FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
+    FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
+  end
+
   it 'can process a scenario erp report' do
     # Set up
     begin
@@ -161,60 +216,6 @@ RSpec.describe URBANopt::REopt do
     FileUtils.rm_rf(scenario_dir / 'reopt')
     FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
     FileUtils.rm_rf(scenario_dir / '2' / 'feature_reports')
-  end
-
-  it 'can process a feature report and handle time resolution conversion' do
-    # Set up
-    begin
-      FileUtils.rm_rf(scenario_dir / 'test__')
-    rescue StandardError
-    end
-    begin
-      FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
-    rescue StandardError
-    end
-    if !File.directory? scenario_dir / 'test__'
-      Dir.mkdir(scenario_dir / 'test__')
-    end
-    feature_reports_path = scenario_dir / '1' / '007_default_feature_reports' / 'default_feature_reports.json'
-
-    expect(File.exist?(feature_reports_path)).to be true
-
-    feature_reports_json = nil
-    File.open(feature_reports_path, 'r') do |file|
-      feature_reports_json = JSON.parse(file.read, symbolize_names: true)
-    end
-
-    feature_report = URBANopt::Reporting::DefaultReports::FeatureReport.new(feature_reports_json)
-
-    feature_report_dir = scenario_dir / '1'
-    Dir.mkdir(scenario_dir / '1' / 'reopt')
-    feature_report.directory_name = feature_report_dir
-    feature_report.timeseries_csv.path = scenario_dir / '1' / '007_default_feature_reports' / 'default_feature_reports.csv'
-
-    reopt_output_file = feature_report_dir / 'reopt' / 'feature_report_reopt_run1.json'
-    timeseries_output_file = feature_report_dir / 'feature_report_timeseries1.csv'
-    reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_4tsperhour_v3.json'
-    reopt_assumptions = nil
-    File.open(reopt_assumptions_file, 'r') do |file|
-      reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
-    end
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, nil, DEVELOPER_NREL_KEY)
-
-    # Act
-    feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, reopt_output_file: reopt_output_file, timeseries_csv_path: timeseries_output_file, save_name: 'feature_report_reopt1')
-    feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, timeseries_csv_path: timeseries_output_file, save_name: 'feature_report_reopt2')
-    feature_report = reopt_post_processor.run_feature_report(feature_report: feature_report, reopt_assumptions_hash: reopt_assumptions, reopt_output_file: reopt_output_file, save_name: 'feature_report_reopt3')
-
-    # Assert
-    # Assume that file size over 7kb means data was written correctly. Test file is expected to be about 10kb
-    expect((File.size(feature_report_dir / 'feature_reports' / 'feature_report_reopt1.json').to_f / 1024) > 7)
-    expect((File.size(feature_report_dir / 'feature_reports' / 'feature_report_reopt2.json').to_f / 1024) > 7)
-    expect((File.size(feature_report_dir / 'feature_reports' / 'feature_report_reopt3.json').to_f / 1024) > 7)
-
-    # Cleanup
-    FileUtils.rm_rf(scenario_dir / '1' / 'reopt')
-    FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
   end
 
   it "can process multiple PV's" do

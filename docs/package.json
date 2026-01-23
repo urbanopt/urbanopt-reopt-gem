@@ -8,7 +8,7 @@
     "build": "vuepress build",
     "deploy": "gh-pages -d .vuepress/dist"
   },
-  "author": "NREL",
+  "author": "NLR",
   "dependencies": {
     "highlight.js": "^10.4.1",
     "json-schema-ref-parser": "^6.1.0",
