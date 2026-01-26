@@ -111,7 +111,7 @@ module URBANopt # :nodoc:
             run_id
         end
 
-        def reopt_request(results_url, poll_interval = 5, max_timeout = 300)
+        def reopt_request(results_url, poll_interval = 5, max_timeout = 600)
 
             key_error_count = 0
             key_error_threshold = 3
