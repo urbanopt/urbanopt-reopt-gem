@@ -20,7 +20,7 @@ Moreover, the REopt Gem can be run in several modes, either on:
 
 See the <StaticLink target="\_blank" href="https://github.com/urbanopt/urbanopt-example-reopt-project.git">example project</StaticLink> for more infomation about usage of this gem.
 
-<b>Note:</b> This module requires an API Key from the <StaticLink target='blank' href="https://developer.nrel.gov/">NREL Developer Network</StaticLink>.
+<b>Note:</b> This module requires an API Key from the <StaticLink target='blank' href="https://developer.nrel.gov/">NLR Developer Network</StaticLink>.
 
 <StaticLink target="\_blank" href="https://urbanopt.github.io/urbanopt-reopt-gem/">RDoc Documentation</StaticLink>
 
@@ -177,7 +177,7 @@ updated_scenario_report = reopt_post_processor.run_scenario_report(scenario_repo
 
 First, check out the repository (i.e. git clone this repo).
 
-Next, obtain a developer.nrel.gov API key from the [NREL Developer Network](https://developer.nrel.gov/]). Copy and paste your key in to the _developer_nrel_key_._rb_ file then save the file:
+Next, obtain a developer.nrel.gov API key from the [NLR Developer Network](https://developer.nrel.gov/]). Copy and paste your key in to the _developer_nrel_key_._rb_ file then save the file:
 
     DEVELOPER_NREL_KEY = '<insert your key here>'
 

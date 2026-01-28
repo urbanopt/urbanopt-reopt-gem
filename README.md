@@ -9,7 +9,7 @@ REopt is a technoeconomic model which leverages mixed integer linear programming
 See the [example project](https://github.com/urbanopt/urbanopt-example-geojson-reopt-project) for more infomation about usage of this gem.
 
 <b>Note:</b> this module requires an API Key from the
-[NREL Developer Network](https://developer.nrel.gov/)
+[NLR Developer Network](https://developer.nrel.gov/)
 
 [RDoc Documentation](https://urbanopt.github.io/urbanopt-reopt-gem/)
 
@@ -161,7 +161,7 @@ updated_scenario_report = reopt_post_processor.run_scenario_report(scenario_repo
 
 First, check out the repository (i.e. git clone this repo).
 
-Next, obtain a developer.nrel.gov API key from the [NREL Developer Network](https://developer.nrel.gov/]). Copy and paste your key in to the _developer_nrel_key_._rb_ file then save the file:
+Next, obtain a developer.nrel.gov API key from the [NLR Developer Network](https://developer.nrel.gov/]). Copy and paste your key in to the _developer_nrel_key_._rb_ file then save the file:
 
     DEVELOPER_NREL_KEY = '<insert your key here>'
 

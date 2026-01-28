@@ -1,0 +1,174 @@
+{
+  "title": "REopt GHP BAU Inputs (Minimal Valid Schema Wrapper)",
+  "type": "object",
+  "properties": {
+    "Site": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "The approximate latitude of the site in decimal degrees."
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "The approximate longitude of the site in decimal degrees."
+        }
+      },
+      "required": ["latitude", "longitude"]
+    },
+
+    "SpaceHeatingLoad": {
+      "type": "object",
+      "properties": {
+        "fuel_loads_mmbtu_per_hour": {
+          "type": "array",
+          "description": "This is the fuel energy consumption for space heating at the individual building level. This is used in the business as usual (BAU) LCCA analysis in the GHP module to calculate BAU bills. These are 8760 hourly timeseries values.",
+          "note": "This parameter is required to run REopt's BAU for GHP module. If there is no fuel based heating in BAU, add values close to 0."
+        }
+      },
+      "required": ["fuel_loads_mmbtu_per_hour"]
+    },
+
+    "DomesticHotWaterLoad": {
+      "type": "object",
+      "properties": {
+        "fuel_loads_mmbtu_per_hour": {
+          "type": "array",
+          "description": "This is the fuel enegry consumption for providing domestic hot water at the individual building level. This is used in the business as usual (BAU) LCCA analysis in the GHP module. These are 8760 hourly timeseries values.",
+          "note": "Only required if BAU system has DHW load and uses fuel for this load. If BAU system has no DHW load, or does not use fuel for DHW heating, set to values close to zeros. If BAU system uses electricity for DHW, please add this electric DHW load to ElectricLoad"
+        }
+      }
+    },
+
+    "CoolingLoad": {
+      "type": "object",
+      "properties": {
+        "fuel_loads_mmbtu_per_hour": {
+          "type": "array",
+          "description": "This is the fuel energy consumption for space cooling at the individual building level. This is used in the business as usual (BAU) LCCA analysis in the GHP module to calculate BAU bills. These are 8760 hourly timeseries values.",
+          "note": "Only required if BAU system uses fuel for cooling. If BAU system uses electricity for cooling (AC), please add this load to ElectricLoad defined below. If BAU system has no cooling load, set to values close to zeros."
+        }
+      },
+      "required": ["fuel_loads_mmbtu_per_hour"]
+    },
+
+    "ElectricLoad": {
+      "type": "object",
+      "properties": {
+        "loads_kw": {
+          "type": "array",
+          "description": "8760 timeseries",
+          "note": "This is the electric load profile for heating and cooling in the BAU scenario (kW). It is an hourly timeseries load profile with 8760 values. If there is no electricity based heating or cooling in BAU, set these values close to 0."
+        }
+      },
+      "required": ["loads_kw"]
+    },
+
+    "ElectricTarriff": {
+      "type": "object",
+      "description": "Label attribute of utility rate structure from https://openei.org/services/doc/rest/util_rates/?version=3.",
+      "properties": {
+        "urdb_label": { "type": "string" }
+      },
+      "required": ["urdb_label"]
+    },
+
+    "ExistingBoiler": {
+      "type": "object",
+      "properties": {
+        "fuel_cost_per_mmbtu": {
+          "type": "number",
+          "description": "Only required if BAU system use fuel for heating. In this case, fuel cost needs to be specified"
+        },
+        "installed_cost_per_mmbtu_per_hour": {
+          "type": "number",
+          "description": "Capital cost of ExistingBoiler. Include if counting the capital cost of upgrading ExistingBoiler in the BAU system in NPV calculation. Default is $56,000/MMBtu (EIA). The peak heating load is considered to be the size of the system and is multiplied by this field to get total capital cost. Note: this option can only be called from the API after July 2, 2025"
+        }
+      }
+    },
+
+    "ElectricHeater": {
+      "type": "object",
+      "properties": {
+        "installed_cost_per_mmbtu_per_hour": {
+          "type": "number",
+          "description": "Capital cost of ElectricHeater/Electric furnace. Include if BAU system use electric heater/electric furnace for heating and if counting capital cost of upgrading electric heater/furnace in the BAU system in NPV calculation. Default value is $59,412/MMBtu (EIA)"
+        },
+        "min_mmbtu_per_hour": {
+          "type": "number",
+          "description": "User defined input for the size of electric heater system. This value should be the same in min_mmbtu_per_hour and max_mmbtu_per_hour."
+        },
+        "max_mmbtu_per_hour": {
+          "type": "number",
+          "description": "User defined input for the size of electric heater system. This value should be the same in min_mmbtu_per_hour and max_mmbtu_per_hour."
+        },
+        "can_serve_space_heating": {
+          "type": "boolean",
+          "description": "true if electric heater can serve space heating load in the BAU system"
+        },
+        "can_serve_dhw": {
+          "type": "boolean",
+          "description": "true if electric heater can serve water heating load in the BAU system"
+        }
+      }
+    },
+
+    "Financial": {
+      "type": "object",
+      "properties": {
+        "elec_cost_escalation_rate_fraction": {
+          "default": 0.026,
+          "minimum": -1,
+          "maximum": 1,
+          "type": "number",
+          "description": "Annual nominal utility electricity cost escalation rate",
+          "required": false
+        },
+        "owner_discount_rate_fraction": {
+          "default": 0.081,
+          "minimum": 0,
+          "maximum": 1,
+          "type": "number",
+          "description": "Nominal host discount rate. This is used when host site owns the investment",
+          "required": false
+        },
+        "offtaker_discount_rate_fraction": {
+          "default": 0.081,
+          "minimum": 0,
+          "maximum": 1,
+          "type": "number",
+          "description": "Nominal discount rate. This is used when site finances the investment through a third party",
+          "required": false
+        },
+        "owner_tax_rate_fraction": {
+          "default": 0.26,
+          "minimum": 0,
+          "maximum": 1,
+          "type": "number",
+          "description": "Tax rate site when host site owns the investment",
+          "required": false
+        },
+        "offtaker_tax_rate_fraction": {
+          "default": 0.26,
+          "minimum": 0,
+          "maximum": 1,
+          "type": "number",
+          "description": "Tax rate when site finances the investment through a third party",
+          "required": false
+        },
+        "om_cost_escalation_rate_fraction": {
+          "default": 0.025,
+          "minimum": -1,
+          "maximum": 1,
+          "type": "number",
+          "description": "Annual nominal O&M cost escalation rate",
+          "required": false
+        }
+      }
+    }
+  }
+}
