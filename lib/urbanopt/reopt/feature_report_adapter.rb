@@ -158,8 +158,8 @@ module URBANopt # :nodoc:
       # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport.
       ##
       def update_feature_report(feature_report, reopt_output, timeseries_csv_path = nil, resilience_stats = nil)
-        # Check if the \REopt response is valid
-        if reopt_output['status'] != 'optimal'
+        # Check if the REopt response is valid
+        if reopt_output['status'] != 'optimal' && reopt_output['status'] != 'Completed'
           @@logger.error("ERROR cannot update Feature Report #{feature_report.name} #{feature_report.id}  - REopt optimization was non-optimal")
           return feature_report
         end
@@ -189,15 +189,6 @@ module URBANopt # :nodoc:
         feature_report.distributed_generation.lifecycle_capital_costs = reopt_output['outputs']['Financial']['lifecycle_capital_costs']
         feature_report.distributed_generation.lifecycle_fuel_costs_after_tax = reopt_output['outputs']['Financial']['lifecycle_fuel_costs_after_tax']
         feature_report.distributed_generation.lifecycle_elecbill_after_tax = reopt_output['outputs']['Financial']['lifecycle_elecbill_after_tax']
-
-        if !resilience_stats.nil?
-          feature_report.distributed_generation.resilience_hours_min = resilience_stats['resilience_hours_min']
-          feature_report.distributed_generation.resilience_hours_max = resilience_stats['resilience_hours_max']
-          feature_report.distributed_generation.resilience_hours_avg = resilience_stats['resilience_hours_avg']
-          feature_report.distributed_generation.probs_of_surviving = resilience_stats['probs_of_surviving']
-          feature_report.distributed_generation.probs_of_surviving_by_month = resilience_stats['probs_of_surviving_by_month']
-          feature_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']
-        end
 
         if reopt_output['outputs']['PV'].is_a?(Hash)
           reopt_output['outputs']['PV'] = [reopt_output['outputs']['PV']]

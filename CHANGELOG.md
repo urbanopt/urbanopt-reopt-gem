@@ -1,5 +1,12 @@
 # URBANopt REopt Gem
 
+## Version 1.2.0
+
+* Updates for name change and license
+* Lifecycle Cost Analysis (LCCA) Functionality for UO-REopt GHP workflow
+* Updates to support system parameters file schema changes
+* Updates to support URBANopt-REopt Cost Analysis capabilities
+
 ## Version 1.1.0
 
 * Upgrade to OpenStudio 3.10 

@@ -219,15 +219,6 @@ module URBANopt # :nodoc:
         scenario_report.distributed_generation.lifecycle_fuel_costs_after_tax = reopt_output['outputs']['Financial']['lifecycle_fuel_costs_after_tax']
         scenario_report.distributed_generation.lifecycle_elecbill_after_tax = reopt_output['outputs']['Financial']['lifecycle_elecbill_after_tax']
 
-        if !resilience_stats.nil?
-          scenario_report.distributed_generation.resilience_hours_min = resilience_stats['resilience_hours_min']
-          scenario_report.distributed_generation.resilience_hours_max = resilience_stats['resilience_hours_max']
-          scenario_report.distributed_generation.resilience_hours_avg = resilience_stats['resilience_hours_avg']
-          scenario_report.distributed_generation.probs_of_surviving = resilience_stats['probs_of_surviving']
-          scenario_report.distributed_generation.probs_of_surviving_by_month = resilience_stats['probs_of_surviving_by_month']
-          scenario_report.distributed_generation.probs_of_surviving_by_hour_of_the_day = resilience_stats['probs_of_surviving_by_hour_of_the_day']
-        end
-
         if reopt_output['outputs']['PV'].is_a?(Hash)
           reopt_output['outputs']['PV'] = [reopt_output['outputs']['PV']]
         elsif reopt_output['outputs']['PV'].nil?
