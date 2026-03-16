@@ -56,6 +56,8 @@ module URBANopt # :nodoc:
         end
 
         reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = []
+        reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = []
+
         # Read the default csv report
         default_feature_report_path = File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.csv")
         if File.exist?(default_feature_report_path)
@@ -92,6 +94,37 @@ module URBANopt # :nodoc:
           puts "Existing heating fuel cost was not taken into consideration in result calculations."
         end
 
+        # Add domestic hot water load if present in the default feature report
+        if File.exist?(default_feature_report_path)
+          timeseries_data = CSV.read(default_feature_report_path, headers: true)
+          # Initialize the total kBtu sum
+          total_kbtu = 0.0
+          timeseries_data.each do |row|
+            if row['WaterSystems:NaturalGas(kBtu)'] # Ensure the value exists
+              kBtu_value = row['WaterSystems:NaturalGas(kBtu)'].to_f # Convert to float
+              total_kbtu += kBtu_value # Sum kBtu values
+            end
+          end
+
+          if total_kbtu.zero?
+            reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+          else
+            # If not zero, convert and append to the array
+            timeseries_data.each do |row|
+              if row['WaterSystems:NaturalGas(kBtu)'] # Ensure the value exists
+                puts "1hello"
+                puts row['WaterSystems:NaturalGas(kBtu)']
+                kBtu_value = row['WaterSystems:NaturalGas(kBtu)'].to_f # Convert to float
+                mMBtu_value = kBtu_value / 1000 # Convert kBtu to MMBtu
+                reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] << mMBtu_value # Append to the array
+              end
+            end
+          end
+        else
+          # populate with near zero hourly values to meet reopts formatting requirements
+          reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+          puts "Existing domestic hot water fuel cost was not taken into consideration in result calculations."
+        end
 
         # read_modelica_result
         modelica_project = File.expand_path(modelica_result)
@@ -159,9 +192,6 @@ module URBANopt # :nodoc:
           domestic_hot_water = total_electric_load_building.map do |load|
             load * 0
           end
-
-          # This is not used in REopt calculation but required for formatting.
-          reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = domestic_hot_water
 
           # Add GHP Fields
           reopt_inputs_building[:GHP] = {}
