@@ -1,5 +1,5 @@
 # *********************************************************************************
-# URBANopt (tm), Copyright (c) Alliance for Sustainable Energy, LLC.
+# URBANopt (tm), Copyright (c) Alliance for Energy Innovation, LLC.
 # See also https://github.com/urbanopt/urbanopt-reopt-gem/blob/develop/LICENSE.md
 # *********************************************************************************
 
@@ -212,10 +212,12 @@ module URBANopt # :nodoc:
           reopt_inputs_building[:GHP][:heatpump_capacity_sizing_factor_on_peak_load] = 1.0
           # Add the floor area
           building_json_path = File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.json")
+
           if File.exist?(building_json_path)
+            puts building_json_path
             File.open(building_json_path, 'r') do |file|
               building_json_data = JSON.parse(file.read, symbolize_names: true)
-              reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:floor_area_sqft].to_f
+              reopt_inputs_building[:GHP][:building_sqft] = building_json_data[:program][:footprint_area_sqft].to_f
             end
           else
             puts "File not found: #{building_json_path}"
@@ -325,15 +327,39 @@ module URBANopt # :nodoc:
 
 
         # Read GHX sizes from system parameter hash
-        ghe_specific_params = system_parameter_hash[:district_system][:fifth_generation][:ghe_parameters][:ghe_specific_params]
-        ghe_specific_params.each do |ghe_specific_param|
-          if ghe_specific_param[:ghe_id] = ghp_id
-            number_of_boreholes = ghe_specific_param[:borehole][:number_of_boreholes]
-            length_of_boreholes = ghe_specific_param[:borehole][:length_of_boreholes]
-            ghpghx_output[:outputs][:number_of_boreholes] = number_of_boreholes
+        ghe_specific_params = system_parameter_hash[:district_system][:fifth_generation][:ghe_parameters][:borefields]
+        
+        ghe_specific_params.each do |ghe|
+          if ghe[:ghe_id] == ghp_id
+            unless ghe[:pre_designed_borefield]
+              if ghe[:autosized_rectangle_borefield]
+                borefield = ghe[:autosized_rectangle_borefield]
+
+              elsif ghe[:autosized_rectangle_constrained_borefield]
+                borefield = ghe[:autosized_rectangle_constrained_borefield]
+
+              elsif ghe[:autosized_birectangle_borefield]
+                borefield = ghe[:autosized_birectangle_borefield]
+
+              elsif ghe[:autosized_birectangle_constrained_borefield]
+                borefield = ghe[:autosized_birectangle_constrained_borefield]
+
+              elsif ghe[:autosized_bizoned_rectangle_borefield]
+                borefield = ghe[:autosized_bizoned_rectangle_borefield]
+
+              elsif ghe[:autosized_near_square_borefield]
+                borefield = ghe[:autosized_near_square_borefield]
+
+              elsif ghe[:autosized_rowwise_borefield]
+                borefield = ghe[:autosized_rowwise_borefield]
+              end
+            end
+
+            ghpghx_output[:outputs][:number_of_boreholes] = borefield[:number_of_boreholes]
             # convert meters to feet by multiplying with 3.28084
-            ghpghx_output[:outputs][:length_boreholes_ft] = (length_of_boreholes)*3.28084
-          end
+            ghpghx_output[:outputs][:length_boreholes_ft] = (borefield[:borehole_length])*3.28084
+
+          end    
         end
 
         if File.exist?(@modelica_csv)
