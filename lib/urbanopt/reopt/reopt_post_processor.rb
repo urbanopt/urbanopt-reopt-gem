@@ -21,18 +21,16 @@ module URBANopt # :nodoc:
       # * +scenario_report+ - _ScenarioReport_ - Optional. A scenario report that has been returned from the URBANopt::Reporting::ScenarioDefaultPostProcessor - used in creating default output file names in \REopt optimizations.
       # * +scenario_reopt_assumptions_file+ - _String_ - Optional. JSON file formatted for a \REopt analysis containing custom input parameters for optimizations at the Scenario Report level
       # * +reopt_feature_assumptions+ - _Array_ - Optional. A list of JSON file formatted for a \REopt analysis containing custom input parameters for optimizations at the Feature Report level. The order and number of files must match the Feature Reports in the scenario_report input.
-      # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt API running on localhost. Default is false, such that the production version of \REopt is accessed.
-      # * +nrel_developer_key+ - _String_ - API used to access the \REopt APi. Required only if +localhost+ is false. Obtain from https://developer.nrel.gov/signup/
+      # * +api_key+ - _String_ - API key used to access the \REopt API. Required only for developer.nlr.gov and developer.nlr.gov endpoints. Obtain from https://developer.nlr.gov/signup/
       ##
-      def initialize(scenario_report, scenario_reopt_assumptions_file = nil, reopt_feature_assumptions = [], nrel_developer_key = nil, localhost = false, erp_assumptions_file = nil)
+      def initialize(scenario_report, scenario_reopt_assumptions_file = nil, reopt_feature_assumptions = [], api_key = nil, erp_assumptions_file = nil)
         # initialize @@logger
         @@logger ||= URBANopt::REopt.reopt_logger
 
         if reopt_feature_assumptions.nil?
           reopt_feature_assumptions = []
         end
-        @nrel_developer_key = nrel_developer_key
-        @localhost = localhost
+        @api_key = api_key
 
         @scenario_reopt_default_output_file = nil
         @scenario_timeseries_default_output_file = nil
@@ -101,7 +99,7 @@ module URBANopt # :nodoc:
       # [*return:*] _URBANopt::Reporting::DefaultReports::FeatureReport_ - Returns an updated FeatureReport
       ##
       def run_feature_report(feature_report:, reopt_assumptions_hash: nil, reopt_output_file: nil, timeseries_csv_path: nil, save_name: nil, run_resilience: false)
-        api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
+        api = URBANopt::REopt::REoptAPI.new(@api_key)
         adapter = URBANopt::REopt::FeatureReportAdapter.new
 
         reopt_input = adapter.reopt_json_from_feature_report(feature_report, reopt_assumptions_hash)
@@ -160,7 +158,7 @@ module URBANopt # :nodoc:
             @scenario_erp_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
           end
         end
-        api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
+        api = URBANopt::REopt::REoptAPI.new(@api_key)
         adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
         reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash, community_photovoltaic)
@@ -245,7 +243,7 @@ module URBANopt # :nodoc:
           end
         end
 
-        api = URBANopt::REopt::REoptLiteAPI.new(@nrel_developer_key, @localhost)
+        api = URBANopt::REopt::REoptAPI.new(@api_key)
         feature_adapter = URBANopt::REopt::FeatureReportAdapter.new
         new_feature_reports = []
         feature_reports.each_with_index do |feature_report, idx|

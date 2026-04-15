@@ -4,7 +4,7 @@
 # *********************************************************************************
 
 require_relative '../spec_helper'
-require_relative '../../developer_nrel_key'
+require_relative '../../developer_api_key'
 require 'json-schema'
 
 
@@ -36,7 +36,7 @@ RSpec.describe URBANopt::REopt do
             FileUtils.rm_rf(run_dir / 'reopt_ghp')
         rescue StandardError
         end
-        post_processor = URBANopt::REopt::REoptGHPPostProcessor.new(run_dir, system_parameter, modelica_result, reopt_ghp_assumption, DEVELOPER_NREL_KEY, localhost=false)
+        post_processor = URBANopt::REopt::REoptGHPPostProcessor.new(run_dir, system_parameter, modelica_result, reopt_ghp_assumption, DEVELOPER_API_KEY)
         post_processor.run_reopt_lcca()
         # output folder exist
         expect(reopt_input_dir.directory?)
@@ -107,7 +107,7 @@ RSpec.describe URBANopt::REopt do
         File.open(reopt_input_file_path, 'r') do |f|
             reopt_input_data = JSON.parse(f.read)
         end
-        post_url = "https://developer.nrel.gov/api/reopt/v3/job/?api_key=#{DEVELOPER_NREL_KEY}"
+        post_url = "https://developer.nlr.gov/api/reopt/v3/job/?api_key=#{DEVELOPER_API_KEY}"
 
         # Parse the URL and prepare the HTTP request
         uri = URI.parse(post_url)
