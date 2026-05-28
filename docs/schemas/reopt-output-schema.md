@@ -1,6 +1,6 @@
-# REopt Lite Outputs Schema
+# REopt Outputs Schema
 
-When the gem calls the REopt Lite APUI it receives the following complete set of results described in the data dictionary below. Only those needed to update a Feature or Scenario Report's distributed_generation attribute set and timeseries CSV are pulled from the response and transferred to the Feature or Scenario Report. You may choose to modify the code to include more or less of the full REopt Lite response.
+When the gem calls the REopt API it receives the following complete set of results described in the data dictionary below. Only those needed to update a Feature or Scenario Report's distributed_generation attribute set and timeseries CSV are pulled from the response and transferred to the Feature or Scenario Report. You may choose to modify the code to include more or less of the full REopt response.
 
 ## Data Dictionary
 <ReoptOutputSchema />
@@ -8,7 +8,7 @@ When the gem calls the REopt Lite APUI it receives the following complete set of
 ## Updated from the Data Dictionary
 
 ### Distributed Generation Attributes
-The REopt Lite API updates the distributed_generation attributes of a Scenario or Feature Report as shown in an example below.
+The REopt API updates the distributed_generation attributes of a Scenario or Feature Report as shown in an example below.
 
 ```
 	"distributed_generation": {
@@ -35,7 +35,7 @@ The REopt Lite API updates the distributed_generation attributes of a Scenario o
 ```
 
 ### Timeseries CSV
-REopt Lite API responses also map dispatches to the following columns in an updated timeseries CSV for a Feature or Scenario Report.
+REopt API responses also map dispatches to the following columns in an updated timeseries CSV for a Feature or Scenario Report.
 
 |            output                        |  unit   |
 | -----------------------------------------| ------- |
@@ -62,5 +62,5 @@ REopt Lite API responses also map dispatches to the following columns in an upda
 <style type="text/css">
 .content { max-width: 1200px !important; }
 span.default { color: yellow !important; }
-.description { color: #E0E0E0		 !important; }
+.description { color: #E0E0E0 !important; }
 </style>

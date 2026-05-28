@@ -4,7 +4,7 @@
 # *********************************************************************************
 
 require_relative '../spec_helper'
-require_relative '../../developer_nrel_key'
+require_relative '../../developer_api_key'
 
 RSpec.describe URBANopt::REopt do
   scenario_dir = Pathname(__FILE__).dirname.parent / 'run' / 'example_scenario'
@@ -17,7 +17,7 @@ RSpec.describe URBANopt::REopt do
 
   it 'can connect to reopt' do
     # Set up
-    api = URBANopt::REopt::REoptLiteAPI.new(DEVELOPER_NREL_KEY, false)
+    api = URBANopt::REopt::REoptAPI.new(DEVELOPER_API_KEY)
     dummy_data = { Site: { latitude: 40, longitude: -110}, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, ElectricLoad: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } }
 
     # Act
@@ -29,11 +29,11 @@ RSpec.describe URBANopt::REopt do
 
   it 'returns graceful status code message to user' do
     # Set up
-    bogus_dev_key = "#{DEVELOPER_NREL_KEY}asdf"
-    api = URBANopt::REopt::REoptLiteAPI.new(bogus_dev_key, false)
+    bogus_dev_key = "#{DEVELOPER_API_KEY}asdf"
+    api = URBANopt::REopt::REoptAPI.new(bogus_dev_key)
 
     header = { 'Content-Type' => 'application/json' }
-    @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v2/job?api_key=#{@bogus_dev_key}")
+    @uri_submit = URI.parse("https://developer.nlr.gov/api/reopt/v2/job?api_key=#{bogus_dev_key}")
     http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
     http.use_ssl = true
 
@@ -42,10 +42,10 @@ RSpec.describe URBANopt::REopt do
     dummy_data = { Site: { latitude: 40, longitude: -110}, ElectricTariff: { urdb_label: '594976725457a37b1175d089' }, ElectricLoad: { doe_reference_name: 'Hospital', annual_kwh: 1000000 } }
     post_request.body = ::JSON.generate(dummy_data, allow_nan: true)
 
-    # Act, Assert
-    expect { api.make_request(http, post_request) }
-      .to output(a_string_including('REopt has returned'))
-      .to_stdout_from_any_process
+    # The method should handle the error gracefully and return an HTTP response object
+    result = api.make_request(http, post_request)
+    expect(result).to be_a(Net::HTTPResponse)
+    expect(result.code).to eq('403')  # Forbidden due to bogus API key
   end
 
   it 'can process a scenario report' do
@@ -90,7 +90,7 @@ RSpec.describe URBANopt::REopt do
     reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_with_wind_v3.json'
 
     # Act
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
+    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_API_KEY)
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, save_name: 'test__/scenario_report_reopt_global')
 
     # Assert
@@ -140,7 +140,7 @@ RSpec.describe URBANopt::REopt do
     File.open(reopt_assumptions_file, 'r') do |file|
       reopt_assumptions = JSON.parse(file.read, symbolize_names: true)
     end
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, nil, DEVELOPER_NREL_KEY)
+    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, nil, DEVELOPER_API_KEY)
 
     # Act
     # don't run it as report 1, it crashes?
@@ -201,7 +201,7 @@ RSpec.describe URBANopt::REopt do
     reopt_assumptions_file = spec_files_dir / 'multiPV_assumptions_ERP.json'
     erp_assumptions_file = spec_files_dir / 'erp_assumptions.json'
     # Act
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_NREL_KEY)
+    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, nil, DEVELOPER_API_KEY)
     scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, save_name: 'test__/scenario_report_reopt_global', run_resilience: true, erp_assumptions_file:)
     # Resilience functionality is not yet implemented with REopt v3
     # resilience_scenario_report = reopt_post_processor.run_scenario_report(scenario_report: scenario_report, run_resilience: true, save_name: 'test__/scenario_report_reopt_resilience')
@@ -265,7 +265,7 @@ RSpec.describe URBANopt::REopt do
       @scenario_reopt_default_assumptions_hash = JSON.parse(file.read, symbolize_names: true)
     end
 
-    api = URBANopt::REopt::REoptLiteAPI.new(DEVELOPER_NREL_KEY, @localhost)
+    api = URBANopt::REopt::REoptAPI.new(DEVELOPER_API_KEY)
     adapter = URBANopt::REopt::ScenarioReportAdapter.new
 
     reopt_input = adapter.reopt_json_from_scenario_report(scenario_report, @scenario_reopt_default_assumptions_hash)
@@ -330,7 +330,7 @@ RSpec.describe URBANopt::REopt do
     end
 
     # Act
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, reopt_assumption_files, DEVELOPER_NREL_KEY)
+    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, reopt_assumption_files, DEVELOPER_API_KEY)
     processed_feature_reports = reopt_post_processor.run_feature_reports(feature_reports: feature_reports, save_names: feature_report_save_names)
 
     # Assert
@@ -387,7 +387,7 @@ RSpec.describe URBANopt::REopt do
     end
 
     # Act
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, reopt_assumption_files, DEVELOPER_NREL_KEY)
+    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(nil, nil, reopt_assumption_files, DEVELOPER_API_KEY)
     processed_feature_reports = reopt_post_processor.run_feature_reports(feature_reports: feature_reports, save_names: feature_report_save_names, run_resilience: true, erp_assumptions_file: erp_assumptions_file)
 
     # Assert
@@ -459,7 +459,7 @@ RSpec.describe URBANopt::REopt do
     reopt_assumptions_file = spec_files_dir / 'reopt_assumptions_with_wind_v3.json'
 
     # Act
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
+    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_API_KEY)
     scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report: scenario_report, reopt_output_files: reopt_output_files, feature_report_timeseries_csv_paths: feature_report_timeseries_output_files, save_names_feature_reports: feature_report_save_names, save_name_scenario_report: 'test__/scenario_report_reopt_local')
 
     # Assert
@@ -531,7 +531,7 @@ RSpec.describe URBANopt::REopt do
     erp_assumptions_file = spec_files_dir / 'erp_assumptions.json'
 
     # Act
-    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_NREL_KEY)
+    reopt_post_processor = URBANopt::REopt::REoptPostProcessor.new(scenario_report, reopt_assumptions_file, reopt_assumption_files, DEVELOPER_API_KEY)
     scenario_report = reopt_post_processor.run_scenario_report_features(scenario_report: scenario_report, reopt_output_files: reopt_output_files, feature_report_timeseries_csv_paths: feature_report_timeseries_output_files, save_names_feature_reports: feature_report_save_names, save_name_scenario_report: 'test__/scenario_report_reopt_local', run_resilience: true, erp_assumptions_file: erp_assumptions_file)
 
     # Assert

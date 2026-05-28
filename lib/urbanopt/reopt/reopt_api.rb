@@ -8,43 +8,47 @@ require 'openssl'
 require 'uri'
 require 'json'
 require 'securerandom'
-require_relative '../../../developer_nrel_key'
+require_relative '../../../developer_api_key'
 require 'urbanopt/reopt/reopt_logger'
+require 'urbanopt/reopt/url_config'
 
 module URBANopt # :nodoc:
   module REopt  # :nodoc:
-    class REoptLiteAPI
+    class REoptAPI
       ##
-      # \REoptLiteAPI manages submitting optimization tasks to the \REopt API  and receiving results.
-      # Results can either be sourced from the production \REopt API with an API key from developer.nrel.gov, or from
-      # a version running at localhost.
+      # \REoptAPI manages submitting optimization tasks to the \REopt API  and receiving results.
+      # Results can be sourced from the production \REopt API with an API key or from
+      # custom endpoints via the REOPT_BASE_URL environment variable.
       ##
       #
       # [*parameters:*]
       #
-      # * +use_localhost+ - _Bool_ - If this is true, requests will be sent to a version of the \REopt API running on localhost. Default is false, such that the production version of \REopt is accessed.
-      # * +nrel_developer_key+ - _String_ - API key used to access the \REopt APi. Required only if localhost is false. Obtain from https://developer.nrel.gov/signup/
+      # * +api_key+ - _String_ - API key used to access the \REopt API. Required only for developer.nlr.gov and developer.nlr.gov endpoints. Obtain from https://developer.nlr.gov/signup/
       ##
-      def initialize(nrel_developer_key = nil, use_localhost = false)
-        @use_localhost = use_localhost
-        if @use_localhost
-          @uri_submit = URI.parse('http//:127.0.0.1:8000/v3/job/')
-          @uri_submit_outagesimjob = URI.parse('http://127.0.0.1:8000/v3/erp/')
+      def initialize(api_key = nil)
 
-        else
-          if [nil, '', '<insert your key here>'].include? nrel_developer_key
-            if [nil, '', '<insert your key here>'].include? DEVELOPER_NREL_KEY
-              raise 'A developer.nrel.gov API key is required. Please see https://developer.nrel.gov/signup/ then update the file urbanopt-reopt-gem/developer_nrel_key.rb'
-            else
-              nrel_developer_key = DEVELOPER_NREL_KEY
+        # Handle API key validation for official developer URLs
+        if [nil, '', '<insert your key here>'].include? api_key
+          if [nil, '', '<insert your key here>'].include? DEVELOPER_API_KEY
+            # Check if we need an API key based on the URL that will be used
+            url_config_test = URLConfig.new
+            if url_config_test.requires_api_key?
+              raise 'A developer.nlr.gov API key is required. Please see https://developer.nlr.gov/signup/ then update the file developer_api_key.rb'
             end
+          else
+            api_key = DEVELOPER_API_KEY
           end
-          @nrel_developer_key = nrel_developer_key
-          @uri_submit = URI.parse("https://developer.nrel.gov/api/reopt/v3/job?api_key=#{@nrel_developer_key}")
-          @uri_submit_outagesimjob = URI.parse("https://developer.nrel.gov/api/reopt/v3/erp?api_key=#{@nrel_developer_key}")
-          # initialize @@logger
-          @@logger ||= URBANopt::REopt.reopt_logger
         end
+
+        # Initialize URL configuration
+        @url_config = URLConfig.new(api_key: api_key)
+
+        # Cache frequently used URIs
+        @uri_submit = @url_config.submit_uri
+        @uri_submit_outagesimjob = @url_config.erp_submit_uri
+
+        # initialize @@logger
+        @@logger ||= URBANopt::REopt.reopt_logger
       end
 
       ##
@@ -58,11 +62,7 @@ module URBANopt # :nodoc:
       # [*return:*] _URI_ - Returns URI object for use in calling the \REopt results endpoint for a specific optimization task.
       ##
       def uri_results(run_uuid) # :nodoc:
-        if @use_localhost
-          return URI.parse("http://127.0.0.1:8000/v3/job/#{run_uuid}/results")
-        end
-
-        return URI.parse("https://developer.nrel.gov/api/reopt/v3/job/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
+        @url_config.results_uri(run_uuid)
       end
 
       ##
@@ -76,11 +76,7 @@ module URBANopt # :nodoc:
       # [*return:*] _URI_ - Returns URI object for use in calling the \REopt resilience statistics endpoint for a specific optimization task.
       ##
       def uri_resilience(run_uuid) # :nodoc:
-        if @use_localhost
-          return URI.parse("http://127.0.0.1:8000/v3/erp/#{run_uuid}/results")
-        end
-
-        return URI.parse("https://developer.nrel.gov/api/reopt/v3/erp/#{run_uuid}/results?api_key=#{@nrel_developer_key}")
+        @url_config.erp_results_uri(run_uuid)
       end
 
       def make_request(http, req, max_tries = 3)
@@ -89,7 +85,7 @@ module URBANopt # :nodoc:
         while tries < max_tries
           begin
             result = http.request(req)
-            # Result codes sourced from https://developer.nrel.gov/docs/errors/
+            # Result codes sourced from https://developer.nlr.gov/docs/errors/
             if result.code == '429'
               @@logger.fatal('Exceeded the REopt API limit of 300 requests per hour')
               puts 'Using the URBANopt CLI to submit a Scenario optimization counts as one request per scenario'
@@ -101,7 +97,7 @@ module URBANopt # :nodoc:
               tries += 1
               next
             elsif (result.code != '201') && (result.code != '200') # Anything in the 200s is success
-              @@logger.warn("REopt has returned a '#{result.code}' status code. Visit https://developer.nrel.gov/docs/errors/ for more status code information")
+              @@logger.warn("REopt has returned a '#{result.code}' status code. Visit https://developer.nlr.gov/docs/errors/ for more status code information")
               # display error messages
               json_res = JSON.parse(result.body, allow_nan: true)
               json_res['messages'].delete('warnings') if json_res['messages']['warnings']
@@ -138,9 +134,7 @@ module URBANopt # :nodoc:
       def check_connection(data)
         header = { 'Content-Type' => 'application/json' }
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
-        if !@use_localhost
-          http.use_ssl = true
-        end
+        @url_config.configure_ssl(http)
 
         post_request = Net::HTTP::Post.new(@uri_submit, header)
         post_request.body = ::JSON.generate(data, allow_nan: true)
@@ -182,20 +176,18 @@ module URBANopt # :nodoc:
         end
 
         # Add info message to logger
-        @@logger.info("Submitting Resilience Statistics job for #{run_uuid}")  
-        
+        @@logger.info("Submitting Resilience Statistics job for #{run_uuid}")
+
         # Format HTTP request
         header = { 'Content-Type' => 'application/json' }
         http = Net::HTTP.new(@uri_submit_outagesimjob.host, @uri_submit_outagesimjob.port)
-        if !@use_localhost
-          http.use_ssl = true
-        end
-        
+        @url_config.configure_ssl(http)
+
         # POST to erp endpoint
         post_request = Net::HTTP::Post.new(@uri_submit_outagesimjob, header)
         post = erp_assumptions_file
         post["reopt_run_uuid"] = run_uuid
-        
+
         post_request.body = ::JSON.generate(post, allow_nan: true)
 
         # Send the request
@@ -208,8 +200,7 @@ module URBANopt # :nodoc:
 
         # Get <erp_run_uuid>
         erp_run_uuid = JSON.parse(submit_response.body, allow_nan: true)['run_uuid']
-        
-        
+
         if File.directory? filename
           if erp_run_uuid.nil?
             erp_run_uuid = 'error'
@@ -232,9 +223,7 @@ module URBANopt # :nodoc:
         # Fetch Results, pass on <erp_run_uuid>
         uri = uri_resilience(erp_run_uuid)
         http = Net::HTTP.new(uri.host, uri.port)
-        if !@use_localhost
-          http.use_ssl = true
-        end
+        @url_config.configure_ssl(http)
 
         # Wait for the REopt API before attempting to GET results
         sleep 30
@@ -293,9 +282,7 @@ module URBANopt # :nodoc:
         # Format the request
         header = { 'Content-Type' => 'application/json' }
         http = Net::HTTP.new(@uri_submit.host, @uri_submit.port)
-        if !@use_localhost
-          http.use_ssl = true
-        end
+        @url_config.configure_ssl(http)
         post_request = Net::HTTP::Post.new(@uri_submit, header)
         post_request.body = ::JSON.generate(reopt_input, allow_nan: true)
 
@@ -332,9 +319,7 @@ module URBANopt # :nodoc:
         status = 'Optimizing...'
         uri = uri_results(run_uuid)
         http = Net::HTTP.new(uri.host, uri.port)
-        if !@use_localhost
-          http.use_ssl = true
-        end
+        @url_config.configure_ssl(http)
 
         get_request = Net::HTTP::Get.new(uri.request_uri)
 
@@ -343,7 +328,7 @@ module URBANopt # :nodoc:
           response = make_request(http, get_request)
 
           data = JSON.parse(response.body, allow_nan: true)
-          
+
           if !data['outputs']['PV']
             pv_sizes = 0
             sizes = 0

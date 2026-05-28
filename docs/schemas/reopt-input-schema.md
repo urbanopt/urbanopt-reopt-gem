@@ -1,6 +1,6 @@
-# REopt Lite Inputs Schema
+# REopt Inputs Schema
 
-The following shows the complete set of inputs to the REopt Lite AP which is called internally by the REopt Gem. You may refer to the data dictionary below in creating similarly formatted .json files containing alternatives to the defaults for optional parameters (i.e. specific utility rate, installed cost assumptions, solar PV losses, ...). The URBANopt REopt Gem will overwrite latitude, longitude, land_acres, roof_squarefeet, and loads_kw where possible from attributes of a Scenario Report and FeatureReports.
+The following shows the complete set of inputs to the REopt API which is called internally by the REopt Gem. You may refer to the data dictionary below in creating similarly formatted .json files containing alternatives to the defaults for optional parameters (i.e. specific utility rate, installed cost assumptions, solar PV losses, ...). The URBANopt REopt Gem will overwrite latitude, longitude, land_acres, roof_squarefeet, and loads_kw where possible from attributes of a Scenario Report and FeatureReports.
 
 ## Data Dictionary
 
@@ -8,7 +8,7 @@ The following shows the complete set of inputs to the REopt Lite AP which is cal
 
 ## Required Inputs
 
-The only required parameters to the REopt Lite API (called internally by the gem) are:
+The only required parameters to the REopt API (called internally by the gem) are:
 - *latitude*
 - *longitude*
 - *urdb_response* OR one of the following sets:
@@ -24,7 +24,7 @@ The only required parameters to the REopt Lite API (called internally by the gem
 
 The gem sources *latitude*, *longitude* and *loads_kw* from a Feature or Scenario Report directly. If no specific *urdb_response* or *urdb_label* is specified as an custom assumption (see below), then a constant rate of $0.13/kWh with no demand charge is provided by the gem as a default to the REopt API.
 
-Otherwise, all non-required input parameters will be filled in with default values unless otherwise specified. For an example of a minimally viable REopt Lite input, see:
+Otherwise, all non-required input parameters will be filled in with default values unless otherwise specified. For an example of a minimally viable REopt input, see:
 
 
 ```

@@ -14,12 +14,11 @@ require 'fileutils'
 module URBANopt # :nodoc:
   module REopt # :nodoc:
     class REoptGHPPostProcessor
-      def initialize(run_dir, system_parameter, modelica_result, reopt_ghp_assumptions = nil, nrel_developer_key = nil, localhost)
+      def initialize(run_dir, system_parameter, modelica_result, reopt_ghp_assumptions = nil, api_key = nil)
         # initialize @@logger
         @@logger ||= URBANopt::REopt.reopt_logger
 
-        @nrel_developer_key = nrel_developer_key
-        @localhost = localhost
+        @api_key = api_key
         @reopt_ghp_output_district = nil
         @reopt_ghp_output_building = []
         @reopt_ghp_assumptions_hash = nil
@@ -143,7 +142,7 @@ module URBANopt # :nodoc:
           # reopt_ghp_output_file
           reopt_output_file = File.join(reopt_ghp_output, "#{base_name}_output.json")
           # call the REopt API
-          api = URBANopt::REopt::REoptLiteGHPAPI.new(reopt_input_data, DEVELOPER_NREL_KEY, reopt_output_file, @localhost)
+          api = URBANopt::REopt::REoptGHPAPI.new(reopt_input_data, @api_key, reopt_output_file)
           api.get_api_results
 
         end
