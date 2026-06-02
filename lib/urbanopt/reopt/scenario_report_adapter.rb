@@ -502,13 +502,25 @@ module URBANopt # :nodoc:
 
         old_data = CSV.open(scenario_report.timeseries_csv.path).read
         start_date = Time.parse(old_data[1][0]) # Time is the end of the timestep
-        start_ts = (
-                      (
-                        ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
-                        ((start_date.hour - 1) * 60.0 * 60.0) +
-                        (start_date.min * 60.0) + start_date.sec) / \
-                      ((60 / scenario_report.timesteps_per_hour) * 60)
-                    ).to_int
+        # bug in the commented snippet (issue #164) : hardcoded backing up by one hour > should be by the timestep
+        # start_ts = (
+        #               (
+        #                 ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
+        #                 ((start_date.hour - 1) * 60.0 * 60.0) +
+        #                 (start_date.min * 60.0) + start_date.sec) / \
+        #               ((60 / scenario_report.timesteps_per_hour) * 60)
+        #             ).to_int
+
+        # Bug fixed issue (#164) 
+        start_ts = reopt_timeseries_start_index(start_date, scenario_report.timesteps_per_hour)
+        # start_ts = (
+        #               (
+        #                 ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
+        #                 (start_date.hour * 60.0 * 60.0) +
+        #                 (start_date.min * 60.0) + start_date.sec) / \
+        #               ((60 / scenario_report.timesteps_per_hour) * 60)
+        #             ).to_int - 1
+
         mod_data = old_data.map.with_index do |x, i|
           if i > 0
             modrow(x, start_ts + i - 1)
