@@ -96,27 +96,15 @@ module URBANopt # :nodoc:
 
         # Add domestic hot water load if present in the default feature report
         if File.exist?(default_feature_report_path)
-          timeseries_data = CSV.read(default_feature_report_path, headers: true)
-          # Initialize the total kBtu sum
-          total_kbtu = 0.0
-          timeseries_data.each do |row|
-            if row['WaterSystems:NaturalGas(kBtu)'] # Ensure the value exists
-              kBtu_value = row['WaterSystems:NaturalGas(kBtu)'].to_f # Convert to float
-              total_kbtu += kBtu_value # Sum kBtu values
-            end
-          end
+          # Re-use already loaded default_feature_report.csv when available
+          timeseries_data ||= CSV.read(default_feature_report_path, headers: true)
+          hours = timeseries_data.length
 
-          if total_kbtu.zero?
-            reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+          dhw_kbtu_values = timeseries_data.map { |row| row['WaterSystems:NaturalGas(kBtu)'].to_s.to_f }
+          if dhw_kbtu_values.sum.zero?
+            reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * hours
           else
-            # If not zero, convert and append to the array
-            timeseries_data.each do |row|
-              if row['WaterSystems:NaturalGas(kBtu)'] # Ensure the value exists
-                kBtu_value = row['WaterSystems:NaturalGas(kBtu)'].to_f # Convert to float
-                mMBtu_value = kBtu_value / 1000 # Convert kBtu to MMBtu
-                reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] << mMBtu_value # Append to the array
-              end
-            end
+            reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = dhw_kbtu_values.map { |v| v / 1000.0 }
           end
         else
           # populate with near zero hourly values to meet reopts formatting requirements
