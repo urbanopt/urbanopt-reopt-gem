@@ -175,10 +175,6 @@ module URBANopt # :nodoc:
           reopt_inputs_building[:ElectricLoad][:loads_kw] = total_electric_load_building
           reopt_inputs_building[:ElectricLoad][:year] = @@year_of_simulation
 
-          domestic_hot_water = total_electric_load_building.map do |load|
-            load * 0
-          end
-
           # Add GHP Fields
           reopt_inputs_building[:GHP] = {}
 
