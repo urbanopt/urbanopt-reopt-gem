@@ -112,8 +112,6 @@ module URBANopt # :nodoc:
             # If not zero, convert and append to the array
             timeseries_data.each do |row|
               if row['WaterSystems:NaturalGas(kBtu)'] # Ensure the value exists
-                puts "1hello"
-                puts row['WaterSystems:NaturalGas(kBtu)']
                 kBtu_value = row['WaterSystems:NaturalGas(kBtu)'].to_f # Convert to float
                 mMBtu_value = kBtu_value / 1000 # Convert kBtu to MMBtu
                 reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] << mMBtu_value # Append to the array
