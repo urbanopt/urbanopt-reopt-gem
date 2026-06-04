@@ -114,3 +114,20 @@ def convert_powerflow_resolution(timeseries_kw, original_res, destination_res)
   end
   return result
 end
+
+
+# bug fix (#164)
+# Start index into the full-year REopt array for the first CSV row. 
+# Timestamp is the interval END .... so back up one timestep (not by one hour) — fixes the sub-hourly shift.
+# This is applied in the feature and scenario adapters. 
+
+def reopt_timeseries_start_index(start_date, timesteps_per_hour)
+  seconds_per_timestep = (60 / timesteps_per_hour) * 60
+  (
+    (
+      ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
+      (start_date.hour * 60.0 * 60.0) +
+      (start_date.min * 60.0) + start_date.sec
+    ) / seconds_per_timestep
+  ).to_int - 1
+end
