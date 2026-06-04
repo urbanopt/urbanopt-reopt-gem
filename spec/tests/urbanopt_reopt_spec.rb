@@ -159,6 +159,18 @@ RSpec.describe URBANopt::REopt do
     FileUtils.rm_rf(scenario_dir / '1' / 'feature_reports')
   end
 
+
+
+  # All first-row stamps should map to index 0 regardless of resolution (The sub-hourly cases were off (-3 at 15-min, -1 at 30-min) before the fix).
+  it 'computes the REopt timeseries start index from end-of-interval timestamps' do
+    expect(reopt_timeseries_start_index(Time.new(2017, 1, 1, 1, 0, 0), 1)).to eq(0)
+    expect(reopt_timeseries_start_index(Time.new(2017, 1, 1, 0, 15, 0), 4)).to eq(0)
+    expect(reopt_timeseries_start_index(Time.new(2017, 1, 1, 0, 30, 0), 2)).to eq(0)
+    expect(reopt_timeseries_start_index(Time.new(2017, 1, 2, 0, 15, 0), 4)).to eq(96)
+  end
+
+
+  
   it 'can process a scenario erp report' do
     # Set up
     begin
