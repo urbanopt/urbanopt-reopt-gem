@@ -63,35 +63,41 @@ module URBANopt # :nodoc:
         if File.exist?(default_feature_report_path)
           timeseries_data = CSV.read(default_feature_report_path, headers: true)
 
-          # Initialize the total kBtu sum
-          total_kbtu = 0.0
+          heating_header = 'Heating:NaturalGas(kBtu)'
+          if timeseries_data.headers.include?(heating_header)
+            # Initialize the total kBtu sum
+            total_kbtu = 0.0
 
-          # Convert each value in "Heating:NaturalGas(kBtu)" to MMBtu and store in the array
-          timeseries_data.each do |row|
-            if row['Heating:NaturalGas(kBtu)'] # Ensure the value exists
-              kBtu_value = row['Heating:NaturalGas(kBtu)'].to_f # Convert to float
-              total_kbtu += kBtu_value # Sum kBtu values
-            end
-          end
-            # Check if the total kBtu is zero
-          if total_kbtu.zero?
-            # If zero, populate with near zero hourly values to meet reopts formatting requirements
-            reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
-          else
-            # If not zero, convert and append to the array
+            # Convert each value in "Heating:NaturalGas(kBtu)" to MMBtu and store in the array
             timeseries_data.each do |row|
-              if row['Heating:NaturalGas(kBtu)'] # Ensure the value exists
-                kBtu_value = row['Heating:NaturalGas(kBtu)'].to_f # Convert to float
-                mMBtu_value = kBtu_value / 1000 # Convert kBtu to MMBtu
-                reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] << mMBtu_value # Append to the array
+              if row[heating_header] # Ensure the value exists
+                kBtu_value = row[heating_header].to_f # Convert to float
+                total_kbtu += kBtu_value # Sum kBtu values
               end
             end
+            # Check if the total kBtu is zero
+            if total_kbtu.zero?
+              # If zero, populate with near zero hourly values to meet reopts formatting requirements
+              reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+            else
+              # If not zero, convert and append to the array
+              timeseries_data.each do |row|
+                if row[heating_header] # Ensure the value exists
+                  kBtu_value = row[heating_header].to_f # Convert to float
+                  mMBtu_value = kBtu_value / 1000 # Convert kBtu to MMBtu
+                  reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] << mMBtu_value # Append to the array
+                end
+              end
+            end
+          else
+            reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+            puts "#{heating_header} header not found in default_feature_report.csv; using near-zero placeholder SpaceHeatingLoad fuel load series for REopt input formatting."
           end
 
         else
           # populate with near zero hourly values to meet reopts formatting requirements
           reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
-          puts "Existing heating fuel cost was not taken into consideration in result calculations."
+          puts "default_feature_report.csv not found; using near-zero placeholder SpaceHeatingLoad fuel load series for REopt input formatting."
         end
 
         # Add domestic hot water load if present in the default feature report
@@ -99,17 +105,22 @@ module URBANopt # :nodoc:
           # Re-use already loaded default_feature_report.csv when available
           timeseries_data ||= CSV.read(default_feature_report_path, headers: true)
           hours = timeseries_data.length
-
-          dhw_kbtu_values = timeseries_data.map { |row| row['WaterSystems:NaturalGas(kBtu)'].to_s.to_f }
-          if dhw_kbtu_values.sum.zero?
-            reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * hours
+          dhw_header = 'WaterSystems:NaturalGas(kBtu)'
+          if timeseries_data.headers.include?(dhw_header)
+            dhw_kbtu_values = timeseries_data.map { |row| row[dhw_header].to_s.to_f }
+            if dhw_kbtu_values.sum.zero?
+              reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * hours
+            else
+              reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = dhw_kbtu_values.map { |v| v / 1000.0 }
+            end
           else
-            reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = dhw_kbtu_values.map { |v| v / 1000.0 }
+            reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * hours
+            puts "#{dhw_header} header not found in default_feature_report.csv; using near-zero placeholder DomesticHotWaterLoad fuel load series for REopt input formatting."
           end
         else
           # populate with near zero hourly values to meet reopts formatting requirements
           reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
-          puts "Existing domestic hot water fuel cost was not taken into consideration in result calculations."
+          puts "default_feature_report.csv not found; using near-zero placeholder DomesticHotWaterLoad fuel load series for REopt input formatting."
         end
 
         # read_modelica_result
