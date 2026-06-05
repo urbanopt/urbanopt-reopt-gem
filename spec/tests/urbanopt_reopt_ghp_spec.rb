@@ -6,6 +6,7 @@
 require_relative '../spec_helper'
 require_relative '../../developer_api_key'
 require 'json-schema'
+require 'tmpdir'
 
 
 RSpec.describe URBANopt::REopt do
@@ -99,6 +100,59 @@ RSpec.describe URBANopt::REopt do
         expect(ghp_data[:GHP][:ghpghx_responses][0][:outputs][:yearly_ghx_pump_electric_consumption_series_kw]).to_not be_empty
         expect(ghp_data[:GHP][:ghpghx_responses][0][:outputs][:yearly_ghx_pump_electric_consumption_series_kw].size).to eq(8760)
     end
+
+        it 'aggregates 15-minute heating and dhw series to hourly 8760 values' do
+                system_parameter_hash = JSON.parse(File.read(system_parameter), symbolize_names: true)
+                assumptions_hash = JSON.parse(File.read(reopt_ghp_assumption), symbolize_names: true)
+                adapter = URBANopt::REopt::REoptGHPAdapter.new
+
+                Dir.mktmpdir('reopt_ghp_subhourly_') do |tmp_run_dir|
+                        building_id = 4
+                        feature_reports_dir = File.join(tmp_run_dir, building_id.to_s, 'feature_reports')
+                        FileUtils.mkdir_p(feature_reports_dir)
+                        FileUtils.mkdir_p(File.join(tmp_run_dir, 'reopt_ghp', 'reopt_ghp_inputs'))
+
+                        # Minimal scenario report for site location fields used by create_reopt_input_building_ghp
+                        scenario_report = {
+                            scenario_report: {
+                                location: {
+                                    latitude_deg: 39.742,
+                                    longitude_deg: -104.991
+                                }
+                            }
+                        }
+                        File.write(File.join(tmp_run_dir, 'default_scenario_report.json'), JSON.pretty_generate(scenario_report))
+
+                        # Build a 15-minute (35040 row) CSV with constant 1.0 kBtu/timestep loads.
+                        # Expected aggregated hourly value is 4.0 kBtu/h => 0.004 mmbtu/h.
+                        csv_path = File.join(feature_reports_dir, 'default_feature_report.csv')
+                        CSV.open(csv_path, 'w') do |csv|
+                                csv << ['Heating:NaturalGas(kBtu)', 'WaterSystems:NaturalGas(kBtu)']
+                                35_040.times { csv << [1.0, 1.0] }
+                        end
+
+                        # Minimal feature report JSON for optional building_sqft lookup in GHP block.
+                        feature_report_json = {
+                            program: {
+                                footprint_area_sqft: 1000.0
+                            }
+                        }
+                        File.write(File.join(feature_reports_dir, 'default_feature_report.json'), JSON.pretty_generate(feature_report_json))
+
+                        adapter.create_reopt_input_building_ghp(tmp_run_dir, system_parameter_hash, assumptions_hash, building_id, modelica_result)
+
+                        out_path = File.join(tmp_run_dir, 'reopt_ghp', 'reopt_ghp_inputs', "GHP_building_#{building_id}.json")
+                        output = JSON.parse(File.read(out_path), symbolize_names: true)
+
+                        heating_series = output[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour]
+                        dhw_series = output[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour]
+
+                        expect(heating_series.size).to eq(8760)
+                        expect(dhw_series.size).to eq(8760)
+                        expect(heating_series.uniq).to eq([0.004])
+                        expect(dhw_series.uniq).to eq([0.004])
+                end
+        end
 
     it 'can connect to the REopt API and generate UUID' do
 

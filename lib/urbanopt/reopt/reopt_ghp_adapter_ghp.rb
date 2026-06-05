@@ -56,42 +56,85 @@ module URBANopt # :nodoc:
         end
 
         reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = []
+        reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = []
+
         # Read the default csv report
         default_feature_report_path = File.join(run_dir, building_id.to_s, "feature_reports", "default_feature_report.csv")
         if File.exist?(default_feature_report_path)
           timeseries_data = CSV.read(default_feature_report_path, headers: true)
 
-          # Initialize the total kBtu sum
-          total_kbtu = 0.0
+          hours = timeseries_data.length
+          timesteps_per_hour =  if (hours % @@hours_in_year).zero?
+                                  hours / @@hours_in_year
+                                else
+                                  nil
+                                end
 
-          # Convert each value in "Heating:NaturalGas(kBtu)" to MMBtu and store in the array
-          timeseries_data.each do |row|
-            if row['Heating:NaturalGas(kBtu)'] # Ensure the value exists
-              kBtu_value = row['Heating:NaturalGas(kBtu)'].to_f # Convert to float
-              total_kbtu += kBtu_value # Sum kBtu values
-            end
-          end
-            # Check if the total kBtu is zero
-          if total_kbtu.zero?
-            # If zero, populate with near zero hourly values to meet reopts formatting requirements
+          heating_header = 'Heating:NaturalGas(kBtu)'
+          if timesteps_per_hour.nil? || timesteps_per_hour.zero?
             reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
-          else
-            # If not zero, convert and append to the array
-            timeseries_data.each do |row|
-              if row['Heating:NaturalGas(kBtu)'] # Ensure the value exists
-                kBtu_value = row['Heating:NaturalGas(kBtu)'].to_f # Convert to float
-                mMBtu_value = kBtu_value / 1000 # Convert kBtu to MMBtu
-                reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] << mMBtu_value # Append to the array
-              end
+            puts "default_feature_report.csv has #{hours} rows (not a multiple of #{@@hours_in_year}); using near-zero placeholder SpaceHeatingLoad fuel load series for REopt input formatting."
+          elsif timeseries_data.headers.include?(heating_header)
+            heating_kbtu_series = timeseries_data.map { |row| row[heating_header].to_s.to_f }
+            heating_mmbtu_series = if timesteps_per_hour == 1
+                                      heating_kbtu_series.map { |v| v / 1000.0 }
+                                    else
+                                      # Convert kBtu per timestep to equivalent kBtu/h, then reduce
+                                      # to hourly resolution using the shared REopt utility pattern.
+                                      heating_kbtu_per_hour = heating_kbtu_series.map { |v| v * timesteps_per_hour }
+                                      convert_powerflow_resolution(heating_kbtu_per_hour, timesteps_per_hour, 1).map { |v| v / 1000.0 }
+                                    end
+
+            if heating_mmbtu_series.nil? || heating_mmbtu_series.sum.zero?
+              # All-zero series: use near-zero placeholder to meet REopt formatting requirements
+              reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+            else
+              reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = heating_mmbtu_series
             end
+          else
+            reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+            puts "#{heating_header} header not found in default_feature_report.csv; using near-zero placeholder SpaceHeatingLoad fuel load series for REopt input formatting."
           end
 
         else
           # populate with near zero hourly values to meet reopts formatting requirements
           reopt_inputs_building[:SpaceHeatingLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
-          puts "Existing heating fuel cost was not taken into consideration in result calculations."
+          puts "default_feature_report.csv not found; using near-zero placeholder SpaceHeatingLoad fuel load series for REopt input formatting."
         end
 
+        # Add domestic hot water load if present in the default feature report
+        if File.exist?(default_feature_report_path)
+          # Re-use already loaded default_feature_report.csv when available
+          timeseries_data ||= CSV.read(default_feature_report_path, headers: true)
+          dhw_header = 'WaterSystems:NaturalGas(kBtu)'
+          if timesteps_per_hour.nil? || timesteps_per_hour.zero?
+            reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+            puts "default_feature_report.csv has #{hours} rows (not a multiple of #{@@hours_in_year}); using near-zero placeholder DomesticHotWaterLoad fuel load series for REopt input formatting."
+          elsif timeseries_data.headers.include?(dhw_header)
+            dhw_kbtu_series = timeseries_data.map { |row| row[dhw_header].to_s.to_f }
+            dhw_mmbtu_series =  if timesteps_per_hour == 1
+                                  dhw_kbtu_series.map { |v| v / 1000.0 }
+                                else
+                                  # Convert kBtu per timestep to equivalent kBtu/h, then reduce
+                                  # to hourly resolution using the shared REopt utility pattern.
+                                  dhw_kbtu_per_hour = dhw_kbtu_series.map { |v| v * timesteps_per_hour }
+                                  convert_powerflow_resolution(dhw_kbtu_per_hour, timesteps_per_hour, 1).map { |v| v / 1000.0 }
+                                end
+
+            if dhw_mmbtu_series.nil? || dhw_mmbtu_series.sum.zero?
+              reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+            else
+              reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = dhw_mmbtu_series
+            end
+          else
+            reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+            puts "#{dhw_header} header not found in default_feature_report.csv; using near-zero placeholder DomesticHotWaterLoad fuel load series for REopt input formatting."
+          end
+        else
+          # populate with near zero hourly values to meet reopts formatting requirements
+          reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = @@small_multiplier * @@hours_in_year
+          puts "default_feature_report.csv not found; using near-zero placeholder DomesticHotWaterLoad fuel load series for REopt input formatting."
+        end
 
         # read_modelica_result
         modelica_project = File.expand_path(modelica_result)
@@ -106,7 +149,7 @@ module URBANopt # :nodoc:
           modelica_data = CSV.read(@modelica_csv, headers: true)
           heating_power_header = modelica_data.headers.select{ |h| h.to_s.start_with?("heating_electric_power") }
           prefix = ""
-          
+
           if heating_power_header[0].split("_")[-1].include? ("B")
             prefix = "B"
           else
@@ -148,20 +191,13 @@ module URBANopt # :nodoc:
           if modelica_data.headers.include?(cooling_system_capacity)
             cooling_system_capacity_value = modelica_data[cooling_system_capacity][0]
           end
-          
+
           watts_per_ton_cooling_capacity = 3517
           peak_combined_heatpump_thermal_ton = ([heating_system_capacity_value.to_f.abs, cooling_system_capacity_value.to_f.abs].max) / watts_per_ton_cooling_capacity
 
           # Store the result in reopt_inputs_building ElectricLoad
           reopt_inputs_building[:ElectricLoad][:loads_kw] = total_electric_load_building
           reopt_inputs_building[:ElectricLoad][:year] = @@year_of_simulation
-
-          domestic_hot_water = total_electric_load_building.map do |load|
-            load * 0
-          end
-
-          # This is not used in REopt calculation but required for formatting.
-          reopt_inputs_building[:DomesticHotWaterLoad][:fuel_loads_mmbtu_per_hour] = domestic_hot_water
 
           # Add GHP Fields
           reopt_inputs_building[:GHP] = {}
@@ -261,7 +297,7 @@ module URBANopt # :nodoc:
         # The URDB label is required to be specified in the input assumption file
         if reopt_inputs_district[:ElectricTariff][:urdb_label].nil? || reopt_inputs_district[:ElectricTariff][:urdb_label].empty?
 
-         raise "Missing value for urdb_label - this is a required input"
+          raise "Missing value for urdb_label - this is a required input"
 
         end
         # populate with near zero hourly values to meet reopts formatting requirements
@@ -298,7 +334,7 @@ module URBANopt # :nodoc:
 
         # Read GHX sizes from system parameter hash
         ghe_specific_params = system_parameter_hash[:district_system][:fifth_generation][:ghe_parameters][:borefields]
-        
+
         ghe_specific_params.each do |ghe|
           if ghe[:ghe_id] == ghp_id
             unless ghe[:pre_designed_borefield]
@@ -329,7 +365,7 @@ module URBANopt # :nodoc:
             # convert meters to feet by multiplying with 3.28084
             ghpghx_output[:outputs][:length_boreholes_ft] = (borefield[:borehole_length])*3.28084
 
-          end    
+          end
         end
 
         if File.exist?(@modelica_csv)
@@ -358,7 +394,7 @@ module URBANopt # :nodoc:
           # column_values = modelica_data.by_col[ghp_column]
 
           ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] = electrical_power_consumed_kw
-        else        
+        else
           # populate with near zero hourly values to meet reopts formatting requirements
           # This is not used in REopt calculation but required for formatting.
           ghpghx_output[:outputs][:yearly_ghx_pump_electric_consumption_series_kw] =  @@small_multiplier*@@hours_in_year
@@ -519,7 +555,7 @@ module URBANopt # :nodoc:
         json_file_path = File.join(reopt_ghp_dir, "BAU_building_#{building_id}.json")
         pretty_json = JSON.pretty_generate(reopt_inputs_building_bau)
         File.write(json_file_path, pretty_json)
-      
+
       end
 
     end
