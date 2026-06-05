@@ -1,5 +1,10 @@
 # URBANopt REopt Gem
 
+## Version 1.3.0
+* Updates for developer.nlr.gov URL change
+* Timeseries shift bug fix
+* Added Domestic Hot Water to baseline load
+
 ## Version 1.2.0
 
 * Updates for name change and license
