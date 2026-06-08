@@ -453,12 +453,23 @@ module URBANopt # :nodoc:
 
         old_data = CSV.open(feature_report.timeseries_csv.path).read
         start_date = Time.parse(old_data[1][0])
-        start_ts = (
-                      (
-                        ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
-                        ((start_date.hour - 1) * 60.0 * 60.0) +
-                        (start_date.min * 60.0) + start_date.sec) / ((60 / feature_report.timesteps_per_hour) * 60)
-                    ).to_int
+        ## the commented part was causing aggregation error when running anything other than hourly (issue: 164) : hardcodes backing up by one hour which is wrong
+        #start_ts = (
+        #              (
+        #                ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
+        #                ((start_date.hour - 1) * 60.0 * 60.0) +
+        #                (start_date.min * 60.0) + start_date.sec) / ((60 / feature_report.timesteps_per_hour) * 60)
+        #            ).to_int
+
+        # bug fix : issue #164 
+        start_ts = reopt_timeseries_start_index(start_date, feature_report.timesteps_per_hour)
+        # start_ts = (
+        #               (
+        #                 ((start_date.yday - 1) * 60.0 * 60.0 * 24) +
+        #                 (start_date.hour * 60.0 * 60.0) +
+        #                 (start_date.min * 60.0) + start_date.sec) / ((60 / feature_report.timesteps_per_hour) * 60)
+        #             ).to_int - 1
+
 
         mod_data = old_data.map.with_index do |x, i|
           if i > 0

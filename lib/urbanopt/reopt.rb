@@ -4,7 +4,8 @@
 # *********************************************************************************
 
 require 'urbanopt/reopt/extension'
-require 'urbanopt/reopt/reopt_lite_api'
+require 'urbanopt/reopt/url_config'
+require 'urbanopt/reopt/reopt_api'
 require 'urbanopt/reopt/feature_report_adapter'
 require 'urbanopt/reopt/scenario_report_adapter'
 require 'urbanopt/reopt/reopt_post_processor'

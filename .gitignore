@@ -19,6 +19,8 @@
 spec/files/run/baseline_scenario_ghe/reopt_ghp/
 
 developer_nrel_key.rb
+developer_api_key.rb
+
 # rspec failure tracking
 .rspec_status
 

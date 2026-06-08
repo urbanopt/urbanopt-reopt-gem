@@ -8,33 +8,35 @@ require 'openssl'
 require 'uri'
 require 'json'
 require 'securerandom'
-require_relative '../../../developer_nrel_key'
+require_relative '../../../developer_api_key'
 require 'urbanopt/reopt/reopt_logger'
+require 'urbanopt/reopt/url_config'
 
 module URBANopt # :nodoc:
   module REopt  # :nodoc:
-    class REoptLiteGHPAPI
+    class REoptGHPAPI
 
-        def initialize(reopt_input_file, nrel_developer_key = nil, reopt_output_file, use_localhost)
+        def initialize(reopt_input_file, api_key = nil, reopt_output_file)
 
             # Store developer key
-            if [nil, '', '<insert your key here>'].include? nrel_developer_key
-                if [nil, '', '<insert your key here>'].include? DEVELOPER_NREL_KEY
-                    raise 'A developer.nrel.gov API key is required. Please see https://developer.nrel.gov/signup/ then update the file urbanopt-reopt-gem/developer_nrel_key.rb'
+            if [nil, '', '<insert your key here>'].include? api_key
+                if [nil, '', '<insert your key here>'].include? DEVELOPER_API_KEY
+                    # Check if we need an API key based on the URL that will be used
+                    url_config_test = URLConfig.new
+                    if url_config_test.requires_api_key?
+                        raise 'A developer.nlr.gov API key is required. Please see https://developer.nlr.gov/signup/ then update the file developer_api_key.rb'
+                    end
                 else
-                    #Store the NLR developer key
-                    nrel_developer_key = DEVELOPER_NREL_KEY
+                    api_key = DEVELOPER_API_KEY
                 end
             end
 
-            @use_localhost = use_localhost
-            if @use_localhost
-                @root_url = "http://localhost:8000/v3"
-            else
-                @root_url = "https://developer.nrel.gov/api/reopt/v3"
-            end
-            # add REopt URL
-            @nrel_developer_key = nrel_developer_key
+            # Initialize URL configuration
+            @url_config = URLConfig.new(api_key: api_key)
+
+            # Store for backward compatibility
+            @root_url = @url_config.base_url
+            @api_key = api_key
             @reopt_input_file = reopt_input_file
             @reopt_output_file = reopt_output_file
             # initialize @@logger
@@ -46,15 +48,15 @@ module URBANopt # :nodoc:
         def get_api_results(run_id=nil)
 
             reopt_input_file = @reopt_input_file
-            nrel_developer_key = @nrel_developer_key
+            api_key = @api_key
             root_url = @root_url
             reopt_output_file = @reopt_output_file
 
             if run_id.nil?
-                run_id = get_run_uuid(reopt_input_file, nrel_developer_key, reopt_output_file)
+                run_id = get_run_uuid(reopt_input_file, api_key, reopt_output_file)
             end
             if !run_id.nil?
-                results_url = "#{@root_url}/job/#{run_id}/results/?api_key=#{nrel_developer_key}"
+                results_url = @url_config.url_for('job', run_uuid: run_id)
                 puts "This is results URL #{results_url}"
                 results = reopt_request(results_url)
 
@@ -69,12 +71,12 @@ module URBANopt # :nodoc:
             results
         end
 
-        def get_run_uuid(reopt_input_file, nrel_developer_key, root_url)
+        def get_run_uuid(reopt_input_file, api_key, root_url)
 
             reopt_input_file = @reopt_input_file
-            nrel_developer_key = @nrel_developer_key
+            api_key = @api_key
             root_url = @root_url
-            post_url = "#{root_url}/job/?api_key=#{nrel_developer_key}"
+            post_url = @url_config.url_for('job')
             puts "This is URL: #{post_url}"
             @@logger.info("Connecting to #{post_url}")
 
