@@ -378,7 +378,7 @@ module URBANopt # :nodoc:
 
         if !generator.nil?
           generator_production_series = reopt_output['outputs']['Generator']['year_one_power_production_series_kw']
-          generator_production_series ||= reopt_output['outputs']['Generator']['electric_to_storage_series_kw']&.zip(reopt_output['outputs']['Generator']['electric_to_load_series_kw'], reopt_output['outputs']['Generator']['electric_to_grid_series_kw'])&.map { |vals| vals.compact.sum }
+          generator_production_series ||= reopt_output['outputs']['Generator']['electric_to_load_series_kw']&.zip(reopt_output['outputs']['Generator']['electric_to_storage_series_kw'], reopt_output['outputs']['Generator']['electric_to_grid_series_kw'])&.map { |vals| vals.compact.sum }
           $generator_total = convert_powerflow_resolution(generator_production_series, reopt_resolution, scenario_report.timesteps_per_hour) || [0] * (8760 * scenario_report.timesteps_per_hour)
           $generator_total_col = scenario_report.timeseries_csv.column_names.index('REopt:ElectricityProduced:Generator:Total(kw)')
           if $generator_total_col.nil?
