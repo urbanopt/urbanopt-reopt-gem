@@ -77,7 +77,6 @@ module URBANopt # :nodoc:
             api_key = @api_key
             root_url = @root_url
             post_url = @url_config.url_for('job')
-            puts "This is URL: #{post_url}"
             @@logger.info("Connecting to #{post_url}")
 
             # Parse the URL and prepare the HTTP request
