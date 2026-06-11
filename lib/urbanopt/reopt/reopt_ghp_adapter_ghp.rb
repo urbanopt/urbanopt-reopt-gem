@@ -357,7 +357,7 @@ module URBANopt # :nodoc:
               ghe[:autosized_rowwise_borefield]
 
             if borefield.nil?
-              raise 'no borefields hash in the system parameters file. Make sure to first run the uo ghe_size command to size your GHE'
+              raise "No borefield sizing found for ghe_id '#{ghp_id}'. Expected one of: pre_designed_borefield, autosized_rectangle_borefield, autosized_rectangle_constrained_borefield, autosized_birectangle_borefield, autosized_birectangle_constrained_borefield, autosized_bizoned_rectangle_borefield, autosized_near_square_borefield, autosized_rowwise_borefield. Run `uo ghe_size` or provide a pre_designed_borefield."
             else
               ghpghx_output[:outputs][:number_of_boreholes] = borefield[:number_of_boreholes].to_i
               # convert meters to feet by multiplying with 3.28084
