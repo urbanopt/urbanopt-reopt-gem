@@ -14,7 +14,7 @@
 
 ## Version 1.1.0
 
-* Upgrade to OpenStudio 3.10 
+* Upgrade to OpenStudio 3.10
 
 ## Version 1.0.0
 

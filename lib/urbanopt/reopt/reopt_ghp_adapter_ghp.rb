@@ -261,7 +261,7 @@ module URBANopt # :nodoc:
 
         end
 
-        #save output report in reopt_ghp directory
+        # save output report in reopt_ghp directory
         reopt_ghp_dir = File.join(run_dir, "reopt_ghp", "reopt_ghp_inputs")
         json_file_path = File.join(reopt_ghp_dir, "GHP_building_#{building_id}.json")
         pretty_json = JSON.pretty_generate(reopt_inputs_building)
@@ -333,38 +333,36 @@ module URBANopt # :nodoc:
 
 
         # Read GHX sizes from system parameter hash
-        ghe_specific_params = system_parameter_hash[:district_system][:fifth_generation][:ghe_parameters][:borefields]
+        ghe_specific_params = system_parameter_hash.dig(:district_system, :fifth_generation, :ghe_parameters, :borefields)
 
-        ghe_specific_params.each do |ghe|
-          if ghe[:ghe_id] == ghp_id
-            unless ghe[:pre_designed_borefield]
-              if ghe[:autosized_rectangle_borefield]
-                borefield = ghe[:autosized_rectangle_borefield]
+        # Initialize outputs; validation below will raise if borefield sizing is missing.
+        ghpghx_output[:outputs][:number_of_boreholes] = 0
+        ghpghx_output[:outputs][:length_boreholes_ft] = 0
 
-              elsif ghe[:autosized_rectangle_constrained_borefield]
-                borefield = ghe[:autosized_rectangle_constrained_borefield]
+        if ghe_specific_params.nil? || ghe_specific_params.empty?
+          raise 'No borefields found at district_system.fifth_generation.ghe_parameters.borefields in the system parameters file. Run `uo ghe_size` to size your GHE before running this workflow.'
+        else
+          ghe = ghe_specific_params.find { |candidate| candidate[:ghe_id] == ghp_id }
 
-              elsif ghe[:autosized_birectangle_borefield]
-                borefield = ghe[:autosized_birectangle_borefield]
+          if ghe.nil?
+            raise "No borefield found with ghe_id '#{ghp_id}' in the system parameters file. Make sure your ghe_id matches one of the sized GHE entries from the uo ghe_size command"
+          else
+            borefield = ghe[:pre_designed_borefield] ||
+              ghe[:autosized_rectangle_borefield] ||
+              ghe[:autosized_rectangle_constrained_borefield] ||
+              ghe[:autosized_birectangle_borefield] ||
+              ghe[:autosized_birectangle_constrained_borefield] ||
+              ghe[:autosized_bizoned_rectangle_borefield] ||
+              ghe[:autosized_near_square_borefield] ||
+              ghe[:autosized_rowwise_borefield]
 
-              elsif ghe[:autosized_birectangle_constrained_borefield]
-                borefield = ghe[:autosized_birectangle_constrained_borefield]
-
-              elsif ghe[:autosized_bizoned_rectangle_borefield]
-                borefield = ghe[:autosized_bizoned_rectangle_borefield]
-
-              elsif ghe[:autosized_near_square_borefield]
-                borefield = ghe[:autosized_near_square_borefield]
-
-              elsif ghe[:autosized_rowwise_borefield]
-                borefield = ghe[:autosized_rowwise_borefield]
-              end
+            if borefield.nil?
+              raise "No borefield sizing found for ghe_id '#{ghp_id}'. Expected one of: pre_designed_borefield, autosized_rectangle_borefield, autosized_rectangle_constrained_borefield, autosized_birectangle_borefield, autosized_birectangle_constrained_borefield, autosized_bizoned_rectangle_borefield, autosized_near_square_borefield, autosized_rowwise_borefield. Run `uo ghe_size` or provide a pre_designed_borefield."
+            else
+              ghpghx_output[:outputs][:number_of_boreholes] = borefield[:number_of_boreholes].to_i
+              # convert meters to feet by multiplying with 3.28084
+              ghpghx_output[:outputs][:length_boreholes_ft] = borefield[:borehole_length].to_f * 3.28084
             end
-
-            ghpghx_output[:outputs][:number_of_boreholes] = borefield[:number_of_boreholes]
-            # convert meters to feet by multiplying with 3.28084
-            ghpghx_output[:outputs][:length_boreholes_ft] = (borefield[:borehole_length])*3.28084
-
           end
         end
 
