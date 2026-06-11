@@ -340,7 +340,7 @@ module URBANopt # :nodoc:
         ghpghx_output[:outputs][:length_boreholes_ft] = 0
 
         if ghe_specific_params.nil? || ghe_specific_params.empty?
-          raise 'no borefields hash in the system parameters file. Make sure to first run the uo ghe_size command to size your GHE'
+          raise 'No borefields found at district_system.fifth_generation.ghe_parameters.borefields in the system parameters file. Run `uo ghe_size` to size your GHE before running this workflow.'
         else
           ghe = ghe_specific_params.find { |candidate| candidate[:ghe_id] == ghp_id }
 
