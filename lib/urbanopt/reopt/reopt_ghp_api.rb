@@ -53,7 +53,7 @@ module URBANopt # :nodoc:
             reopt_output_file = @reopt_output_file
 
             if run_id.nil?
-                run_id = get_run_uuid(reopt_input_file, api_key, reopt_output_file)
+                run_id = get_run_uuid
             end
             if !run_id.nil?
                 results_url = @url_config.url_for('job', run_uuid: run_id)
@@ -71,11 +71,7 @@ module URBANopt # :nodoc:
             results
         end
 
-        def get_run_uuid(reopt_input_file, api_key, root_url)
-
-            reopt_input_file = @reopt_input_file
-            api_key = @api_key
-            root_url = @root_url
+        def get_run_uuid
             post_url = @url_config.url_for('job')
             @@logger.info("Connecting to #{post_url}")
 
@@ -85,7 +81,7 @@ module URBANopt # :nodoc:
             request.content_type = 'application/json'
 
             # Add the JSON payload (assuming 'post' is the body data)
-            request.body = reopt_input_file.to_json
+            request.body = @reopt_input_file.to_json
 
             # Send the HTTP request
             response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
