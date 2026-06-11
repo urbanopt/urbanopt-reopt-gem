@@ -335,7 +335,7 @@ module URBANopt # :nodoc:
         # Read GHX sizes from system parameter hash
         ghe_specific_params = system_parameter_hash.dig(:district_system, :fifth_generation, :ghe_parameters, :borefields)
 
-        # Keep valid defaults when borefield information is not provided.
+        # Initialize outputs; validation below will raise if borefield sizing is missing.
         ghpghx_output[:outputs][:number_of_boreholes] = 0
         ghpghx_output[:outputs][:length_boreholes_ft] = 0
 
