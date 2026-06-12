@@ -226,6 +226,10 @@ module URBANopt # :nodoc:
           end
         end
 
+        wind = nil
+        generator = nil
+        storage = nil
+
         if reopt_output['outputs'].key?('Wind')
           wind = reopt_output['outputs']['Wind']
           feature_report.distributed_generation.add_tech 'wind', URBANopt::Reporting::DefaultReports::Wind.new({ size_kw: (wind['size_kw'] || 0) })

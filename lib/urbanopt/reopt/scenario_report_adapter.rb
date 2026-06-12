@@ -272,6 +272,10 @@ module URBANopt # :nodoc:
           end
         end
 
+        wind = nil
+        generator = nil
+        storage = nil
+
         if reopt_output['outputs'].key?('Wind')
           wind = reopt_output['outputs']['Wind']
           # find size_class
