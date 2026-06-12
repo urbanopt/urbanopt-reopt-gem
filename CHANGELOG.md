@@ -1,6 +1,12 @@
 # URBANopt REopt Gem
 
+## Version 1.3.1
+
+* Fix showing the battery and PV columns in scenario_optimization in https://github.com/urbanopt/urbanopt-reopt-gem/pull/176
+* Update error handling for ghp LCCA in https://github.com/urbanopt/urbanopt-reopt-gem/pull/177
+
 ## Version 1.3.0
+
 * Updates for developer.nlr.gov URL change
 * Timeseries shift bug fix
 * Added Domestic Hot Water to baseline load
@@ -14,7 +20,7 @@
 
 ## Version 1.1.0
 
-* Upgrade to OpenStudio 3.10 
+* Upgrade to OpenStudio 3.10
 
 ## Version 1.0.0
 
