@@ -273,7 +273,12 @@ module URBANopt # :nodoc:
 
         if reopt_output['outputs'].key?('Generator') && !reopt_output['outputs']['Generator'].nil? && ((reopt_output['outputs']['Generator']['size_kw'] || 0) > 0)
           generator_production_series = reopt_output['outputs']['Generator']['year_one_power_production_series_kw']
-          generator_production_series ||= reopt_output['outputs']['Generator']['electric_to_storage_series_kw']&.zip(reopt_output['outputs']['Generator']['electric_to_load_series_kw'], reopt_output['outputs']['Generator']['electric_to_grid_series_kw'])&.map { |vals| vals.compact.sum }
+          if generator_production_series.nil?
+            eto_load = reopt_output['outputs']['Generator']['electric_to_load_series_kw']
+            eto_storage = reopt_output['outputs']['Generator']['electric_to_storage_series_kw']
+            eto_grid = reopt_output['outputs']['Generator']['electric_to_grid_series_kw']
+            generator_production_series = eto_load.zip(eto_storage, eto_grid).map { |vals| vals.compact.sum } if eto_load && eto_storage && eto_grid
+          end
           if !generator_production_series.nil?
             generation_timeseries_kwh += Matrix[convert_powerflow_resolution(generator_production_series, reopt_resolution, feature_report.timesteps_per_hour)]
           end
