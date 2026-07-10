@@ -1,5 +1,9 @@
 # URBANopt REopt Gem
 
+## Version 1.4.0
+
+* Upgrade to OpenStudio 3.11
+
 ## Version 1.3.1
 
 * Fix showing the battery and PV columns in scenario_optimization in https://github.com/urbanopt/urbanopt-reopt-gem/pull/176
