@@ -5,8 +5,8 @@ require 'urbanopt/reopt/version'
 Gem::Specification.new do |spec|
   spec.name          = 'urbanopt-reopt'
   spec.version       = URBANopt::REopt::VERSION
-  spec.authors       = ['']
-  spec.email         = ['']
+  spec.authors       = ['Ted Kwasnik', 'Katherine Fleming', 'Rawad ElKontar']
+  spec.email         = ['katherine.fleming@nlr.gov', 'rawad.elkontar@nlr.gov']
   spec.licenses      = 'Nonstandard'
 
   spec.summary       = 'Accessing the REopt API within OpenStudio workflows.'
@@ -25,10 +25,10 @@ Gem::Specification.new do |spec|
   # It would be nice to be able to use newer patches of Ruby 3.2, which would require os-extension to relax its dependency on bundler.
   spec.required_ruby_version = '3.2.2'
 
-  spec.add_dependency 'openstudio-extension', '~> 0.9.4'
+  spec.add_dependency 'openstudio-extension', '~> 0.9.7'
   # Matrix is in stdlib, but needs to be specifically added here for compatibility with Ruby 3.2
   spec.add_dependency 'matrix', '~> 0.4.2'
-  spec.add_dependency 'urbanopt-scenario', '~> 1.2.0'
+  spec.add_dependency 'urbanopt-scenario', '~> 1.3.0'
 
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.9'
